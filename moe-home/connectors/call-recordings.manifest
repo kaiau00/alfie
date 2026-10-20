@@ -1,0 +1,13 @@
+# Recorded-call transcripts from the "Call Recordings" folder in Notes.app.
+# Transcripts are long and every pull walks them through AppleScript, hence
+# the cost.
+name=call-recordings
+label=Recorded calls
+verbs=status pull crawl items
+cadence=10m
+deep_crawl=yes
+auth=local
+runs_in=mac
+cost=expensive
+# sync.sh has always written this as context/callrecs.md.
+context_file=callrecs

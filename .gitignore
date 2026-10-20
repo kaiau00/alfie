@@ -1,0 +1,25 @@
+# Build output
+.build/
+.swiftpm/
+dist/
+*.xcuserdatad
+.DS_Store
+*.log
+__pycache__/
+.pytest_cache/
+.venv/
+Resources/Moe.iconset/
+scratch/
+
+# Build inputs that are not in git (README, "Build from source")
+Models/
+hermes-seed/
+Resources/google-client.json
+Resources/telegram-client.json
+
+# Never commit your own Moe home's config or any secrets
+moe-home/**/config.json
+.env
+.env.*
+!.env.example
+!.env.*.example

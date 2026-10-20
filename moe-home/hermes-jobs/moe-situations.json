@@ -1,0 +1,12 @@
+{
+  "_comment": "The situations engine (docs/PROACTIVE-MEMORY.md §4): every five minutes, no agent. moe-situations.py reads every consented source that offers the `items` connector verb since its cursor, gates each thread that moved, asks one small-model question of those that pass, and records what it finds in ~/.moe/proactive/situations.json and ~/.moe/logs/situations.jsonl. Silent in slice 2: stdout stays empty in every path, because a no_agent job's stdout IS a message to the person. configure-hermes.py (install_jobs) copies the script into $HERMES_HOME/scripts/ and registers this spec by name. Keys mirror cron.jobs.create_job().",
+  "_deliver": "moe, so a failure Hermes reports about the job itself reaches Settings › Background as 'needs a look'. The script itself prints nothing.",
+  "name": "moe-situations",
+  "schedule": "every 5m",
+  "no_agent": true,
+  "script": "moe-situations.py",
+  "prompt": null,
+  "deliver": "moe",
+  "workdir": null,
+  "enabled_toolsets": null
+}

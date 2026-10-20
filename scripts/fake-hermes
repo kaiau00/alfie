@@ -1,0 +1,262 @@
+#!/bin/bash
+# A stand-in for the `hermes` executable, for scripts/test-hermes-supervisor.sh.
+#
+# Behaves like `hermes gateway run` as far as HermesSupervisor can tell: it
+# serves GET /v1/models and a canned streaming POST /v1/chat/completions on
+# 127.0.0.1:$MOE_FAKE_PORT (default 8642), and dies on SIGTERM. Before
+# serving it writes a small report to $MOE_FAKE_REPORT — the arguments it was
+# given, its PID, and *whether* the secrets were present (never their values)
+# — so the test can check the environment the supervisor built.
+#
+# Misbehaviour on request (env):
+#   MOE_FAKE_IGNORE_TERM=1   ignore SIGTERM, like Hermes draining a turn
+#   MOE_FAKE_DEAF=1          never listen on the port
+#   MOE_FAKE_CRASH_FILE=path, MOE_FAKE_CRASH_COUNT=N
+#                            exit 1 on the first N launches (counted in the file)
+#   MOE_FAKE_LOCK_FILE=path  Hermes's pid file, as Hermes treats it: if it
+#                            names a live pid, refuse with Hermes's own words
+#                            and exit 1 — unless `--replace` was passed, in
+#                            which case TERM that pid, wait for it to go, and
+#                            serve. A dead pid is stale and ignored. On serve
+#                            the fake writes its own pid there.
+#   MOE_FAKE_LOCK_STUBBORN=1 refuse even with --replace (Hermes declining a
+#                            cross-profile takeover), so the bound can be seen
+#   MOE_FAKE_REFUSE_DELAY=s  sleep this long before refusing — Hermes's
+#                            authoritative check runs after plugin discovery
+#   MOE_FAKE_SERVE_DELAY=s   sleep this long before binding the port
+#
+# Dictation polish (scripts/test-dictation-polish.sh): a POST whose
+# X-Hermes-Session-Key is `moe-dictation` is answered with
+#   MOE_FAKE_POLISH            the reply text (default: the transcript, upper-cased)
+#   MOE_FAKE_POLISH_DELAY=s    after sleeping this long, to exercise the budget
+# and every POST is appended, headers and body, to MOE_FAKE_REQLOG if set, so
+# a test can check what was sent (session headers, prompt, delimiter).
+#
+# Learn-me crawl (scripts/test-learn.sh): a POST whose X-Hermes-Session-Key
+# is `moe-learn` is answered with the contents of the file named by
+#   MOE_FAKE_LEARN_REPLY       (a digest JSON, or a resolve verdict), or when
+#                              the body mentions "Existing claim", the file
+#   MOE_FAKE_RESOLVE_REPLY     instead — so one run can serve both prompts.
+# Unset, the reply is an empty digest.
+#
+# Toolset narrowing: a POST carrying X-Hermes-Enabled-Toolsets is answered
+# with X-Hermes-Applied-Toolsets echoing it (minus the `none` sentinel), the
+# way the fork's gateway does and learn/hermes_client.py insists on. To play
+# a gateway that gets it wrong:
+#   MOE_FAKE_NO_APPLIED_TOOLSETS=1  omit the header — an old gateway
+#   MOE_FAKE_APPLIED_TOOLSETS=a,b   echo this instead of what was asked for
+#
+# Meeting notes (scripts/test-meeting.sh): a POST whose X-Hermes-Session-Key
+# is `moe-meeting` is answered with the contents of the file named by
+#   MOE_FAKE_MEETING_ACTIONS   the minute scan's reply ({"actions":[…]}); the
+#                              scan is told from the summary by <new-lines>
+#   MOE_FAKE_MEETING           (a notes JSON, or any text to exercise the
+#                              "not notes" path); unset, a canned notes JSON.
+set -u
+port="${MOE_FAKE_PORT:-8642}"
+report="${MOE_FAKE_REPORT:-}"
+if [ -n "$report" ]; then
+  {
+    echo "pid=$$"
+    echo "args=$*"
+    echo "no_proxy=${NO_PROXY:-<unset>}"
+    echo "accept_hooks=${HERMES_ACCEPT_HOOKS:-<unset>}"
+    echo "path_head=${PATH%%:*}"
+    if [ -n "${CLAUDE_CODE_OAUTH_TOKEN:-}" ]; then echo "token=present"; else echo "token=absent"; fi
+    if [ -n "${ANTHROPIC_API_KEY:-}" ]; then echo "api_key=present"; else echo "api_key=absent"; fi
+  } > "$report"
+fi
+if [ -n "${MOE_FAKE_CRASH_FILE:-}" ]; then
+  n=$(cat "$MOE_FAKE_CRASH_FILE" 2>/dev/null || echo 0)
+  n=$((n + 1)); echo "$n" > "$MOE_FAKE_CRASH_FILE"
+  if [ "$n" -le "${MOE_FAKE_CRASH_COUNT:-0}" ]; then
+    echo "fake hermes: crashing on purpose (launch $n)" >&2
+    exit 1
+  fi
+fi
+if [ -n "${MOE_FAKE_LOCK_FILE:-}" ]; then
+  holder=$(cat "$MOE_FAKE_LOCK_FILE" 2>/dev/null || true)
+  if [ -n "$holder" ] && kill -0 "$holder" 2>/dev/null; then
+    replace=0
+    for a in "$@"; do [ "$a" = "--replace" ] && replace=1; done
+    if [ $replace = 0 ] || [ "${MOE_FAKE_LOCK_STUBBORN:-}" = 1 ]; then
+      sleep "${MOE_FAKE_REFUSE_DELAY:-0}"
+      # Verbatim from hermes_cli/gateway.py; the supervisor reads this.
+      echo "✗ Another gateway instance is already running (PID $holder)." >&2
+      echo "  Use 'hermes gateway restart' to replace it," >&2
+      echo "  or 'hermes gateway stop' first." >&2
+      echo "  Or use 'hermes gateway run --replace' to auto-replace." >&2
+      exit 1
+    fi
+    echo "fake hermes: replacing pid $holder" >&2
+    kill -TERM "$holder" 2>/dev/null
+    for _ in $(seq 50); do kill -0 "$holder" 2>/dev/null || break; sleep 0.1; done
+  fi
+  echo "$$" > "$MOE_FAKE_LOCK_FILE"
+fi
+if [ "${MOE_FAKE_IGNORE_TERM:-}" = 1 ]; then
+  trap '' TERM        # SIG_IGN survives exec
+fi
+sleep "${MOE_FAKE_SERVE_DELAY:-0}"
+echo "fake hermes: serving on 127.0.0.1:$port (pid $$)"
+if [ "${MOE_FAKE_DEAF:-}" = 1 ]; then
+  exec python3 -c 'import time
+while True: time.sleep(3600)' moe-fake-hermes-server deaf "$port"
+fi
+# exec: the PID in the report is the server's, and SIGTERM/SIGKILL land on it directly.
+exec python3 -c '
+import json, os, socket, struct, sys, time
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+port = int(sys.argv[2])
+reqlog = os.environ.get("MOE_FAKE_REQLOG", "")
+polish = os.environ.get("MOE_FAKE_POLISH")
+polish_delay = float(os.environ.get("MOE_FAKE_POLISH_DELAY", "0") or 0)
+def transcript_of(body):
+    # The polisher fences the transcript; default reply is that, shouted,
+    # so a test can tell a polished paste from a rule one.
+    try:
+        user = [m for m in json.loads(body)["messages"] if m["role"] == "user"][-1]["content"]
+    except Exception:
+        return "polished"
+    inner = user.split("<transcript>", 1)[-1].split("</transcript>", 1)[0].strip()
+    return inner.upper()
+class H(BaseHTTPRequestHandler):
+    def log_message(self, *a): pass
+    def do_GET(self):
+        if self.path != "/v1/models":
+            self.send_error(404); return
+        body = json.dumps({"data": [{"id": "fake-model"}]}).encode()
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers(); self.wfile.write(body)
+    def do_POST(self):
+        if self.path != "/v1/chat/completions":
+            self.send_error(404); return
+        n = int(self.headers.get("Content-Length", "0")); body = self.rfile.read(n)
+        drop_file = os.environ.get("MOE_FAKE_DROP_STREAM_FILE", "")
+        drop_left = 0
+        if drop_file:
+            try:
+                with open(drop_file) as f: drop_left = int(f.read().strip() or "0")
+            except (OSError, ValueError):
+                drop_left = 0
+        if reqlog:
+            with open(reqlog, "a") as f:
+                f.write("--- POST\n" + str(self.headers) + body.decode("utf-8", "replace") + "\n")
+        reply = "ready"
+        if self.headers.get("X-Hermes-Session-Key") == "moe-dictation":
+            if polish_delay: time.sleep(polish_delay)
+            reply = polish if polish is not None else transcript_of(body)
+        elif self.headers.get("X-Hermes-Session-Key") == "moe-learn":
+            var = "MOE_FAKE_RESOLVE_REPLY" if b"Existing claim" in body else "MOE_FAKE_LEARN_REPLY"
+            path = os.environ.get(var, "")
+            reply = open(path).read() if path else "{\"claims\": [], \"questions\": []}"
+        elif self.headers.get("X-Hermes-Session-Key") == "moe-meeting" and b"<new-lines>" in body:
+            # The minute scan while the meeting runs, not the summary at the
+            # end: same session key, told apart by the prompt shape.
+            path = os.environ.get("MOE_FAKE_MEETING_ACTIONS", "")
+            reply = open(path).read() if path else json.dumps({"actions": [
+                {"who": "you", "what": "book the follow-up", "when": "Friday"},
+                {"who": "them (speaker 2)", "what": "Send the notes.", "when": ""}]})
+        elif self.headers.get("X-Hermes-Session-Key") == "moe-meeting":
+            path = os.environ.get("MOE_FAKE_MEETING", "")
+            reply = open(path).read() if path else json.dumps({
+                "title": "Fake meeting notes",
+                "summary": "The fake gateway summarised the transcript.",
+                "decisions": ["Ship the meeting feature on Tuesday"],
+                "action_items": [{"who": "them (speaker 2)", "what": "send the notes", "when": "after the call"}],
+                "open_questions": []})
+        # MOE_FAKE_CONV_REPLY: what the conversation of the person is answered
+        # with, in place of "ready" (scripts/test-now-line.sh: a promise, so
+        # the stall guard carries on).
+        if self.headers.get("X-Hermes-Session-Key") == "moe" and os.environ.get("MOE_FAKE_CONV_REPLY"):
+            reply = os.environ["MOE_FAKE_CONV_REPLY"]
+        drop_now = bool(drop_left and self.headers.get("X-Hermes-Session-Key") == "moe")
+        if drop_now:
+            # HTTP/1.1 + chunked for this one response, so a close before the
+            # final chunk is a broken stream (URLSession: networkConnectionLost)
+            # rather than, as under HTTP/1.0, the end of the body.
+            self.protocol_version = "HTTP/1.1"
+        self.send_response(200)
+        # The toolset echo. Every learn turn carries attacker-influenced crawl
+        # text and asks the gateway to narrow the turn (X-Hermes-Enabled-
+        # Toolsets); learn/hermes_client.py refuses to send that text unless
+        # the gateway confirms what it applied by echoing the header back, and
+        # a gateway that omits it is treated as one that predates the feature.
+        # That echo is a fork feature (docs/CLOUD-PLAN.md), the real gateway
+        # sends it, and this fake did not — so every learn turn in
+        # scripts/test-learn.sh refused before it sent anything, and 25 of its
+        # checks failed with "distil failed (is Hermes running?)". The refusal
+        # was right; the fake was behind it.
+        #
+        # Same rule as the fake in moe-home/learn/tests/test_hermes_client.py:
+        # echo what was requested, minus the `none` sentinel, which means "no
+        # tools at all" and must come back empty.
+        requested = self.headers.get("X-Hermes-Enabled-Toolsets")
+        applied = os.environ.get("MOE_FAKE_APPLIED_TOOLSETS")
+        if os.environ.get("MOE_FAKE_NO_APPLIED_TOOLSETS"):
+            applied = None            # an old gateway: the header is absent
+        elif applied is None and requested is not None:
+            rset = {t.strip() for t in requested.split(",") if t.strip()}
+            applied = ",".join(sorted(rset - {"none"}))
+        if applied is not None:
+            self.send_header("X-Hermes-Applied-Toolsets", applied)
+        self.send_header("Content-Type", "text/event-stream")
+        if drop_now:
+            self.send_header("Transfer-Encoding", "chunked")
+        self.end_headers()
+        def chunk(delta, finish=None):
+            return ("data: " + json.dumps({"choices": [{"index": 0, "delta": delta, "finish_reason": finish}]}) + "\n\n").encode()
+        # MOE_FAKE_REPLY_DELAY=s: hold the conversation reply open this long,
+        # so a test can look at what Moe keeps while a turn is in flight.
+        if self.headers.get("X-Hermes-Session-Key") == "moe":
+            time.sleep(float(os.environ.get("MOE_FAKE_REPLY_DELAY", "0") or 0))
+        # Under a drop the whole body is chunked (HTTP/1.1, see above); every
+        # write goes through `out` so the framing is one thing or the other.
+        def out(raw):
+            if drop_now:
+                self.wfile.write(("%x\r\n" % len(raw)).encode() + raw + b"\r\n")
+            else:
+                self.wfile.write(raw)
+        out(chunk({"role": "assistant"}))
+        # MOE_FAKE_TOOL=<name>: the conversation reply is preceded by one
+        # tool step, running then completed, the way the gateway reports
+        # `hermes.tool.progress` — so a test can see what Moe makes of a
+        # tool by name (scripts/test-turn-keeper.sh: a Mac-only tool pins
+        # the ask to the Mac; a sending one stops a re-issue). Before the
+        # drop, so a dropped turn has "already used" the tool.
+        tool = os.environ.get("MOE_FAKE_TOOL", "")
+        if tool and self.headers.get("X-Hermes-Session-Key") == "moe":
+            for status in ("running", "completed"):
+                ev = {"tool": tool, "toolCallId": "call-1", "status": status, "label": tool}
+                out(("event: hermes.tool.progress\ndata: " + json.dumps(ev) + "\n\n").encode())
+            self.wfile.flush()
+        # scripts/test-turn-keeper.sh: MOE_FAKE_DROP_STREAM_FILE holds N; the
+        # first N conversation turns are dropped mid-reply the way a sleep
+        # drops them — a few words, then the socket reset (SO_LINGER 0 → RST)
+        # with the chunked stream unterminated.
+        if drop_now:
+            with open(drop_file, "w") as f: f.write(str(drop_left - 1))
+            out(chunk({"content": "half an answer, "}))
+            self.wfile.flush()
+            # MOE_FAKE_DROP_DELAY=s: how long the half-answer stays open
+            # before the reset — room for a test to post the sleep first.
+            time.sleep(float(os.environ.get("MOE_FAKE_DROP_DELAY", "0.3") or 0.3))
+            if os.environ.get("MOE_FAKE_DROP_CLEAN"):
+                # The other way a sleep ends a stream, seen on the owner’s
+                # Mac 2026-09-19: the gateway closes it cleanly, mid-reply,
+                # no finish chunk. Chunked, so the terminator is what is
+                # missing — sent here, then a plain close.
+                self.wfile.write(b"0\r\n\r\n"); self.wfile.flush()
+                self.connection.close()
+                return
+            self.connection.setsockopt(socket.SOL_SOCKET, socket.SO_LINGER, struct.pack("ii", 1, 0))
+            self.connection.close()
+            return
+        self.wfile.write(chunk({"content": reply}))
+        self.wfile.write(chunk({}, "stop"))
+        self.wfile.write(b"data: [DONE]\n\n"); self.wfile.flush()
+ThreadingHTTPServer.allow_reuse_address = True
+ThreadingHTTPServer(("127.0.0.1", port), H).serve_forever()
+' moe-fake-hermes-server "$port"

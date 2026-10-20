@@ -1,0 +1,10 @@
+# iPhone call history relayed to this Mac (CallHistory.storedata). Needs Full Disk Access.
+name=calls
+label=Phone calls
+verbs=status pull crawl
+cadence=10m
+deep_crawl=yes
+auth=local
+runs_in=mac
+cost=cheap
+context_file=calls

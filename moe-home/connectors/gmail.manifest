@@ -1,0 +1,31 @@
+# Gmail over IMAP (reading) and SMTP (sending) with an app password held in
+# the Keychain. Reading is read-only. `send` opens a real macOS confirmation
+# dialog itself, before any socket — see connectors/gmail-send-patterns.md.
+name=gmail
+label=Gmail
+verbs=status pull crawl send accounts items
+cadence=10m
+deep_crawl=yes
+auth=app-password
+# runs_in=mac (owner, 2026-09-14): Gmail in the cloud goes through Composio,
+# which the machine is given sealed (slice E1). The app password lives in
+# this Mac's Keychain and never travels, so on the machine this connector
+# could only ever say "needs-setup" — the sentence the owner was shown with
+# his Mac closed. Detached there instead: a read reaches an awake Mac through
+# the live proxy and is queued otherwise; a send is proxied or refused, never
+# queued. The machine's Composio Gmail (a separate connection) is the cloud route.
+runs_in=mac
+cost=cheap
+context_file=gmail
+# What `send` takes. The message travels as one JSON object on the
+# connector's stdin — never on argv, where `ps` would show every word of it
+# to every process on this Mac — and these are the keys gmail.py accepts.
+# `name[]` is a list, `name*` is required. `subject` is required here even
+# though gmail.py would accept an empty one: mail that arrives as
+# "(no subject)" is a mistake every time, and the model has no way to know
+# that unless the schema says so.
+send_stdin=to[]* subject* body* cc[] account in_reply_to
+# The same service through Composio. When this route is not set up and
+# Composio has it, the tools say so rather than "not connected"
+# (moe-connectors composio_connected).
+composio=gmail

@@ -1,0 +1,26 @@
+# Your chat apps reaching Moe wherever Moe is awake: one bot, one thread, the
+# Mac when it is on and the cloud when it is not. The edge holds the bot's
+# credentials; this is the Mac's half of setting that up.
+name=channels
+label=Chat apps, in the cloud too
+verbs=status register knocks approve forget
+# Hourly, and it really is a poll: a chat knocks at the EDGE, so this Mac
+# learns about it by asking. Not 10m — the answer changes when a person
+# messages a bot for the first time, which is rare, and each ask is a request
+# to our own cloud rather than a local read.
+cadence=1h
+deep_crawl=no
+auth=oauth
+runs_in=mac
+cost=cheap
+context_file=channels
+# `register` sends a bot's own token to the edge and points a provider at it —
+# it changes how a working channel works (Telegram stops polling this Mac), so
+# it is asked about like anything else that leaves. `approve` lets a named
+# stranger reach Moe, and `forget` takes a channel's credentials away.
+# `knocks` is a read and deliberately not here.
+sends=register approve forget
+register_args=channel*
+knocks_args=
+approve_args=channel* chat*
+forget_args=channel*

@@ -1,0 +1,30 @@
+#!/bin/bash
+# Stub for /usr/bin/codesign, used by scripts/test-release.sh so no real
+# signature is ever produced. Records argv to $MOE_STUB_LOG and answers:
+#   -d / -dv / -dvv …  → prints the three things release.sh checks before it
+#                        will submit anything to Apple, each overridable:
+#                          Authority=  $MOE_STUB_AUTHORITY
+#                          Timestamp=  $MOE_STUB_TIMESTAMP  (set empty → omitted)
+#                          flags=      $MOE_STUB_FLAGS      (set empty → omitted)
+#                        exit 0
+#   --verify …         → exit 0
+#   --sign …           → exit 0
+#
+# Timestamp and flags are here because release.sh now asks of every Mach-O in
+# the bundle exactly what the notary asks — Developer ID, a secure timestamp,
+# hardened runtime — instead of learning it from Apple twenty-five minutes and
+# a 1.3 GB upload later. 0.3.15 was rejected for a single binary that had none
+# of the three. A stub that answers only "Authority=" leaves that check
+# permanently red and therefore untestable in either direction.
+printf '%s\n' "$*" >> "${MOE_STUB_LOG:-/dev/null}"
+case "${1:-}" in
+  -d*)
+    echo "CodeDirectory v=20500 size=1234 ${MOE_STUB_FLAGS-flags=0x10000(runtime)} hashes=40+7" >&2
+    echo "Authority=${MOE_STUB_AUTHORITY:-Developer ID Application: Stub Org (STUBTEAM01)}" >&2
+    [ -z "${MOE_STUB_TIMESTAMP-x}" ] \
+      || echo "Timestamp=${MOE_STUB_TIMESTAMP:-Sep 9, 2026 at 8:00:00 AM}" >&2
+    exit 0
+    ;;
+  --verify|--sign|-s|--force|-f) exit 0 ;;
+  *) echo "stub codesign: unexpected: $*" >&2; exit 2 ;;
+esac

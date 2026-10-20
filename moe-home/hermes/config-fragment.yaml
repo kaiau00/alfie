@@ -1,0 +1,46 @@
+# Merged into ~/.hermes/config.yaml by the Moe installer. Keys here win over
+# whatever Hermes had; nothing else in that file is touched.
+#
+# One hook, matching every tool. The script does its own filtering (tool name,
+# then the shell command text) because the interesting cases — `terminal`
+# running whatsapp.sh send — cannot be told apart by tool name alone.
+
+hooks:
+  pre_tool_call:
+    - matcher: ".*"
+      command: "~/.moe/hermes/hooks/confirm-send.sh"
+      # A human is answering a dialog. Hermes's default (60 s) would time out
+      # while they are still reading the message.
+      timeout: 300
+      # Timeouts, spawn errors and malformed output BLOCK the call. Without
+      # this the gate opens when it is confused — a dialog the user never saw
+      # would count as consent.
+      fail_closed: true
+
+    # The Composio clock rule and call budget — HERMES-SURFACES.md §3.1.
+    # Refuses a Composio tool call in a turn nobody asked for unless this
+    # Mac's tenant pays for clocks, and bounds every Composio call, on every
+    # tier, against an hourly and a daily budget. It is on the same `.*`
+    # matcher because it must see a tool call it has never heard of: a
+    # scheduled mail check somebody adds next month reaches Composio through
+    # the same mcp_servers entry, and a matcher listing today's tool names
+    # would not be there when it did.
+    - matcher: ".*"
+      command: "~/.moe/hermes/hooks/composio-budget.sh"
+      # No human is involved: it reads two small files and answers. The
+      # default 60 s is generous; this keeps a wedged interpreter from
+      # holding a turn for a minute.
+      timeout: 15
+      # Same reason as above, one layer along: a budget gate that opens when
+      # it is confused is how a corrupted credential becomes a bill.
+      fail_closed: true
+
+# Hermes asks for consent at a TTY the first time each hook script runs. The
+# gateway has no TTY, so the hook would be silently skipped — which is the one
+# thing a confirm-before-send hook must never be. Moe installed the script
+# and the user ran the installer; that is the consent.
+#
+# This setting is GLOBAL: it also auto-accepts any other shell hook that
+# appears in this file later. Only Moe's installer writes hooks here today;
+# if that changes, revisit this.
+hooks_auto_accept: true

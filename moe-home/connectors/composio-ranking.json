@@ -1,0 +1,8718 @@
+{
+"about": "Popularity order for the Connections pane. score: 0-100, 0.85 x hand-judged real-world use (people and small businesses) + 0.15 x Composio's own usage order; shelf: personal|business; top: listed before search (top tier AND connectable today: Composio holds the sign-in, it takes a pasted key, the service registers its own sign-in, or it needs none). Made by scripts/rank-composio-catalog.py. The score is never shown.",
+"generated_at": "2026-09-30",
+"toolkits": {
+"0codekit": {
+"score": 26,
+"shelf": "business",
+"top": false
+},
+"44api": {
+"score": 26,
+"shelf": "business",
+"top": false
+},
+"7shifts": {
+"score": 28,
+"shelf": "business",
+"top": false
+},
+"_1password": {
+"label": "1password",
+"schemes": [
+"API_KEY"
+],
+"score": 45,
+"shelf": "personal",
+"top": true
+},
+"_21risk": {
+"score": 26,
+"shelf": "business",
+"top": false
+},
+"_2chat": {
+"score": 26,
+"shelf": "business",
+"top": false
+},
+"ably": {
+"score": 28,
+"shelf": "business",
+"top": false
+},
+"abstract": {
+"score": 26,
+"shelf": "business",
+"top": false
+},
+"abuselpdb": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"abyssale": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"accredible_certificates": {
+"score": 25,
+"shelf": "personal",
+"top": false
+},
+"accu_weather": {
+"label": "AccuWeather",
+"schemes": [
+"API_KEY"
+],
+"score": 47,
+"shelf": "personal",
+"top": true
+},
+"acculynx": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"active_campaign": {
+"label": "ActiveCampaign",
+"schemes": [
+"API_KEY"
+],
+"score": 49,
+"shelf": "business",
+"top": true
+},
+"active_merge": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"active_trail": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"adafruit_io": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"addressfinder": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"addresszen": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"adobe_marketing_agent_mcp": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"adrapid": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"adtraction": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"adyntel": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"aeroleads": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"affinda": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"affinity": {
+"score": 29,
+"shelf": "business",
+"top": false
+},
+"agencyzoom": {
+"score": 29,
+"shelf": "business",
+"top": false
+},
+"agent_mail": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"agentql": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"agenty": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"agile_crm": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"agiled": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"agility_cms": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"ahrefs": {
+"label": "Ahrefs",
+"schemes": [
+"API_KEY",
+"OAUTH2"
+],
+"score": 50,
+"shelf": "business",
+"top": true
+},
+"ahrefs_mcp": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"ai_ml_api": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"aimtell": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"airops_mcp": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"airparser": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"airtable": {
+"label": "Airtable",
+"schemes": [
+"OAUTH2",
+"API_KEY"
+],
+"score": 71,
+"shelf": "business",
+"top": true
+},
+"airtop": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"airwallex": {
+"score": 28,
+"shelf": "business",
+"top": false
+},
+"aivoov": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"aiwyn_tax_mcp": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"akta": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"alchemy": {
+"score": 26,
+"shelf": "business",
+"top": false
+},
+"algodocs": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"algolia": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"all_images_ai": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"alltrails_mcp": {
+"label": "AllTrails",
+"schemes": [
+"NO_AUTH"
+],
+"score": 46,
+"shelf": "personal",
+"top": true
+},
+"alpaca": {
+"score": 29,
+"shelf": "personal",
+"top": false
+},
+"alpha_vantage": {
+"score": 23,
+"shelf": "personal",
+"top": false
+},
+"alt_text_lab": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"altoviz": {
+"score": 27,
+"shelf": "business",
+"top": false
+},
+"alttext_ai": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"amara": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"amazing_marvin": {
+"score": 17,
+"shelf": "personal",
+"top": false
+},
+"ambee": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"ambient_weather": {
+"score": 19,
+"shelf": "personal",
+"top": false
+},
+"amcards": {
+"score": 27,
+"shelf": "business",
+"top": false
+},
+"amplitude": {
+"label": "Amplitude",
+"schemes": [
+"API_KEY"
+],
+"score": 50,
+"shelf": "business",
+"top": true
+},
+"amplitude_mcp": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"anakin_io": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"anchor_browser": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"android_texter": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"anonyflow": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"anthropic_administrator": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"any_db": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"apaleo": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"apexverify": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"api2pdf": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"api_bible": {
+"score": 22,
+"shelf": "personal",
+"top": false
+},
+"api_labz": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"api_ninjas": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"api_sports": {
+"score": 28,
+"shelf": "personal",
+"top": false
+},
+"apiflash": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"apiframe": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"apify": {
+"label": "Apify",
+"schemes": [
+"API_KEY"
+],
+"score": 33,
+"shelf": "business",
+"top": true
+},
+"apify_mcp": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"apilio": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"apipie_ai": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"apiverve": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"apollo": {
+"label": "Apollo",
+"schemes": [
+"API_KEY"
+],
+"score": 55,
+"shelf": "business",
+"top": true
+},
+"appcircle": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"appdrag": {
+"score": 28,
+"shelf": "business",
+"top": false
+},
+"appointo": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"apptivegrid": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"appveyor": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"archive_org": {
+"score": 27,
+"shelf": "personal",
+"top": false
+},
+"arena": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"arize_ax": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"artificial_analysis": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"aryn": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"asana": {
+"label": "Asana",
+"schemes": [
+"OAUTH2"
+],
+"score": 76,
+"shelf": "business",
+"top": true
+},
+"ascora": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"ashby": {
+"label": "Ashby",
+"schemes": [
+"API_KEY"
+],
+"score": 37,
+"shelf": "business",
+"top": true
+},
+"asin_data_api": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"assemblyai": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"astica_ai": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"async_interview": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"atlassian_mcp": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"attio": {
+"label": "Attio",
+"schemes": [
+"OAUTH2"
+],
+"score": 42,
+"shelf": "business",
+"top": true
+},
+"audioscrape_mcp": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"authyo": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"autobound": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"autom": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"avoma": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"aweber": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"aws_marketplace_mcp": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"ayrshare": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"azure_monitor_activity_log": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"backendless": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"bamboohr": {
+"label": "BambooHR",
+"schemes": [
+"OAUTH2",
+"API_KEY"
+],
+"score": 55,
+"shelf": "business",
+"top": true
+},
+"bannerbear": {
+"score": 28,
+"shelf": "business",
+"top": false
+},
+"bannerbite": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"baremetrics": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"bart": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"basecamp": {
+"label": "Basecamp",
+"schemes": [
+"OAUTH2"
+],
+"score": 53,
+"shelf": "business",
+"top": true
+},
+"baselinker": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"baserow": {
+"score": 27,
+"shelf": "business",
+"top": false
+},
+"basin": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"beach_day_api": {
+"score": 24,
+"shelf": "personal",
+"top": false
+},
+"beaconchain": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"beaconstac": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"beamer": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"beatapi": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"beehiiv": {
+"label": "Beehiiv",
+"schemes": [
+"API_KEY"
+],
+"score": 39,
+"shelf": "business",
+"top": true
+},
+"beeminder": {
+"score": 21,
+"shelf": "personal",
+"top": false
+},
+"bench": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"benchmark_email": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"benzinga": {
+"score": 24,
+"shelf": "personal",
+"top": false
+},
+"bestbuy": {
+"score": 27,
+"shelf": "personal",
+"top": false
+},
+"better_proposals": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"better_stack": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"better_stack_mcp": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"bettercontact": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"bidsketch": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"big_data_cloud": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"bigdata_com_mcp": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"bigmailer": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"bigml": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"bigpicture_io": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"bika": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"billsby": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"bing_webmaster_tools": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"bitbucket": {
+"label": "Bitbucket",
+"schemes": [
+"OAUTH2"
+],
+"score": 50,
+"shelf": "business",
+"top": true
+},
+"bitly": {
+"label": "Bitly",
+"schemes": [
+"API_KEY",
+"OAUTH2"
+],
+"score": 47,
+"shelf": "business",
+"top": true
+},
+"bitquery": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"bitwarden": {
+"score": 37,
+"shelf": "business",
+"top": false
+},
+"blackbaud": {
+"score": 29,
+"shelf": "business",
+"top": false
+},
+"blackboard": {
+"score": 35,
+"shelf": "personal",
+"top": false
+},
+"bland_ai": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"blazemeter": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"blitz_api": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"blocknative": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"blooio": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"bluebarry": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"bluefox_email": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"bluepillow": {
+"score": 23,
+"shelf": "personal",
+"top": false
+},
+"boldsign": {
+"score": 26,
+"shelf": "business",
+"top": false
+},
+"bolna": {
+"score": 28,
+"shelf": "business",
+"top": false
+},
+"boloforms": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"bolt_iot": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"bonsai": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"bookingmood": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"booqable": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"borneo": {
+"score": 29,
+"shelf": "business",
+"top": false
+},
+"botbaba": {
+"score": 26,
+"shelf": "business",
+"top": false
+},
+"botdog": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"botmape": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"botpenguin": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"botpress": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"botsonic": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"botstar": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"botster": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"bouncer": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"bouncify": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"box": {
+"label": "Box",
+"schemes": [
+"OAUTH2"
+],
+"score": 63,
+"shelf": "business",
+"top": true
+},
+"box_mcp": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"boxhero": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"brain_graph": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"braintrust": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"brandfetch": {
+"score": 27,
+"shelf": "business",
+"top": false
+},
+"braze": {
+"label": "Braze",
+"schemes": [
+"API_KEY"
+],
+"score": 33,
+"shelf": "business",
+"top": true
+},
+"bread_butter": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"breathehr": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"breeze": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"breezy_hr": {
+"score": 28,
+"shelf": "business",
+"top": false
+},
+"brevo": {
+"label": "Brevo",
+"schemes": [
+"API_KEY",
+"OAUTH2"
+],
+"score": 50,
+"shelf": "business",
+"top": true
+},
+"brex": {
+"label": "Brex",
+"schemes": [
+"OAUTH2",
+"API_KEY"
+],
+"score": 40,
+"shelf": "business",
+"top": true
+},
+"brightdata": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"brilliant_directories": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"browseai": {
+"score": 26,
+"shelf": "business",
+"top": false
+},
+"browser_tool": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"browser_use": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"browseract": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"browserbase_mcp": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"browserbase_tool": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"browserless": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"bsc_designer": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"btcpay_server": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"bubble": {
+"label": "Bubble",
+"schemes": [
+"API_KEY"
+],
+"score": 32,
+"shelf": "business",
+"top": true
+},
+"buffer": {
+"score": 45,
+"shelf": "business",
+"top": false
+},
+"bug_recorder": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"bugbug": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"bugherd": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"bugsnag": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"builder_io": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"buildkite": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"builtwith": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"bulk_email_checker": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"bulkpublish": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"bunnycdn": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"byte_plus_ark": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"byteforms": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"cabinpanda": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"cal": {
+"label": "Cal",
+"schemes": [
+"API_KEY",
+"OAUTH2"
+],
+"score": 47,
+"shelf": "business",
+"top": true
+},
+"calendarhero": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"calendly": {
+"label": "Calendly",
+"schemes": [
+"OAUTH2"
+],
+"score": 76,
+"shelf": "business",
+"top": true
+},
+"calendly_mcp": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"callerapi": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"callingly": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"callonthego": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"callpage": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"camb_ai": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"campaign_cleaner": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"campayn": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"candid_mcp": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"canny": {
+"score": 26,
+"shelf": "business",
+"top": false
+},
+"canva": {
+"label": "Canva",
+"schemes": [
+"OAUTH2"
+],
+"score": 77,
+"shelf": "personal",
+"top": true
+},
+"canva_mcp": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"canvas": {
+"label": "Canvas",
+"schemes": [
+"OAUTH2",
+"API_KEY"
+],
+"score": 50,
+"shelf": "personal",
+"top": true
+},
+"capsule_crm": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"captions": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"capturekit": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"carbon_voice_mcp": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"carbone": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"cardclan": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"cardly": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"carsxe": {
+"score": 22,
+"shelf": "personal",
+"top": false
+},
+"cashfree_payments_mcp": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"castingwords": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"cats": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"cdr_platform": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"celigo": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"census_bureau": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"centralstationcrm": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"ceramic": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"cert_seal": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"certifier": {
+"score": 22,
+"shelf": "personal",
+"top": false
+},
+"chameleon": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"charla": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"chartly": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"chartmogul": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"chaser": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"chatbotkit": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"chatfai": {
+"score": 22,
+"shelf": "personal",
+"top": false
+},
+"chatforma": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"chatwork": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"check_cherry": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"checkflow": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"checkvist": {
+"score": 14,
+"shelf": "personal",
+"top": false
+},
+"chmeetings": {
+"score": 26,
+"shelf": "business",
+"top": false
+},
+"cincopa": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"circleback_mcp": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"circleci": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"claid_ai": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"clarify_mcp": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"clarity_ai_mcp": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"classmarker": {
+"score": 21,
+"shelf": "personal",
+"top": false
+},
+"clay": {
+"label": "Clay",
+"schemes": [
+"API_KEY"
+],
+"score": 34,
+"shelf": "business",
+"top": true
+},
+"clay_mcp": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"clearout": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"clickhouse": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"clickhouse_mcp": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"clickmeeting": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"clicksend": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"clickup": {
+"label": "ClickUp",
+"schemes": [
+"OAUTH2",
+"API_KEY"
+],
+"score": 72,
+"shelf": "business",
+"top": true
+},
+"clickup_mcp": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"clientary": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"clio_manage": {
+"score": 38,
+"shelf": "business",
+"top": false
+},
+"clockify": {
+"label": "Clockify",
+"schemes": [
+"API_KEY",
+"OAUTH2"
+],
+"score": 46,
+"shelf": "business",
+"top": true
+},
+"cloro": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"close": {
+"label": "Close",
+"schemes": [
+"API_KEY"
+],
+"score": 38,
+"shelf": "business",
+"top": true
+},
+"close_mcp": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"cloud_pdf": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"cloudcart": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"cloudconvert": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"cloudflare": {
+"label": "Cloudflare",
+"schemes": [
+"API_KEY"
+],
+"score": 54,
+"shelf": "business",
+"top": true
+},
+"cloudflare_api_key": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"cloudflare_browser_rendering": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"cloudflare_mcp": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"cloudinary": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"cloudlayer": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"cloudpress": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"cloudsmith": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"clover": {
+"score": 43,
+"shelf": "business",
+"top": false
+},
+"coassemble": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"coda": {
+"label": "Coda",
+"schemes": [
+"API_KEY"
+],
+"score": 47,
+"shelf": "business",
+"top": true
+},
+"codacy": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"codeinterpreter": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"codemagic": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"codereadr": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"cody": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"cohere": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"coinbase": {
+"label": "Coinbase",
+"schemes": [
+"API_KEY"
+],
+"score": 57,
+"shelf": "personal",
+"top": true
+},
+"coinbase_agents_mcp": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"coinbase_wallet_mcp": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"coingecko": {
+"label": "CoinGecko",
+"schemes": [
+"API_KEY"
+],
+"score": 34,
+"shelf": "personal",
+"top": true
+},
+"coinmarketcal": {
+"score": 26,
+"shelf": "business",
+"top": false
+},
+"coinmarketcap": {
+"label": "CoinMarketCap",
+"schemes": [
+"API_KEY"
+],
+"score": 34,
+"shelf": "personal",
+"top": true
+},
+"coinranking": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"college_football_data": {
+"score": 17,
+"shelf": "personal",
+"top": false
+},
+"cometapi": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"commcare": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"commerce_layer": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"common_room_mcp": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"company_url_finder": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"companycam": {
+"score": 26,
+"shelf": "business",
+"top": false
+},
+"companyenrich": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"compdf": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"composio": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"composio_search": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"conductor": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"configcat": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"confluence": {
+"label": "Confluence",
+"schemes": [
+"OAUTH2",
+"S2S_OAUTH2",
+"API_KEY"
+],
+"score": 77,
+"shelf": "business",
+"top": true
+},
+"connecteam": {
+"score": 29,
+"shelf": "business",
+"top": false
+},
+"consensus": {
+"score": 20,
+"shelf": "personal",
+"top": false
+},
+"consensus_mcp": {
+"score": 20,
+"shelf": "personal",
+"top": false
+},
+"constant_contact": {
+"score": 51,
+"shelf": "business",
+"top": false
+},
+"contactout": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"contacts_plus": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"content_studio": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"contentdrips": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"contentful": {
+"label": "Contentful",
+"schemes": [
+"OAUTH2",
+"API_KEY"
+],
+"score": 38,
+"shelf": "business",
+"top": true
+},
+"contentful_graphql": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"contentsquare_mcp": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"context7_mcp": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"context_dev": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"contractbook": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"control_d": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"conversion_tools": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"convertapi": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"convex": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"conveyor": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"convolo_ai": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"copper": {
+"score": 30,
+"shelf": "business",
+"top": false
+},
+"copyleaks": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"coresignal": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"corrently": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"countdown_api": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"coupa": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"cradl_ai": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"craft_mcp": {
+"score": 25,
+"shelf": "personal",
+"top": false
+},
+"craftmypdf": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"crawlbase": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"creatomate": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"creem": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"crew_ai": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"crisp": {
+"score": 29,
+"shelf": "business",
+"top": false
+},
+"cronfree_time_scheduler": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"cronly": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"crowdin": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"crowterminal": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"crustdata": {
+"score": 27,
+"shelf": "business",
+"top": false
+},
+"csvbox": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"cults": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"curated": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"currencyscoop": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"currents_api": {
+"score": 20,
+"shelf": "personal",
+"top": false
+},
+"cursor": {
+"label": "Cursor",
+"schemes": [
+"API_KEY"
+],
+"score": 34,
+"shelf": "business",
+"top": true
+},
+"customerio": {
+"score": 31,
+"shelf": "business",
+"top": false
+},
+"customerio_mcp": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"customgpt": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"customjs": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"cutt_ly": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"d2lbrightspace": {
+"score": 29,
+"shelf": "personal",
+"top": false
+},
+"dadata_ru": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"daffy": {
+"score": 15,
+"shelf": "personal",
+"top": false
+},
+"daily": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"dailybot": {
+"score": 27,
+"shelf": "business",
+"top": false
+},
+"dart": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"data247": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"databox": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"databricks": {
+"label": "Databricks",
+"schemes": [
+"OAUTH2",
+"API_KEY"
+],
+"score": 37,
+"shelf": "business",
+"top": true
+},
+"datadog": {
+"label": "Datadog",
+"schemes": [
+"OAUTH2",
+"API_KEY",
+"BEARER_TOKEN"
+],
+"score": 49,
+"shelf": "business",
+"top": true
+},
+"datadog_mcp": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"dataforseo": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"datagma": {
+"score": 26,
+"shelf": "business",
+"top": false
+},
+"datarobot": {
+"score": 27,
+"shelf": "business",
+"top": false
+},
+"datascope": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"daytona": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"deadline_funnel": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"debitura": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"debounce": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"deepgram": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"deepimage": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"deepseek": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"deepwiki_mcp": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"delighted": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"demio": {
+"score": 27,
+"shelf": "business",
+"top": false
+},
+"deployhq": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"descript_mcp": {
+"label": "Descript",
+"schemes": [
+"DCR_OAUTH"
+],
+"score": 33,
+"shelf": "business",
+"top": true
+},
+"desktime": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"detrack": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"dev_cycle": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"devin_mcp": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"devolens": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"devto": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"dialmycalls": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"dialpad": {
+"label": "Dialpad",
+"schemes": [
+"OAUTH2",
+"API_KEY"
+],
+"score": 46,
+"shelf": "business",
+"top": true
+},
+"dice_mcp": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"dictionary_api": {
+"score": 22,
+"shelf": "personal",
+"top": false
+},
+"didit": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"diffbot": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"dify": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"digicert": {
+"score": 27,
+"shelf": "business",
+"top": false
+},
+"digital_humani": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"digital_ocean": {
+"label": "DigitalOcean",
+"schemes": [
+"API_KEY",
+"OAUTH2"
+],
+"score": 37,
+"shelf": "business",
+"top": true
+},
+"directiq": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"discord": {
+"label": "Discord",
+"schemes": [
+"OAUTH2"
+],
+"score": 79,
+"shelf": "personal",
+"top": true
+},
+"discordbot": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"dnsfilter": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"dock_certs": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"docker_hub": {
+"label": "Docker Hub",
+"schemes": [
+"API_KEY"
+],
+"score": 33,
+"shelf": "business",
+"top": true
+},
+"docmosis": {
+"score": 28,
+"shelf": "business",
+"top": false
+},
+"docnify": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"docparser": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"docraptor": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"docsautomator": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"docsbot_ai": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"docsumo": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"docugenerate": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"documenso": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"documentero": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"documint": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"docupilot": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"docupipe": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"docupost": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"docupotion": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"docuseal": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"docusign": {
+"score": 81,
+"shelf": "business",
+"top": false
+},
+"domotz_mcp": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"donately": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"doppler": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"doppler_marketing_automation": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"doppler_secretops": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"dotsimple": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"dovetail": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"dpd2": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"draftable": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"dreamstudio": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"dribbble": {
+"score": 24,
+"shelf": "personal",
+"top": false
+},
+"dripcel": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"dromo": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"drop_to_cdn": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"dropbox": {
+"label": "Dropbox",
+"schemes": [
+"OAUTH2"
+],
+"score": 79,
+"shelf": "personal",
+"top": true
+},
+"dropbox_sign": {
+"label": "Dropbox Sign",
+"schemes": [
+"API_KEY",
+"OAUTH2"
+],
+"score": 49,
+"shelf": "business",
+"top": true
+},
+"dropcontact": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"dub": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"dungeon_fighter_online": {
+"score": 18,
+"shelf": "personal",
+"top": false
+},
+"dynamic_mockups": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"dynamics365": {
+"label": "Dynamics 365",
+"schemes": [
+"OAUTH2"
+],
+"score": 61,
+"shelf": "business",
+"top": true
+},
+"dynapictures": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"dynosend": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"e2b": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"eagle_doc": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"easy_email_verification": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"echtpost": {
+"score": 26,
+"shelf": "business",
+"top": false
+},
+"ecologi": {
+"score": 18,
+"shelf": "personal",
+"top": false
+},
+"eden_ai": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"edworking": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"egnyte": {
+"score": 28,
+"shelf": "business",
+"top": false
+},
+"elai": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"elastic_email": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"elasticsearch": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"eledo": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"elevenlabs": {
+"label": "ElevenLabs",
+"schemes": [
+"API_KEY"
+],
+"score": 49,
+"shelf": "personal",
+"top": true
+},
+"elevenreader": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"elorus": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"emailable": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"emaillistverify": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"emailoctopus": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"emailvalidation": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"emelia": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"encodian": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"endorsal": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"enforcedflow": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"engage": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"engage_platform": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"enginemailer": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"enigma": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"enrich": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"enrich_layer": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"entelligence": {
+"score": 28,
+"shelf": "business",
+"top": false
+},
+"eodhd_apis": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"epic_games": {
+"score": 43,
+"shelf": "personal",
+"top": false
+},
+"era_context_mcp": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"eranol": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"eraser_mcp": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"erpnext": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"esignatures": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"esignatures_io": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"espocrm": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"esputnik": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"etermin": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"evenium": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"eventbrite": {
+"label": "Eventbrite",
+"schemes": [
+"OAUTH2"
+],
+"score": 57,
+"shelf": "business",
+"top": true
+},
+"eventee": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"eventzilla": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"everhour": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"eversign": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"exa": {
+"score": 30,
+"shelf": "business",
+"top": false
+},
+"excalidraw_mcp": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"excel": {
+"label": "Excel",
+"schemes": [
+"OAUTH2",
+"S2S_OAUTH2"
+],
+"score": 81,
+"shelf": "personal",
+"top": true
+},
+"exceptionless": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"exist": {
+"score": 21,
+"shelf": "personal",
+"top": false
+},
+"explorium": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"explorium_mcp": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"expofp": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"extracta_ai": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"extrovert": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"facebook": {
+"label": "Facebook",
+"schemes": [
+"OAUTH2"
+],
+"score": 75,
+"shelf": "business",
+"top": true
+},
+"faceup": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"fairing": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"fal_ai": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"faraday": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"fathom": {
+"label": "Fathom",
+"schemes": [
+"OAUTH2",
+"API_KEY"
+],
+"score": 38,
+"shelf": "business",
+"top": true
+},
+"feathery": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"feedbear": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"fellow_ai_mcp": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"felt": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"fibery": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"fidel_api": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"figma": {
+"label": "Figma",
+"schemes": [
+"OAUTH2",
+"API_KEY"
+],
+"score": 81,
+"shelf": "business",
+"top": true
+},
+"files_com": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"filetopdf": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"fillout_forms": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"finage": {
+"score": 28,
+"shelf": "business",
+"top": false
+},
+"financial_datasets_ai_mcp": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"findymail": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"finerworks": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"fingertip": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"finlight": {
+"score": 17,
+"shelf": "personal",
+"top": false
+},
+"finmei": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"finmo": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"finnhub": {
+"score": 19,
+"shelf": "personal",
+"top": false
+},
+"finviz": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"firebase": {
+"label": "Firebase",
+"schemes": [
+"API_KEY"
+],
+"score": 44,
+"shelf": "business",
+"top": true
+},
+"fireberry": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"firecrawl": {
+"label": "Firecrawl",
+"schemes": [
+"API_KEY"
+],
+"score": 36,
+"shelf": "business",
+"top": true
+},
+"fireflies": {
+"label": "Fireflies",
+"schemes": [
+"API_KEY"
+],
+"score": 50,
+"shelf": "business",
+"top": true
+},
+"fireworks_ai": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"firmao": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"fish_audio": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"fixer": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"fixer_io": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"flatfile": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"fleetio": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"flexisign": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"float": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"flotiq": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"flowiseai": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"flutterwave": {
+"score": 29,
+"shelf": "business",
+"top": false
+},
+"fluxguard": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"fly": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"folk": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"follow_up_boss": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"fomo": {
+"score": 28,
+"shelf": "business",
+"top": false
+},
+"forcemanager": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"formbricks": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"formcarry": {
+"score": 28,
+"shelf": "business",
+"top": false
+},
+"formcrafts": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"formdesk": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"formilla": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"formsite": {
+"score": 27,
+"shelf": "business",
+"top": false
+},
+"foursquare": {
+"label": "Foursquare",
+"schemes": [
+"API_KEY"
+],
+"score": 32,
+"shelf": "personal",
+"top": true
+},
+"fraudlabs_pro": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"freeagent": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"freshbooks": {
+"label": "FreshBooks",
+"schemes": [
+"OAUTH2"
+],
+"score": 54,
+"shelf": "business",
+"top": true
+},
+"freshdesk": {
+"label": "Freshdesk",
+"schemes": [
+"API_KEY"
+],
+"score": 59,
+"shelf": "business",
+"top": true
+},
+"freshservice": {
+"score": 29,
+"shelf": "business",
+"top": false
+},
+"fullenrich": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"fullstory": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"fuseai": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"fuseai_mcp": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"fusedesk": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"futureagi": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"gagelist": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"gamma": {
+"label": "Gamma",
+"schemes": [
+"API_KEY"
+],
+"score": 35,
+"shelf": "business",
+"top": true
+},
+"gan_ai": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"gatherup": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"geekflare": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"gelato": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"gemini": {
+"label": "Gemini",
+"schemes": [
+"NO_AUTH",
+"API_KEY"
+],
+"score": 42,
+"shelf": "personal",
+"top": true
+},
+"gender_api": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"genderapi_io": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"genderize": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"geoapify": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"geocodio": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"geokeo": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"get_transcribe": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"getform": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"getprospect": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"getresponse": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"gift_up": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"gigasheet": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"giphy": {
+"score": 29,
+"shelf": "personal",
+"top": false
+},
+"gist": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"gitea": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"github": {
+"label": "GitHub",
+"schemes": [
+"OAUTH2"
+],
+"score": 87,
+"shelf": "business",
+"top": true
+},
+"github_mcp": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"gitlab": {
+"label": "GitLab",
+"schemes": [
+"OAUTH2"
+],
+"score": 55,
+"shelf": "business",
+"top": true
+},
+"givebutter": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"gladia": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"glasp": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"gleap": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"gleif": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"globalping": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"gmail": {
+"label": "Gmail",
+"schemes": [
+"OAUTH2"
+],
+"score": 100,
+"shelf": "personal",
+"top": true
+},
+"go_table": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"gocardless_mcp": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"godaddy_mcp": {
+"label": "GoDaddy",
+"schemes": [
+"NO_AUTH"
+],
+"score": 33,
+"shelf": "business",
+"top": true
+},
+"godial": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"gofile": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"gong": {
+"label": "Gong",
+"schemes": [
+"BASIC",
+"OAUTH2"
+],
+"score": 49,
+"shelf": "business",
+"top": true
+},
+"goodapi_plant_trees": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"goodbits": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"goody": {
+"score": 15,
+"shelf": "personal",
+"top": false
+},
+"google_address_validation": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"google_admin": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"google_analytics": {
+"label": "Google Analytics",
+"schemes": [
+"OAUTH2"
+],
+"score": 80,
+"shelf": "business",
+"top": true
+},
+"google_chat": {
+"score": 43,
+"shelf": "business",
+"top": false
+},
+"google_classroom": {
+"label": "Google Classroom",
+"schemes": [
+"OAUTH2"
+],
+"score": 50,
+"shelf": "personal",
+"top": true
+},
+"google_cloud_vision": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"google_data_studio": {
+"score": 42,
+"shelf": "business",
+"top": false
+},
+"google_maps": {
+"label": "Google Maps",
+"schemes": [
+"OAUTH2",
+"API_KEY"
+],
+"score": 89,
+"shelf": "personal",
+"top": true
+},
+"google_search_console": {
+"label": "Google Search Console",
+"schemes": [
+"OAUTH2"
+],
+"score": 57,
+"shelf": "business",
+"top": true
+},
+"googleads": {
+"label": "Google Ads",
+"schemes": [
+"OAUTH2"
+],
+"score": 78,
+"shelf": "business",
+"top": true
+},
+"googlebigquery": {
+"label": "Google BigQuery",
+"schemes": [
+"OAUTH2",
+"GOOGLE_SERVICE_ACCOUNT"
+],
+"score": 50,
+"shelf": "business",
+"top": true
+},
+"googlecalendar": {
+"label": "Google Calendar",
+"schemes": [
+"OAUTH2"
+],
+"score": 97,
+"shelf": "personal",
+"top": true
+},
+"googlecontacts": {
+"score": 67,
+"shelf": "personal",
+"top": false
+},
+"googledocs": {
+"label": "Google Docs",
+"schemes": [
+"OAUTH2"
+],
+"score": 91,
+"shelf": "personal",
+"top": true
+},
+"googledrive": {
+"label": "Google Drive",
+"schemes": [
+"OAUTH2"
+],
+"score": 95,
+"shelf": "personal",
+"top": true
+},
+"googleforms": {
+"score": 59,
+"shelf": "business",
+"top": false
+},
+"googlemeet": {
+"label": "Google Meet",
+"schemes": [
+"OAUTH2"
+],
+"score": 82,
+"shelf": "business",
+"top": true
+},
+"googlephotos": {
+"label": "Google Photos",
+"schemes": [
+"OAUTH2"
+],
+"score": 86,
+"shelf": "personal",
+"top": true
+},
+"googlesheets": {
+"label": "Google Sheets",
+"schemes": [
+"OAUTH2"
+],
+"score": 91,
+"shelf": "personal",
+"top": true
+},
+"googleslides": {
+"label": "Google Slides",
+"schemes": [
+"OAUTH2"
+],
+"score": 67,
+"shelf": "personal",
+"top": true
+},
+"googlesuper": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"googletasks": {
+"label": "Google Tasks",
+"schemes": [
+"OAUTH2"
+],
+"score": 64,
+"shelf": "personal",
+"top": true
+},
+"gorgias": {
+"label": "Gorgias",
+"schemes": [
+"API_KEY",
+"OAUTH2"
+],
+"score": 41,
+"shelf": "business",
+"top": true
+},
+"gorilladesk": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"gosquared": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"gptbots": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"gradium": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"grafana": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"grafana_cloud_mcp": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"grafbase": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"granola_mcp": {
+"label": "Granola",
+"schemes": [
+"DCR_OAUTH"
+],
+"score": 42,
+"shelf": "business",
+"top": true
+},
+"granted_mcp": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"graphhopper": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"greenhouse": {
+"label": "Greenhouse",
+"schemes": [
+"S2S_OAUTH2",
+"OAUTH2"
+],
+"score": 43,
+"shelf": "business",
+"top": true
+},
+"greptile_mcp": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"griptape": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"grist": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"grok": {
+"score": 23,
+"shelf": "personal",
+"top": false
+},
+"groqcloud": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"gtmetrix": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"gumroad": {
+"label": "Gumroad",
+"schemes": [
+"OAUTH2"
+],
+"score": 43,
+"shelf": "business",
+"top": true
+},
+"gusto": {
+"score": 54,
+"shelf": "business",
+"top": false
+},
+"habitica": {
+"score": 23,
+"shelf": "personal",
+"top": false
+},
+"hackernews": {
+"label": "Hacker News",
+"schemes": [
+"NO_AUTH"
+],
+"score": 40,
+"shelf": "personal",
+"top": true
+},
+"hackerrank_work": {
+"score": 27,
+"shelf": "business",
+"top": false
+},
+"hackmd": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"handwrite": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"handwrytten": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"happy_scribe": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"harness": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"harvest": {
+"label": "Harvest",
+"schemes": [
+"OAUTH2"
+],
+"score": 45,
+"shelf": "business",
+"top": true
+},
+"hashnode": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"headout": {
+"score": 20,
+"shelf": "personal",
+"top": false
+},
+"heartbeat": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"heights_platform": {
+"score": 15,
+"shelf": "personal",
+"top": false
+},
+"hello_tracks": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"helloleads": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"help_scout": {
+"score": 35,
+"shelf": "business",
+"top": false
+},
+"help_spot": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"helpdesk": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"helpwise": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"here": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"hex": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"heygen": {
+"label": "HeyGen",
+"schemes": [
+"API_KEY"
+],
+"score": 38,
+"shelf": "business",
+"top": true
+},
+"heyreach": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"heyy": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"heyzine": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"higgsfield": {
+"score": 24,
+"shelf": "personal",
+"top": false
+},
+"higgsfield_mcp": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"highergov": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"highlevel": {
+"score": 49,
+"shelf": "business",
+"top": false
+},
+"highlevel_mcp": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"hireflix": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"hitl": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"hitpay": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"hive": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"hjarni": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"holded": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"honcho": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"honeybadger": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"honeycomb_mcp": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"honeyhive": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"hookdeck": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"hostinger": {
+"score": 28,
+"shelf": "business",
+"top": false
+},
+"hotspotsystem": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"hr_partner": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"html_to_image": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"htmlcss_to_image": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"hub_planner": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"hubspot": {
+"label": "HubSpot",
+"schemes": [
+"OAUTH2",
+"API_KEY"
+],
+"score": 85,
+"shelf": "business",
+"top": true
+},
+"hugging_face": {
+"label": "Hugging Face",
+"schemes": [
+"API_KEY",
+"OAUTH2"
+],
+"score": 33,
+"shelf": "business",
+"top": true
+},
+"humanitix": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"humanloop": {
+"score": 26,
+"shelf": "business",
+"top": false
+},
+"hunter": {
+"label": "Hunter",
+"schemes": [
+"API_KEY"
+],
+"score": 34,
+"shelf": "business",
+"top": true
+},
+"hypeauditor": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"hyperbrowser": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"hyperise": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"hystruct": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"i_love_pdf": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"ibm_x_force_exchange": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"icypeas": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"idealpostcodes": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"identitycheck": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"ignav_flights": {
+"score": 28,
+"shelf": "personal",
+"top": false
+},
+"ignisign": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"ilert": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"imagekit_io": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"imagerouter": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"imagior": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"imejis_io": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"imgbb": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"imgix": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"inblog": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"incident_io": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"influxdb_cloud": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"inistate": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"insighto_ai": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"inspo_mcp": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"instacart": {
+"broken": true,
+"score": 49,
+"shelf": "personal",
+"top": false
+},
+"instagram": {
+"label": "Instagram",
+"schemes": [
+"OAUTH2"
+],
+"score": 80,
+"shelf": "personal",
+"top": true
+},
+"instantly": {
+"score": 31,
+"shelf": "business",
+"top": false
+},
+"instatus": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"intelliprint": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"intercom": {
+"label": "Intercom",
+"schemes": [
+"OAUTH2"
+],
+"score": 64,
+"shelf": "business",
+"top": true
+},
+"intercom_mcp": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"interzoid": {
+"score": 26,
+"shelf": "business",
+"top": false
+},
+"invalid_bounce": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"invofox": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"inworld_ai": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"ip2location": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"ip2location_io": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"ip2proxy": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"ip2whois": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"ip_registry": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"ipdata_co": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"ipgeolocation": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"ipinfo_io": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"iplocate": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"iqair_airvisual": {
+"score": 17,
+"shelf": "personal",
+"top": false
+},
+"iterable": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"iterate": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"itm_platform": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"jam": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"jentic_mcp": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"jev": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"jigsawstack": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"jinko": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"jira": {
+"label": "Jira",
+"schemes": [
+"OAUTH2",
+"S2S_OAUTH2",
+"API_KEY"
+],
+"score": 85,
+"shelf": "business",
+"top": true
+},
+"job_search": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"jobber": {
+"score": 34,
+"shelf": "business",
+"top": false
+},
+"jobnimbus": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"jogg_ai": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"jotform": {
+"label": "Jotform",
+"schemes": [
+"API_KEY"
+],
+"score": 51,
+"shelf": "business",
+"top": true
+},
+"jotform_sign": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"jumpcloud": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"junglescout": {
+"label": "Jungle Scout",
+"schemes": [
+"API_KEY"
+],
+"score": 33,
+"shelf": "business",
+"top": true
+},
+"just_one_api": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"kadoa": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"kaggle": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"kaleido": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"kanban_tool": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"kanbanize": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"kapso": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"keen_io": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"kernel_mcp": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"keyword": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"keyzy": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"kibana": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"kickbox": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"kieai": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"kintone": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"kintone_rest": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"kit": {
+"label": "Kit",
+"schemes": [
+"OAUTH2",
+"API_KEY"
+],
+"score": 39,
+"shelf": "business",
+"top": true
+},
+"klaviyo": {
+"label": "Klaviyo",
+"schemes": [
+"API_KEY",
+"OAUTH2"
+],
+"score": 64,
+"shelf": "business",
+"top": true
+},
+"klazify": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"klipfolio": {
+"score": 27,
+"shelf": "business",
+"top": false
+},
+"knack": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"ko_fi": {
+"score": 22,
+"shelf": "personal",
+"top": false
+},
+"kobotoolbox": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"kommo": {
+"score": 27,
+"shelf": "business",
+"top": false
+},
+"kommunicate": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"kontent_ai": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"kraken_io": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"l2s": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"labs64_netlicensing": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"labsmobile": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"lagrowthmachine": {
+"score": 13,
+"shelf": "business",
+"top": false
+},
+"lakera_guard": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"landbot": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"langbase": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"langfuse": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"laposta": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"launch_darkly": {
+"score": 28,
+"shelf": "business",
+"top": false
+},
+"layerre": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"lc_cx": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"leadboxer": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"leadfeeder": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"leadiq": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"leadmagic": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"leadoku": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"leexi": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"legal_data_hunter_mcp": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"leiga": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"lemlist": {
+"score": 30,
+"shelf": "business",
+"top": false
+},
+"lemon_squeezy": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"lessonspace": {
+"score": 12,
+"shelf": "personal",
+"top": false
+},
+"lettr": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"lever": {
+"label": "Lever",
+"schemes": [
+"API_KEY",
+"OAUTH2"
+],
+"score": 41,
+"shelf": "business",
+"top": true
+},
+"leverly": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"lexoffice": {
+"label": "Lexoffice",
+"schemes": [
+"API_KEY"
+],
+"score": 32,
+"shelf": "business",
+"top": true
+},
+"lightspeed": {
+"score": 30,
+"shelf": "business",
+"top": false
+},
+"lilt_mcp": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"line": {
+"label": "LINE",
+"schemes": [
+"API_KEY"
+],
+"score": 38,
+"shelf": "business",
+"top": true
+},
+"linear": {
+"label": "Linear",
+"schemes": [
+"OAUTH2",
+"API_KEY"
+],
+"score": 62,
+"shelf": "business",
+"top": true
+},
+"linear_mcp": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"linguapop": {
+"score": 12,
+"shelf": "personal",
+"top": false
+},
+"linguin_ai": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"link_twin": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"linkedin": {
+"label": "LinkedIn",
+"schemes": [
+"OAUTH2"
+],
+"score": 83,
+"shelf": "business",
+"top": true
+},
+"linkedin_ads": {
+"score": 42,
+"shelf": "business",
+"top": false
+},
+"linkhut": {
+"score": 27,
+"shelf": "business",
+"top": false
+},
+"linkly": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"linkup": {
+"score": 28,
+"shelf": "business",
+"top": false
+},
+"listclean": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"listennotes": {
+"score": 31,
+"shelf": "personal",
+"top": false
+},
+"livesession": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"llmwhisperer": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"lmnt": {
+"score": 28,
+"shelf": "business",
+"top": false
+},
+"lob": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"lodgify": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"logo_dev": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"lokalise": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"longbridge_mcp": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"loomio": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"loops_so": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"loyverse": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"lucid_mcp": {
+"label": "Lucid",
+"schemes": [
+"DCR_OAUTH"
+],
+"score": 38,
+"shelf": "business",
+"top": true
+},
+"luma_labs": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"lumify": {
+"score": 12,
+"shelf": "personal",
+"top": false
+},
+"lusha": {
+"score": 30,
+"shelf": "business",
+"top": false
+},
+"lyzr": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"magic_hour": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"magic_patterns_mcp": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"magicslides": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"magnetic": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"mailbluster": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"mailboxlayer": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"mailboxvalidator": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"mailcheck": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"mailchimp": {
+"label": "Mailchimp",
+"schemes": [
+"OAUTH2"
+],
+"score": 78,
+"shelf": "business",
+"top": true
+},
+"mailcoach": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"maildroppa": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"mailercheck": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"mailercloud": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"mailerlite": {
+"label": "MailerLite",
+"schemes": [
+"API_KEY"
+],
+"score": 46,
+"shelf": "business",
+"top": true
+},
+"mailersend": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"mails_so": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"mailslurp": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"mailsoftly": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"mailtrap": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"maintainx": {
+"score": 26,
+"shelf": "business",
+"top": false
+},
+"make": {
+"label": "Make",
+"schemes": [
+"API_KEY"
+],
+"score": 33,
+"shelf": "business",
+"top": true
+},
+"malwarebytes_mcp": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"manus": {
+"score": 24,
+"shelf": "personal",
+"top": false
+},
+"manyreach": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"mapbox": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"mapflow": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"mapulus": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"marcopolo_mcp": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"marketstack": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"markup_ai": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"mathpix": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"matterport": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"maxio": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"melo": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"mem": {
+"score": 14,
+"shelf": "personal",
+"top": false
+},
+"mem0": {
+"score": 29,
+"shelf": "business",
+"top": false
+},
+"memberspot": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"memberstack": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"membervault": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"merchantpro": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"mercury_mcp": {
+"label": "Mercury",
+"schemes": [
+"DCR_OAUTH"
+],
+"score": 33,
+"shelf": "business",
+"top": true
+},
+"mermaid_chart_mcp": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"meshy": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"metaads": {
+"label": "Meta Ads",
+"schemes": [
+"OAUTH2",
+"API_KEY"
+],
+"score": 75,
+"shelf": "business",
+"top": true
+},
+"metabase": {
+"score": 24,
+"shelf": "business",
+"top": false
+},
+"metaphor": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"metatextai": {
+"score": 28,
+"shelf": "business",
+"top": false
+},
+"mezmo": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"microsoft_clarity": {
+"label": "Microsoft Clarity",
+"schemes": [
+"API_KEY"
+],
+"score": 41,
+"shelf": "business",
+"top": true
+},
+"microsoft_power_bi": {
+"score": 50,
+"shelf": "business",
+"top": false
+},
+"microsoft_teams": {
+"label": "Microsoft Teams",
+"schemes": [
+"OAUTH2",
+"S2S_OAUTH2"
+],
+"score": 91,
+"shelf": "business",
+"top": true
+},
+"microsoft_todo": {
+"score": 53,
+"shelf": "personal",
+"top": false
+},
+"midpage_mcp": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"mighty_networks": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"mihu_ai": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"mindbody": {
+"label": "Mindbody",
+"schemes": [
+"API_KEY"
+],
+"score": 33,
+"shelf": "business",
+"top": true
+},
+"minelead": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"minerstat": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"mintlify": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"mintlify_mcp": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"miro": {
+"label": "Miro",
+"schemes": [
+"OAUTH2"
+],
+"score": 67,
+"shelf": "business",
+"top": true
+},
+"missive": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"mistral_ai": {
+"score": 14,
+"shelf": "business",
+"top": false
+},
+"mixmax": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"mixpanel": {
+"label": "Mixpanel",
+"schemes": [
+"BASIC"
+],
+"score": 50,
+"shelf": "business",
+"top": true
+},
+"mobbin_mcp": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"mocean": {
+"score": 28,
+"shelf": "business",
+"top": false
+},
+"moco": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"modelry": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"modem": {
+"score": 11,
+"shelf": "business",
+"top": false
+},
+"modem_mcp": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"moderationapi": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"monday": {
+"label": "Monday",
+"schemes": [
+"OAUTH2"
+],
+"score": 75,
+"shelf": "business",
+"top": true
+},
+"monday_mcp": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"moneybird": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"mongodb_mcp": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"moonclerk": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"moosend": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"mopinion": {
+"score": 27,
+"shelf": "business",
+"top": false
+},
+"more_trees": {
+"score": 28,
+"shelf": "personal",
+"top": false
+},
+"mospi_mcp": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"motion": {
+"score": 29,
+"shelf": "personal",
+"top": false
+},
+"moz": {
+"label": "Moz",
+"schemes": [
+"API_KEY"
+],
+"score": 35,
+"shelf": "business",
+"top": true
+},
+"mrscraper": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"msg91": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"muapi": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"mural": {
+"label": "Mural",
+"schemes": [
+"OAUTH2"
+],
+"score": 37,
+"shelf": "business",
+"top": true
+},
+"mx_technologies": {
+"score": 12,
+"shelf": "business",
+"top": false
+},
+"mx_toolbox": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"myemailverifier": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"namsor": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"nango": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"nano_nets": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"nanonets_ocr": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"nasa": {
+"score": 15,
+"shelf": "personal",
+"top": false
+},
+"nasdaq": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"needle": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"neetoform": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"neo4j": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"neon": {
+"score": 29,
+"shelf": "business",
+"top": false
+},
+"neon_mcp": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"nethunt_crm": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"netlicensing": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"netlify_mcp": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"netsuite": {
+"score": 55,
+"shelf": "business",
+"top": false
+},
+"neuronwriter": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"neutrino": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"neverbounce": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"new_relic": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"news_api": {
+"score": 24,
+"shelf": "personal",
+"top": false
+},
+"nextdns": {
+"score": 15,
+"shelf": "personal",
+"top": false
+},
+"ngram": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"ngrok": {
+"score": 27,
+"shelf": "business",
+"top": false
+},
+"niftyimages": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"ninox": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"nmkr_studio": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"nocodb": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"nocrm_io": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"noloco": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"northflank": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"notebook_lm": {
+"label": "NotebookLM",
+"schemes": [
+"OAUTH2"
+],
+"score": 43,
+"shelf": "personal",
+"top": true
+},
+"notion": {
+"label": "Notion",
+"schemes": [
+"OAUTH2",
+"API_KEY"
+],
+"score": 83,
+"shelf": "personal",
+"top": true
+},
+"notion_mcp": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"nozbe_teams": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"npm": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"ntfy": {
+"score": 13,
+"shelf": "personal",
+"top": false
+},
+"nusii_proposals": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"nutrient_document_web_services_api": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"nutshell": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"nylas_mcp": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"ocean_io": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"ocr_web_service": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"ocrspace": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"octagon_mcp": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"odoo": {
+"label": "Odoo",
+"schemes": [
+"API_KEY"
+],
+"score": 37,
+"shelf": "business",
+"top": true
+},
+"oksign": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"okzest": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"ollama": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"olostep": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"omnisend": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"one_drive": {
+"label": "OneDrive",
+"schemes": [
+"OAUTH2",
+"S2S_OAUTH2"
+],
+"score": 84,
+"shelf": "personal",
+"top": true
+},
+"onedesk": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"onenote": {
+"score": 56,
+"shelf": "personal",
+"top": false
+},
+"onepage": {
+"score": 28,
+"shelf": "business",
+"top": false
+},
+"onesignal_rest_api": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"onesignal_user_auth": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"onesimpleapi": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"onetapcheckin": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"oneup": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"onlyoffice_docspace": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"onlysocial": {
+"score": 9,
+"shelf": "personal",
+"top": false
+},
+"open_register": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"open_sea": {
+"score": 26,
+"shelf": "business",
+"top": false
+},
+"openai": {
+"label": "OpenAI",
+"schemes": [
+"API_KEY"
+],
+"score": 40,
+"shelf": "business",
+"top": true
+},
+"openalex": {
+"score": 9,
+"shelf": "personal",
+"top": false
+},
+"opencage": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"openfunnel_agent_primitives": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"opengraph_io": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"openlayer": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"openperplex": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"openrouter": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"openui": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"openweather_api": {
+"score": 26,
+"shelf": "personal",
+"top": false
+},
+"openweb_ninja": {
+"score": 9,
+"shelf": "personal",
+"top": false
+},
+"opn_form": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"optimoroute": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"order_desk": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"ordinal": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"orgo": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"orshot": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"osv": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"otter_ai_mcp": {
+"label": "Otter.ai",
+"schemes": [
+"DCR_OAUTH"
+],
+"score": 43,
+"shelf": "business",
+"top": true
+},
+"outline": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"outlook": {
+"label": "Outlook",
+"schemes": [
+"OAUTH2",
+"S2S_OAUTH2"
+],
+"score": 93,
+"shelf": "personal",
+"top": true
+},
+"owl_protocol": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"page_vitals": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"page_x": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"pagerduty": {
+"label": "PagerDuty",
+"schemes": [
+"OAUTH2",
+"API_KEY"
+],
+"score": 41,
+"shelf": "business",
+"top": true
+},
+"pandadoc": {
+"label": "PandaDoc",
+"schemes": [
+"API_KEY"
+],
+"score": 49,
+"shelf": "business",
+"top": true
+},
+"pandadoc_mcp": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"paperform": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"paradym": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"parallel": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"parallel_task_mcp": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"parma": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"parsehub": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"parsera": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"parseur": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"parsio": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"parsio_io": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"particl_mcp": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"passcreator": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"passslot": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"paychasers": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"payhere": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"payhip": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"paypal": {
+"score": 59,
+"shelf": "business",
+"top": false
+},
+"paystack": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"pdf4me": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"pdf_api_io": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"pdf_blocks": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"pdf_co": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"pdf_munk": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"pdf_vector": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"pdfgen": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"pdfless": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"pdfmonkey": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"peaka": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"peec_ai_mcp": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"peerdom": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"penpot": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"peopledatalabs": {
+"score": 29,
+"shelf": "business",
+"top": false
+},
+"perigon": {
+"score": 8,
+"shelf": "personal",
+"top": false
+},
+"perplexityai": {
+"label": "Perplexity AI",
+"schemes": [
+"API_KEY"
+],
+"score": 49,
+"shelf": "personal",
+"top": true
+},
+"persistiq": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"persona": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"personio": {
+"score": 28,
+"shelf": "business",
+"top": false
+},
+"pexels": {
+"score": 19,
+"shelf": "personal",
+"top": false
+},
+"phantombuster": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"photoroom": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"picnie": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"piggy": {
+"score": 26,
+"shelf": "business",
+"top": false
+},
+"piloterr": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"pilvio": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"pinata": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"pinecone": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"pingdom": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"pinterest": {
+"label": "Pinterest",
+"schemes": [
+"OAUTH2"
+],
+"score": 65,
+"shelf": "personal",
+"top": true
+},
+"pinterest_ads": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"pipedrive": {
+"label": "Pipedrive",
+"schemes": [
+"OAUTH2",
+"API_KEY"
+],
+"score": 63,
+"shelf": "business",
+"top": true
+},
+"pipeless": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"pipeline_crm": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"placekey": {
+"score": 26,
+"shelf": "business",
+"top": false
+},
+"placid": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"plaid_mcp": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"plain": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"planly": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"planyo_online_booking": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"plasmic": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"platerecognizer": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"plausible_analytics": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"plisio": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"plivo": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"pneumatic": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"pocketsmith": {
+"score": 12,
+"shelf": "personal",
+"top": false
+},
+"pointagram": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"polar_signals_mcp": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"polygon": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"polygon_io": {
+"score": 8,
+"shelf": "business",
+"top": false
+},
+"polymarket": {
+"score": 28,
+"shelf": "personal",
+"top": false
+},
+"polymarket_us": {
+"score": 19,
+"shelf": "personal",
+"top": false
+},
+"poof": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"pophive_mcp": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"popupsmart": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"postal_data_api": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"postalytics": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"postgrid": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"postgrid_verify": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"posthog": {
+"label": "PostHog",
+"schemes": [
+"API_KEY"
+],
+"score": 47,
+"shelf": "business",
+"top": true
+},
+"posthog_mcp": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"postiz_mcp": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"postman": {
+"label": "Postman",
+"schemes": [
+"API_KEY"
+],
+"score": 36,
+"shelf": "business",
+"top": true
+},
+"postmark": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"postpone": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"predict_leads": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"prerender": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"presenton": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"printautopilot": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"printify": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"prisma": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"prismic": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"proabono": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"process_street": {
+"score": 27,
+"shelf": "business",
+"top": false
+},
+"procfu": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"productboard": {
+"label": "Productboard",
+"schemes": [
+"API_KEY",
+"OAUTH2"
+],
+"score": 32,
+"shelf": "business",
+"top": true
+},
+"productlane": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"project_bubble": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"prompt_hub": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"promptlayer": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"promptmate_io": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"proofly": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"prospeo": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"proxiedmail": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"pumble": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"purechecker": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"push_alert": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"push_by_techulus": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"pushbullet": {
+"score": 22,
+"shelf": "personal",
+"top": false
+},
+"pushinator": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"pushover": {
+"score": 19,
+"shelf": "personal",
+"top": false
+},
+"pylon_mcp": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"quaderno": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"quickbooks": {
+"label": "QuickBooks",
+"schemes": [
+"OAUTH2"
+],
+"score": 76,
+"shelf": "business",
+"top": true
+},
+"quicknode_mcp": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"quiltt": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"quintadb": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"quo": {
+"score": 31,
+"shelf": "business",
+"top": false
+},
+"radar": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"rafflys": {
+"score": 28,
+"shelf": "business",
+"top": false
+},
+"ragic": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"ragie": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"railway": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"railway_mcp": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"raindrop": {
+"score": 27,
+"shelf": "personal",
+"top": false
+},
+"raisely": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"ramp": {
+"score": 36,
+"shelf": "business",
+"top": false
+},
+"ramp_mcp": {
+"score": 7,
+"shelf": "business",
+"top": false
+},
+"rawg_video_games_database": {
+"score": 13,
+"shelf": "personal",
+"top": false
+},
+"razorpay": {
+"score": 30,
+"shelf": "business",
+"top": false
+},
+"re_amaze": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"read_ai_mcp": {
+"score": 30,
+"shelf": "business",
+"top": false
+},
+"readwise_reader": {
+"score": 30,
+"shelf": "personal",
+"top": false
+},
+"realphonevalidation": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"recallai": {
+"score": 28,
+"shelf": "business",
+"top": false
+},
+"recruitee": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"recurly": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"redcircle_api": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"reddit": {
+"label": "Reddit",
+"schemes": [
+"OAUTH2"
+],
+"score": 78,
+"shelf": "personal",
+"top": true
+},
+"reddit_ads": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"redirect_pizza": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"referralrock": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"refiner": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"reloadly": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"remarkety": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"remote_retrieval": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"remove_bg": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"render": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"renderform": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"rentman": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"repairshopr": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"replicate": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"reply": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"reply_io": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"request_tracker": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"resend": {
+"score": 22,
+"shelf": "business",
+"top": false
+},
+"resend_mcp": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"resource_planner": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"respond_io": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"retable": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"retailed": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"retellai": {
+"score": 28,
+"shelf": "business",
+"top": false
+},
+"reteno": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"retently": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"rev": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"rev_ai": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"revolt": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"ritekit": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"rize": {
+"score": 10,
+"shelf": "personal",
+"top": false
+},
+"rkvst": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"roam": {
+"score": 15,
+"shelf": "personal",
+"top": false
+},
+"roboflow": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"rocket_reach": {
+"score": 26,
+"shelf": "business",
+"top": false
+},
+"rocketadmin": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"rocketlane": {
+"score": 28,
+"shelf": "business",
+"top": false
+},
+"rollbar": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"rootly": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"rosette_text_analytics": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"route4me": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"rudderstack_transformation": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"runpod": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"runway": {
+"score": 27,
+"shelf": "personal",
+"top": false
+},
+"safetyculture": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"salesflare": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"salesforce": {
+"label": "Salesforce",
+"schemes": [
+"OAUTH2",
+"S2S_OAUTH2"
+],
+"score": 87,
+"shelf": "business",
+"top": true
+},
+"salesforce_service_cloud": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"salesmate": {
+"score": 6,
+"shelf": "business",
+"top": false
+},
+"salesrobot": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"sanity": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"sap_successfactors": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"saperly": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"satismeter": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"saucelabs": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"scale_ai": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"scheduleonce": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"scorecard_mcp": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"scrape_do": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"scrapecreators": {
+"score": 5,
+"shelf": "personal",
+"top": false
+},
+"scrapegraph_ai": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"scrapfly": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"scrapingant": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"scrapingbee": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"screenshot_api": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"screenshot_fyi": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"screenshotone": {
+"score": 27,
+"shelf": "business",
+"top": false
+},
+"seam": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"search_api": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"searchapi_mcp": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"seat_geek": {
+"score": 28,
+"shelf": "personal",
+"top": false
+},
+"seatable": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"sec": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"securitytrails": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"seek_table": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"segment": {
+"score": 30,
+"shelf": "business",
+"top": false
+},
+"segmetrics": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"semanticscholar": {
+"score": 28,
+"shelf": "business",
+"top": false
+},
+"semrush": {
+"label": "Semrush",
+"schemes": [
+"API_KEY"
+],
+"score": 50,
+"shelf": "business",
+"top": true
+},
+"semrush_mcp": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"sendbird": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"sendbird_ai_chabot": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"sender": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"sendfox": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"sendgrid": {
+"label": "SendGrid",
+"schemes": [
+"API_KEY"
+],
+"score": 52,
+"shelf": "business",
+"top": true
+},
+"sendlane": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"sendloop": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"sendspark": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"sensibo": {
+"score": 9,
+"shelf": "personal",
+"top": false
+},
+"sentry": {
+"label": "Sentry",
+"schemes": [
+"OAUTH2"
+],
+"score": 50,
+"shelf": "business",
+"top": true
+},
+"sentry_mcp": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"seqera": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"sequenzy": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"serpapi": {
+"label": "SerpApi",
+"schemes": [
+"API_KEY"
+],
+"score": 34,
+"shelf": "business",
+"top": true
+},
+"serpdog": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"serper": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"serphouse": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"serply": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"serveravatar": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"servicem8": {
+"score": 26,
+"shelf": "business",
+"top": false
+},
+"servicenow": {
+"label": "ServiceNow",
+"schemes": [
+"BASIC",
+"OAUTH2",
+"S2S_OAUTH2"
+],
+"score": 58,
+"shelf": "business",
+"top": true
+},
+"sevdesk": {
+"score": 18,
+"shelf": "business",
+"top": false
+},
+"seven_io": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"share_point": {
+"label": "SharePoint",
+"schemes": [
+"OAUTH2",
+"S2S_OAUTH2"
+],
+"score": 72,
+"shelf": "business",
+"top": true
+},
+"sharepoint_graph": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"shipday": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"shipengine": {
+"score": 21,
+"shelf": "business",
+"top": false
+},
+"shippo": {
+"score": 26,
+"shelf": "business",
+"top": false
+},
+"shopify": {
+"score": 84,
+"shelf": "business",
+"top": false
+},
+"short_io": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"short_menu": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"shortcut": {
+"score": 29,
+"shelf": "business",
+"top": false
+},
+"shorten_rest": {
+"score": 5,
+"shelf": "business",
+"top": false
+},
+"shortpixel": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"shotstack": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"sideshow": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"sideshow_mcp": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"sidetracker": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"signaturely": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"signpath": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"signwell": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"similarweb_digitalrank_api": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"simla_com": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"simple_analytics": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"simple_localize": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"simplekpi": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"simplero": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"simplesat": {
+"score": 27,
+"shelf": "business",
+"top": false
+},
+"simplescraper_mcp": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"siteleaf": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"sitespeakai": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"skyfire": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"skyvern": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"slack": {
+"label": "Slack",
+"schemes": [
+"OAUTH2"
+],
+"score": 93,
+"shelf": "business",
+"top": true
+},
+"slackbot": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"slazzer": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"slidesgpt_mcp": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"slite": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"smartlead": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"smartproxy": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"sms_alert": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"smtp2go": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"smugmug": {
+"score": 24,
+"shelf": "personal",
+"top": false
+},
+"snapchat": {
+"score": 60,
+"shelf": "personal",
+"top": false
+},
+"sncf": {
+"score": 4,
+"shelf": "personal",
+"top": false
+},
+"snowflake": {
+"score": 50,
+"shelf": "business",
+"top": false
+},
+"snowflake_basic": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"softr": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"solcast": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"soundcloud": {
+"score": 43,
+"shelf": "personal",
+"top": false
+},
+"sourcegraph": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"specific": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"speechmatics": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"splice_mcp": {
+"score": 4,
+"shelf": "personal",
+"top": false
+},
+"splitwise": {
+"label": "Splitwise",
+"schemes": [
+"OAUTH2",
+"API_KEY"
+],
+"score": 40,
+"shelf": "personal",
+"top": true
+},
+"spoki": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"spondyr": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"spotify": {
+"score": 77,
+"shelf": "personal",
+"top": false
+},
+"spotlightr": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"spydra": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"square": {
+"label": "Square",
+"schemes": [
+"OAUTH2"
+],
+"score": 73,
+"shelf": "business",
+"top": true
+},
+"sslmate_cert_spotter_api": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"stack_ai": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"stack_exchange": {
+"label": "Stack Exchange",
+"schemes": [
+"OAUTH2"
+],
+"score": 37,
+"shelf": "personal",
+"top": true
+},
+"stackby": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"stannp": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"starshipit": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"starton": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"statsig": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"statsig_mcp": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"statuscake": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"storeganise": {
+"score": 4,
+"shelf": "business",
+"top": false
+},
+"storerocket": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"stormboard": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"stormglass_io": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"storyblok": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"strale": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"streamtime": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"stripe": {
+"label": "Stripe",
+"schemes": [
+"API_KEY",
+"OAUTH2"
+],
+"score": 82,
+"shelf": "business",
+"top": true
+},
+"stripe_mcp": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"studio_by_ai21_labs": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"stytch_mcp": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"suitedash": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"supabase": {
+"label": "Supabase",
+"schemes": [
+"OAUTH2",
+"API_KEY"
+],
+"score": 53,
+"shelf": "business",
+"top": true
+},
+"supabase_mcp": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"supabase_read_mcp": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"supadata": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"superchat": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"supermemory": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"supersaas": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"supportbee": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"supportivekoala": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"surecontact": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"survey_monkey": {
+"label": "SurveyMonkey",
+"schemes": [
+"OAUTH2",
+"API_KEY"
+],
+"score": 58,
+"shelf": "business",
+"top": true
+},
+"svix": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"swaggerhub": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"swarmsyncai": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"sympla": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"synthesize_bio_mcp": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"synthflow_ai": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"tableau": {
+"label": "Tableau",
+"schemes": [
+"API_KEY"
+],
+"score": 37,
+"shelf": "business",
+"top": true
+},
+"taggun": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"tailscale": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"talenthr": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"tally": {
+"score": 25,
+"shelf": "business",
+"top": false
+},
+"tapfiliate": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"taskrabbit_mcp": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"tave": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"tavily": {
+"label": "Tavily",
+"schemes": [
+"API_KEY"
+],
+"score": 34,
+"shelf": "business",
+"top": true
+},
+"tavily_mcp": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"taxjar": {
+"score": 17,
+"shelf": "business",
+"top": false
+},
+"teamcamp": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"teamwork": {
+"score": 23,
+"shelf": "business",
+"top": false
+},
+"telegram": {
+"label": "Telegram",
+"schemes": [
+"API_KEY"
+],
+"score": 44,
+"shelf": "personal",
+"top": true
+},
+"telnyx": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"teltel": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"templated": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"temporal": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"test_app": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"text_to_pdf": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"textcortex": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"textit": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"textrazor": {
+"score": 26,
+"shelf": "business",
+"top": false
+},
+"thanks_io": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"the_odds_api": {
+"score": 12,
+"shelf": "personal",
+"top": false
+},
+"the_org": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"thecompaniesapi": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"theirstack": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"thoughtspot_spotter_mcp": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"ticket_tailor_mcp": {
+"score": 3,
+"shelf": "business",
+"top": false
+},
+"ticketmaster": {
+"label": "Ticketmaster",
+"schemes": [
+"API_KEY",
+"OAUTH2"
+],
+"score": 45,
+"shelf": "personal",
+"top": true
+},
+"ticktick": {
+"label": "Ticktick",
+"schemes": [
+"OAUTH2"
+],
+"score": 42,
+"shelf": "personal",
+"top": true
+},
+"tidb_cloud": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"tidy": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"tik_hub": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"tiktok": {
+"score": 71,
+"shelf": "personal",
+"top": false
+},
+"tiktok_ads": {
+"label": "TikTok Ads",
+"schemes": [
+"OAUTH2"
+],
+"score": 37,
+"shelf": "business",
+"top": true
+},
+"timecamp": {
+"score": 26,
+"shelf": "business",
+"top": false
+},
+"timelinesai": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"timelink": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"timely": {
+"score": 26,
+"shelf": "business",
+"top": false
+},
+"tinyfish": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"tinyfish_mcp": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"tinypng": {
+"score": 27,
+"shelf": "business",
+"top": false
+},
+"tinyurl": {
+"label": "Tinyurl",
+"schemes": [
+"API_KEY"
+],
+"score": 37,
+"shelf": "business",
+"top": true
+},
+"tisane": {
+"score": 27,
+"shelf": "business",
+"top": false
+},
+"tldv": {
+"score": 20,
+"shelf": "business",
+"top": false
+},
+"todoist": {
+"label": "Todoist",
+"schemes": [
+"OAUTH2"
+],
+"score": 64,
+"shelf": "personal",
+"top": true
+},
+"todoist_mcp": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"toggl": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"toggl_track": {
+"label": "Toggl Track",
+"schemes": [
+"API_KEY"
+],
+"score": 37,
+"shelf": "business",
+"top": true
+},
+"token_metrics": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"tomba": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"tomtom": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"toneden": {
+"score": 28,
+"shelf": "business",
+"top": false
+},
+"tpscheck": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"trackdesk": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"transloadit": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"trello": {
+"label": "Trello",
+"schemes": [
+"OAUTH1"
+],
+"score": 77,
+"shelf": "business",
+"top": true
+},
+"trigger_dev": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"triggercmd": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"tripadvisor": {
+"label": "Tripadvisor",
+"schemes": [
+"API_KEY"
+],
+"score": 45,
+"shelf": "personal",
+"top": true
+},
+"tripadvisor_content_api": {
+"score": 2,
+"shelf": "personal",
+"top": false
+},
+"tripo3d": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"trivago_mcp": {
+"score": 31,
+"shelf": "personal",
+"top": false
+},
+"true_list": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"truthscan": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"truvera": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"turbot_pipes": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"turso": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"twelve_data": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"twenty": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"twitch": {
+"label": "Twitch",
+"schemes": [
+"OAUTH2"
+],
+"score": 62,
+"shelf": "personal",
+"top": true
+},
+"twitter": {
+"score": 83,
+"shelf": "personal",
+"top": false
+},
+"twittershots": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"twocaptcha": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"typecast": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"typeform": {
+"label": "Typeform",
+"schemes": [
+"OAUTH2"
+],
+"score": 48,
+"shelf": "business",
+"top": true
+},
+"typefully": {
+"score": 26,
+"shelf": "business",
+"top": false
+},
+"typless": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"u301": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"unifi": {
+"score": 14,
+"shelf": "personal",
+"top": false
+},
+"unione": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"unipile": {
+"score": 2,
+"shelf": "personal",
+"top": false
+},
+"unisender": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"uniswap_api": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"updown_io": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"uplisting": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"upload_post": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"upload_to_url": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"uploadcare": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"uptimerobot": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"urlscanio": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"userflow": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"userlist": {
+"score": 2,
+"shelf": "business",
+"top": false
+},
+"v0": {
+"score": 19,
+"shelf": "business",
+"top": false
+},
+"vantage_mcp": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"vapi": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"vast_ai": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"vectorshift": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"veo": {
+"score": 19,
+"shelf": "personal",
+"top": false
+},
+"vercel": {
+"label": "Vercel",
+"schemes": [
+"OAUTH2",
+"API_KEY"
+],
+"score": 36,
+"shelf": "business",
+"top": true
+},
+"vercel_ai_gateway": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"vercel_mcp": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"verifi_email": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"verifiedemail": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"veriphone": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"veryfi": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"vestaboard": {
+"score": 6,
+"shelf": "personal",
+"top": false
+},
+"viator_mcp": {
+"score": 26,
+"shelf": "personal",
+"top": false
+},
+"vibe": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"vibe_prospecting_mcp": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"video_db": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"vidiq_mcp": {
+"score": 1,
+"shelf": "personal",
+"top": false
+},
+"vimeo": {
+"score": 39,
+"shelf": "personal",
+"top": false
+},
+"viral_loops": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"virustotal": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"visualping": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"vlm_run": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"voiceflow": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"waboxapp": {
+"score": 26,
+"shelf": "business",
+"top": false
+},
+"wachete": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"waiverfile": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"wakatime": {
+"score": 25,
+"shelf": "personal",
+"top": false
+},
+"wanikani": {
+"score": 9,
+"shelf": "personal",
+"top": false
+},
+"wati": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"weathermap": {
+"label": "OpenWeatherMap",
+"schemes": [
+"NO_AUTH"
+],
+"score": 47,
+"shelf": "personal",
+"top": true
+},
+"web3_career": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"webcrawlerapi": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"webex": {
+"label": "Webex",
+"schemes": [
+"OAUTH2"
+],
+"score": 58,
+"shelf": "business",
+"top": true
+},
+"webflow": {
+"label": "Webflow",
+"schemes": [
+"OAUTH2",
+"API_KEY"
+],
+"score": 49,
+"shelf": "business",
+"top": true
+},
+"webpushr": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"webscraper_io": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"webscraping_ai": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"webvizio": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"weights_and_biases": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"whatsapp": {
+"label": "WhatsApp",
+"schemes": [
+"OAUTH2",
+"API_KEY"
+],
+"score": 74,
+"shelf": "business",
+"top": true
+},
+"whautomate": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"whoisfreaks": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"whop": {
+"score": 16,
+"shelf": "business",
+"top": false
+},
+"wild_apricot": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"windsor_ai": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"winston_ai": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"wise": {
+"label": "Wise",
+"schemes": [
+"API_KEY"
+],
+"score": 39,
+"shelf": "personal",
+"top": true
+},
+"wisepops": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"wispr_flow_mcp": {
+"score": 19,
+"shelf": "personal",
+"top": false
+},
+"wistia": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"wit_ai": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"withpica": {
+"score": 1,
+"shelf": "personal",
+"top": false
+},
+"wix": {
+"label": "Wix",
+"schemes": [
+"OAUTH2",
+"API_KEY"
+],
+"score": 44,
+"shelf": "business",
+"top": true
+},
+"wix_mcp": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"wiza": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"wolfram_alpha_api": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"woodpecker_co": {
+"score": 1,
+"shelf": "business",
+"top": false
+},
+"woop_social": {
+"score": 0,
+"shelf": "personal",
+"top": false
+},
+"wordpress_com": {
+"score": 44,
+"shelf": "business",
+"top": false
+},
+"workable": {
+"score": 27,
+"shelf": "business",
+"top": false
+},
+"workday": {
+"score": 44,
+"shelf": "business",
+"top": false
+},
+"workday_raas": {
+"score": 0,
+"shelf": "business",
+"top": false
+},
+"workiom": {
+"score": 27,
+"shelf": "business",
+"top": false
+},
+"workiz": {
+"score": 0,
+"shelf": "business",
+"top": false
+},
+"workos": {
+"score": 0,
+"shelf": "business",
+"top": false
+},
+"worksnaps": {
+"score": 0,
+"shelf": "business",
+"top": false
+},
+"world_news_api": {
+"score": 9,
+"shelf": "personal",
+"top": false
+},
+"wrike": {
+"label": "Wrike",
+"schemes": [
+"OAUTH2"
+],
+"score": 50,
+"shelf": "business",
+"top": true
+},
+"writer": {
+"score": 0,
+"shelf": "business",
+"top": false
+},
+"wufoo": {
+"score": 0,
+"shelf": "business",
+"top": false
+},
+"xata": {
+"score": 0,
+"shelf": "business",
+"top": false
+},
+"xero": {
+"score": 68,
+"shelf": "business",
+"top": false
+},
+"y_gy": {
+"score": 0,
+"shelf": "business",
+"top": false
+},
+"yandex": {
+"label": "Yandex",
+"schemes": [
+"OAUTH2"
+],
+"score": 35,
+"shelf": "personal",
+"top": true
+},
+"yelp": {
+"label": "Yelp",
+"schemes": [
+"NO_AUTH"
+],
+"score": 49,
+"shelf": "personal",
+"top": true
+},
+"ynab": {
+"label": "YNAB",
+"schemes": [
+"OAUTH2"
+],
+"score": 43,
+"shelf": "personal",
+"top": true
+},
+"yousearch": {
+"score": 28,
+"shelf": "business",
+"top": false
+},
+"youtube": {
+"label": "YouTube",
+"schemes": [
+"OAUTH2"
+],
+"score": 94,
+"shelf": "personal",
+"top": true
+},
+"youtube_transcript": {
+"score": 19,
+"shelf": "personal",
+"top": false
+},
+"zendesk": {
+"label": "Zendesk",
+"schemes": [
+"OAUTH2"
+],
+"score": 74,
+"shelf": "business",
+"top": true
+},
+"zenrows": {
+"score": 28,
+"shelf": "business",
+"top": false
+},
+"zenserp": {
+"score": 26,
+"shelf": "business",
+"top": false
+},
+"zep": {
+"score": 0,
+"shelf": "business",
+"top": false
+},
+"zeplin": {
+"score": 10,
+"shelf": "business",
+"top": false
+},
+"zernio_mcp": {
+"score": 0,
+"shelf": "personal",
+"top": false
+},
+"zerobounce": {
+"score": 0,
+"shelf": "business",
+"top": false
+},
+"zigpoll": {
+"score": 0,
+"shelf": "business",
+"top": false
+},
+"ziprecruiter_mcp": {
+"score": 0,
+"shelf": "business",
+"top": false
+},
+"zixflow": {
+"score": 0,
+"shelf": "business",
+"top": false
+},
+"zoho": {
+"label": "Zoho",
+"schemes": [
+"OAUTH2"
+],
+"score": 64,
+"shelf": "business",
+"top": true
+},
+"zoho_bigin": {
+"label": "Zoho Bigin",
+"schemes": [
+"OAUTH2"
+],
+"score": 32,
+"shelf": "business",
+"top": true
+},
+"zoho_books": {
+"label": "Zoho Books",
+"schemes": [
+"OAUTH2"
+],
+"score": 46,
+"shelf": "business",
+"top": true
+},
+"zoho_desk": {
+"label": "Zoho Desk",
+"schemes": [
+"OAUTH2"
+],
+"score": 41,
+"shelf": "business",
+"top": true
+},
+"zoho_inventory": {
+"score": 29,
+"shelf": "business",
+"top": false
+},
+"zoho_invoice": {
+"label": "Zoho Invoice",
+"schemes": [
+"OAUTH2"
+],
+"score": 37,
+"shelf": "business",
+"top": true
+},
+"zoho_mail": {
+"label": "Zoho Mail",
+"schemes": [
+"OAUTH2"
+],
+"score": 45,
+"shelf": "business",
+"top": true
+},
+"zoom": {
+"label": "Zoom",
+"schemes": [
+"OAUTH2"
+],
+"score": 89,
+"shelf": "business",
+"top": true
+},
+"zoom_chat": {
+"score": 15,
+"shelf": "business",
+"top": false
+},
+"zoominfo": {
+"score": 49,
+"shelf": "business",
+"top": false
+},
+"zulip": {
+"score": 9,
+"shelf": "business",
+"top": false
+},
+"zylvie": {
+"score": 0,
+"shelf": "business",
+"top": false
+},
+"zyte_api": {
+"score": 0,
+"shelf": "business",
+"top": false
+}
+}
+}

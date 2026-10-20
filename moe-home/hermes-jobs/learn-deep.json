@@ -1,0 +1,11 @@
+{
+  "_comment": "Hermes cron job for the deep stage of the learn-me crawl. configure-hermes.py (install_jobs) copies moe-learn-deep.sh into $HERMES_HOME/scripts/ and registers this job through cron.jobs.create_job(**spec), keyed on its name; a later change to this spec is applied to the existing job. deliver `moe`: the script prints only when a person is needed (a failed pass), and that goes to the screen, not to a file under ~/.hermes/cron/output/ that nobody opens. Keys mirror create_job()'s parameters.",
+  "name": "moe-learn-deep",
+  "schedule": "every 1d",
+  "no_agent": true,
+  "script": "moe-learn-deep.sh",
+  "prompt": null,
+  "deliver": "moe",
+  "workdir": null,
+  "enabled_toolsets": null
+}

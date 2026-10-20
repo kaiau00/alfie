@@ -1,0 +1,94 @@
+{
+  "_": [
+    "Slice 4, the shell half: the gate itself, and the surface it reaches for",
+    "on a machine with no screen.",
+    "",
+    "The claim every one of these tests: the away branch can only ever refuse",
+    "what confirm.sh already refused. Before it existed, a runtime with no",
+    "moe-confirm and no /usr/bin/osascript exited 1 for every message. So the",
+    "bar is not 'does it approve when it should' -- it is 'is there any",
+    "arrangement of files and answers that approves when a person did not'.",
+    "",
+    "A NOTE ON BOUNDING, and it is the sixth way a round can look like success.",
+    "One of these mutants removes confirm-away.py's 'no ask directory is a",
+    "refusal' guard, which sends a test case into an unbounded 3,600-second",
+    "poll. On 2026-09-09 that wedged a round for forty minutes; the operator",
+    "killed it, and `if False:` was left sitting in the real gate on disk with",
+    "nothing failing. A mutation that removes a bound removes the SUITE's bound",
+    "with it -- the harness inherits its timeout from the code under test,",
+    "which is an oracle derived from the thing it guards, in the time",
+    "dimension. scripts/test-confirm-ui.sh's `away()` helper now sets",
+    "MOE_ASK_DEADLINE itself so no mutant can take the suite's clock away."
+  ],
+  "suite": [
+    "bash",
+    "scripts/test-confirm-ui.sh"
+  ],
+  "mutants": [
+    {
+      "_": [
+        "The whole safety argument rests on this line: the away branch is",
+        "reached only where the Mac's two dialogs are both absent. Fired",
+        "unconditionally, a Mac asks somebody's phone about a dialog it has",
+        "already shown them."
+      ],
+      "name": "the away branch fires on a Mac too",
+      "path": "moe-home/tools/confirm.sh",
+      "old": "  seam_away && return 0\n  [ -z \"$UI\" ] && [ ! -x /usr/bin/osascript ]",
+      "new": "  return 0"
+    },
+    {
+      "_": [
+        "Only exit 0 is a send. Anything else -- a denial, nobody",
+        "answering, a crash -- is a refusal."
+      ],
+      "name": "any exit from confirm-away.py is a send",
+      "path": "moe-home/tools/confirm.sh",
+      "old": "  if [ \"$AWAY_STATUS\" -eq 0 ]; then",
+      "new": "  if [ \"$AWAY_STATUS\" -ge 0 ]; then"
+    },
+    {
+      "_": [
+        "Half an image is the shape the three file lists get wrong. A",
+        "refusal that does not name the missing file is what made a",
+        "withheld connector read as a broken one."
+      ],
+      "name": "a missing confirm-away.py is refused without saying which file",
+      "path": "moe-home/tools/confirm.sh",
+      "old": "    echo \"not sent — there is no way to ask you about this from here (no dialog, and no $HERE/confirm-away.py)\" >&2",
+      "new": "    echo \"not sent\" >&2"
+    },
+    {
+      "_": [
+        "An answer that is not the word is not consent. 'yes', 'ok',",
+        "'Send', a half-written file -- a gate that reads any of them as a",
+        "yes is not a gate."
+      ],
+      "name": "any non-empty answer is consent",
+      "path": "moe-home/tools/confirm-away.py",
+      "old": "            if answer == APPROVED:",
+      "new": "            if answer:"
+    },
+    {
+      "_": [
+        "A directory carrying a verdict before the question was asked is",
+        "the shape a replay takes, and refusing it costs one stat."
+      ],
+      "name": "an answer that predates the question is honoured",
+      "path": "moe-home/tools/confirm-away.py",
+      "old": "    if os.path.exists(answer_path):",
+      "new": "    if False:"
+    },
+    {
+      "_": [
+        "No caller minted a place to ask in, so there is no question to put",
+        "and nothing may be sent. This is the mutant that wedged the round",
+        "described above."
+      ],
+      "name": "no ask directory is not a refusal",
+      "path": "moe-home/tools/confirm-away.py",
+      "old": "    if not where or not os.path.isdir(where):",
+      "new": "    if False:"
+    }
+  ]
+}

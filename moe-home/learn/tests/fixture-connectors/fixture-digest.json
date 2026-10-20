@@ -1,0 +1,11 @@
+{
+  "claims": [
+    {"file": "people", "key": "person:sam", "text": "**Sam** — works with the user on the office lease; terse, practical exchanges", "date": "2026-07-15", "confidence": "high"},
+    {"file": "people", "key": "person:kim", "text": "**Kim** — family; organises dinners and childcare with the user", "date": "2026-08-20", "confidence": "high"},
+    {"file": "threads", "kind": "event", "key": "thread:office-lease", "text": "Office lease renewal: counter-offer accepted, the new term runs from 2026-09-01", "date": "2026-07-15", "occurred_start": "2026-09-01", "occurred_end": "2026-09-30", "confidence": "high"},
+    {"file": "identity", "key": "identity:family", "text": "Has children; shares pickups with Kim", "date": "2026-08-20", "confidence": "med"},
+    {"file": "voice", "key": "voice:chat", "text": "In chat: lowercase, short, no full stops, signs off to family with an x", "date": "2026-08-20", "confidence": "high"},
+    {"file": "preferences", "key": "pref:secrets", "text": "Never shares passwords in a group, even as a joke", "date": "2026-06-03", "confidence": "low"}
+  ],
+  "questions": ["Is Kim a sibling or a partner?"]
+}

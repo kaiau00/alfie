@@ -1,0 +1,14 @@
+# Apple Notes via AppleScript — recently modified notes with a snippet.
+name=notes
+label=Apple Notes
+verbs=status pull crawl create items
+cadence=10m
+deep_crawl=yes
+auth=local
+runs_in=mac
+cost=cheap
+context_file=notes
+# What `create` takes: one JSON object on stdin, never argv (a note is
+# private; `ps` is not). Both required — a note with no title is the mistake
+# every time, and one with no body is not a note.
+create_stdin=title* body*

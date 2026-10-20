@@ -1,0 +1,78 @@
+# "Hey Moe" for Moe's voice mode (VOICE-PLAN.md §4.1), through
+# livekit-wakeword 0.2.1. Sized for an M-series Mac with 16 GB: prod.yaml's
+# recipe (medium conv-attention, ACAV negatives, heavy negative weight) at
+# half the clip count and two augmentation rounds instead of three.
+model_name: hey_moe
+target_phrases:
+  - "hey moe"
+  - "hey mo"
+  - "hey mow"
+
+# Things that sound like it and must not fire. The generator also derives
+# phoneme-neighbour negatives on its own (hey no / hey joe / moe …).
+custom_negative_phrases:
+  - "moe"
+  - "mo"
+  - "hey"
+  - "hey no"
+  - "hey joe"
+  - "hey bro"
+  - "hey mom"
+  - "hey mama"
+  - "hey more"
+  - "hey mode"
+  - "hey mobile"
+  - "hey motion"
+  - "hey moses"
+  - "hey moment"
+  - "hey though"
+  - "hey yo"
+  - "hey you"
+  - "hello"
+  - "okay so"
+  - "a mow"
+  - "say mo"
+  - "they know"
+  - "hey moe's"
+
+# No ACAV100M (CC-BY-NC-SA, and the 16 GB download failed twice): the
+# general-speech negative class is LibriSpeech test-clean (5.4 h, CC-BY-4.0)
+# through the background path, weighted up in the batch to stand in for it.
+n_samples: 12000
+n_samples_val: 2500
+n_background_samples: 20000
+n_background_samples_val: 2000
+tts_batch_size: 50
+tts_backend: piper_vits
+
+data_dir: ./data
+output_dir: ./output
+output_format: onnx
+
+augmentation:
+  clip_duration: 2.0
+  batch_size: 16
+  rounds: 2
+  background_paths:
+    - ./data/backgrounds
+    - ./data/librispeech-test-clean
+    - ./data/librispeech-other
+    - ./data/ami
+  rir_paths:
+    - ./data/rirs
+
+model:
+  model_type: conv_attention
+  model_size: medium
+
+steps: 100000
+learning_rate: 0.0001
+weight_decay: 0.01
+label_smoothing: 0.05
+max_negative_weight: 3000
+target_fp_per_hour: 0.1
+batch_n_per_class:
+  positive: 50
+  adversarial_negative: 50
+  ACAV100M_sample: 1024
+  background_noise: 600

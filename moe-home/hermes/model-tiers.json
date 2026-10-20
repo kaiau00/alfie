@@ -1,0 +1,15 @@
+{
+  "_what": "The cheapest model each brain provider serves, for work nobody is waiting on: the meeting's live action-item scan, recap, captions and notes delivery (Swift, MoeBrain/ModelTiers.swift), and Hermes's cron.model and auxiliary.background_review (configure-hermes.py). One table, read by both; ModelTiersTests fails when the Swift copy drifts from this file. A provider missing here (a custom endpoint, LM Studio, a local server) has no list to choose from, so its cheap work stays on the model the person chose.",
+  "_sources": "claude-code-cli haiku: served on the owner's Claude plan (62 haiku turns in ~/.hermes/claude-code/projects, 2026-09-11..15). deepseek-v4-flash: answered 200 on the live key 2026-09-04 (configure-hermes.py AUX_MODEL). The rest are the smallest entry in Moe's curated list (BrainProviderKind.curatedModels) or Hermes's own table (hermes_cli/models.py, codex_models.py), not retyped from a vendor page; a request that fails on one falls back to the chosen model (HermesMeetingBrain).",
+  "cheapest": {
+    "claude-code-cli": "haiku",
+    "claude-code": "haiku",
+    "openai-codex": "gpt-5.4-mini",
+    "anthropic": "claude-haiku-4-5-20251001",
+    "openai-api": "gpt-5.4-nano",
+    "openrouter": "deepseek/deepseek-v4-flash",
+    "gemini": "gemini-3.1-flash-lite-preview",
+    "deepseek": "deepseek-v4-flash",
+    "xai": "grok-4.20-0309-non-reasoning"
+  }
+}

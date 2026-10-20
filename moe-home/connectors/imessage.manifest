@@ -1,0 +1,11 @@
+# iMessage + SMS from ~/Library/Messages/chat.db. Mac only, needs Full Disk Access.
+name=imessage
+label=Messages (iMessage + SMS)
+verbs=status pull crawl items
+cadence=10m
+deep_crawl=yes
+auth=local
+runs_in=mac
+cost=cheap
+# sync.sh has always written this as context/messages.md; keep it that way.
+context_file=messages

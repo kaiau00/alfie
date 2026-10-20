@@ -1,0 +1,26 @@
+# The contents of the Google Docs, Sheets and Slides the user picked, over
+# the one Google scope classified NON-SENSITIVE: drive.file. No unverified-app
+# warning, no verification review, no CASA, no 100-user cap — and no access to
+# anything the user did not tick in Google's own picker.
+#
+# The companion to `drive`, not a replacement: `drive` reads the synced folder
+# off the disk and can only ever see a native Google file as a link, because
+# that is all Drive for Desktop writes. This one exports the contents.
+#
+# runs_in=both is literal: a refresh token and a list of file ids is the whole
+# state, and files.export is a plain HTTPS call. Nothing here touches the Mac.
+# Hourly: a picked document changes when someone edits it, not every ten
+# minutes, and every pull is one API call per document.
+name=drive-docs
+label=Google Docs and Sheets
+verbs=status pull crawl
+cadence=1h
+deep_crawl=yes
+auth=oauth
+runs_in=both
+cost=cheap
+context_file=drive-docs
+# The same service through Composio. When this route is not set up and
+# Composio has it, the tools say so rather than "not connected"
+# (moe-connectors composio_connected).
+composio=googledocs googlesheets googleslides googledrive

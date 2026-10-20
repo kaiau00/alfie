@@ -1,0 +1,11 @@
+{
+  "_comment": "The weekly 'what I learned about you' note (docs/PROACTIVE-MEMORY-STATUS.md #9; owner 2026-09-29: Sunday morning on the island, and the chat apps when reminders go there). Hourly, no agent, no model: moe-weekly-digest.py sends once a week, the first look on Sunday from 9 in the morning in the person's own time, and only when something was learned. Delivered through moe-screen deliver (the island; the ticked chats; quiet hours). Mac only. stdout stays empty.",
+  "name": "moe-weekly-digest",
+  "schedule": "every 1h",
+  "no_agent": true,
+  "script": "moe-weekly-digest.py",
+  "prompt": null,
+  "deliver": "moe",
+  "workdir": null,
+  "enabled_toolsets": null
+}

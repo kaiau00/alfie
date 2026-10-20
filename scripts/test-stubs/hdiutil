@@ -1,0 +1,20 @@
+#!/bin/bash
+# Stub for /usr/bin/hdiutil, used by scripts/test-release.sh. Records argv to
+# $MOE_STUB_LOG; `create` writes a placeholder file at the -o/-ov output path
+# so the caller can hash and list it.
+printf '%s\n' "$*" >> "${MOE_STUB_LOG:-/dev/null}"
+case "${1:-}" in
+  create)
+    out=""
+    for a in "$@"; do out="$a"; done          # the real tool takes the image path last
+    printf 'stub dmg\n' > "$out"
+    echo "created: $out" ;;
+  convert)
+    # `convert <in> -format X -o <out>`: the output follows -o.
+    out=""; prev=""
+    for a in "$@"; do [ "$prev" = "-o" ] && out="$a"; prev="$a"; done
+    [ -n "$out" ] || { echo "stub hdiutil: convert without -o: $*" >&2; exit 2; }
+    printf 'stub dmg (converted)\n' > "$out"
+    echo "converted: $out" ;;
+  *) echo "stub hdiutil: unexpected: $*" >&2; exit 2 ;;
+esac

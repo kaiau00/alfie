@@ -1,0 +1,1184 @@
+{
+  "note": "Shared conformance vectors for Moe's claim records. Read by moe-home/hermes-plugins/claimstore/tests/test_conformance.py and Tests/MoeLedgerTests/ClaimConformanceTests.swift. Regenerate with tests/make_conformance.py.",
+  "claim_ids": [
+    {
+      "target": "memory",
+      "text": "The build needs Python 3.11.",
+      "normalised": "The build needs Python 3.11.",
+      "id": "1c6ff3adf3f9"
+    },
+    {
+      "target": "memory",
+      "text": "  The   build  needs Python 3.11.  ",
+      "normalised": "The build needs Python 3.11.",
+      "id": "1c6ff3adf3f9"
+    },
+    {
+      "target": "user",
+      "text": "The build needs Python 3.11.",
+      "normalised": "The build needs Python 3.11.",
+      "id": "b4f20d9cf5ad"
+    },
+    {
+      "target": "memory",
+      "text": "",
+      "normalised": "",
+      "id": "a6552a4630f9"
+    },
+    {
+      "target": "memory",
+      "text": "\n\n",
+      "normalised": "",
+      "id": "a6552a4630f9"
+    },
+    {
+      "target": "memory",
+      "text": "a\r\nb",
+      "normalised": "a b",
+      "id": "5012c3867516"
+    },
+    {
+      "target": "memory",
+      "text": "a\u000bb\fc",
+      "normalised": "a b c",
+      "id": "76554013133a"
+    },
+    {
+      "target": "memory",
+      "text": "He said \"hi\" \\ and pointed at a/b —\nnaïve, 日本語, 🍍42",
+      "normalised": "He said \"hi\" \\ and pointed at a/b — naïve, 日本語, 🍍42",
+      "id": "ca0555fe5a29"
+    },
+    {
+      "target": "memory",
+      "text": " nbsp is not whitespace here ",
+      "normalised": " nbsp is not whitespace here ",
+      "id": "80dbd2709c68"
+    }
+  ],
+  "cases": [
+    {
+      "name": "two-unrelated-claims",
+      "why": "No topic key on either, so neither can contend with the other.",
+      "target": "memory",
+      "records": [
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:01.000Z",
+          "device": "mac-9f3c1a2b",
+          "seq": 1,
+          "after": [],
+          "body": {
+            "op": "assert",
+            "claim": "e026f1c5239c",
+            "target": "memory",
+            "source": "user",
+            "text": "deploys run on Fridays"
+          },
+          "id": "bd0f0215363e2123f0b6b7708f52d49b"
+        },
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:02.000Z",
+          "device": "cloud-w7",
+          "seq": 1,
+          "after": [],
+          "body": {
+            "op": "assert",
+            "claim": "ada0fdcb276d",
+            "target": "memory",
+            "source": "gmail",
+            "text": "the office is in Frankfurt"
+          },
+          "id": "c18b20ff7514da509f1793434e2aa695"
+        }
+      ],
+      "expect": {
+        "live": [
+          "deploys run on Fridays",
+          "the office is in Frankfurt"
+        ],
+        "live_sources": [
+          "user",
+          "gmail"
+        ],
+        "superseded": [],
+        "disagreements": [],
+        "pending_revivals": []
+      }
+    },
+    {
+      "name": "two-devices-learn-the-same-fact",
+      "why": "§3.1 rule 1. Two records, one claim id: convergence with no merge step. The digest shows it once, and the words are the later record's.",
+      "target": "memory",
+      "records": [
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:01.000Z",
+          "device": "mac-9f3c1a2b",
+          "seq": 1,
+          "after": [],
+          "body": {
+            "op": "assert",
+            "claim": "db10545d7597",
+            "target": "memory",
+            "source": "imessage",
+            "text": "Naomi is my daughter"
+          },
+          "id": "b6bdb1c8d25a709bdfc76e53952e8330"
+        },
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:02.000Z",
+          "device": "cloud-w7",
+          "seq": 1,
+          "after": [],
+          "body": {
+            "op": "assert",
+            "claim": "db10545d7597",
+            "target": "memory",
+            "source": "imessage",
+            "text": "Naomi   is my daughter"
+          },
+          "id": "186499e4ab5aa51c6c78a8626a821a10"
+        }
+      ],
+      "expect": {
+        "live": [
+          "Naomi   is my daughter"
+        ],
+        "live_sources": [
+          "imessage"
+        ],
+        "superseded": [],
+        "disagreements": [],
+        "pending_revivals": []
+      }
+    },
+    {
+      "name": "a-retraction-suppresses-what-never-heard-of-it",
+      "why": "§3.1's tombstone amendment. The re-assert is concurrent with the retraction (it names nothing after it), so it is suppressed — and a crawl source could not revive it even if it were causally after.",
+      "target": "memory",
+      "records": [
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:01.000Z",
+          "device": "mac-9f3c1a2b",
+          "seq": 1,
+          "after": [],
+          "body": {
+            "op": "assert",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "user",
+            "text": "I work at Kaplan"
+          },
+          "id": "94b294ad8d160a8a1e137e2e5f157316"
+        },
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:02.000Z",
+          "device": "cloud-w7",
+          "seq": 1,
+          "after": [
+            "94b294ad8d160a8a1e137e2e5f157316"
+          ],
+          "body": {
+            "op": "retract",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "user"
+          },
+          "id": "e174897145ca2c8d97b72b0b75bb70f1"
+        },
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:03.000Z",
+          "device": "mac-9f3c1a2b",
+          "seq": 2,
+          "after": [],
+          "body": {
+            "op": "assert",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "imessage",
+            "text": "I work at Kaplan"
+          },
+          "prev": "94b294ad8d160a8a1e137e2e5f157316",
+          "id": "24d831bfa958131c69bffd57d8d47a8a"
+        }
+      ],
+      "expect": {
+        "live": [],
+        "live_sources": [],
+        "superseded": [],
+        "disagreements": [],
+        "pending_revivals": []
+      }
+    },
+    {
+      "name": "restated-after-deletion-by-user",
+      "why": "the person, through whatever surface. §3.1's own worked example: deleted on the phone on Tuesday, said again to the Mac on Wednesday. Revives: True.",
+      "target": "memory",
+      "records": [
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:01.000Z",
+          "device": "mac-9f3c1a2b",
+          "seq": 1,
+          "after": [],
+          "body": {
+            "op": "assert",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "imessage",
+            "text": "I work at Kaplan"
+          },
+          "id": "d7b2d8919c929d67bc5e3b6f53e9cedc"
+        },
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:02.000Z",
+          "device": "cloud-w7",
+          "seq": 1,
+          "after": [
+            "d7b2d8919c929d67bc5e3b6f53e9cedc"
+          ],
+          "body": {
+            "op": "retract",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "user"
+          },
+          "id": "3679a05b904a7158858644c1eeefd313"
+        },
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:03.000Z",
+          "device": "mac-9f3c1a2b",
+          "seq": 2,
+          "after": [
+            "3679a05b904a7158858644c1eeefd313"
+          ],
+          "body": {
+            "op": "assert",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "user",
+            "text": "I work at Kaplan"
+          },
+          "prev": "d7b2d8919c929d67bc5e3b6f53e9cedc",
+          "id": "03b67f21a5cc997c1a0424e1f52e0256"
+        }
+      ],
+      "expect": {
+        "live": [
+          "I work at Kaplan"
+        ],
+        "live_sources": [
+          "user"
+        ],
+        "superseded": [],
+        "disagreements": [],
+        "pending_revivals": []
+      }
+    },
+    {
+      "name": "restated-after-deletion-by-user-memory-pane",
+      "why": "a surface that names itself. Still the person, and it says where. Revives: True.",
+      "target": "memory",
+      "records": [
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:01.000Z",
+          "device": "mac-9f3c1a2b",
+          "seq": 1,
+          "after": [],
+          "body": {
+            "op": "assert",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "imessage",
+            "text": "I work at Kaplan"
+          },
+          "id": "d7b2d8919c929d67bc5e3b6f53e9cedc"
+        },
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:02.000Z",
+          "device": "cloud-w7",
+          "seq": 1,
+          "after": [
+            "d7b2d8919c929d67bc5e3b6f53e9cedc"
+          ],
+          "body": {
+            "op": "retract",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "user"
+          },
+          "id": "3679a05b904a7158858644c1eeefd313"
+        },
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:03.000Z",
+          "device": "mac-9f3c1a2b",
+          "seq": 2,
+          "after": [
+            "3679a05b904a7158858644c1eeefd313"
+          ],
+          "body": {
+            "op": "assert",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "user:memory-pane",
+            "text": "I work at Kaplan"
+          },
+          "prev": "d7b2d8919c929d67bc5e3b6f53e9cedc",
+          "id": "af752ed5071eb10dc41acb9e8d351307"
+        }
+      ],
+      "expect": {
+        "live": [
+          "I work at Kaplan"
+        ],
+        "live_sources": [
+          "user:memory-pane"
+        ],
+        "superseded": [],
+        "disagreements": [],
+        "pending_revivals": []
+      }
+    },
+    {
+      "name": "restated-after-deletion-by-hermes-assistant_tool",
+      "why": "the model, on its own initiative — Hermes's DEFAULT write_origin. This is the one that must not revive: nobody asked. Revives: False.",
+      "target": "memory",
+      "records": [
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:01.000Z",
+          "device": "mac-9f3c1a2b",
+          "seq": 1,
+          "after": [],
+          "body": {
+            "op": "assert",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "imessage",
+            "text": "I work at Kaplan"
+          },
+          "id": "d7b2d8919c929d67bc5e3b6f53e9cedc"
+        },
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:02.000Z",
+          "device": "cloud-w7",
+          "seq": 1,
+          "after": [
+            "d7b2d8919c929d67bc5e3b6f53e9cedc"
+          ],
+          "body": {
+            "op": "retract",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "user"
+          },
+          "id": "3679a05b904a7158858644c1eeefd313"
+        },
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:03.000Z",
+          "device": "mac-9f3c1a2b",
+          "seq": 2,
+          "after": [
+            "3679a05b904a7158858644c1eeefd313"
+          ],
+          "body": {
+            "op": "assert",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "hermes:assistant_tool",
+            "text": "I work at Kaplan"
+          },
+          "prev": "d7b2d8919c929d67bc5e3b6f53e9cedc",
+          "id": "a8e22c48d1f4c51050c32b9ad1ed3a18"
+        }
+      ],
+      "expect": {
+        "live": [],
+        "live_sources": [],
+        "superseded": [],
+        "disagreements": [],
+        "pending_revivals": [
+          {
+            "source": "hermes:assistant_tool",
+            "text": "I work at Kaplan"
+          }
+        ]
+      }
+    },
+    {
+      "name": "restated-after-deletion-by-hermes-background_review",
+      "why": "a background pass over the transcript. Nobody asked. Revives: False.",
+      "target": "memory",
+      "records": [
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:01.000Z",
+          "device": "mac-9f3c1a2b",
+          "seq": 1,
+          "after": [],
+          "body": {
+            "op": "assert",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "imessage",
+            "text": "I work at Kaplan"
+          },
+          "id": "d7b2d8919c929d67bc5e3b6f53e9cedc"
+        },
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:02.000Z",
+          "device": "cloud-w7",
+          "seq": 1,
+          "after": [
+            "d7b2d8919c929d67bc5e3b6f53e9cedc"
+          ],
+          "body": {
+            "op": "retract",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "user"
+          },
+          "id": "3679a05b904a7158858644c1eeefd313"
+        },
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:03.000Z",
+          "device": "mac-9f3c1a2b",
+          "seq": 2,
+          "after": [
+            "3679a05b904a7158858644c1eeefd313"
+          ],
+          "body": {
+            "op": "assert",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "hermes:background_review",
+            "text": "I work at Kaplan"
+          },
+          "prev": "d7b2d8919c929d67bc5e3b6f53e9cedc",
+          "id": "491f03406d81ee2290b2d65dc6013ebb"
+        }
+      ],
+      "expect": {
+        "live": [],
+        "live_sources": [],
+        "superseded": [],
+        "disagreements": [],
+        "pending_revivals": [
+          {
+            "source": "hermes:background_review",
+            "text": "I work at Kaplan"
+          }
+        ]
+      }
+    },
+    {
+      "name": "restated-after-deletion-by-hermes-side_question",
+      "why": "a side question's own agent. Nobody asked. Revives: False.",
+      "target": "memory",
+      "records": [
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:01.000Z",
+          "device": "mac-9f3c1a2b",
+          "seq": 1,
+          "after": [],
+          "body": {
+            "op": "assert",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "imessage",
+            "text": "I work at Kaplan"
+          },
+          "id": "d7b2d8919c929d67bc5e3b6f53e9cedc"
+        },
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:02.000Z",
+          "device": "cloud-w7",
+          "seq": 1,
+          "after": [
+            "d7b2d8919c929d67bc5e3b6f53e9cedc"
+          ],
+          "body": {
+            "op": "retract",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "user"
+          },
+          "id": "3679a05b904a7158858644c1eeefd313"
+        },
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:03.000Z",
+          "device": "mac-9f3c1a2b",
+          "seq": 2,
+          "after": [
+            "3679a05b904a7158858644c1eeefd313"
+          ],
+          "body": {
+            "op": "assert",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "hermes:side_question",
+            "text": "I work at Kaplan"
+          },
+          "prev": "d7b2d8919c929d67bc5e3b6f53e9cedc",
+          "id": "b964a817c82186774f68b3132f507eff"
+        }
+      ],
+      "expect": {
+        "live": [],
+        "live_sources": [],
+        "superseded": [],
+        "disagreements": [],
+        "pending_revivals": [
+          {
+            "source": "hermes:side_question",
+            "text": "I work at Kaplan"
+          }
+        ]
+      }
+    },
+    {
+      "name": "restated-after-deletion-by-gmail",
+      "why": "a crawl re-deriving what it derived before (§3.1). Revives: False.",
+      "target": "memory",
+      "records": [
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:01.000Z",
+          "device": "mac-9f3c1a2b",
+          "seq": 1,
+          "after": [],
+          "body": {
+            "op": "assert",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "imessage",
+            "text": "I work at Kaplan"
+          },
+          "id": "d7b2d8919c929d67bc5e3b6f53e9cedc"
+        },
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:02.000Z",
+          "device": "cloud-w7",
+          "seq": 1,
+          "after": [
+            "d7b2d8919c929d67bc5e3b6f53e9cedc"
+          ],
+          "body": {
+            "op": "retract",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "user"
+          },
+          "id": "3679a05b904a7158858644c1eeefd313"
+        },
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:03.000Z",
+          "device": "mac-9f3c1a2b",
+          "seq": 2,
+          "after": [
+            "3679a05b904a7158858644c1eeefd313"
+          ],
+          "body": {
+            "op": "assert",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "gmail",
+            "text": "I work at Kaplan"
+          },
+          "prev": "d7b2d8919c929d67bc5e3b6f53e9cedc",
+          "id": "41cc86bef37eff2084768942d4c95837"
+        }
+      ],
+      "expect": {
+        "live": [],
+        "live_sources": [],
+        "superseded": [],
+        "disagreements": [],
+        "pending_revivals": [
+          {
+            "source": "gmail",
+            "text": "I work at Kaplan"
+          }
+        ]
+      }
+    },
+    {
+      "name": "restated-after-deletion-by-file",
+      "why": "absorbed from MEMORY.md. Could be a person retyping it, could be a stale file; the bytes are identical, so it is asked rather than guessed (§14.3). Revives: False.",
+      "target": "memory",
+      "records": [
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:01.000Z",
+          "device": "mac-9f3c1a2b",
+          "seq": 1,
+          "after": [],
+          "body": {
+            "op": "assert",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "imessage",
+            "text": "I work at Kaplan"
+          },
+          "id": "d7b2d8919c929d67bc5e3b6f53e9cedc"
+        },
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:02.000Z",
+          "device": "cloud-w7",
+          "seq": 1,
+          "after": [
+            "d7b2d8919c929d67bc5e3b6f53e9cedc"
+          ],
+          "body": {
+            "op": "retract",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "user"
+          },
+          "id": "3679a05b904a7158858644c1eeefd313"
+        },
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:03.000Z",
+          "device": "mac-9f3c1a2b",
+          "seq": 2,
+          "after": [
+            "3679a05b904a7158858644c1eeefd313"
+          ],
+          "body": {
+            "op": "assert",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "file",
+            "text": "I work at Kaplan"
+          },
+          "prev": "d7b2d8919c929d67bc5e3b6f53e9cedc",
+          "id": "7b037e071333e5917772d162cecdeee4"
+        }
+      ],
+      "expect": {
+        "live": [],
+        "live_sources": [],
+        "superseded": [],
+        "disagreements": [],
+        "pending_revivals": [
+          {
+            "source": "file",
+            "text": "I work at Kaplan"
+          }
+        ]
+      }
+    },
+    {
+      "name": "restated-after-deletion-by-unknown",
+      "why": "a writer that did not say. The default is to ask. Revives: False.",
+      "target": "memory",
+      "records": [
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:01.000Z",
+          "device": "mac-9f3c1a2b",
+          "seq": 1,
+          "after": [],
+          "body": {
+            "op": "assert",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "imessage",
+            "text": "I work at Kaplan"
+          },
+          "id": "d7b2d8919c929d67bc5e3b6f53e9cedc"
+        },
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:02.000Z",
+          "device": "cloud-w7",
+          "seq": 1,
+          "after": [
+            "d7b2d8919c929d67bc5e3b6f53e9cedc"
+          ],
+          "body": {
+            "op": "retract",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "user"
+          },
+          "id": "3679a05b904a7158858644c1eeefd313"
+        },
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:03.000Z",
+          "device": "mac-9f3c1a2b",
+          "seq": 2,
+          "after": [
+            "3679a05b904a7158858644c1eeefd313"
+          ],
+          "body": {
+            "op": "assert",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "unknown",
+            "text": "I work at Kaplan"
+          },
+          "prev": "d7b2d8919c929d67bc5e3b6f53e9cedc",
+          "id": "a6a67e536b3afff46b562b72bd53bbe5"
+        }
+      ],
+      "expect": {
+        "live": [],
+        "live_sources": [],
+        "superseded": [],
+        "disagreements": [],
+        "pending_revivals": [
+          {
+            "source": "unknown",
+            "text": "I work at Kaplan"
+          }
+        ]
+      }
+    },
+    {
+      "name": "a-restatement-that-never-heard-is-not-even-a-question",
+      "why": "Concurrent with the tombstone, so suppressed outright — and NOT a pending revival, because there is nothing to ask somebody who had not heard. Only a restatement causally after a deletion is a question.",
+      "target": "memory",
+      "records": [
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:01.000Z",
+          "device": "mac-9f3c1a2b",
+          "seq": 1,
+          "after": [],
+          "body": {
+            "op": "assert",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "imessage",
+            "text": "I work at Kaplan"
+          },
+          "id": "d7b2d8919c929d67bc5e3b6f53e9cedc"
+        },
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:02.000Z",
+          "device": "cloud-w7",
+          "seq": 1,
+          "after": [
+            "d7b2d8919c929d67bc5e3b6f53e9cedc"
+          ],
+          "body": {
+            "op": "retract",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "user"
+          },
+          "id": "3679a05b904a7158858644c1eeefd313"
+        },
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:03.000Z",
+          "device": "mac-9f3c1a2b",
+          "seq": 2,
+          "after": [],
+          "body": {
+            "op": "assert",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "user",
+            "text": "I work at Kaplan"
+          },
+          "prev": "d7b2d8919c929d67bc5e3b6f53e9cedc",
+          "id": "5e28ea2dccd9fa7758b2543d9d2868cf"
+        }
+      ],
+      "expect": {
+        "live": [],
+        "live_sources": [],
+        "superseded": [],
+        "disagreements": [],
+        "pending_revivals": []
+      }
+    },
+    {
+      "name": "a-revival-only-revives-the-tombstone-it-can-see",
+      "why": "The amendment is causal, not positional. A `user` assert two hours later by its own clock does not undo a tombstone it never saw — otherwise which machine was awake would decide whether a deletion stuck.",
+      "target": "memory",
+      "records": [
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:01.000Z",
+          "device": "mac-9f3c1a2b",
+          "seq": 1,
+          "after": [],
+          "body": {
+            "op": "assert",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "imessage",
+            "text": "I work at Kaplan"
+          },
+          "id": "d7b2d8919c929d67bc5e3b6f53e9cedc"
+        },
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:02.000Z",
+          "device": "cloud-w7",
+          "seq": 1,
+          "after": [
+            "d7b2d8919c929d67bc5e3b6f53e9cedc"
+          ],
+          "body": {
+            "op": "retract",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "user"
+          },
+          "id": "3679a05b904a7158858644c1eeefd313"
+        },
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:03.000Z",
+          "device": "mac-9f3c1a2b",
+          "seq": 2,
+          "after": [
+            "d7b2d8919c929d67bc5e3b6f53e9cedc"
+          ],
+          "body": {
+            "op": "retract",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "user"
+          },
+          "prev": "d7b2d8919c929d67bc5e3b6f53e9cedc",
+          "id": "7df94139c6e46645222bbe8d16c71f30"
+        },
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:04.000Z",
+          "device": "mac-9f3c1a2b",
+          "seq": 3,
+          "after": [
+            "7df94139c6e46645222bbe8d16c71f30"
+          ],
+          "body": {
+            "op": "assert",
+            "claim": "ab745eeae3cb",
+            "target": "memory",
+            "source": "user",
+            "text": "I work at Kaplan"
+          },
+          "prev": "7df94139c6e46645222bbe8d16c71f30",
+          "id": "6923b80d8366045097c4b547cf9a2fec"
+        }
+      ],
+      "expect": {
+        "live": [],
+        "live_sources": [],
+        "superseded": [],
+        "disagreements": [],
+        "pending_revivals": []
+      }
+    },
+    {
+      "name": "same-source-same-key-last-write-wins",
+      "why": "§3.1 rule 4. One source with two readings of one topic changed its mind; the loser stays in the ledger and is reported as superseded.",
+      "target": "memory",
+      "records": [
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:01.000Z",
+          "device": "mac-9f3c1a2b",
+          "seq": 1,
+          "after": [],
+          "body": {
+            "op": "assert",
+            "claim": "e62f2636e999",
+            "target": "memory",
+            "source": "gmail",
+            "text": "Izzy works at Kaplan",
+            "key": "job"
+          },
+          "id": "905bf9a9309279462bedcb0d1ea54b26"
+        },
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:02.000Z",
+          "device": "cloud-w7",
+          "seq": 1,
+          "after": [],
+          "body": {
+            "op": "assert",
+            "claim": "f0e16e24ba58",
+            "target": "memory",
+            "source": "gmail",
+            "text": "Izzy works at Anthropic",
+            "key": "job"
+          },
+          "id": "67777bcb1f7ae2c90c3294869c0a5fca"
+        }
+      ],
+      "expect": {
+        "live": [
+          "Izzy works at Anthropic"
+        ],
+        "live_sources": [
+          "gmail"
+        ],
+        "superseded": [
+          "Izzy works at Kaplan"
+        ],
+        "disagreements": [],
+        "pending_revivals": []
+      }
+    },
+    {
+      "name": "different-sources-same-key-escalates",
+      "why": "§3.1 rule 5. Both readings stay live and the topic is raised. Nothing is dropped for want of a model.",
+      "target": "memory",
+      "records": [
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:01.000Z",
+          "device": "mac-9f3c1a2b",
+          "seq": 1,
+          "after": [],
+          "body": {
+            "op": "assert",
+            "claim": "e62f2636e999",
+            "target": "memory",
+            "source": "imessage",
+            "text": "Izzy works at Kaplan",
+            "key": "job"
+          },
+          "id": "745879706a1c9e20e5aedec8980e31c2"
+        },
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:02.000Z",
+          "device": "cloud-w7",
+          "seq": 1,
+          "after": [],
+          "body": {
+            "op": "assert",
+            "claim": "f0e16e24ba58",
+            "target": "memory",
+            "source": "gmail",
+            "text": "Izzy works at Anthropic",
+            "key": "job"
+          },
+          "id": "67777bcb1f7ae2c90c3294869c0a5fca"
+        }
+      ],
+      "expect": {
+        "live": [
+          "Izzy works at Kaplan",
+          "Izzy works at Anthropic"
+        ],
+        "live_sources": [
+          "imessage",
+          "gmail"
+        ],
+        "superseded": [],
+        "disagreements": [
+          {
+            "key": "job",
+            "sources": [
+              "gmail",
+              "imessage"
+            ],
+            "readings": [
+              "Izzy works at Anthropic",
+              "Izzy works at Kaplan"
+            ]
+          }
+        ],
+        "pending_revivals": []
+      }
+    },
+    {
+      "name": "three-readings-two-sources",
+      "why": "Rules 4 and 5 compose: each source is collapsed to its newest reading first, and what is left is the disagreement.",
+      "target": "memory",
+      "records": [
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:01.000Z",
+          "device": "mac-9f3c1a2b",
+          "seq": 1,
+          "after": [],
+          "body": {
+            "op": "assert",
+            "claim": "e62f2636e999",
+            "target": "memory",
+            "source": "gmail",
+            "text": "Izzy works at Kaplan",
+            "key": "job"
+          },
+          "id": "905bf9a9309279462bedcb0d1ea54b26"
+        },
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:02.000Z",
+          "device": "mac-9f3c1a2b",
+          "seq": 2,
+          "after": [],
+          "body": {
+            "op": "assert",
+            "claim": "f0e16e24ba58",
+            "target": "memory",
+            "source": "gmail",
+            "text": "Izzy works at Anthropic",
+            "key": "job"
+          },
+          "prev": "905bf9a9309279462bedcb0d1ea54b26",
+          "id": "a1fa39a37429c6830711ae12b92f0c44"
+        },
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:03.000Z",
+          "device": "cloud-w7",
+          "seq": 1,
+          "after": [],
+          "body": {
+            "op": "assert",
+            "claim": "a99ff119b774",
+            "target": "memory",
+            "source": "imessage",
+            "text": "Izzy works at Pulse",
+            "key": "job"
+          },
+          "id": "b94047ada12703817c27c198e55cfd3f"
+        }
+      ],
+      "expect": {
+        "live": [
+          "Izzy works at Anthropic",
+          "Izzy works at Pulse"
+        ],
+        "live_sources": [
+          "gmail",
+          "imessage"
+        ],
+        "superseded": [
+          "Izzy works at Kaplan"
+        ],
+        "disagreements": [
+          {
+            "key": "job",
+            "sources": [
+              "gmail",
+              "imessage"
+            ],
+            "readings": [
+              "Izzy works at Anthropic",
+              "Izzy works at Pulse"
+            ]
+          }
+        ],
+        "pending_revivals": []
+      }
+    },
+    {
+      "name": "targets-are-independent",
+      "why": "The same sentence in two stores is two claims with two ids. Resolving `user` must not see the `memory` one.",
+      "target": "user",
+      "records": [
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:01.000Z",
+          "device": "hermes-4d5e6f70",
+          "seq": 1,
+          "after": [],
+          "body": {
+            "op": "assert",
+            "claim": "32802549ea2a",
+            "target": "user",
+            "source": "hermes:assistant_tool",
+            "text": "prefers terse answers"
+          },
+          "id": "4866506f7576654182820ca3069634a0"
+        },
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:02.000Z",
+          "device": "hermes-4d5e6f70",
+          "seq": 2,
+          "after": [],
+          "body": {
+            "op": "assert",
+            "claim": "0010851383f3",
+            "target": "memory",
+            "source": "hermes:assistant_tool",
+            "text": "prefers terse answers"
+          },
+          "prev": "4866506f7576654182820ca3069634a0",
+          "id": "4005692030e84606297229c474de77af"
+        }
+      ],
+      "expect": {
+        "live": [
+          "prefers terse answers"
+        ],
+        "live_sources": [
+          "hermes:assistant_tool"
+        ],
+        "superseded": [],
+        "disagreements": [],
+        "pending_revivals": []
+      }
+    },
+    {
+      "name": "awkward-text-survives-the-round-trip",
+      "why": "The body keeps the writer's own text, newline and all; only the id collapses whitespace. This case is what pins the canonical JSON encoding — slashes, quotes, backslashes, non-BMP — across two JSON writers, because the record id is a hash of those bytes.",
+      "target": "memory",
+      "records": [
+        {
+          "kind": "claim",
+          "at": "2026-08-29T10:40:01.000Z",
+          "device": "hermes-4d5e6f70",
+          "seq": 1,
+          "after": [],
+          "body": {
+            "op": "assert",
+            "claim": "ca0555fe5a29",
+            "target": "memory",
+            "source": "user",
+            "text": "He said \"hi\" \\ and pointed at a/b —\nnaïve, 日本語, 🍍42"
+          },
+          "id": "75c808d4d42beb5067e5f8ef4013f751"
+        }
+      ],
+      "expect": {
+        "live": [
+          "He said \"hi\" \\ and pointed at a/b —\nnaïve, 日本語, 🍍42"
+        ],
+        "live_sources": [
+          "user"
+        ],
+        "superseded": [],
+        "disagreements": [],
+        "pending_revivals": []
+      }
+    }
+  ]
+}

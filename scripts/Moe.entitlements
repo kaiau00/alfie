@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Hardened Runtime entitlements for the shipped Memoe.app (scripts/release.sh).
+
+  Hardened Runtime is mandatory for notarization, and under it the OS
+  refuses certain resources outright — no prompt, no error — unless the
+  binary carries the matching entitlement. Only those go here. Contacts,
+  Calendar, Reminders, Speech Recognition, Screen/Audio Capture and Full Disk
+  Access are governed by TCC alone: the usage strings in Info.plist (build.sh)
+  are what those need, and they are already there. No App Sandbox: Moe reads
+  ~/.moe, launches hermes/claude, and types into other apps.
+-->
+<plist version="1.0">
+<dict>
+  <!-- Microphone. Without this a hardened binary gets silence from
+       AVAudioEngine and no TCC prompt is ever shown. -->
+  <key>com.apple.security.device.audio-input</key>
+  <true/>
+
+  <!-- Apple Events to Notes / Calendar / Reminders / Contacts (the Automation
+       pane). Hardened Runtime blocks outgoing Apple Events without it;
+       NSAppleEventsUsageDescription in Info.plist supplies the prompt text. -->
+  <key>com.apple.security.automation.apple-events</key>
+  <true/>
+</dict>
+</plist>

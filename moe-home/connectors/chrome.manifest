@@ -1,0 +1,16 @@
+# Chrome history and bookmarks, read from a copy of the profile's own SQLite
+# and JSON files. auth=local: there is nothing to sign in to.
+#
+# OPT-IN AND OFF BY DEFAULT. Unlike every other connector here, the consent
+# marker (learn/consent.sh) gates `pull` as well as `crawl`; without it this
+# reports needs-setup and reads nothing. deep_crawl=yes only says the crawl
+# is worth having *if* it is ever turned on.
+name=chrome
+label=Chrome (browsing)
+verbs=status pull crawl
+cadence=1h
+deep_crawl=yes
+auth=local
+runs_in=mac
+cost=cheap
+context_file=chrome

@@ -1,0 +1,13 @@
+# Apple Mail on this Mac: every account set up in Mail.app, from Mail's own
+# index (~/Library/Mail/V*/MailData/Envelope Index) and message files.
+# Read-only, like Messages, and for the same reason needs Full Disk Access.
+# `items` feeds the situations engine with whole messages (mail-items.py).
+name=mail
+label=Mail
+verbs=status pull items
+cadence=10m
+deep_crawl=no
+auth=local
+runs_in=mac
+cost=cheap
+context_file=mail

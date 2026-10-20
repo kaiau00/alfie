@@ -1,0 +1,13 @@
+name: claimstore
+version: 0.3.0
+description: >
+  Hermes's memory, stored in Moe's ledger — MEMORY.md/USER.md become a digest
+  of ~/.moe/ledger/*.jsonl, the append-only, content-addressed, causally
+  ordered log Moe's other writers also append to. Writes as the Mac's own
+  device on the app's chain, seals claim text under the moe:memory key, and
+  carries SOUL.md, ~/.moe/CLAUDE.md, the profile and skills.disabled as
+  document records (LEDGER-WIRE §13). Needs the moe-ledger plugin beside it.
+hooks:
+  - on_memory_write
+  - on_session_switch
+  - on_session_end

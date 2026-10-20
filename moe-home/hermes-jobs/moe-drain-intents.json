@@ -1,0 +1,13 @@
+{
+  "_comment": "The Mac half of slice 3 (docs/LEDGER-WIRE.md §14, docs/CLOUD-PLAN.md §13): a no-agent cron job that drains the intents the away machine queued because the work lives on this Mac. configure-hermes.py (install_jobs) copies moe-drain-intents.py into $HERMES_HOME/scripts/ and registers this spec through cron.jobs.create_job(**spec), keyed on its name; a later change to the spec is applied to the job that already exists. Keys mirror create_job()'s parameters. The job keeps its own bookkeeping in $HERMES_HOME/moe-drain-intents.json — §14.4 rule 8's tick counter and that idle stamp; neither is protocol, and deleting it costs one wasted read.",
+  "_schedule": "Every 5 minutes, and the number is a trade, not a default. Hermes's in-process cron ticks every 60 s and the job only runs while Memoe.app is open — which is exactly 'while the Mac is awake', because the app supervises the gateway for as long as it is open. So the schedule is the worst-case wait between the Mac waking and the person hearing that the thing they asked for from Telegram is done. 5 minutes keeps that inside the span in which somebody still remembers asking, at a cost of twelve ticks an hour that, with an empty queue, are a Python start and a stat of the ledger directory: the tick after one that found nothing to do compares (files, bytes, newest mtime_ns) against what it saw then and stops without reading a byte, because a full read is 51 ms on 986 KB and about 2.5 s at 50 MB and would be paid every five minutes for ever. No lock contention worth the name, no writes, no message (§14.4 rule 4 — a drain that did nothing says nothing). `every 1m` would pay sixty starts an hour for a queue that is empty nearly always; `every 15m` would make 'your Mac woke up' arrive long after it did, which is the one thing this slice exists to fix.",
+  "_deliver": "moe — the screen of this Mac plus the connectors ticked in Settings › Background (hermes-plugins/moe-screen). It carries only FAILURES: the drain's own summary is sent by the script through `hermes send --to <platform>`, not printed, because a no_agent job's stdout is delivered as a message and the person is away. Stdout stays empty on a normal run; everything the script has to say about itself goes to stderr, which Hermes keeps only when the run fails.",
+  "name": "moe-drain-intents",
+  "schedule": "every 5m",
+  "no_agent": true,
+  "script": "moe-drain-intents.py",
+  "prompt": null,
+  "deliver": "moe",
+  "workdir": null,
+  "enabled_toolsets": null
+}

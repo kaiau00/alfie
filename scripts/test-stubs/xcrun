@@ -1,0 +1,49 @@
+#!/bin/bash
+# Stub for /usr/bin/xcrun, used by scripts/test-release.sh so nothing is ever
+# sent to Apple. Records argv to $MOE_STUB_LOG and answers:
+#   notarytool submit … → prints "status: Accepted", exit 0
+#                         (exit 1 with "status: Invalid" if MOE_STUB_NOTARY_FAIL=1;
+#                         exit 0 with "status: Invalid" if MOE_STUB_NOTARY_FAIL=soft,
+#                         which is what some notarytool versions really do)
+#                         The first $MOE_STUB_NOTARY_ABORT submits (counted in
+#                         $MOE_STUB_LOG.aborts) print an id, then fail the way a
+#                         dropped upload did on 2026-10-01: "abortedUpload…", exit 1
+#                         The first $MOE_STUB_NOTARY_NOID submits fail before any
+#                         id, with the "bad URL" network error seen the same day
+#   notarytool wait …   → prints "status: Accepted", exit 0
+#   notarytool log …    → prints a fake log, exit 0
+#   stapler staple …    → exit 0
+#   stapler validate …  → exit 0
+printf '%s\n' "$*" >> "${MOE_STUB_LOG:-/dev/null}"
+case "${1:-} ${2:-}" in
+  "notarytool submit")
+    if [ "${MOE_STUB_NOTARY_NOID:-0}" -gt 0 ]; then
+      count_file="${MOE_STUB_LOG:-/dev/null}.noid"
+      n=$(cat "$count_file" 2>/dev/null || echo 0)
+      if [ "$n" -lt "$MOE_STUB_NOTARY_NOID" ]; then
+        echo $((n + 1)) > "$count_file"
+        echo 'Error: HTTPError(statusCode: nil, error: Error Domain=NSURLErrorDomain Code=-1000 "bad URL")'
+        exit 1
+      fi
+    fi
+    echo "  id: 00000000-0000-0000-0000-000000000000"
+    if [ "${MOE_STUB_NOTARY_ABORT:-0}" -gt 0 ]; then
+      count_file="${MOE_STUB_LOG:-/dev/null}.aborts"
+      n=$(cat "$count_file" 2>/dev/null || echo 0)
+      if [ "$n" -lt "$MOE_STUB_NOTARY_ABORT" ]; then
+        echo $((n + 1)) > "$count_file"
+        echo "Error: abortedUpload(resumeRequest: …, error: HTTPClientError.connectTimeout)"
+        exit 1
+      fi
+    fi
+    case "${MOE_STUB_NOTARY_FAIL:-}" in
+      1)    echo "  status: Invalid"; exit 1 ;;
+      soft) echo "  status: Invalid"; exit 0 ;;
+    esac
+    echo "  status: Accepted"; exit 0 ;;
+  "notarytool wait")    echo "  status: Accepted"; exit 0 ;;
+  "notarytool log")     echo '{"status":"Accepted","issues":[]}'; exit 0 ;;
+  "stapler staple")     echo "The staple and validate action worked!"; exit 0 ;;
+  "stapler validate")   echo "The validate action worked!"; exit 0 ;;
+  *) echo "stub xcrun: unexpected: $*" >&2; exit 2 ;;
+esac

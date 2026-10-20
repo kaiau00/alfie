@@ -1,0 +1,10 @@
+# A synthetic connector for the learn tests. Nothing real is behind it.
+name=fixture
+label=Fixture source
+verbs=status pull crawl
+cadence=10m
+deep_crawl=yes
+auth=none
+runs_in=mac
+cost=cheap
+context_file=fixture

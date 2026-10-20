@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <!-- Its own identity, embedded in the binary rather than inherited.
+       Sharing Memoe.app's Info.plist made this a second instance of
+       com.memoe.app, so `quit Moe` — and every logout — was addressed to
+       the open confirmation dialog as well as to the app. That is answered
+       properly now (main.swift refuses to call a quit an answer), but a
+       dialog that cannot be mistaken for the app is the better shape. -->
+  <key>CFBundleIdentifier</key>        <string>com.memoe.app.confirm</string>
+  <key>CFBundleName</key>              <string>Moe</string>
+  <key>CFBundlePackageType</key>       <string>APPL</string>
+  <key>CFBundleShortVersionString</key><string>1.0</string>
+  <key>CFBundleVersion</key>           <string>1</string>
+  <!-- No Dock icon: this is a prompt, not an app. -->
+  <key>LSUIElement</key>               <true/>
+</dict>
+</plist>

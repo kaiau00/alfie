@@ -1,0 +1,125 @@
+name: Bug report
+description: Something in Memoe does not work the way the docs say it should.
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time. A few things first:
+
+        - **Security problem?** Do not file it here. See [SECURITY.md](https://github.com/memoe-app/memoe/blob/main/SECURITY.md).
+        - **Away, billing or your account?** Email hello@moebot.app; that part of Memoe is not in this repository.
+        - **Using the official app day to day?** Saying *"report this to the Moe team"* to Moe sends us the logs we need, with your yes, and is often faster.
+        - **Redact before you paste.** Logs and transcripts can contain your mail, messages, contacts and memory. Remove anything personal.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you did, what you expected, and what Memoe did instead.
+      placeholder: |
+        I held right ⌥ in Safari and asked Moe to add lunch on Thursday to my calendar.
+        Expected: the event appears.
+        Instead: Moe said it had added it, but nothing is in Calendar.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: The smallest set of steps that shows the problem. Say how often it happens.
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+        Happens: every time / about half the time / once
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Memoe version
+      description: Settings › About & Licences. Include the build in brackets if shown.
+      placeholder: "0.4.2 (abc1234)"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: build
+    attributes:
+      label: Which build
+      options:
+        - Memoe, downloaded from memoe.app
+        - Memoe OSS, built from this repository
+    validations:
+      required: true
+
+  - type: input
+    id: macos
+    attributes:
+      label: macOS version and Mac
+      placeholder: "macOS 26.1, MacBook Air M3"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: brain
+    attributes:
+      label: What Moe thinks with
+      description: Settings › Brain. Many bugs only happen with one kind of account.
+      options:
+        - A Claude plan
+        - A ChatGPT plan
+        - An API key (say which provider below)
+        - A local model (Ollama or another local server)
+        - Not set up yet
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      multiple: true
+      options:
+        - Talking and listening (hotkey, "Hey Moe", voice)
+        - The panel under the notch
+        - Memory
+        - Driving the Mac (apps, menus, clicks)
+        - Moe's browser
+        - The send sheet ("before anything goes out")
+        - Meetings
+        - Connections (Mail, Calendar, Composio services…)
+        - Message Moe (Telegram, WhatsApp, Signal, Slack…)
+        - Reminders and background work
+        - Install, update or first open
+        - Building from source
+        - Something else
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs (redacted)
+      description: |
+        Relevant lines from `~/Library/Application Support/Moe/logs/` (community edition: `…/Memoe OSS/logs/`).
+        Only the lines around the problem, with personal content removed.
+      render: text
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else
+      description: Screenshots, a screen recording, the provider if you use an API key, other apps that might be involved (another dictation app on the same key, a call app using the microphone).
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you submit
+      options:
+        - label: I searched open and closed issues and Discussions for this problem.
+          required: true
+        - label: I removed personal information from everything above.
+          required: true

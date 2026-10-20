@@ -1,0 +1,5 @@
+name: moe-blueprints
+version: "0.1"
+description: >
+  Hermes's 16 automation blueprints as tools, so Moe can set up a recurring
+  job by talking about it instead of by anyone writing cron.

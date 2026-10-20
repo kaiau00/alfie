@@ -1,0 +1,344 @@
+{
+  "_about" : {
+    "adopt_is_swift_only" : "The `order` section is `ThreadKeyring.wins`, and there is no Python implementation of it to check: `retired` is READ-ONLY on that side by design — the writer is the courier, which is Swift, and the machine never mints or destroys the memory key at all (§11.2). So Python asserts the documented rule rather than a function of its own: the winner is min(a, b) over the raw bytes, which is what `numerically smaller wins` means and what Python's own byte comparison does. That is an independent statement of the rule, not a call into moeledger, and it is why changing Swift's order and regenerating this file fails the Python suite. Python also checks the reachable consequence: the current key of every written vector is the winner of its pair.",
+    "bytes" : "every key is 32 raw bytes as standard base64 with padding. The key material is fixed and legible on purpose — the leading byte decides every ordering question in this file, so a reader can check it by eye.",
+    "duplicates" : "openingKeys must never name one key twice, and neither side leans on the writer for that: both deduplicate when they read (`ThreadKeyring.openingKeys`, `Keyring.opening_keys`). A repeat does reach the disk — `install` is `.callerWins` with no order test, so a key can be put back as current and displaced a second time — and `a-key-that-came-back-and-was-displaced-twice` is that file, retired list and all. It is the vector that makes the agreement checkable rather than asserted: two entries on disk, one key in the answer, on both sides.",
+    "generator" : "Tests/MoeLedgerTests/RetiredKeyVectorTests.swift (MOE_WRITE_VECTORS=1 MOE_SKIP_PG=1 ./scripts/test.sh --filter RetiredKeyVectorTests)",
+    "malformed_granularity" : "Swift parses `retired` as one cast of the whole field and Python element by element, so a file whose retired list mixes decodable keys with a non-string would lose ALL history on the Swift side and only that element on the Python side. Both still read the keyring, which is what §15.1 requires; the corpus keeps such a file to one thread so it does not pin a difference no writer can produce.",
+    "readers" : [
+      "Tests/MoeLedgerTests/RetiredKeyVectorTests.swift",
+      "moe-home/hermes-plugins/moe-ledger/tests/test_retired_key_vectors.py",
+      "moe-home/hermes-plugins/claimstore/tests/test_retired_key_vectors.py"
+    ],
+    "refusal_is_spelled_differently" : "In `refused` the two sides express the same answer in their own idiom — Swift hands out no key (a fresh ThreadKeyring reads nothing and openingKeys is empty), Python raises VaultError. What the vector pins is that neither hands out a key and neither writes over the file.",
+    "sealed" : "`sealed` carries ciphertext, so it is verified by opening, never compared: CryptoKit's nonce cannot be injected. Regeneration keeps a sample that still opens.",
+    "text" : "`text` is the file byte for byte, in Foundation's [.prettyPrinted, .sortedKeys] form with no trailing newline. Python's moeledger.records.foundation_pretty_json reproduces it exactly; Keyring._write_keys then appends one newline, so a file Python has rewritten is this text plus \\n and nothing else.",
+    "what" : "CLOUD-PLAN §15.1's retired keys, pinned across the two implementations of thread-keys.json: Swift's ThreadKeyring, and Python's moeledger.vault.Keyring and claimstore.store."
+  },
+  "order" : [
+    {
+      "a" : "WlpaWlpaWlpaWlpaWlpaWlpaWlpaWlpaWlpaWlpaWgE=",
+      "b" : "WlpaWlpaWlpaWlpaWlpaWlpaWlpaWlpaWlpaWlpaWgI=",
+      "name" : "differs-only-in-the-last-byte",
+      "why" : "Thirty-one identical bytes. A comparison that looked at the first byte alone would find no difference and call it a tie.",
+      "winner" : "a"
+    },
+    {
+      "a" : "x8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHxwA=",
+      "b" : "x8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx/8=",
+      "name" : "differs-only-in-the-last-byte-00-vs-ff",
+      "why" : "The same case at the ends of the byte range.",
+      "winner" : "a"
+    },
+    {
+      "a" : "Af////////////////////////////////////////8=",
+      "b" : "AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+      "name" : "differs-only-in-the-first-byte",
+      "why" : "`a` is larger in every byte but the first, and wins on the first. The first byte that differs decides; nothing sums or averages.",
+      "winner" : "a"
+    },
+    {
+      "a" : "MzMzMzMzMzMzMzMzMzMzMwD/MzMzMzMzMzMzMzMzMzM=",
+      "b" : "MzMzMzMzMzMzMzMzMzMzMwEAMzMzMzMzMzMzMzMzMzM=",
+      "name" : "differs-in-the-middle-and-contradicted-after",
+      "why" : "The bytes after the first difference point the other way, so a rule that let a later byte have the last word would get this wrong.",
+      "winner" : "a"
+    },
+    {
+      "a" : "fxERERERERERERERERERERERERERERERERERERERERE=",
+      "b" : "gBERERERERERERERERERERERERERERERERERERERERE=",
+      "name" : "unsigned-not-signed",
+      "why" : "0x7F against 0x80. Compared as signed bytes 0x80 is -128 and would win, which is the whole of the bug this pins.",
+      "winner" : "a"
+    },
+    {
+      "a" : "IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE=",
+      "b" : "kFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFw=",
+      "name" : "the-two-keys-in-the-written-vectors",
+      "why" : "The tenant's key against the one this Mac minted while free. The written section is this pair's answer, on disk.",
+      "winner" : "a"
+    },
+    {
+      "a" : "IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE=",
+      "b" : "IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE=",
+      "name" : "the-same-key-twice",
+      "why" : "Neither displaces the other, which is why re-delivering a key the courier already delivered retires nothing.",
+      "winner" : null
+    }
+  ],
+  "refused" : [
+    {
+      "name" : "the-file-is-not-an-object",
+      "text" : "[1, 2, 3]",
+      "why" : "Not a keyring at all. Reading it as empty would replace it."
+    },
+    {
+      "name" : "keys-is-a-list",
+      "text" : "{\n  \"keys\" : [\n    \"moe:memory\",\n    \"a-conversation\"\n  ],\n  \"README\" : \"Deleting this file permanently destroys the conversations it unlocks. Each key belongs to one thread in ..\\/ledger; deleting a conversation in Moe deletes its key from here, which is what makes that deletion real. Nobody else has a copy — not us, not the cloud, which only ever holds these keys sealed to a device you enrolled yourself. There is no reset and no support path: if you lose every Mac you have enrolled, those conversations are gone. Two ways to have a second copy, and they are the only two: enrol another Mac (Settings → Devices), or copy this file and device-identity.json somewhere you trust.\",\n  \"version\" : 1\n}",
+      "why" : "The one field neither side may guess at."
+    },
+    {
+      "name" : "keys-is-missing-but-retired-is-not",
+      "text" : "{\n  \"README\" : \"Deleting this file permanently destroys the conversations it unlocks. Each key belongs to one thread in ..\\/ledger; deleting a conversation in Moe deletes its key from here, which is what makes that deletion real. Nobody else has a copy — not us, not the cloud, which only ever holds these keys sealed to a device you enrolled yourself. There is no reset and no support path: if you lose every Mac you have enrolled, those conversations are gone. Two ways to have a second copy, and they are the only two: enrol another Mac (Settings → Devices), or copy this file and device-identity.json somewhere you trust.\",\n  \"retired\" : {\n    \"moe:memory\" : [\n      \"kFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFw=\"\n    ]\n  },\n  \"version\" : 1\n}",
+      "why" : "A file carrying history and no keys is not a keyring this build can write over, however well it understands the new field."
+    }
+  ],
+  "tolerated" : [
+    {
+      "expect" : {
+        "a-conversation" : {
+          "opening" : [
+            "TXd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3c="
+          ],
+          "retired_count" : 0,
+          "sealing" : "TXd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3c="
+        },
+        "moe:memory" : {
+          "opening" : [
+            "IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE="
+          ],
+          "retired_count" : 0,
+          "sealing" : "IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE="
+        }
+      },
+      "name" : "retired-is-a-string",
+      "text" : "{\n  \"keys\" : {\n    \"a-conversation\" : \"TXd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3c=\",\n    \"moe:memory\" : \"IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE=\"\n  },\n  \"README\" : \"Deleting this file permanently destroys the conversations it unlocks. Each key belongs to one thread in ..\\/ledger; deleting a conversation in Moe deletes its key from here, which is what makes that deletion real. Nobody else has a copy — not us, not the cloud, which only ever holds these keys sealed to a device you enrolled yourself. There is no reset and no support path: if you lose every Mac you have enrolled, those conversations are gone. Two ways to have a second copy, and they are the only two: enrol another Mac (Settings → Devices), or copy this file and device-identity.json somewhere you trust.\",\n  \"retired\" : \"a shape from the future\",\n  \"version\" : 1\n}",
+      "why" : "A later build wrote something else under this name entirely."
+    },
+    {
+      "expect" : {
+        "a-conversation" : {
+          "opening" : [
+            "TXd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3c="
+          ],
+          "retired_count" : 0,
+          "sealing" : "TXd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3c="
+        },
+        "moe:memory" : {
+          "opening" : [
+            "IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE="
+          ],
+          "retired_count" : 0,
+          "sealing" : "IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE="
+        }
+      },
+      "name" : "retired-is-a-list",
+      "text" : "{\n  \"keys\" : {\n    \"a-conversation\" : \"TXd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3c=\",\n    \"moe:memory\" : \"IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE=\"\n  },\n  \"README\" : \"Deleting this file permanently destroys the conversations it unlocks. Each key belongs to one thread in ..\\/ledger; deleting a conversation in Moe deletes its key from here, which is what makes that deletion real. Nobody else has a copy — not us, not the cloud, which only ever holds these keys sealed to a device you enrolled yourself. There is no reset and no support path: if you lose every Mac you have enrolled, those conversations are gone. Two ways to have a second copy, and they are the only two: enrol another Mac (Settings → Devices), or copy this file and device-identity.json somewhere you trust.\",\n  \"retired\" : [\n    \"moe:memory\"\n  ],\n  \"version\" : 1\n}",
+      "why" : "The same field as a list rather than a map of thread to keys."
+    },
+    {
+      "expect" : {
+        "a-conversation" : {
+          "opening" : [
+            "TXd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3c="
+          ],
+          "retired_count" : 0,
+          "sealing" : "TXd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3c="
+        },
+        "moe:memory" : {
+          "opening" : [
+            "IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE="
+          ],
+          "retired_count" : 0,
+          "sealing" : "IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE="
+        }
+      },
+      "name" : "retired-maps-a-thread-to-a-string",
+      "text" : "{\n  \"keys\" : {\n    \"a-conversation\" : \"TXd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3c=\",\n    \"moe:memory\" : \"IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE=\"\n  },\n  \"README\" : \"Deleting this file permanently destroys the conversations it unlocks. Each key belongs to one thread in ..\\/ledger; deleting a conversation in Moe deletes its key from here, which is what makes that deletion real. Nobody else has a copy — not us, not the cloud, which only ever holds these keys sealed to a device you enrolled yourself. There is no reset and no support path: if you lose every Mac you have enrolled, those conversations are gone. Two ways to have a second copy, and they are the only two: enrol another Mac (Settings → Devices), or copy this file and device-identity.json somewhere you trust.\",\n  \"retired\" : {\n    \"moe:memory\" : \"kFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFw=\"\n  },\n  \"version\" : 1\n}",
+      "why" : "The field is the right shape and one thread's value is not."
+    },
+    {
+      "expect" : {
+        "a-conversation" : {
+          "opening" : [
+            "TXd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3c="
+          ],
+          "retired_count" : 0,
+          "sealing" : "TXd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3c="
+        },
+        "moe:memory" : {
+          "opening" : [
+            "IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE="
+          ],
+          "retired_count" : 0,
+          "sealing" : "IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE="
+        }
+      },
+      "name" : "retired-is-an-empty-map",
+      "text" : "{\n  \"keys\" : {\n    \"a-conversation\" : \"TXd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3c=\",\n    \"moe:memory\" : \"IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE=\"\n  },\n  \"README\" : \"Deleting this file permanently destroys the conversations it unlocks. Each key belongs to one thread in ..\\/ledger; deleting a conversation in Moe deletes its key from here, which is what makes that deletion real. Nobody else has a copy — not us, not the cloud, which only ever holds these keys sealed to a device you enrolled yourself. There is no reset and no support path: if you lose every Mac you have enrolled, those conversations are gone. Two ways to have a second copy, and they are the only two: enrol another Mac (Settings → Devices), or copy this file and device-identity.json somewhere you trust.\",\n  \"retired\" : {\n\n  },\n  \"version\" : 1\n}",
+      "why" : "A writer that emitted the field even with nothing to put in it."
+    },
+    {
+      "expect" : {
+        "a-conversation" : {
+          "opening" : [
+            "TXd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3c="
+          ],
+          "retired_count" : 0,
+          "sealing" : "TXd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3c="
+        },
+        "moe:memory" : {
+          "opening" : [
+            "IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE=",
+            "kFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFw="
+          ],
+          "retired_count" : 1,
+          "sealing" : "IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE="
+        }
+      },
+      "name" : "retired-holds-a-good-key-and-junk-beside-it",
+      "text" : "{\n  \"keys\" : {\n    \"a-conversation\" : \"TXd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3c=\",\n    \"moe:memory\" : \"IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE=\"\n  },\n  \"README\" : \"Deleting this file permanently destroys the conversations it unlocks. Each key belongs to one thread in ..\\/ledger; deleting a conversation in Moe deletes its key from here, which is what makes that deletion real. Nobody else has a copy — not us, not the cloud, which only ever holds these keys sealed to a device you enrolled yourself. There is no reset and no support path: if you lose every Mac you have enrolled, those conversations are gone. Two ways to have a second copy, and they are the only two: enrol another Mac (Settings → Devices), or copy this file and device-identity.json somewhere you trust.\",\n  \"retired\" : {\n    \"moe:memory\" : [\n      \"kFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFw=\",\n      \"not base64!!!\",\n      \"c2hvcnQ=\"\n    ]\n  },\n  \"version\" : 1\n}",
+      "why" : "One decodable key among entries that are not base64 and not 32 bytes. The good one survives; the rest are dropped rather than taking the keyring down with them."
+    },
+    {
+      "expect" : {
+        "a-conversation" : {
+          "opening" : [
+            "TXd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3c="
+          ],
+          "retired_count" : 0,
+          "sealing" : "TXd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3c="
+        },
+        "moe:memory" : {
+          "opening" : [
+            "IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE="
+          ],
+          "retired_count" : 0,
+          "sealing" : "IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE="
+        }
+      },
+      "name" : "retired-holds-nothing-this-build-can-decode",
+      "text" : "{\n  \"keys\" : {\n    \"a-conversation\" : \"TXd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3c=\",\n    \"moe:memory\" : \"IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE=\"\n  },\n  \"README\" : \"Deleting this file permanently destroys the conversations it unlocks. Each key belongs to one thread in ..\\/ledger; deleting a conversation in Moe deletes its key from here, which is what makes that deletion real. Nobody else has a copy — not us, not the cloud, which only ever holds these keys sealed to a device you enrolled yourself. There is no reset and no support path: if you lose every Mac you have enrolled, those conversations are gone. Two ways to have a second copy, and they are the only two: enrol another Mac (Settings → Devices), or copy this file and device-identity.json somewhere you trust.\",\n  \"retired\" : {\n    \"moe:memory\" : [\n      \"not base64!!!\",\n      7\n    ]\n  },\n  \"version\" : 1\n}",
+      "why" : "Both sides read this as no history, by different routes: Swift's cast of the whole field fails on the number, Python drops the two entries one at a time. The corpus keeps such a file to ONE thread deliberately — see _about.malformed_granularity."
+    }
+  ],
+  "written" : [
+    {
+      "expect" : {
+        "a-conversation" : {
+          "opening" : [
+            "TXd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3c="
+          ],
+          "retired_count" : 0,
+          "sealing" : "TXd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3c="
+        },
+        "moe:memory" : {
+          "opening" : [
+            "IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE=",
+            "kFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFw="
+          ],
+          "retired_count" : 1,
+          "sealing" : "IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE="
+        }
+      },
+      "has_retired_field" : true,
+      "name" : "a-free-mac-that-joined-a-tenant",
+      "sealed" : [
+        {
+          "combined" : "rkfNVq/+GiuSybgIWQRxTNfnp+xhn0OKvDaQgHN+r0FtAr2YV6LqWmPKJZ6o36IDKf/X",
+          "text" : "the car is due in March",
+          "under" : "retired"
+        },
+        {
+          "combined" : "B8FBbS3J91qjN/HhadNk6wsSHnTBX4As4t/F5KFm7n5CzE7e30WMMP9n9jFKxy+5g9sUjUA=",
+          "text" : "the dentist is on Tuesday",
+          "under" : "current"
+        }
+      ],
+      "story" : "§15.1 itself: this Mac minted moe:memory while it ran free, then joined a tenant whose key wins the order. The tenant's key becomes the one everything seals under and the Mac's own is kept openable.",
+      "text" : "{\n  \"keys\" : {\n    \"a-conversation\" : \"TXd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3c=\",\n    \"moe:memory\" : \"IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE=\"\n  },\n  \"README\" : \"Deleting this file permanently destroys the conversations it unlocks. Each key belongs to one thread in ..\\/ledger; deleting a conversation in Moe deletes its key from here, which is what makes that deletion real. Nobody else has a copy — not us, not the cloud, which only ever holds these keys sealed to a device you enrolled yourself. There is no reset and no support path: if you lose every Mac you have enrolled, those conversations are gone. Two ways to have a second copy, and they are the only two: enrol another Mac (Settings → Devices), or copy this file and device-identity.json somewhere you trust.\",\n  \"retired\" : {\n    \"moe:memory\" : [\n      \"kFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFw=\"\n    ]\n  },\n  \"version\" : 1\n}"
+    },
+    {
+      "expect" : {
+        "a-conversation" : {
+          "opening" : [
+
+          ],
+          "retired_count" : 0,
+          "sealing" : null
+        },
+        "moe:memory" : {
+          "opening" : [
+            "IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE=",
+            "kFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFw="
+          ],
+          "retired_count" : 1,
+          "sealing" : "IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE="
+        }
+      },
+      "has_retired_field" : true,
+      "name" : "the-same-key-delivered-again-and-again",
+      "story" : "The courier ships every key it holds on every full run, so the tenant's key arrives over and over. Re-delivery must not fill the file with copies of one key.",
+      "text" : "{\n  \"keys\" : {\n    \"moe:memory\" : \"IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE=\"\n  },\n  \"README\" : \"Deleting this file permanently destroys the conversations it unlocks. Each key belongs to one thread in ..\\/ledger; deleting a conversation in Moe deletes its key from here, which is what makes that deletion real. Nobody else has a copy — not us, not the cloud, which only ever holds these keys sealed to a device you enrolled yourself. There is no reset and no support path: if you lose every Mac you have enrolled, those conversations are gone. Two ways to have a second copy, and they are the only two: enrol another Mac (Settings → Devices), or copy this file and device-identity.json somewhere you trust.\",\n  \"retired\" : {\n    \"moe:memory\" : [\n      \"kFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFw=\"\n    ]\n  },\n  \"version\" : 1\n}"
+    },
+    {
+      "expect" : {
+        "a-conversation" : {
+          "opening" : [
+
+          ],
+          "retired_count" : 0,
+          "sealing" : null
+        },
+        "moe:memory" : {
+          "opening" : [
+            "IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE=",
+            "kFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFw="
+          ],
+          "retired_count" : 2,
+          "sealing" : "IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE="
+        }
+      },
+      "has_retired_field" : true,
+      "name" : "a-key-that-came-back-and-was-displaced-twice",
+      "story" : "An enrolment installs the free Mac's own key over the tenant's — install is an instruction, and it does not retire anything — and the courier then displaces it a second time. The history on disk names that key TWICE, and both implementations still hand out each key once: the deduplication is on the read, where it is one rule rather than a promise every writer has to keep. This is the only vector whose file carries a repeat, and it is what makes that agreement checkable.",
+      "text" : "{\n  \"keys\" : {\n    \"moe:memory\" : \"IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE=\"\n  },\n  \"README\" : \"Deleting this file permanently destroys the conversations it unlocks. Each key belongs to one thread in ..\\/ledger; deleting a conversation in Moe deletes its key from here, which is what makes that deletion real. Nobody else has a copy — not us, not the cloud, which only ever holds these keys sealed to a device you enrolled yourself. There is no reset and no support path: if you lose every Mac you have enrolled, those conversations are gone. Two ways to have a second copy, and they are the only two: enrol another Mac (Settings → Devices), or copy this file and device-identity.json somewhere you trust.\",\n  \"retired\" : {\n    \"moe:memory\" : [\n      \"kFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFw=\",\n      \"kFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFxcXFw=\"\n    ]\n  },\n  \"version\" : 1\n}"
+    },
+    {
+      "expect" : {
+        "a-conversation" : {
+          "opening" : [
+
+          ],
+          "retired_count" : 0,
+          "sealing" : null
+        },
+        "moe:memory" : {
+          "opening" : [
+            "QDU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU=",
+            "wBMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExM=",
+            "gCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQ="
+          ],
+          "retired_count" : 2,
+          "sealing" : "QDU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU="
+        }
+      },
+      "has_retired_field" : true,
+      "name" : "a-mac-displaced-twice-by-two-different-keys",
+      "story" : "Two displacements by two different keys. The order of the retired list is the order this Mac met them, oldest first — it is an array on disk and nothing sorts it.",
+      "text" : "{\n  \"keys\" : {\n    \"moe:memory\" : \"QDU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU=\"\n  },\n  \"README\" : \"Deleting this file permanently destroys the conversations it unlocks. Each key belongs to one thread in ..\\/ledger; deleting a conversation in Moe deletes its key from here, which is what makes that deletion real. Nobody else has a copy — not us, not the cloud, which only ever holds these keys sealed to a device you enrolled yourself. There is no reset and no support path: if you lose every Mac you have enrolled, those conversations are gone. Two ways to have a second copy, and they are the only two: enrol another Mac (Settings → Devices), or copy this file and device-identity.json somewhere you trust.\",\n  \"retired\" : {\n    \"moe:memory\" : [\n      \"wBMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExM=\",\n      \"gCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQ=\"\n    ]\n  },\n  \"version\" : 1\n}"
+    },
+    {
+      "expect" : {
+        "a-conversation" : {
+          "opening" : [
+            "TXd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3c="
+          ],
+          "retired_count" : 0,
+          "sealing" : "TXd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3c="
+        },
+        "moe:memory" : {
+          "opening" : [
+            "IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE="
+          ],
+          "retired_count" : 0,
+          "sealing" : "IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE="
+        }
+      },
+      "has_retired_field" : false,
+      "name" : "a-keyring-from-before-15.1",
+      "story" : "Nothing was ever displaced, so the file carries no `retired` field at all and is byte-identical to one written before §15.1 existed. Every keyring on every Mac looks like this until the day it joins.",
+      "text" : "{\n  \"keys\" : {\n    \"a-conversation\" : \"TXd3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3d3c=\",\n    \"moe:memory\" : \"IKGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaE=\"\n  },\n  \"README\" : \"Deleting this file permanently destroys the conversations it unlocks. Each key belongs to one thread in ..\\/ledger; deleting a conversation in Moe deletes its key from here, which is what makes that deletion real. Nobody else has a copy — not us, not the cloud, which only ever holds these keys sealed to a device you enrolled yourself. There is no reset and no support path: if you lose every Mac you have enrolled, those conversations are gone. Two ways to have a second copy, and they are the only two: enrol another Mac (Settings → Devices), or copy this file and device-identity.json somewhere you trust.\",\n  \"version\" : 1\n}"
+    }
+  ]
+}

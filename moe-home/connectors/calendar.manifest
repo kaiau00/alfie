@@ -1,0 +1,14 @@
+# Calendar.app via AppleScript — includes Google calendars subscribed there.
+name=calendar
+label=Calendar
+verbs=status pull crawl items
+cadence=10m
+deep_crawl=yes
+auth=local
+runs_in=mac
+cost=cheap
+context_file=calendar
+# The same service through Composio. When this route is not set up and
+# Composio has it, the tools say so rather than "not connected"
+# (moe-connectors composio_connected).
+composio=googlecalendar

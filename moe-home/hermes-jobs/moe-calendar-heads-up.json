@@ -1,0 +1,13 @@
+{
+  "_comment": "A word a few minutes before something in the calendar starts — the one thing the proactive pass can never say, because it runs every 30 minutes and only when the brief's bytes move. A no_agent job: moe-calendar-heads-up.py reads the copy of the calendar the ten-minute sync keeps in ~/.moe/context/calendar.md, works out what starts inside the window the person set, and prints one sentence per event. No model, no network, no Calendar, no EventKit. configure-hermes.py (install_jobs) copies the script into $HERMES_HOME/scripts/ and registers this spec through cron.jobs.create_job(**spec), keyed on its name; a later change to the spec is applied to the job that already exists. Keys mirror create_job()'s parameters.",
+  "_schedule": "Every 2 minutes, because the promise is 'a couple of minutes before' and the error in it is the tick. At 2m a heads-up asked for at ten minutes lands between 8 and 10 minutes out, which is the sentence a person would have said themselves; at 5m it lands between 5 and 10, which is not. The cost of a tick with nothing to do is a Python start and two file reads — the config and, past the switches, one context file — because every gate is a read of ~/.moe/config.json: absent `calendarHeadsUpMinutes`, or 0, means the script exits 0 having read one small file, which for a no_agent job is a silent tick that costs nothing and delivers nothing. Absent is not the default: the app writes a fresh install's config.json at first launch with calendarHeadsUpMinutes 10 (docs/DEFAULTS.md row 21), so a new Mac has the heads-up on and a person who sets it to 0 has it off.",
+  "_deliver": "moe — the screen of this Mac plus the connectors ticked in Settings › Background (hermes-plugins/moe-screen). A no_agent job's stdout IS the message, so printing the sentence is the delivery, through the same deliver.py every reminder goes through: the amber nudge on the island, and `hermes send` to the reminderChannels the person set. That is why the script does not import deliver.py itself — it would have to reach into $HERMES_HOME from a sanitised cron environment, and the heads-up would arrive twice. Empty stdout is a silent run (cron/scheduler.py), never a failure; anything the script has to say about itself goes to stderr, which Hermes keeps only when the run fails.",
+  "name": "moe-calendar-heads-up",
+  "schedule": "every 2m",
+  "no_agent": true,
+  "script": "moe-calendar-heads-up.py",
+  "prompt": null,
+  "deliver": "moe",
+  "workdir": null,
+  "enabled_toolsets": null
+}

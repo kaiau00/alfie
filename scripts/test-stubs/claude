@@ -1,0 +1,17 @@
+#!/bin/bash
+# Stub `claude` for testing scripts/hermes-signin.sh. `setup-token` prints a
+# fake token mid-line, wrapped in ANSI styling and padded with spaces, the
+# way the real CLI does — or, with MOE_STUB_CLAUDE_FAIL=1, fails without one.
+# `--version` answers too, because scripts/install.sh no longer trusts a file
+# called `claude` that is merely executable — it runs `--version` and only
+# believes a claude that answers. A stub that failed that check would look to
+# install.sh like a Mac with no Claude Code on it.
+[ "${1:-}" = --version ] && { echo "0.0.0-fake (Claude Code)"; exit 0; }
+[ "${1:-}" = setup-token ] || { echo "stub claude: unexpected: $*" >&2; exit 2; }
+echo "Opening browser to sign in..."
+if [ "${MOE_STUB_CLAUDE_FAIL:-}" = 1 ]; then
+  echo "Error: not logged in. Run claude and use /login." >&2
+  exit 1
+fi
+printf 'Your long-lived token:   \033[1m%s\033[0m   (keep it secret)\n' "${MOE_STUB_CLAUDE_TOKEN:-sk-ant-oat01-STUBTOKEN_abc-123}"
+echo "Done."

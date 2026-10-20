@@ -1,0 +1,43 @@
+#!/bin/bash
+# Stub for the GitHub CLI, used by scripts/test-publish-release.sh so no
+# release is ever created and nothing is uploaded. Records argv to
+# $MOE_STUB_LOG and answers:
+#   repo view    → exit 0, or 1 when MOE_STUB_NO_REPO=1 (repo does not exist)
+#   release view → exit 1 (no such release), or 0 when the tag is in
+#                  $MOE_STUB_EXISTING_TAGS (space separated)
+#   release edit   → exit 0 (used to publish a draft)
+#   release create → exit 0, or 1 when MOE_STUB_RELEASE_FAIL=1. The body of
+#                    --notes-file is appended to the log as "notes: " lines.
+printf '%s\n' "$*" >> "${MOE_STUB_LOG:-/dev/null}"
+case "${1:-} ${2:-}" in
+  "repo view")
+    [ "${MOE_STUB_NO_REPO:-}" = 1 ] && { echo "GraphQL: Could not resolve to a Repository" >&2; exit 1; }
+    echo "stub repo"; exit 0 ;;
+  "release view")
+    # --json isDraft is asked after a create, to catch an upload that was
+    # interrupted and left the release unpublished. The stub says false; a
+    # test that wants the draft path sets MOE_STUB_DRAFT=1.
+    case "$*" in
+      *--json\ isDraft*)
+        if [ "${MOE_STUB_DRAFT:-}" = 1 ]; then echo true; else echo false; fi
+        exit 0 ;;
+    esac
+    for t in ${MOE_STUB_EXISTING_TAGS:-}; do
+      [ "$t" = "${3:-}" ] && { echo "tag: $t"; exit 0; }
+    done
+    echo "release not found" >&2; exit 1 ;;
+  "release edit")
+    echo "https://github.com/stub/releases/tag/${3:-untagged}"; exit 0 ;;
+  "release create")
+    [ "${MOE_STUB_RELEASE_FAIL:-}" = 1 ] && { echo "HTTP 422" >&2; exit 1; }
+    # The notes file lives in the caller's temp directory and is gone by the
+    # time a test could read it, so its body is recorded here, one prefixed
+    # line at a time.
+    prev=""
+    for a in "$@"; do
+      [ "$prev" = "--notes-file" ] && [ -f "$a" ] && sed 's/^/notes: /' "$a" >> "${MOE_STUB_LOG:-/dev/null}"
+      prev="$a"
+    done
+    echo "https://github.com/stub/releases/tag/${3:-untagged}"; exit 0 ;;
+  *) echo "stub gh: unexpected: $*" >&2; exit 2 ;;
+esac

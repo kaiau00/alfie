@@ -1,0 +1,66 @@
+name: Feature request
+description: A change with a plan behind it. Early ideas belong in Discussions › Ideas first.
+title: "[Feature]: "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Ideas that are still forming are better in [Discussions › Ideas](https://github.com/memoe-app/memoe/discussions/categories/ideas), where others can weigh in. Open an issue here when the problem is clear.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What are you trying to do, and what gets in the way today? Describe the situation, not the solution.
+      placeholder: "When I'm on a call, I want to ask Moe something without the other people hearing it answer..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What you would like to happen
+      description: How it would work from the point of view of someone using Memoe. What would they say, see or hear?
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: What you do now, or alternatives you considered
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      multiple: true
+      options:
+        - Talking and listening
+        - The panel under the notch
+        - Memory
+        - Driving the Mac
+        - The send sheet
+        - Meetings
+        - Connections
+        - Message Moe
+        - Reminders and background work
+        - Settings
+        - Building and developing
+        - Something else
+
+  - type: checkboxes
+    id: fit
+    attributes:
+      label: Fit
+      description: Memoe has a few firm rules. Tick what applies.
+      options:
+        - label: This works the same whatever the person thinks with (a Claude or ChatGPT plan, any API key, or a local model).
+        - label: Nothing goes out to another person without the person's yes.
+        - label: I would like to work on this myself.
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else
+      description: Mock-ups, examples from other apps, links.

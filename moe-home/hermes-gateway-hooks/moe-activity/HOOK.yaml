@@ -1,0 +1,6 @@
+name: moe-activity
+description: >
+  Records that a turn happened on a platform other than Moe's own brain
+  channel, so the Mac app is no longer blind to everything it did not start.
+events:
+  - agent:end

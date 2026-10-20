@@ -1,0 +1,7 @@
+name: moe-connectors
+version: "0.1"
+description: >
+  The person's own accounts as Hermes tools — mail, messages, calendar, notes,
+  files and browsing, one tool per verb declared in ~/.moe/connectors/*.manifest.
+  Registered natively rather than over MCP so the model sees `gmail_pull` beside
+  `terminal`, with no server prefix and no second product in the tool names.

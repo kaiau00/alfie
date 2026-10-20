@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  swift:
+    name: swift build and tests
+    runs-on: macos-15
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Toolchain
+        run: |
+          sw_vers
+          swift --version
+      - name: Build
+        run: swift build
+      - name: Tests
+        # The cloud's tests are not in this repository; MOE_SKIP_PG=1 tells
+        # the runner not to start the PostgreSQL they need.
+        env:
+          MOE_SKIP_PG: "1"
+        run: ./scripts/test.sh

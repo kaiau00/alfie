@@ -1,0 +1,20 @@
+# WhatsApp through the one linked device Moe's bundled bridge is, paired by
+# QR; it keeps the history this reads (see connectors/whatsapp.sh).
+# One of three connectors that can send — gmail and telegram are the others
+# — and like both of them every send goes through confirm.sh first.
+name=whatsapp
+label=WhatsApp
+verbs=status pull crawl chats find send voice items
+cadence=10m
+deep_crawl=yes
+auth=oauth
+runs_in=both
+cost=cheap
+context_file=whatsapp
+# What these verbs take, in order, as arguments. whatsapp.sh reads them
+# positionally (`send <to> <text>`), unlike gmail and telegram which take a
+# JSON object on stdin — so these are declared with `_args`, not `_stdin`.
+send_args=to* text*
+find_args=name*
+voice_args=count
+chats_args=limit

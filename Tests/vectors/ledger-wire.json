@@ -1,0 +1,1209 @@
+{
+  "_about" : {
+    "bytes" : "every binary value is standard base64 with padding; hex is lowercase",
+    "deterministic_but_swift_verified" : [
+      "envelope (non-captured part) is built by this test with a fixed ephemeral key and nonce through the same HKDF/AES-GCM calls as KeyEnvelope.seal, and KeyEnvelope.open(as:from:) is asserted to recover thread_key from it.",
+      "thread_crypto.primitive and thread_crypto.turn_record use AES.GCM.seal with an explicit nonce; ThreadCrypto.open is asserted to open every ciphertext."
+    ],
+    "fixed_inputs" : "all randomness is replaced by the fixed bytes given beside each vector; 32-byte seeds are SHA-256 of the label in `seed_label` and are also given raw",
+    "generator" : "Tests/MoeCloudTests/WireVectorTests.swift (MOE_WRITE_VECTORS=1 scripts/test.sh --filter WireVectorTests)",
+    "memory_records_note" : "LEDGER-WIRE §13.2–§13.5 (slice 2½). `key` is the `moe:memory` keyring entry, seed_label moe.vectors.memory-key. claim_assert and document are sealed with it exactly as thread_crypto seals a turn (AES-256-GCM, combined = nonce || ciphertext || tag, base64; the nonce is given). claim_assert.claim_id is Claim.id(target, normalise(text)) over the PLAINTEXT (claim-conformance.json has the id vectors); the record body carries it as `claim`, never `id` — §13.4's example says `id`, the writers say `claim`. claim_retract carries the id and no text. document.body is exactly {name, bytes, enc, text_enc}: NO sha256 on the wire (a hash of a small dictionary is the dictionary; GCM already authenticates) — a reader hashes the plaintext it opened, and document.text_sha256_hex is that value for checking. bytes is the plaintext's UTF-8 length; a removal is bytes 0 and text_enc \"\" (document_removed). A `claim` whose text_enc is \"\" is malformed and not a claim (ignored by every reader), while a `document` whose text_enc is \"\" is the removal marker. plaintext_claim is a `claim` with `text` and no `text_enc`: every implementation must classify it as plaintext (§13.3, carriesPlaintext / Record.is_plaintext / the edge's 400 plaintext_body) and must NOT classify claim_assert, claim_retract, document or document_removed as plaintext. None of these records carries a `thread`.",
+    "records_note" : "in records[].input, `prev: null` means the key is ABSENT from the record (LEDGER-WIRE §1.2, §10.9); `double_keys` lists body keys whose values are Doubles in Swift even where the JSON here shows an integer (1.0 -> 1).",
+    "round_trip_only" : [
+      "introduction.captured.signature — CryptoKit Ed25519 signing is randomised (see json_details.ed25519_signing_deterministic); Python must VERIFY this signature over introduction.signed_bytes with signer_signing_public, and its own signatures must verify the same way. The signed bytes are deterministic.",
+      "envelope.captured.signature — same reason; over envelope.signed_bytes.",
+      "envelope.captured.sealed_by_swift — a full KeyEnvelope.seal output (random ephemeral key and AES-GCM nonce); Python must open it with envelope.recipient_agreement_private and recover envelope.thread_key.",
+      "thread_crypto.captured.turn_record — a `turn` record as ConversationProjector.turnBody writes it (random AES-GCM nonces); Python must check the id and decrypt text_enc / tools_enc with thread_crypto.captured.turn_record.key.",
+      "record_signature.captured.signature — LEDGER-WIRE §12.1: Ed25519 by signer_signing_private over record_signature.signed_bytes (deterministic: \"moe.record.v1\" || 0x00 || the record's canonical bytes). Python must verify it with signer_signing_public, and its own `sig` must verify the same way. record_signature.captured.wire_object is the §11 Record object as pushed, with `sig`.",
+      "memory_records.captured.claim_assert / .document — the same two records as written by the production writers (ClaimLedger.assert, DocumentRecord.append) with random nonces; Python must check the id and decrypt text_enc with memory_records.key to the stated `text`."
+    ],
+    "spec" : "docs/LEDGER-WIRE.md"
+  },
+  "enrolment" : {
+    "device_token" : {
+      "hash" : "yipP5yf6rs8W7NEwqG4IhcVUDAU3U0BEUHHAZXVV/UI=",
+      "hash_hex" : "ca2a4fe727faaecf16ecd130a86e0885c5540c05375340445071c0657555fd42",
+      "hash_note" : "SHA-256(secret), no domain separator",
+      "secret" : "QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl8=",
+      "text" : "QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl8="
+    },
+    "sas" : {
+      "code" : "E8ZK-TCJ8-FW3B-7XR4-575D-A35C",
+      "code_layout" : "120 bits big-endian, 5 bits per char MSB-first into the alphabet, 24 chars in 6 groups of 4 joined by '-'",
+      "hkdf_output_15" : "Yb8cqgZvApL24hlGtARq",
+      "hkdf_output_15_hex" : "61bf1caa066f0292f6e21946b4046a",
+      "ikm" : "oKGio6SlpqeoqaqrrK2ur7CxsrO0tba3uLm6u7y9vr8=",
+      "ikm_layout" : "sponsor_nonce(16) || joiner_nonce(16)",
+      "info" : "bW9lLmVucm9sLnNhcy52MQDn0JnDJ1N0wnz2v7OqboUpitCfphEbuY66Knl4iTpGc304r84O0KrBfnpyuq6zSpXGx2QuUUg5q1yj/d0/6VtEXH9qmbJPAs9Qu1WtrzcgL+gdtXIRp33n5bQG463XQU8CHp3Oz2mcxMTME0+KEPAjKENvt8d/WshfoMSUqWg+Dw==",
+      "info_layout" : "\"moe.enrol.sas.v1\" || 0x00 || sponsor_identity_public || sponsor_signing_public || joiner_identity_public || joiner_signing_public",
+      "joiner_identity_public" : "XH9qmbJPAs9Qu1WtrzcgL+gdtXIRp33n5bQG463XQU8=",
+      "joiner_nonce" : "sLGys7S1tre4ubq7vL2+vw==",
+      "joiner_signing_public" : "Ah6dzs9pnMTEzBNPihDwIyhDb7fHf1rIX6DElKloPg8=",
+      "matches_examples" : [
+        {
+          "expected" : "E8ZK-TCJ8-FW3B-7XR4-575D-A35C",
+          "matches" : true,
+          "typed" : "e8zk-tcj8-fw3b-7xr4-575d-a35c"
+        },
+        {
+          "expected" : "E8ZK-TCJ8-FW3B-7XR4-575D-A35C",
+          "matches" : true,
+          "typed" : "E8ZKTCJ8FW3B7XR4575DA35C"
+        },
+        {
+          "expected" : "E8ZK-TCJ8-FW3B-7XR4-575D-A35C",
+          "matches" : false,
+          "typed" : "E8ZK-TCJ8-FW3B-7XR4-575D-A35"
+        }
+      ],
+      "salt" : "",
+      "salt_note" : "no salt (HKDF<SHA256>.deriveKey without salt) = RFC 5869 empty salt",
+      "sponsor_identity_public" : "59CZwydTdMJ89r+zqm6FKYrQn6YRG7mOuip5eIk6RnM=",
+      "sponsor_nonce" : "oKGio6SlpqeoqaqrrK2urw==",
+      "sponsor_signing_public" : "fTivzg7QqsF+enK6rrNKlcbHZC5RSDmrXKP93T/pW0Q="
+    },
+    "ticket" : {
+      "alphabet" : "23456789ABCDEFGHJKLMNPQRSTUVWXYZ",
+      "canonical" : "ABCD-EFGH-2345",
+      "forms_hashing_identically" : [
+        {
+          "hash" : "j3cTYx+nBLnYUFlZtA72uCz9NTZMsl5n1CFvtsMIt68=",
+          "typed" : "ABCD-EFGH-2345"
+        },
+        {
+          "hash" : "j3cTYx+nBLnYUFlZtA72uCz9NTZMsl5n1CFvtsMIt68=",
+          "typed" : "abcd-efgh-2345"
+        },
+        {
+          "hash" : "j3cTYx+nBLnYUFlZtA72uCz9NTZMsl5n1CFvtsMIt68=",
+          "typed" : "abcd efgh 2345"
+        },
+        {
+          "hash" : "j3cTYx+nBLnYUFlZtA72uCz9NTZMsl5n1CFvtsMIt68=",
+          "typed" : "ABCDEFGH2345"
+        },
+        {
+          "hash" : "j3cTYx+nBLnYUFlZtA72uCz9NTZMsl5n1CFvtsMIt68=",
+          "typed" : " ab-cd EF-gh 23 45 "
+        }
+      ],
+      "hash" : "j3cTYx+nBLnYUFlZtA72uCz9NTZMsl5n1CFvtsMIt68=",
+      "hash_hex" : "8f7713631fa704b9d8505959b40ef6b82cfd35364cb25e67d4216fb6c308b7af",
+      "hash_preimage" : "bW9lLmVucm9sLnRpY2tldC52MQBBQkNERUZHSDIzNDU=",
+      "normalised" : "ABCDEFGH2345",
+      "note" : "hash = SHA-256(\"moe.enrol.ticket.v1\" || 0x00 || upper(ticket) with '-' and ' ' removed)"
+    },
+    "window_seconds" : 900
+  },
+  "envelope" : {
+    "captured" : {
+      "sealed_by_swift" : {
+        "ephemeral_public" : "N+/IYZROrh9Da48WQtURrkGFk1HzmXaoZc0FCn9wrjQ=",
+        "from" : "mac-aaaaaaaa",
+        "note" : "KeyEnvelope.seal output (its own ephemeral key and nonce); open with recipient_agreement_private after verifying signature with sender_signing_public; must yield thread_key",
+        "scheme" : "x25519-hkdf-sha256.aes-gcm-256.v1",
+        "sealed" : "TfBposg402PADCrmHafHAYyvXnW2xp1zBJ1UpNk9LRgZZ/X/a1k8y82OSztpFtb31bVEt92WX9O88APW",
+        "signature" : "irUablhBwdcGLZZ0UButph7ZazH9jfeFCLHCwErlaXaByXQgGSlbIYRxzUGGTh4n1+9oFaXA9UZ9iEHJzwMsAw==",
+        "thread" : "7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001",
+        "to" : "mac-bbbbbbbb"
+      },
+      "signature" : "r28yhFpTgeKvmfdDZ87a9UWMqu54cecyG+ddmWHKF2PDc+V5aQzVhCUAoVcoEnSWSFtI+zQkUluAhNTlG/1VDA==",
+      "signature_note" : "Ed25519 over signed_bytes by sender_signing_private; randomised in CryptoKit — verify, do not compare"
+    },
+    "ephemeral_private" : "nirnXBmdQiCyexgWO/0ufXrRfsR8wf2THBnE4RooH54=",
+    "ephemeral_public" : "GtuLcegEdPFxrDKVWj2XqrZcSdW/zyY1sLBZsb9t7QA=",
+    "ephemeral_seed_label" : "moe.vectors.envelope.ephemeral",
+    "from" : "mac-aaaaaaaa",
+    "hkdf_info" : "bW9lLnRocmVhZC1rZXkudjEAN0IyRTFDNEEtOUYwMy00RDZFLThBMTUtQzBGRkVFMDAwMDAxAG1hYy1hYWFhYWFhYQBtYWMtYmJiYmJiYmI=",
+    "hkdf_info_layout" : "\"moe.thread-key.v1\" || 0x00 || thread || 0x00 || from || 0x00 || to (no trailing 0x00)",
+    "hkdf_salt" : "XH9qmbJPAs9Qu1WtrzcgL+gdtXIRp33n5bQG463XQU8a24tx6AR08XGsMpVaPZeqtlxJ1b/PJjWwsFmxv23tAA==",
+    "hkdf_salt_layout" : "recipient_agreement_public(32) || ephemeral_public(32)",
+    "nonce" : "ICEiIyQlJicoKSor",
+    "recipient_agreement_private" : "i8P5nd1GGrDfpOqT/MhHDLBUM4lprNeZVLoJjXIVlZw=",
+    "recipient_agreement_public" : "XH9qmbJPAs9Qu1WtrzcgL+gdtXIRp33n5bQG463XQU8=",
+    "scheme" : "x25519-hkdf-sha256.aes-gcm-256.v1",
+    "sealed" : "ICEiIyQlJicoKSordk1ZMFYvzt+mFo8rDXyIbO8C0Ub9gSLCHw65zTONewbn38ydpAzFwiAwMghEoQ1E",
+    "sealed_layout" : "nonce(12) || AES-256-GCM(wrapping_key, thread_key, no AAD)(32) || tag(16)",
+    "sender_signing_private" : "+DXkOFkHR7TYmBOyfxoAB/KK7ckrGH4vf4uinbg3HvA=",
+    "sender_signing_public" : "fTivzg7QqsF+enK6rrNKlcbHZC5RSDmrXKP93T/pW0Q=",
+    "shared_secret" : "F2rWnKZBgGCHwrdv3DpJ6XgaUceiTSXOv9NbCvMyMxQ=",
+    "signed_bytes" : "bW9lLmVudmVsb3BlLnYxADdCMkUxQzRBLTlGMDMtNEQ2RS04QTE1LUMwRkZFRTAwMDAwMQBtYWMtYWFhYWFhYWEAbWFjLWJiYmJiYmJiABrbi3HoBHTxcawylVo9l6q2XEnVv88mNbCwWbG/be0AICEiIyQlJicoKSordk1ZMFYvzt+mFo8rDXyIbO8C0Ub9gSLCHw65zTONewbn38ydpAzFwiAwMghEoQ1E",
+    "signed_bytes_layout" : "\"moe.envelope.v1\" || 0x00 || thread || 0x00 || from || 0x00 || to || 0x00 || ephemeral_public(32) || sealed(60)",
+    "thread" : "7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001",
+    "thread_key" : "1MbeJmkMy9G0peQKiYsMPTGmfpmZP1XajozyCocqykA=",
+    "thread_key_seed_label" : "moe.vectors.thread-key",
+    "to" : "mac-bbbbbbbb",
+    "wrapping_key" : "7dTsoP1/+b+U5y3ef7cb5Jiv3LpE5aGzqMIiKvIDTNM="
+  },
+  "identity" : {
+    "agreement_private_equals_seed" : true,
+    "joiner" : {
+      "agreement_private" : "i8P5nd1GGrDfpOqT/MhHDLBUM4lprNeZVLoJjXIVlZw=",
+      "agreement_public" : "XH9qmbJPAs9Qu1WtrzcgL+gdtXIRp33n5bQG463XQU8=",
+      "agreement_seed_label" : "moe.vectors.joiner.agreement",
+      "device" : "mac-bbbbbbbb",
+      "device_identity_json" : "{\n  \"agreement_private\" : \"i8P5nd1GGrDfpOqT\\/MhHDLBUM4lprNeZVLoJjXIVlZw=\",\n  \"agreement_public\" : \"XH9qmbJPAs9Qu1WtrzcgL+gdtXIRp33n5bQG463XQU8=\",\n  \"device\" : \"mac-bbbbbbbb\",\n  \"README\" : \"This file is half of what makes your conversations readable on more than one machine, and it is what proves to your other devices that a key really came from this one. Nobody else has a copy — the cloud is told only the two public halves, which cannot open anything. Lose this and this Mac stops being able to unwrap keys your other devices send it; enrol it again and it becomes a new device, which is harmless. Lose this AND thread-keys.json, on every Mac you have enrolled, and those conversations are gone — there is no escrow and no reset, by design. Back both up together or not at all: either one alone opens nothing.\",\n  \"signing_private\" : \"AqyDA2NWC5rc7Kev7Sdvc5b1ZGzccaoHS+B9VAS9R3I=\",\n  \"signing_public\" : \"Ah6dzs9pnMTEzBNPihDwIyhDb7fHf1rIX6DElKloPg8=\",\n  \"version\" : 1\n}",
+      "signing_private" : "AqyDA2NWC5rc7Kev7Sdvc5b1ZGzccaoHS+B9VAS9R3I=",
+      "signing_public" : "Ah6dzs9pnMTEzBNPihDwIyhDb7fHf1rIX6DElKloPg8=",
+      "signing_seed_label" : "moe.vectors.joiner.signing"
+    },
+    "note" : "X25519 private = 32-byte scalar (rawRepresentation, stored as given, unclamped); Ed25519 private = 32-byte seed; publics are the RFC 7748 / RFC 8032 raw encodings. device_identity_json is DeviceIdentity.write(to:) verbatim (JSONSerialization .prettyPrinted + .sortedKeys, no trailing newline).",
+    "sponsor" : {
+      "agreement_private" : "+ZcGCjrR9Gm0kHtXvyj+tZ7jRsc8U6QK9vXI/4JbpRk=",
+      "agreement_public" : "59CZwydTdMJ89r+zqm6FKYrQn6YRG7mOuip5eIk6RnM=",
+      "agreement_seed_label" : "moe.vectors.sponsor.agreement",
+      "device" : "mac-aaaaaaaa",
+      "device_identity_json" : "{\n  \"agreement_private\" : \"+ZcGCjrR9Gm0kHtXvyj+tZ7jRsc8U6QK9vXI\\/4JbpRk=\",\n  \"agreement_public\" : \"59CZwydTdMJ89r+zqm6FKYrQn6YRG7mOuip5eIk6RnM=\",\n  \"device\" : \"mac-aaaaaaaa\",\n  \"README\" : \"This file is half of what makes your conversations readable on more than one machine, and it is what proves to your other devices that a key really came from this one. Nobody else has a copy — the cloud is told only the two public halves, which cannot open anything. Lose this and this Mac stops being able to unwrap keys your other devices send it; enrol it again and it becomes a new device, which is harmless. Lose this AND thread-keys.json, on every Mac you have enrolled, and those conversations are gone — there is no escrow and no reset, by design. Back both up together or not at all: either one alone opens nothing.\",\n  \"signing_private\" : \"+DXkOFkHR7TYmBOyfxoAB\\/KK7ckrGH4vf4uinbg3HvA=\",\n  \"signing_public\" : \"fTivzg7QqsF+enK6rrNKlcbHZC5RSDmrXKP93T\\/pW0Q=\",\n  \"version\" : 1\n}",
+      "signing_private" : "+DXkOFkHR7TYmBOyfxoAB/KK7ckrGH4vf4uinbg3HvA=",
+      "signing_public" : "fTivzg7QqsF+enK6rrNKlcbHZC5RSDmrXKP93T/pW0Q=",
+      "signing_seed_label" : "moe.vectors.sponsor.signing"
+    }
+  },
+  "introduction" : {
+    "by" : "mac-aaaaaaaa",
+    "captured" : {
+      "note" : "Ed25519 over signed_bytes by signer_signing_private; not deterministic in CryptoKit — verify, do not compare",
+      "signature" : "gVHu4JIngp4iO+p9RtNKD4aeHr77mNt//gYN3eEZC87mQHAyLBsouNPBQO5dRQlz4mPMQDP16fvT9n4Jub+CAA=="
+    },
+    "signed_bytes" : "bW9lLmludHJvZHVjdGlvbi52MQBtYWMtYmJiYmJiYmIAbWFjLWFhYWFhYWFhAFx/apmyTwLPULtVra83IC/oHbVyEad95+W0BuOt10FPAh6dzs9pnMTEzBNPihDwIyhDb7fHf1rIX6DElKloPg8=",
+    "signed_bytes_layout" : "\"moe.introduction.v1\" || 0x00 || subject || 0x00 || by || 0x00 || subject_identity_public(32) || subject_signing_public(32)",
+    "signer_signing_private" : "+DXkOFkHR7TYmBOyfxoAB/KK7ckrGH4vf4uinbg3HvA=",
+    "signer_signing_public" : "fTivzg7QqsF+enK6rrNKlcbHZC5RSDmrXKP93T/pW0Q=",
+    "subject" : "mac-bbbbbbbb",
+    "subject_identity_public" : "XH9qmbJPAs9Qu1WtrzcgL+gdtXIRp33n5bQG463XQU8=",
+    "subject_signing_public" : "Ah6dzs9pnMTEzBNPihDwIyhDb7fHf1rIX6DElKloPg8="
+  },
+  "json_details" : {
+    "backslash" : "\\\\",
+    "base64" : {
+      "accepts_empty" : true,
+      "accepts_line_breaks" : false,
+      "accepts_padded" : true,
+      "accepts_spaces" : false,
+      "accepts_unpadded" : false,
+      "accepts_url_safe_alphabet" : false,
+      "note" : "Data(base64Encoded:) with default options, which is what ThreadCrypto.open, ThreadKeyring and DeviceIdentity.load use"
+    },
+    "bool_false" : "false",
+    "bool_true" : "true",
+    "canonical_options" : "JSONSerialization [.sortedKeys, .withoutEscapingSlashes]; no whitespace",
+    "control_character_note" : "json = what appears between the quotes for a one-character string under the canonical options; escaped = it begins with a backslash",
+    "control_characters" : {
+      "U+0000" : {
+        "escaped" : true,
+        "json" : "\\u0000"
+      },
+      "U+000A" : {
+        "escaped" : true,
+        "json" : "\\n"
+      },
+      "U+000B" : {
+        "escaped" : true,
+        "json" : "\\u000b"
+      },
+      "U+000C" : {
+        "escaped" : true,
+        "json" : "\\f"
+      },
+      "U+000D" : {
+        "escaped" : true,
+        "json" : "\\r"
+      },
+      "U+000E" : {
+        "escaped" : true,
+        "json" : "\\u000e"
+      },
+      "U+000F" : {
+        "escaped" : true,
+        "json" : "\\u000f"
+      },
+      "U+0001" : {
+        "escaped" : true,
+        "json" : "\\u0001"
+      },
+      "U+001A" : {
+        "escaped" : true,
+        "json" : "\\u001a"
+      },
+      "U+001B" : {
+        "escaped" : true,
+        "json" : "\\u001b"
+      },
+      "U+001C" : {
+        "escaped" : true,
+        "json" : "\\u001c"
+      },
+      "U+001D" : {
+        "escaped" : true,
+        "json" : "\\u001d"
+      },
+      "U+001E" : {
+        "escaped" : true,
+        "json" : "\\u001e"
+      },
+      "U+001F" : {
+        "escaped" : true,
+        "json" : "\\u001f"
+      },
+      "U+0002" : {
+        "escaped" : true,
+        "json" : "\\u0002"
+      },
+      "U+0003" : {
+        "escaped" : true,
+        "json" : "\\u0003"
+      },
+      "U+0004" : {
+        "escaped" : true,
+        "json" : "\\u0004"
+      },
+      "U+0005" : {
+        "escaped" : true,
+        "json" : "\\u0005"
+      },
+      "U+0006" : {
+        "escaped" : true,
+        "json" : "\\u0006"
+      },
+      "U+0007" : {
+        "escaped" : true,
+        "json" : "\\u0007"
+      },
+      "U+007F" : {
+        "escaped" : false,
+        "json" : ""
+      },
+      "U+0008" : {
+        "escaped" : true,
+        "json" : "\\b"
+      },
+      "U+0009" : {
+        "escaped" : true,
+        "json" : "\\t"
+      },
+      "U+0010" : {
+        "escaped" : true,
+        "json" : "\\u0010"
+      },
+      "U+0011" : {
+        "escaped" : true,
+        "json" : "\\u0011"
+      },
+      "U+0012" : {
+        "escaped" : true,
+        "json" : "\\u0012"
+      },
+      "U+0013" : {
+        "escaped" : true,
+        "json" : "\\u0013"
+      },
+      "U+0014" : {
+        "escaped" : true,
+        "json" : "\\u0014"
+      },
+      "U+0015" : {
+        "escaped" : true,
+        "json" : "\\u0015"
+      },
+      "U+0016" : {
+        "escaped" : true,
+        "json" : "\\u0016"
+      },
+      "U+0017" : {
+        "escaped" : true,
+        "json" : "\\u0017"
+      },
+      "U+0018" : {
+        "escaped" : true,
+        "json" : "\\u0018"
+      },
+      "U+0019" : {
+        "escaped" : true,
+        "json" : "\\u0019"
+      },
+      "U+2028" : {
+        "escaped" : false,
+        "json" : " "
+      },
+      "U+2029" : {
+        "escaped" : false,
+        "json" : " "
+      }
+    },
+    "doubles" : {
+      "-0.0" : "-0",
+      "0.1" : "0.10000000000000001",
+      "0.5" : "0.5",
+      "1.0" : "1",
+      "1.5" : "1.5",
+      "1.7976931348623157e308" : "1.7976931348623157e+308",
+      "1e-7" : "9.9999999999999995e-08",
+      "1e15" : "1000000000000000",
+      "1e16" : "10000000000000000",
+      "1e17" : "1e+17",
+      "1e21" : "1e+21",
+      "1e100" : "1e+100",
+      "2.5e-5" : "2.5000000000000001e-05",
+      "3.14159" : "3.1415899999999999",
+      "5e-324" : "4.9406564584124654e-324",
+      "100.0" : "100",
+      "123456789.125" : "123456789.125",
+      "9007199254740993.0" : "9007199254740992"
+    },
+    "doubles_note" : "keys are the Swift Double literal; values are the exact JSON text Foundation emits",
+    "ed25519_note" : "CryptoKit's Curve25519.Signing produces a different signature each call (randomised, RFC 8032 verification still applies); signatures are round-trip-only",
+    "ed25519_signing_deterministic" : false,
+    "empty_array" : "[]",
+    "empty_object" : "{}",
+    "integers" : {
+      "-1" : "-1",
+      "0" : "0",
+      "9007199254740992" : "9007199254740992",
+      "int64_max" : "9223372036854775807",
+      "int64_min" : "-9223372036854775808"
+    },
+    "jsonvalue_double_1.0_reencodes_and_decodes_as" : "int(1)",
+    "jsonvalue_int_1_decodes_as" : "int(1)",
+    "jsonvalue_note" : "a Double 1.0 is written as `1` and so re-reads as an Int; the canonical bytes (and the id) are unchanged, only the Swift enum case differs",
+    "key_order" : [
+      "",
+      " ",
+      "_",
+      "~",
+      "0",
+      "9",
+      "10",
+      "a",
+      "A",
+      "ä",
+      "a_",
+      "a_1",
+      "a_b",
+      "a-b",
+      "a.b",
+      "a1",
+      "a9",
+      "a10",
+      "aa",
+      "ab",
+      "b",
+      "B",
+      "é",
+      "É",
+      "text",
+      "text_enc",
+      "thread",
+      "thread_started_at",
+      "threads",
+      "z",
+      "Z"
+    ],
+    "key_order_note" : "what .sortedKeys does for mixed-case, digit, punctuation, empty, space and non-ASCII keys. It is NOT code-point order: Foundation sorts with NSString.compare options [.numeric, .caseInsensitive, .forcedOrdering] under the system locale (9 < 10, a < A < ä, punctuation before digits before letters). Python must reproduce key_order_sample byte for byte, so json.dumps(sort_keys=True) alone is only correct when every key is lowercase ASCII letters and '_' with no digits and no key that is a prefix-plus-punctuation of another.",
+    "key_order_sample" : "{\"\":14,\" \":18,\"_\":3,\"~\":17,\"0\":11,\"9\":13,\"10\":12,\"a\":2,\"A\":8,\"ä\":15,\"a_\":25,\"a_1\":24,\"a_b\":19,\"a-b\":21,\"a.b\":22,\"a1\":23,\"a9\":5,\"a10\":4,\"aa\":9,\"ab\":20,\"b\":16,\"B\":1,\"é\":6,\"É\":31,\"text\":29,\"text_enc\":30,\"thread\":26,\"thread_started_at\":27,\"threads\":28,\"z\":7,\"Z\":10}",
+    "non_ascii_is_raw_utf8" : true,
+    "null" : "null",
+    "quote" : "\\\"",
+    "slash_canonical_options" : "/",
+    "slash_default_options" : "\\/",
+    "timestamp" : {
+      "format" : "YYYY-MM-DDTHH:MM:SS.mmmZ (ISO8601DateFormatter .withInternetDateTime + .withFractionalSeconds, UTC)",
+      "parse" : {
+        "2026-08-29 10:40:00Z" : {
+          "accepted" : false
+        },
+        "2026-08-29T10:40:00" : {
+          "accepted" : false
+        },
+        "2026-08-29T10:40:00.1Z" : {
+          "accepted" : true,
+          "reformatted" : "2026-08-29T10:40:00.100Z"
+        },
+        "2026-08-29T10:40:00.123+00:00" : {
+          "accepted" : true,
+          "reformatted" : "2026-08-29T10:40:00.123Z"
+        },
+        "2026-08-29T10:40:00.123Z" : {
+          "accepted" : true,
+          "reformatted" : "2026-08-29T10:40:00.123Z"
+        },
+        "2026-08-29T10:40:00.123456Z" : {
+          "accepted" : true,
+          "reformatted" : "2026-08-29T10:40:00.123Z"
+        },
+        "2026-08-29T10:40:00Z" : {
+          "accepted" : true,
+          "reformatted" : "2026-08-29T10:40:00.000Z"
+        },
+        "2026-08-29T11:40:00.123+01:00" : {
+          "accepted" : true,
+          "reformatted" : "2026-08-29T10:40:00.123Z"
+        }
+      },
+      "parse_note" : "LedgerRecord.parse(timestamp:); reformatted = what the hash would then be computed over (LEDGER-WIRE §1.3, §10.10)",
+      "rounds_half_up_to_millisecond" : true,
+      "sub_millisecond" : {
+        "0.0004" : {
+          "epoch" : 1788000000.0004001,
+          "formatted" : "2026-08-29T10:40:00.000Z"
+        },
+        "0.0005" : {
+          "epoch" : 1788000000.0005,
+          "formatted" : "2026-08-29T10:40:00.001Z"
+        },
+        "0.0006" : {
+          "epoch" : 1788000000.0006001,
+          "formatted" : "2026-08-29T10:40:00.001Z"
+        },
+        "0.0014" : {
+          "epoch" : 1788000000.0014,
+          "formatted" : "2026-08-29T10:40:00.001Z"
+        },
+        "0.0015" : {
+          "epoch" : 1788000000.0014999,
+          "formatted" : "2026-08-29T10:40:00.002Z"
+        },
+        "0.0016" : {
+          "epoch" : 1788000000.0016,
+          "formatted" : "2026-08-29T10:40:00.002Z"
+        },
+        "0.9994" : {
+          "epoch" : 1788000000.9993999,
+          "formatted" : "2026-08-29T10:40:00.999Z"
+        },
+        "0.9995" : {
+          "epoch" : 1788000000.9995,
+          "formatted" : "2026-08-29T10:40:01.000Z"
+        },
+        "0.9996" : {
+          "epoch" : 1788000000.9995999,
+          "formatted" : "2026-08-29T10:40:01.000Z"
+        },
+        "0.9999" : {
+          "epoch" : 1788000000.9999001,
+          "formatted" : "2026-08-29T10:40:01.000Z"
+        }
+      },
+      "truncates_to_millisecond" : false,
+      "whole_second" : "2026-08-29T10:40:00.000Z"
+    }
+  },
+  "memory_records" : {
+    "captured" : {
+      "claim_assert" : {
+        "id" : "e7e37d82a6bf4b5be94f3640540d753b",
+        "key" : "8Y1YukMr2w/r2qvY4wiF0MzwE0Pf6hoDsXaBRmp7EXY=",
+        "line" : "{\"after\":[],\"at\":\"2026-08-29T10:40:20.000Z\",\"body\":{\"claim\":\"8d09e05fa741\",\"enc\":\"aes-gcm-256.v1\",\"key\":\"job\",\"op\":\"assert\",\"source\":\"hermes:assistant_tool\",\"target\":\"memory\",\"text_enc\":\"BB2zTgSVz6BYsViGFYcORY6GsbcxiGK+azzxumZRuzmw6XF4Yv9v8R7eiDaqRPC2nRFLM8PTFAd6+x4E25pl\"},\"device\":\"mac-aaaaaaaa\",\"id\":\"e7e37d82a6bf4b5be94f3640540d753b\",\"kind\":\"claim\",\"seq\":12}",
+        "line_base64" : "eyJhZnRlciI6W10sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDoyMC4wMDBaIiwiYm9keSI6eyJjbGFpbSI6IjhkMDllMDVmYTc0MSIsImVuYyI6ImFlcy1nY20tMjU2LnYxIiwia2V5Ijoiam9iIiwib3AiOiJhc3NlcnQiLCJzb3VyY2UiOiJoZXJtZXM6YXNzaXN0YW50X3Rvb2wiLCJ0YXJnZXQiOiJtZW1vcnkiLCJ0ZXh0X2VuYyI6IkJCMnpUZ1NWejZCWXNWaUdGWWNPUlk2R3NiY3hpR0srYXp6eHVtWlJ1em13NlhGNFl2OXY4UjdlaURhcVJQQzJuUkZMTThQVEZBZDYreDRFMjVwbCJ9LCJkZXZpY2UiOiJtYWMtYWFhYWFhYWEiLCJpZCI6ImU3ZTM3ZDgyYTZiZjRiNWJlOTRmMzY0MDU0MGQ3NTNiIiwia2luZCI6ImNsYWltIiwic2VxIjoxMn0=",
+        "note" : "written by Claim.body(sealedWith:) with a random nonce; same inputs as memory_records.claim_assert",
+        "text" : "I work at Kaplan — since 2024/09."
+      },
+      "document" : {
+        "id" : "fcc882b70aa24df1630c36bb6d5f906f",
+        "key" : "8Y1YukMr2w/r2qvY4wiF0MzwE0Pf6hoDsXaBRmp7EXY=",
+        "line" : "{\"after\":[],\"at\":\"2026-08-29T10:40:22.000Z\",\"body\":{\"bytes\":46,\"enc\":\"aes-gcm-256.v1\",\"name\":\"profile/people.md\",\"text_enc\":\"p5gjSLvf/vVnRYIFbAmAeT4oTrFarebtR5w/pGfuCDbwqGDO4BoaKygE/mG4jXyne+98UsKfDy3c+UKXp/cP3RcSb4Wpl2lXnXs=\"},\"device\":\"mac-aaaaaaaa\",\"id\":\"fcc882b70aa24df1630c36bb6d5f906f\",\"kind\":\"document\",\"seq\":14}",
+        "line_base64" : "eyJhZnRlciI6W10sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDoyMi4wMDBaIiwiYm9keSI6eyJieXRlcyI6NDYsImVuYyI6ImFlcy1nY20tMjU2LnYxIiwibmFtZSI6InByb2ZpbGUvcGVvcGxlLm1kIiwidGV4dF9lbmMiOiJwNWdqU0x2Zi92Vm5SWUlGYkFtQWVUNG9UckZhcmVidFI1dy9wR2Z1Q0Rid3FHRE80Qm9hS3lnRS9tRzRqWHluZSs5OFVzS2ZEeTNjK1VLWHAvY1AzUmNTYjRXcGwybFhuWHM9In0sImRldmljZSI6Im1hYy1hYWFhYWFhYSIsImlkIjoiZmNjODgyYjcwYWEyNGRmMTYzMGMzNmJiNmQ1ZjkwNmYiLCJraW5kIjoiZG9jdW1lbnQiLCJzZXEiOjE0fQ==",
+        "note" : "written by DocumentRecord.body with a random nonce; same inputs as memory_records.document",
+        "text" : "# People\n\n- Ana — sister, Lisbon\n- \"Q\" 😀\n"
+      }
+    },
+    "claim_assert" : {
+      "canonical" : "{\"after\":[],\"at\":\"2026-08-29T10:40:20.000Z\",\"body\":{\"claim\":\"8d09e05fa741\",\"enc\":\"aes-gcm-256.v1\",\"key\":\"job\",\"op\":\"assert\",\"source\":\"hermes:assistant_tool\",\"target\":\"memory\",\"text_enc\":\"cHFyc3R1dnd4eXp7vhPGV1kdYAUeWRrvUM39s42/cq+kDQbBeM6LemSxpyizORvAJ7R1WWYhkXANRzQ7/AV7\"},\"device\":\"mac-aaaaaaaa\",\"kind\":\"claim\",\"seq\":12}",
+      "canonical_base64" : "eyJhZnRlciI6W10sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDoyMC4wMDBaIiwiYm9keSI6eyJjbGFpbSI6IjhkMDllMDVmYTc0MSIsImVuYyI6ImFlcy1nY20tMjU2LnYxIiwia2V5Ijoiam9iIiwib3AiOiJhc3NlcnQiLCJzb3VyY2UiOiJoZXJtZXM6YXNzaXN0YW50X3Rvb2wiLCJ0YXJnZXQiOiJtZW1vcnkiLCJ0ZXh0X2VuYyI6ImNIRnljM1IxZG5kNGVYcDd2aFBHVjFrZFlBVWVXUnJ2VU0zOXM0Mi9jcStrRFFiQmVNNkxlbVN4cHlpek9SdkFKN1IxV1dZaGtYQU5SelE3L0FWNyJ9LCJkZXZpY2UiOiJtYWMtYWFhYWFhYWEiLCJraW5kIjoiY2xhaW0iLCJzZXEiOjEyfQ==",
+      "claim_id" : "8d09e05fa741",
+      "claim_id_input" : "memory\nI work at Kaplan — since 2024/09.",
+      "id" : "bfa88c3d6a6768089a7f7f9ed73f4dc8",
+      "input" : {
+        "after" : [
+
+        ],
+        "at" : "2026-08-29T10:40:20.000Z",
+        "at_epoch" : 1788000020,
+        "body" : {
+          "claim" : "8d09e05fa741",
+          "enc" : "aes-gcm-256.v1",
+          "key" : "job",
+          "op" : "assert",
+          "source" : "hermes:assistant_tool",
+          "target" : "memory",
+          "text_enc" : "cHFyc3R1dnd4eXp7vhPGV1kdYAUeWRrvUM39s42/cq+kDQbBeM6LemSxpyizORvAJ7R1WWYhkXANRzQ7/AV7"
+        },
+        "device" : "mac-aaaaaaaa",
+        "kind" : "claim",
+        "prev" : null,
+        "seq" : 12
+      },
+      "line" : "{\"after\":[],\"at\":\"2026-08-29T10:40:20.000Z\",\"body\":{\"claim\":\"8d09e05fa741\",\"enc\":\"aes-gcm-256.v1\",\"key\":\"job\",\"op\":\"assert\",\"source\":\"hermes:assistant_tool\",\"target\":\"memory\",\"text_enc\":\"cHFyc3R1dnd4eXp7vhPGV1kdYAUeWRrvUM39s42/cq+kDQbBeM6LemSxpyizORvAJ7R1WWYhkXANRzQ7/AV7\"},\"device\":\"mac-aaaaaaaa\",\"id\":\"bfa88c3d6a6768089a7f7f9ed73f4dc8\",\"kind\":\"claim\",\"seq\":12}",
+      "line_base64" : "eyJhZnRlciI6W10sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDoyMC4wMDBaIiwiYm9keSI6eyJjbGFpbSI6IjhkMDllMDVmYTc0MSIsImVuYyI6ImFlcy1nY20tMjU2LnYxIiwia2V5Ijoiam9iIiwib3AiOiJhc3NlcnQiLCJzb3VyY2UiOiJoZXJtZXM6YXNzaXN0YW50X3Rvb2wiLCJ0YXJnZXQiOiJtZW1vcnkiLCJ0ZXh0X2VuYyI6ImNIRnljM1IxZG5kNGVYcDd2aFBHVjFrZFlBVWVXUnJ2VU0zOXM0Mi9jcStrRFFiQmVNNkxlbVN4cHlpek9SdkFKN1IxV1dZaGtYQU5SelE3L0FWNyJ9LCJkZXZpY2UiOiJtYWMtYWFhYWFhYWEiLCJpZCI6ImJmYTg4YzNkNmE2NzY4MDg5YTdmN2Y5ZWQ3M2Y0ZGM4Iiwia2luZCI6ImNsYWltIiwic2VxIjoxMn0=",
+      "name" : "sealed_claim_assert",
+      "note" : "§13.4: a `claim` assert with text sealed under moe:memory; no `thread`; `key` and `source` in the clear",
+      "sha256_hex" : "bfa88c3d6a6768089a7f7f9ed73f4dc8dca4ba482d9fa8cd79fe64a682295d20",
+      "text" : "I work at Kaplan — since 2024/09.",
+      "text_nonce" : "cHFyc3R1dnd4eXp7"
+    },
+    "claim_retract" : {
+      "canonical" : "{\"after\":[\"bfa88c3d6a6768089a7f7f9ed73f4dc8\"],\"at\":\"2026-08-29T10:40:21.000Z\",\"body\":{\"claim\":\"8d09e05fa741\",\"key\":\"job\",\"op\":\"retract\",\"source\":\"user\",\"target\":\"memory\"},\"device\":\"mac-aaaaaaaa\",\"kind\":\"claim\",\"prev\":\"bfa88c3d6a6768089a7f7f9ed73f4dc8\",\"seq\":13}",
+      "canonical_base64" : "eyJhZnRlciI6WyJiZmE4OGMzZDZhNjc2ODA4OWE3ZjdmOWVkNzNmNGRjOCJdLCJhdCI6IjIwMjYtMDgtMjlUMTA6NDA6MjEuMDAwWiIsImJvZHkiOnsiY2xhaW0iOiI4ZDA5ZTA1ZmE3NDEiLCJrZXkiOiJqb2IiLCJvcCI6InJldHJhY3QiLCJzb3VyY2UiOiJ1c2VyIiwidGFyZ2V0IjoibWVtb3J5In0sImRldmljZSI6Im1hYy1hYWFhYWFhYSIsImtpbmQiOiJjbGFpbSIsInByZXYiOiJiZmE4OGMzZDZhNjc2ODA4OWE3ZjdmOWVkNzNmNGRjOCIsInNlcSI6MTN9",
+      "id" : "69cc3142ca5e45b524ab5d731f8fa978",
+      "input" : {
+        "after" : [
+          "bfa88c3d6a6768089a7f7f9ed73f4dc8"
+        ],
+        "at" : "2026-08-29T10:40:21.000Z",
+        "at_epoch" : 1788000021,
+        "body" : {
+          "claim" : "8d09e05fa741",
+          "key" : "job",
+          "op" : "retract",
+          "source" : "user",
+          "target" : "memory"
+        },
+        "device" : "mac-aaaaaaaa",
+        "kind" : "claim",
+        "prev" : "bfa88c3d6a6768089a7f7f9ed73f4dc8",
+        "seq" : 13
+      },
+      "line" : "{\"after\":[\"bfa88c3d6a6768089a7f7f9ed73f4dc8\"],\"at\":\"2026-08-29T10:40:21.000Z\",\"body\":{\"claim\":\"8d09e05fa741\",\"key\":\"job\",\"op\":\"retract\",\"source\":\"user\",\"target\":\"memory\"},\"device\":\"mac-aaaaaaaa\",\"id\":\"69cc3142ca5e45b524ab5d731f8fa978\",\"kind\":\"claim\",\"prev\":\"bfa88c3d6a6768089a7f7f9ed73f4dc8\",\"seq\":13}",
+      "line_base64" : "eyJhZnRlciI6WyJiZmE4OGMzZDZhNjc2ODA4OWE3ZjdmOWVkNzNmNGRjOCJdLCJhdCI6IjIwMjYtMDgtMjlUMTA6NDA6MjEuMDAwWiIsImJvZHkiOnsiY2xhaW0iOiI4ZDA5ZTA1ZmE3NDEiLCJrZXkiOiJqb2IiLCJvcCI6InJldHJhY3QiLCJzb3VyY2UiOiJ1c2VyIiwidGFyZ2V0IjoibWVtb3J5In0sImRldmljZSI6Im1hYy1hYWFhYWFhYSIsImlkIjoiNjljYzMxNDJjYTVlNDViNTI0YWI1ZDczMWY4ZmE5NzgiLCJraW5kIjoiY2xhaW0iLCJwcmV2IjoiYmZhODhjM2Q2YTY3NjgwODlhN2Y3ZjllZDczZjRkYzgiLCJzZXEiOjEzfQ==",
+      "name" : "claim_retract",
+      "note" : "§13.4: a retract carries the claim id and no text; `after` names the assert",
+      "sha256_hex" : "69cc3142ca5e45b524ab5d731f8fa978b1be20169b2397af5d8388aa6aed77c2"
+    },
+    "document" : {
+      "canonical" : "{\"after\":[],\"at\":\"2026-08-29T10:40:22.000Z\",\"body\":{\"bytes\":46,\"enc\":\"aes-gcm-256.v1\",\"name\":\"profile/people.md\",\"text_enc\":\"gIGCg4SFhoeIiYqLKz+YqrmDmYB84fcxIa3mJkQnbb79K04cTw5DZYETion3xzl1oyIR5yf/FmCdk3kGrXV0rzvV4JEKGIpPOxU=\"},\"device\":\"mac-aaaaaaaa\",\"kind\":\"document\",\"prev\":\"69cc3142ca5e45b524ab5d731f8fa978\",\"seq\":14}",
+      "canonical_base64" : "eyJhZnRlciI6W10sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDoyMi4wMDBaIiwiYm9keSI6eyJieXRlcyI6NDYsImVuYyI6ImFlcy1nY20tMjU2LnYxIiwibmFtZSI6InByb2ZpbGUvcGVvcGxlLm1kIiwidGV4dF9lbmMiOiJnSUdDZzRTRmhvZUlpWXFMS3orWXFybURtWUI4NGZjeElhM21Ka1FuYmI3OUswNGNUdzVEWllFVGlvbjN4emwxb3lJUjV5Zi9GbUNkazNrR3JYVjByenZWNEpFS0dJcFBPeFU9In0sImRldmljZSI6Im1hYy1hYWFhYWFhYSIsImtpbmQiOiJkb2N1bWVudCIsInByZXYiOiI2OWNjMzE0MmNhNWU0NWI1MjRhYjVkNzMxZjhmYTk3OCIsInNlcSI6MTR9",
+      "id" : "5548e8ff1f3176db5c01534954bee83b",
+      "input" : {
+        "after" : [
+
+        ],
+        "at" : "2026-08-29T10:40:22.000Z",
+        "at_epoch" : 1788000022,
+        "body" : {
+          "bytes" : 46,
+          "enc" : "aes-gcm-256.v1",
+          "name" : "profile/people.md",
+          "text_enc" : "gIGCg4SFhoeIiYqLKz+YqrmDmYB84fcxIa3mJkQnbb79K04cTw5DZYETion3xzl1oyIR5yf/FmCdk3kGrXV0rzvV4JEKGIpPOxU="
+        },
+        "device" : "mac-aaaaaaaa",
+        "kind" : "document",
+        "prev" : "69cc3142ca5e45b524ab5d731f8fa978",
+        "seq" : 14
+      },
+      "line" : "{\"after\":[],\"at\":\"2026-08-29T10:40:22.000Z\",\"body\":{\"bytes\":46,\"enc\":\"aes-gcm-256.v1\",\"name\":\"profile/people.md\",\"text_enc\":\"gIGCg4SFhoeIiYqLKz+YqrmDmYB84fcxIa3mJkQnbb79K04cTw5DZYETion3xzl1oyIR5yf/FmCdk3kGrXV0rzvV4JEKGIpPOxU=\"},\"device\":\"mac-aaaaaaaa\",\"id\":\"5548e8ff1f3176db5c01534954bee83b\",\"kind\":\"document\",\"prev\":\"69cc3142ca5e45b524ab5d731f8fa978\",\"seq\":14}",
+      "line_base64" : "eyJhZnRlciI6W10sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDoyMi4wMDBaIiwiYm9keSI6eyJieXRlcyI6NDYsImVuYyI6ImFlcy1nY20tMjU2LnYxIiwibmFtZSI6InByb2ZpbGUvcGVvcGxlLm1kIiwidGV4dF9lbmMiOiJnSUdDZzRTRmhvZUlpWXFMS3orWXFybURtWUI4NGZjeElhM21Ka1FuYmI3OUswNGNUdzVEWllFVGlvbjN4emwxb3lJUjV5Zi9GbUNkazNrR3JYVjByenZWNEpFS0dJcFBPeFU9In0sImRldmljZSI6Im1hYy1hYWFhYWFhYSIsImlkIjoiNTU0OGU4ZmYxZjMxNzZkYjVjMDE1MzQ5NTRiZWU4M2IiLCJraW5kIjoiZG9jdW1lbnQiLCJwcmV2IjoiNjljYzMxNDJjYTVlNDViNTI0YWI1ZDczMWY4ZmE5NzgiLCJzZXEiOjE0fQ==",
+      "name" : "document",
+      "note" : "§13.5: a `document` — name, the plaintext's UTF-8 byte count, text sealed under moe:memory; no `thread`, and no hash of the words on the wire (text_sha256_hex is what a reader computes after opening)",
+      "sha256_hex" : "5548e8ff1f3176db5c01534954bee83b8cdc79656c3af37aec94c0eb4677cc3f",
+      "text" : "# People\n\n- Ana — sister, Lisbon\n- \"Q\" 😀\n",
+      "text_bytes" : 46,
+      "text_nonce" : "gIGCg4SFhoeIiYqL",
+      "text_sha256_hex" : "ae0882a0116a05b6438f46b01cc7efad3ab8faa81faf896255152dbfa58239a0"
+    },
+    "document_removed" : {
+      "canonical" : "{\"after\":[],\"at\":\"2026-08-29T10:40:23.000Z\",\"body\":{\"bytes\":0,\"enc\":\"aes-gcm-256.v1\",\"name\":\"profile/people.md\",\"text_enc\":\"\"},\"device\":\"mac-aaaaaaaa\",\"kind\":\"document\",\"prev\":\"5548e8ff1f3176db5c01534954bee83b\",\"seq\":15}",
+      "canonical_base64" : "eyJhZnRlciI6W10sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDoyMy4wMDBaIiwiYm9keSI6eyJieXRlcyI6MCwiZW5jIjoiYWVzLWdjbS0yNTYudjEiLCJuYW1lIjoicHJvZmlsZS9wZW9wbGUubWQiLCJ0ZXh0X2VuYyI6IiJ9LCJkZXZpY2UiOiJtYWMtYWFhYWFhYWEiLCJraW5kIjoiZG9jdW1lbnQiLCJwcmV2IjoiNTU0OGU4ZmYxZjMxNzZkYjVjMDE1MzQ5NTRiZWU4M2IiLCJzZXEiOjE1fQ==",
+      "id" : "a167dfa263e053556ce654a2b6be9714",
+      "input" : {
+        "after" : [
+
+        ],
+        "at" : "2026-08-29T10:40:23.000Z",
+        "at_epoch" : 1788000023,
+        "body" : {
+          "bytes" : 0,
+          "enc" : "aes-gcm-256.v1",
+          "name" : "profile/people.md",
+          "text_enc" : ""
+        },
+        "device" : "mac-aaaaaaaa",
+        "kind" : "document",
+        "prev" : "5548e8ff1f3176db5c01534954bee83b",
+        "seq" : 15
+      },
+      "line" : "{\"after\":[],\"at\":\"2026-08-29T10:40:23.000Z\",\"body\":{\"bytes\":0,\"enc\":\"aes-gcm-256.v1\",\"name\":\"profile/people.md\",\"text_enc\":\"\"},\"device\":\"mac-aaaaaaaa\",\"id\":\"a167dfa263e053556ce654a2b6be9714\",\"kind\":\"document\",\"prev\":\"5548e8ff1f3176db5c01534954bee83b\",\"seq\":15}",
+      "line_base64" : "eyJhZnRlciI6W10sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDoyMy4wMDBaIiwiYm9keSI6eyJieXRlcyI6MCwiZW5jIjoiYWVzLWdjbS0yNTYudjEiLCJuYW1lIjoicHJvZmlsZS9wZW9wbGUubWQiLCJ0ZXh0X2VuYyI6IiJ9LCJkZXZpY2UiOiJtYWMtYWFhYWFhYWEiLCJpZCI6ImExNjdkZmEyNjNlMDUzNTU2Y2U2NTRhMmI2YmU5NzE0Iiwia2luZCI6ImRvY3VtZW50IiwicHJldiI6IjU1NDhlOGZmMWYzMTc2ZGI1YzAxNTM0OTU0YmVlODNiIiwic2VxIjoxNX0=",
+      "name" : "document_removed",
+      "note" : "§13.5: bytes 0 and text_enc \"\" — the file is removed; readable with no key (on a `claim` the same text_enc is malformed, not a removal)",
+      "sha256_hex" : "a167dfa263e053556ce654a2b6be9714a65a88c0699061e06fb67a122c31268a"
+    },
+    "key" : "8Y1YukMr2w/r2qvY4wiF0MzwE0Pf6hoDsXaBRmp7EXY=",
+    "key_id" : "moe:memory",
+    "key_seed_label" : "moe.vectors.memory-key",
+    "note" : "LEDGER-WIRE §13.2–§13.5. See _about.memory_records_note.",
+    "plaintext_claim" : {
+      "canonical" : "{\"after\":[],\"at\":\"2026-08-29T10:40:24.000Z\",\"body\":{\"claim\":\"8d09e05fa741\",\"key\":\"job\",\"op\":\"assert\",\"source\":\"hermes:assistant_tool\",\"target\":\"memory\",\"text\":\"I work at Kaplan — since 2024/09.\"},\"device\":\"mac-aaaaaaaa\",\"kind\":\"claim\",\"seq\":16}",
+      "canonical_base64" : "eyJhZnRlciI6W10sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDoyNC4wMDBaIiwiYm9keSI6eyJjbGFpbSI6IjhkMDllMDVmYTc0MSIsImtleSI6ImpvYiIsIm9wIjoiYXNzZXJ0Iiwic291cmNlIjoiaGVybWVzOmFzc2lzdGFudF90b29sIiwidGFyZ2V0IjoibWVtb3J5IiwidGV4dCI6Ikkgd29yayBhdCBLYXBsYW4g4oCUIHNpbmNlIDIwMjQvMDkuIn0sImRldmljZSI6Im1hYy1hYWFhYWFhYSIsImtpbmQiOiJjbGFpbSIsInNlcSI6MTZ9",
+      "id" : "e8ddf5c66f92a7b13d693e4c452b86c9",
+      "input" : {
+        "after" : [
+
+        ],
+        "at" : "2026-08-29T10:40:24.000Z",
+        "at_epoch" : 1788000024,
+        "body" : {
+          "claim" : "8d09e05fa741",
+          "key" : "job",
+          "op" : "assert",
+          "source" : "hermes:assistant_tool",
+          "target" : "memory",
+          "text" : "I work at Kaplan — since 2024/09."
+        },
+        "device" : "mac-aaaaaaaa",
+        "kind" : "claim",
+        "prev" : null,
+        "seq" : 16
+      },
+      "line" : "{\"after\":[],\"at\":\"2026-08-29T10:40:24.000Z\",\"body\":{\"claim\":\"8d09e05fa741\",\"key\":\"job\",\"op\":\"assert\",\"source\":\"hermes:assistant_tool\",\"target\":\"memory\",\"text\":\"I work at Kaplan — since 2024/09.\"},\"device\":\"mac-aaaaaaaa\",\"id\":\"e8ddf5c66f92a7b13d693e4c452b86c9\",\"kind\":\"claim\",\"seq\":16}",
+      "line_base64" : "eyJhZnRlciI6W10sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDoyNC4wMDBaIiwiYm9keSI6eyJjbGFpbSI6IjhkMDllMDVmYTc0MSIsImtleSI6ImpvYiIsIm9wIjoiYXNzZXJ0Iiwic291cmNlIjoiaGVybWVzOmFzc2lzdGFudF90b29sIiwidGFyZ2V0IjoibWVtb3J5IiwidGV4dCI6Ikkgd29yayBhdCBLYXBsYW4g4oCUIHNpbmNlIDIwMjQvMDkuIn0sImRldmljZSI6Im1hYy1hYWFhYWFhYSIsImlkIjoiZThkZGY1YzY2ZjkyYTdiMTNkNjkzZTRjNDUyYjg2YzkiLCJraW5kIjoiY2xhaW0iLCJzZXEiOjE2fQ==",
+      "name" : "plaintext_claim",
+      "note" : "§13.3: `text` and no `text_enc` — plaintext, whatever the kind; not pushed, not adopted, 400 plaintext_body",
+      "sha256_hex" : "e8ddf5c66f92a7b13d693e4c452b86c9e69f0f4b7c944752dc82db43c10eec65"
+    },
+    "reserved_prefix" : "moe:",
+    "scheme" : "aes-gcm-256.v1"
+  },
+  "record_signature" : {
+    "captured" : {
+      "delete_signature" : "mw76sWLVMA/CsIuFIv/6oC9DClE0cqREI3KoQ1KthpVVSNZ7GhiSSLxuh3E90ZxZjMi8uXSseMGKxqcRW/xhAQ==",
+      "note" : "Ed25519 over signed_bytes by signer_signing_private; not deterministic in CryptoKit — verify, do not compare. wire_object is the §11 Record object as it goes over POST /v1/ledger/push: the file form plus `sig`.",
+      "signature" : "F0/h8OQJecOa4rWJ5PlDaDH+eyse1oMTb/xnl1xeLNshkjgc6BGb0vw+hxBSUB/eLV/Ns0m7k0Se9ljeS+onAg==",
+      "wire_object" : {
+        "after" : [
+
+        ],
+        "at" : "2026-08-29T10:40:00.000Z",
+        "body" : {
+          "enc" : "aes-gcm-256.v1",
+          "role" : "user",
+          "text_enc" : "EBESExQVFhcYGRobDpf/eCytGtKkEShuahgFNrOHpYwxWGAro1tUCPn/a70T",
+          "thread" : "7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001"
+        },
+        "device" : "mac-aaaaaaaa",
+        "id" : "26c6bb30897b0e37fad1b352e31c1e56",
+        "kind" : "turn",
+        "seq" : 1,
+        "sig" : "F0/h8OQJecOa4rWJ5PlDaDH+eyse1oMTb/xnl1xeLNshkjgc6BGb0vw+hxBSUB/eLV/Ns0m7k0Se9ljeS+onAg=="
+      }
+    },
+    "delete_record" : {
+      "after" : [
+        "26c6bb30897b0e37fad1b352e31c1e56"
+      ],
+      "at" : "2026-08-29T10:41:00.000Z",
+      "at_epoch" : 1788000060,
+      "body" : {
+        "thread" : "7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001"
+      },
+      "canonical_base64" : "eyJhZnRlciI6WyIyNmM2YmIzMDg5N2IwZTM3ZmFkMWIzNTJlMzFjMWU1NiJdLCJhdCI6IjIwMjYtMDgtMjlUMTA6NDE6MDAuMDAwWiIsImJvZHkiOnsidGhyZWFkIjoiN0IyRTFDNEEtOUYwMy00RDZFLThBMTUtQzBGRkVFMDAwMDAxIn0sImRldmljZSI6Im1hYy1hYWFhYWFhYSIsImtpbmQiOiJ0aHJlYWQuZGVsZXRlIiwicHJldiI6IjI2YzZiYjMwODk3YjBlMzdmYWQxYjM1MmUzMWMxZTU2Iiwic2VxIjoyfQ==",
+      "device" : "mac-aaaaaaaa",
+      "id" : "2a8f9fba2a078c477527bccedc99f88a",
+      "kind" : "thread.delete",
+      "prev" : "26c6bb30897b0e37fad1b352e31c1e56",
+      "seq" : 2,
+      "signed_bytes_base64" : "bW9lLnJlY29yZC52MQB7ImFmdGVyIjpbIjI2YzZiYjMwODk3YjBlMzdmYWQxYjM1MmUzMWMxZTU2Il0sImF0IjoiMjAyNi0wOC0yOVQxMDo0MTowMC4wMDBaIiwiYm9keSI6eyJ0aHJlYWQiOiI3QjJFMUM0QS05RjAzLTRENkUtOEExNS1DMEZGRUUwMDAwMDEifSwiZGV2aWNlIjoibWFjLWFhYWFhYWFhIiwia2luZCI6InRocmVhZC5kZWxldGUiLCJwcmV2IjoiMjZjNmJiMzA4OTdiMGUzN2ZhZDFiMzUyZTMxYzFlNTYiLCJzZXEiOjJ9"
+    },
+    "domain" : "moe.record.v1",
+    "domain_base64" : "bW9lLnJlY29yZC52MQA=",
+    "domain_layout" : "\"moe.record.v1\" || 0x00 (14 bytes)",
+    "note" : "LEDGER-WIRE §12.1: sig = Ed25519(author's signing key, \"moe.record.v1\" || 0x00 || canonical bytes of §1.2). sig is a sidecar: not in the canonical form, not in the id, not on the .jsonl line; on the §11 Record object it is the `sig` key, base64. A verifier re-derives the id and checks sig over the same buffer, under the key its OWN peer book holds for record.device.",
+    "record" : {
+      "after" : [
+
+      ],
+      "at" : "2026-08-29T10:40:00.000Z",
+      "at_epoch" : 1788000000,
+      "body" : {
+        "enc" : "aes-gcm-256.v1",
+        "role" : "user",
+        "text_enc" : "EBESExQVFhcYGRobDpf/eCytGtKkEShuahgFNrOHpYwxWGAro1tUCPn/a70T",
+        "thread" : "7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001"
+      },
+      "canonical" : "{\"after\":[],\"at\":\"2026-08-29T10:40:00.000Z\",\"body\":{\"enc\":\"aes-gcm-256.v1\",\"role\":\"user\",\"text_enc\":\"EBESExQVFhcYGRobDpf/eCytGtKkEShuahgFNrOHpYwxWGAro1tUCPn/a70T\",\"thread\":\"7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001\"},\"device\":\"mac-aaaaaaaa\",\"kind\":\"turn\",\"seq\":1}",
+      "canonical_base64" : "eyJhZnRlciI6W10sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDowMC4wMDBaIiwiYm9keSI6eyJlbmMiOiJhZXMtZ2NtLTI1Ni52MSIsInJvbGUiOiJ1c2VyIiwidGV4dF9lbmMiOiJFQkVTRXhRVkZoY1lHUm9iRHBmL2VDeXRHdEtrRVNodWFoZ0ZOck9IcFl3eFdHQXJvMXRVQ1BuL2E3MFQiLCJ0aHJlYWQiOiI3QjJFMUM0QS05RjAzLTRENkUtOEExNS1DMEZGRUUwMDAwMDEifSwiZGV2aWNlIjoibWFjLWFhYWFhYWFhIiwia2luZCI6InR1cm4iLCJzZXEiOjF9",
+      "device" : "mac-aaaaaaaa",
+      "id" : "26c6bb30897b0e37fad1b352e31c1e56",
+      "kind" : "turn",
+      "line" : "{\"after\":[],\"at\":\"2026-08-29T10:40:00.000Z\",\"body\":{\"enc\":\"aes-gcm-256.v1\",\"role\":\"user\",\"text_enc\":\"EBESExQVFhcYGRobDpf/eCytGtKkEShuahgFNrOHpYwxWGAro1tUCPn/a70T\",\"thread\":\"7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001\"},\"device\":\"mac-aaaaaaaa\",\"id\":\"26c6bb30897b0e37fad1b352e31c1e56\",\"kind\":\"turn\",\"seq\":1}",
+      "line_base64" : "eyJhZnRlciI6W10sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDowMC4wMDBaIiwiYm9keSI6eyJlbmMiOiJhZXMtZ2NtLTI1Ni52MSIsInJvbGUiOiJ1c2VyIiwidGV4dF9lbmMiOiJFQkVTRXhRVkZoY1lHUm9iRHBmL2VDeXRHdEtrRVNodWFoZ0ZOck9IcFl3eFdHQXJvMXRVQ1BuL2E3MFQiLCJ0aHJlYWQiOiI3QjJFMUM0QS05RjAzLTRENkUtOEExNS1DMEZGRUUwMDAwMDEifSwiZGV2aWNlIjoibWFjLWFhYWFhYWFhIiwiaWQiOiIyNmM2YmIzMDg5N2IwZTM3ZmFkMWIzNTJlMzFjMWU1NiIsImtpbmQiOiJ0dXJuIiwic2VxIjoxfQ==",
+      "prev" : null,
+      "seq" : 1
+    },
+    "signed_bytes_base64" : "bW9lLnJlY29yZC52MQB7ImFmdGVyIjpbXSwiYXQiOiIyMDI2LTA4LTI5VDEwOjQwOjAwLjAwMFoiLCJib2R5Ijp7ImVuYyI6ImFlcy1nY20tMjU2LnYxIiwicm9sZSI6InVzZXIiLCJ0ZXh0X2VuYyI6IkVCRVNFeFFWRmhjWUdSb2JEcGYvZUN5dEd0S2tFU2h1YWhnRk5yT0hwWXd4V0dBcm8xdFVDUG4vYTcwVCIsInRocmVhZCI6IjdCMkUxQzRBLTlGMDMtNEQ2RS04QTE1LUMwRkZFRTAwMDAwMSJ9LCJkZXZpY2UiOiJtYWMtYWFhYWFhYWEiLCJraW5kIjoidHVybiIsInNlcSI6MX0=",
+    "signed_bytes_layout" : "domain(14) || canonical_bytes",
+    "signed_bytes_sha256_hex" : "31eaabdff1168e997ed9f9ceae56677ba83077df585d18378dbfb4a340e39791",
+    "signer_device" : "mac-aaaaaaaa",
+    "signer_signing_private" : "+DXkOFkHR7TYmBOyfxoAB/KK7ckrGH4vf4uinbg3HvA=",
+    "signer_signing_public" : "fTivzg7QqsF+enK6rrNKlcbHZC5RSDmrXKP93T/pW0Q=",
+    "signer_signing_seed_label" : "moe.vectors.sponsor.signing",
+    "wire_object_without_sig" : {
+      "after" : [
+
+      ],
+      "at" : "2026-08-29T10:40:00.000Z",
+      "body" : {
+        "enc" : "aes-gcm-256.v1",
+        "role" : "user",
+        "text_enc" : "EBESExQVFhcYGRobDpf/eCytGtKkEShuahgFNrOHpYwxWGAro1tUCPn/a70T",
+        "thread" : "7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001"
+      },
+      "device" : "mac-aaaaaaaa",
+      "id" : "26c6bb30897b0e37fad1b352e31c1e56",
+      "kind" : "turn",
+      "seq" : 1
+    }
+  },
+  "records" : [
+    {
+      "canonical" : "{\"after\":[],\"at\":\"2026-08-29T10:40:00.000Z\",\"body\":{\"path\":\"a/b/c\",\"thread\":\"7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001\",\"url\":\"https://example.com/x?y=1&z=2\"},\"device\":\"mac-aaaaaaaa\",\"kind\":\"turn\",\"seq\":1}",
+      "canonical_base64" : "eyJhZnRlciI6W10sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDowMC4wMDBaIiwiYm9keSI6eyJwYXRoIjoiYS9iL2MiLCJ0aHJlYWQiOiI3QjJFMUM0QS05RjAzLTRENkUtOEExNS1DMEZGRUUwMDAwMDEiLCJ1cmwiOiJodHRwczovL2V4YW1wbGUuY29tL3g/eT0xJno9MiJ9LCJkZXZpY2UiOiJtYWMtYWFhYWFhYWEiLCJraW5kIjoidHVybiIsInNlcSI6MX0=",
+      "id" : "752e1f74047476caf591070b09cd6483",
+      "input" : {
+        "after" : [
+
+        ],
+        "at" : "2026-08-29T10:40:00.000Z",
+        "at_epoch" : 1788000000,
+        "body" : {
+          "path" : "a/b/c",
+          "thread" : "7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001",
+          "url" : "https://example.com/x?y=1&z=2"
+        },
+        "device" : "mac-aaaaaaaa",
+        "kind" : "turn",
+        "prev" : null,
+        "seq" : 1
+      },
+      "line" : "{\"after\":[],\"at\":\"2026-08-29T10:40:00.000Z\",\"body\":{\"path\":\"a/b/c\",\"thread\":\"7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001\",\"url\":\"https://example.com/x?y=1&z=2\"},\"device\":\"mac-aaaaaaaa\",\"id\":\"752e1f74047476caf591070b09cd6483\",\"kind\":\"turn\",\"seq\":1}",
+      "line_base64" : "eyJhZnRlciI6W10sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDowMC4wMDBaIiwiYm9keSI6eyJwYXRoIjoiYS9iL2MiLCJ0aHJlYWQiOiI3QjJFMUM0QS05RjAzLTRENkUtOEExNS1DMEZGRUUwMDAwMDEiLCJ1cmwiOiJodHRwczovL2V4YW1wbGUuY29tL3g/eT0xJno9MiJ9LCJkZXZpY2UiOiJtYWMtYWFhYWFhYWEiLCJpZCI6Ijc1MmUxZjc0MDQ3NDc2Y2FmNTkxMDcwYjA5Y2Q2NDgzIiwia2luZCI6InR1cm4iLCJzZXEiOjF9",
+      "name" : "ascii_first_record",
+      "note" : "ASCII only; first record on its device (prev absent, after empty); timestamp with .000 ms; a `/` in a string; thread.delete-like body",
+      "sha256_hex" : "752e1f74047476caf591070b09cd64830638c756d106d93a586296747410134c"
+    },
+    {
+      "canonical" : "{\"after\":[\"0123456789abcdef0123456789abcdef\",\"fedcba9876543210fedcba9876543210\"],\"at\":\"2026-08-29T10:40:00.999Z\",\"body\":{\"text\":\"café 😀 שלום עולם — naïve\",\"thread\":\"7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001\",\"Ünïcode key é\":\"value\"},\"device\":\"mac-aaaaaaaa\",\"kind\":\"turn\",\"prev\":\"0123456789abcdef0123456789abcdef\",\"seq\":2}",
+      "canonical_base64" : "eyJhZnRlciI6WyIwMTIzNDU2Nzg5YWJjZGVmMDEyMzQ1Njc4OWFiY2RlZiIsImZlZGNiYTk4NzY1NDMyMTBmZWRjYmE5ODc2NTQzMjEwIl0sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDowMC45OTlaIiwiYm9keSI6eyJ0ZXh0IjoiY2Fmw6kg8J+YgCDXqdec15XXnSDXoteV15zXnSDigJQgbmHDr3ZlIiwidGhyZWFkIjoiN0IyRTFDNEEtOUYwMy00RDZFLThBMTUtQzBGRkVFMDAwMDAxIiwiw5xuw69jb2RlIGtleSDDqSI6InZhbHVlIn0sImRldmljZSI6Im1hYy1hYWFhYWFhYSIsImtpbmQiOiJ0dXJuIiwicHJldiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIiwic2VxIjoyfQ==",
+      "id" : "4b2c9e69230b3885d89756088afa29b9",
+      "input" : {
+        "after" : [
+          "0123456789abcdef0123456789abcdef",
+          "fedcba9876543210fedcba9876543210"
+        ],
+        "at" : "2026-08-29T10:40:00.999Z",
+        "at_epoch" : 1788000000.9990001,
+        "body" : {
+          "text" : "café 😀 שלום עולם — naïve",
+          "thread" : "7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001",
+          "Ünïcode key é" : "value"
+        },
+        "device" : "mac-aaaaaaaa",
+        "kind" : "turn",
+        "prev" : "0123456789abcdef0123456789abcdef",
+        "seq" : 2
+      },
+      "line" : "{\"after\":[\"0123456789abcdef0123456789abcdef\",\"fedcba9876543210fedcba9876543210\"],\"at\":\"2026-08-29T10:40:00.999Z\",\"body\":{\"text\":\"café 😀 שלום עולם — naïve\",\"thread\":\"7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001\",\"Ünïcode key é\":\"value\"},\"device\":\"mac-aaaaaaaa\",\"id\":\"4b2c9e69230b3885d89756088afa29b9\",\"kind\":\"turn\",\"prev\":\"0123456789abcdef0123456789abcdef\",\"seq\":2}",
+      "line_base64" : "eyJhZnRlciI6WyIwMTIzNDU2Nzg5YWJjZGVmMDEyMzQ1Njc4OWFiY2RlZiIsImZlZGNiYTk4NzY1NDMyMTBmZWRjYmE5ODc2NTQzMjEwIl0sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDowMC45OTlaIiwiYm9keSI6eyJ0ZXh0IjoiY2Fmw6kg8J+YgCDXqdec15XXnSDXoteV15zXnSDigJQgbmHDr3ZlIiwidGhyZWFkIjoiN0IyRTFDNEEtOUYwMy00RDZFLThBMTUtQzBGRkVFMDAwMDAxIiwiw5xuw69jb2RlIGtleSDDqSI6InZhbHVlIn0sImRldmljZSI6Im1hYy1hYWFhYWFhYSIsImlkIjoiNGIyYzllNjkyMzBiMzg4NWQ4OTc1NjA4OGFmYTI5YjkiLCJraW5kIjoidHVybiIsInByZXYiOiIwMTIzNDU2Nzg5YWJjZGVmMDEyMzQ1Njc4OWFiY2RlZiIsInNlcSI6Mn0=",
+      "name" : "non_ascii",
+      "note" : "é (U+00E9), an emoji outside the BMP (U+1F600), Hebrew; prev present; after non-empty; timestamp with .999 ms",
+      "sha256_hex" : "4b2c9e69230b3885d89756088afa29b9572716aee1b6f0c7045751f26bead455"
+    },
+    {
+      "canonical" : "{\"after\":[],\"at\":\"2026-08-29T10:40:01.000Z\",\"body\":{\"\\u0000\\u0001\\u0002\\u0003\\u0004\\u0005\\u0006\\u0007\\b\\t\\n\\u000b\\f\\r\\u000e\\u000f\\u0010\\u0011\\u0012\\u0013\\u0014\\u0015\\u0016\\u0017\\u0018\\u0019\\u001a\\u001b\\u001c\\u001d\\u001e\\u001f  \":\"control key\",\"controls\":\"\\u0000\\u0001\\u0002\\u0003\\u0004\\u0005\\u0006\\u0007\\b\\t\\n\\u000b\\f\\r\\u000e\\u000f\\u0010\\u0011\\u0012\\u0013\\u0014\\u0015\\u0016\\u0017\\u0018\\u0019\\u001a\\u001b\\u001c\\u001d\\u001e\\u001f  \",\"quote_and_backslash\":\"say \\\"hi\\\" \\\\ done\",\"thread\":\"7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001\"},\"device\":\"mac-aaaaaaaa\",\"kind\":\"turn\",\"prev\":\"fedcba9876543210fedcba9876543210\",\"seq\":3}",
+      "canonical_base64" : "eyJhZnRlciI6W10sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDowMS4wMDBaIiwiYm9keSI6eyJcdTAwMDBcdTAwMDFcdTAwMDJcdTAwMDNcdTAwMDRcdTAwMDVcdTAwMDZcdTAwMDdcYlx0XG5cdTAwMGJcZlxyXHUwMDBlXHUwMDBmXHUwMDEwXHUwMDExXHUwMDEyXHUwMDEzXHUwMDE0XHUwMDE1XHUwMDE2XHUwMDE3XHUwMDE4XHUwMDE5XHUwMDFhXHUwMDFiXHUwMDFjXHUwMDFkXHUwMDFlXHUwMDFmf+KAqOKAqSI6ImNvbnRyb2wga2V5IiwiY29udHJvbHMiOiJcdTAwMDBcdTAwMDFcdTAwMDJcdTAwMDNcdTAwMDRcdTAwMDVcdTAwMDZcdTAwMDdcYlx0XG5cdTAwMGJcZlxyXHUwMDBlXHUwMDBmXHUwMDEwXHUwMDExXHUwMDEyXHUwMDEzXHUwMDE0XHUwMDE1XHUwMDE2XHUwMDE3XHUwMDE4XHUwMDE5XHUwMDFhXHUwMDFiXHUwMDFjXHUwMDFkXHUwMDFlXHUwMDFmf+KAqOKAqSIsInF1b3RlX2FuZF9iYWNrc2xhc2giOiJzYXkgXCJoaVwiIFxcIGRvbmUiLCJ0aHJlYWQiOiI3QjJFMUM0QS05RjAzLTRENkUtOEExNS1DMEZGRUUwMDAwMDEifSwiZGV2aWNlIjoibWFjLWFhYWFhYWFhIiwia2luZCI6InR1cm4iLCJwcmV2IjoiZmVkY2JhOTg3NjU0MzIxMGZlZGNiYTk4NzY1NDMyMTAiLCJzZXEiOjN9",
+      "id" : "61fba893c9ee01f91520a0f59fa47715",
+      "input" : {
+        "after" : [
+
+        ],
+        "at" : "2026-08-29T10:40:01.000Z",
+        "at_epoch" : 1788000001,
+        "body" : {
+          "\u0000\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b\t\n\u000b\f\r\u000e\u000f\u0010\u0011\u0012\u0013\u0014\u0015\u0016\u0017\u0018\u0019\u001a\u001b\u001c\u001d\u001e\u001f  " : "control key",
+          "controls" : "\u0000\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b\t\n\u000b\f\r\u000e\u000f\u0010\u0011\u0012\u0013\u0014\u0015\u0016\u0017\u0018\u0019\u001a\u001b\u001c\u001d\u001e\u001f  ",
+          "quote_and_backslash" : "say \"hi\" \\ done",
+          "thread" : "7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001"
+        },
+        "device" : "mac-aaaaaaaa",
+        "kind" : "turn",
+        "prev" : "fedcba9876543210fedcba9876543210",
+        "seq" : 3
+      },
+      "line" : "{\"after\":[],\"at\":\"2026-08-29T10:40:01.000Z\",\"body\":{\"\\u0000\\u0001\\u0002\\u0003\\u0004\\u0005\\u0006\\u0007\\b\\t\\n\\u000b\\f\\r\\u000e\\u000f\\u0010\\u0011\\u0012\\u0013\\u0014\\u0015\\u0016\\u0017\\u0018\\u0019\\u001a\\u001b\\u001c\\u001d\\u001e\\u001f  \":\"control key\",\"controls\":\"\\u0000\\u0001\\u0002\\u0003\\u0004\\u0005\\u0006\\u0007\\b\\t\\n\\u000b\\f\\r\\u000e\\u000f\\u0010\\u0011\\u0012\\u0013\\u0014\\u0015\\u0016\\u0017\\u0018\\u0019\\u001a\\u001b\\u001c\\u001d\\u001e\\u001f  \",\"quote_and_backslash\":\"say \\\"hi\\\" \\\\ done\",\"thread\":\"7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001\"},\"device\":\"mac-aaaaaaaa\",\"id\":\"61fba893c9ee01f91520a0f59fa47715\",\"kind\":\"turn\",\"prev\":\"fedcba9876543210fedcba9876543210\",\"seq\":3}",
+      "line_base64" : "eyJhZnRlciI6W10sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDowMS4wMDBaIiwiYm9keSI6eyJcdTAwMDBcdTAwMDFcdTAwMDJcdTAwMDNcdTAwMDRcdTAwMDVcdTAwMDZcdTAwMDdcYlx0XG5cdTAwMGJcZlxyXHUwMDBlXHUwMDBmXHUwMDEwXHUwMDExXHUwMDEyXHUwMDEzXHUwMDE0XHUwMDE1XHUwMDE2XHUwMDE3XHUwMDE4XHUwMDE5XHUwMDFhXHUwMDFiXHUwMDFjXHUwMDFkXHUwMDFlXHUwMDFmf+KAqOKAqSI6ImNvbnRyb2wga2V5IiwiY29udHJvbHMiOiJcdTAwMDBcdTAwMDFcdTAwMDJcdTAwMDNcdTAwMDRcdTAwMDVcdTAwMDZcdTAwMDdcYlx0XG5cdTAwMGJcZlxyXHUwMDBlXHUwMDBmXHUwMDEwXHUwMDExXHUwMDEyXHUwMDEzXHUwMDE0XHUwMDE1XHUwMDE2XHUwMDE3XHUwMDE4XHUwMDE5XHUwMDFhXHUwMDFiXHUwMDFjXHUwMDFkXHUwMDFlXHUwMDFmf+KAqOKAqSIsInF1b3RlX2FuZF9iYWNrc2xhc2giOiJzYXkgXCJoaVwiIFxcIGRvbmUiLCJ0aHJlYWQiOiI3QjJFMUM0QS05RjAzLTRENkUtOEExNS1DMEZGRUUwMDAwMDEifSwiZGV2aWNlIjoibWFjLWFhYWFhYWFhIiwiaWQiOiI2MWZiYTg5M2M5ZWUwMWY5MTUyMGEwZjU5ZmE0NzcxNSIsImtpbmQiOiJ0dXJuIiwicHJldiI6ImZlZGNiYTk4NzY1NDMyMTBmZWRjYmE5ODc2NTQzMjEwIiwic2VxIjozfQ==",
+      "name" : "control_characters",
+      "note" : "every code point U+0000–U+001F, then U+007F, U+2028, U+2029, in one string field (and again as a JSON key)",
+      "sha256_hex" : "61fba893c9ee01f91520a0f59fa47715750a4f640172b69d3a3624b754306d00"
+    },
+    {
+      "canonical" : "{\"after\":[\"0123456789abcdef0123456789abcdef\"],\"at\":\"2026-08-29T10:40:02.000Z\",\"body\":{\"\":15,\"_\":3,\"0\":12,\"9\":14,\"10\":13,\"a\":1,\"A\":2,\"a9\":5,\"a10\":4,\"aa\":9,\"b\":11,\"B\":10,\"é\":6,\"nested\":{\"b\":true,\"B\":false},\"thread\":\"7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001\",\"z\":7,\"Z\":8},\"device\":\"mac-aaaaaaaa\",\"kind\":\"turn\",\"seq\":4}",
+      "canonical_base64" : "eyJhZnRlciI6WyIwMTIzNDU2Nzg5YWJjZGVmMDEyMzQ1Njc4OWFiY2RlZiJdLCJhdCI6IjIwMjYtMDgtMjlUMTA6NDA6MDIuMDAwWiIsImJvZHkiOnsiIjoxNSwiXyI6MywiMCI6MTIsIjkiOjE0LCIxMCI6MTMsImEiOjEsIkEiOjIsImE5Ijo1LCJhMTAiOjQsImFhIjo5LCJiIjoxMSwiQiI6MTAsIsOpIjo2LCJuZXN0ZWQiOnsiYiI6dHJ1ZSwiQiI6ZmFsc2V9LCJ0aHJlYWQiOiI3QjJFMUM0QS05RjAzLTRENkUtOEExNS1DMEZGRUUwMDAwMDEiLCJ6Ijo3LCJaIjo4fSwiZGV2aWNlIjoibWFjLWFhYWFhYWFhIiwia2luZCI6InR1cm4iLCJzZXEiOjR9",
+      "id" : "8035c183104a7dbadfe789a285d6cf09",
+      "input" : {
+        "after" : [
+          "0123456789abcdef0123456789abcdef"
+        ],
+        "at" : "2026-08-29T10:40:02.000Z",
+        "at_epoch" : 1788000002,
+        "body" : {
+          "" : 15,
+          "_" : 3,
+          "0" : 12,
+          "9" : 14,
+          "10" : 13,
+          "a" : 1,
+          "A" : 2,
+          "a9" : 5,
+          "a10" : 4,
+          "aa" : 9,
+          "b" : 11,
+          "B" : 10,
+          "é" : 6,
+          "nested" : {
+            "b" : true,
+            "B" : false
+          },
+          "thread" : "7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001",
+          "z" : 7,
+          "Z" : 8
+        },
+        "device" : "mac-aaaaaaaa",
+        "kind" : "turn",
+        "prev" : null,
+        "seq" : 4
+      },
+      "line" : "{\"after\":[\"0123456789abcdef0123456789abcdef\"],\"at\":\"2026-08-29T10:40:02.000Z\",\"body\":{\"\":15,\"_\":3,\"0\":12,\"9\":14,\"10\":13,\"a\":1,\"A\":2,\"a9\":5,\"a10\":4,\"aa\":9,\"b\":11,\"B\":10,\"é\":6,\"nested\":{\"b\":true,\"B\":false},\"thread\":\"7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001\",\"z\":7,\"Z\":8},\"device\":\"mac-aaaaaaaa\",\"id\":\"8035c183104a7dbadfe789a285d6cf09\",\"kind\":\"turn\",\"seq\":4}",
+      "line_base64" : "eyJhZnRlciI6WyIwMTIzNDU2Nzg5YWJjZGVmMDEyMzQ1Njc4OWFiY2RlZiJdLCJhdCI6IjIwMjYtMDgtMjlUMTA6NDA6MDIuMDAwWiIsImJvZHkiOnsiIjoxNSwiXyI6MywiMCI6MTIsIjkiOjE0LCIxMCI6MTMsImEiOjEsIkEiOjIsImE5Ijo1LCJhMTAiOjQsImFhIjo5LCJiIjoxMSwiQiI6MTAsIsOpIjo2LCJuZXN0ZWQiOnsiYiI6dHJ1ZSwiQiI6ZmFsc2V9LCJ0aHJlYWQiOiI3QjJFMUM0QS05RjAzLTRENkUtOEExNS1DMEZGRUUwMDAwMDEiLCJ6Ijo3LCJaIjo4fSwiZGV2aWNlIjoibWFjLWFhYWFhYWFhIiwiaWQiOiI4MDM1YzE4MzEwNGE3ZGJhZGZlNzg5YTI4NWQ2Y2YwOSIsImtpbmQiOiJ0dXJuIiwic2VxIjo0fQ==",
+      "name" : "keys_differing_by_case_and_sort_order",
+      "note" : "body keys that differ only by case, plus digits/underscore/non-ASCII keys, to pin .sortedKeys ordering (LEDGER-WIRE §10.1)",
+      "sha256_hex" : "8035c183104a7dbadfe789a285d6cf0982a2c76a78418a08ea2c562da99a97fe"
+    },
+    {
+      "canonical" : "{\"after\":[],\"at\":\"2026-08-29T10:40:03.000Z\",\"body\":{\"int64_max\":9223372036854775807,\"int64_min\":-9223372036854775808,\"list\":[0,-1,1],\"minus_one\":-1,\"minus_two_pow_53\":-9007199254740992,\"thread\":\"7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001\",\"two_pow_53\":9007199254740992,\"two_pow_53_minus_1\":9007199254740991,\"zero\":0},\"device\":\"mac-aaaaaaaa\",\"kind\":\"turn\",\"seq\":5}",
+      "canonical_base64" : "eyJhZnRlciI6W10sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDowMy4wMDBaIiwiYm9keSI6eyJpbnQ2NF9tYXgiOjkyMjMzNzIwMzY4NTQ3NzU4MDcsImludDY0X21pbiI6LTkyMjMzNzIwMzY4NTQ3NzU4MDgsImxpc3QiOlswLC0xLDFdLCJtaW51c19vbmUiOi0xLCJtaW51c190d29fcG93XzUzIjotOTAwNzE5OTI1NDc0MDk5MiwidGhyZWFkIjoiN0IyRTFDNEEtOUYwMy00RDZFLThBMTUtQzBGRkVFMDAwMDAxIiwidHdvX3Bvd181MyI6OTAwNzE5OTI1NDc0MDk5MiwidHdvX3Bvd181M19taW51c18xIjo5MDA3MTk5MjU0NzQwOTkxLCJ6ZXJvIjowfSwiZGV2aWNlIjoibWFjLWFhYWFhYWFhIiwia2luZCI6InR1cm4iLCJzZXEiOjV9",
+      "id" : "9045f54bd2db8f70d83df18f676f5bb3",
+      "input" : {
+        "after" : [
+
+        ],
+        "at" : "2026-08-29T10:40:03.000Z",
+        "at_epoch" : 1788000003,
+        "body" : {
+          "int64_max" : 9223372036854775807,
+          "int64_min" : -9223372036854775808,
+          "list" : [
+            0,
+            -1,
+            1
+          ],
+          "minus_one" : -1,
+          "minus_two_pow_53" : -9007199254740992,
+          "thread" : "7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001",
+          "two_pow_53" : 9007199254740992,
+          "two_pow_53_minus_1" : 9007199254740991,
+          "zero" : 0
+        },
+        "device" : "mac-aaaaaaaa",
+        "kind" : "turn",
+        "prev" : null,
+        "seq" : 5
+      },
+      "line" : "{\"after\":[],\"at\":\"2026-08-29T10:40:03.000Z\",\"body\":{\"int64_max\":9223372036854775807,\"int64_min\":-9223372036854775808,\"list\":[0,-1,1],\"minus_one\":-1,\"minus_two_pow_53\":-9007199254740992,\"thread\":\"7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001\",\"two_pow_53\":9007199254740992,\"two_pow_53_minus_1\":9007199254740991,\"zero\":0},\"device\":\"mac-aaaaaaaa\",\"id\":\"9045f54bd2db8f70d83df18f676f5bb3\",\"kind\":\"turn\",\"seq\":5}",
+      "line_base64" : "eyJhZnRlciI6W10sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDowMy4wMDBaIiwiYm9keSI6eyJpbnQ2NF9tYXgiOjkyMjMzNzIwMzY4NTQ3NzU4MDcsImludDY0X21pbiI6LTkyMjMzNzIwMzY4NTQ3NzU4MDgsImxpc3QiOlswLC0xLDFdLCJtaW51c19vbmUiOi0xLCJtaW51c190d29fcG93XzUzIjotOTAwNzE5OTI1NDc0MDk5MiwidGhyZWFkIjoiN0IyRTFDNEEtOUYwMy00RDZFLThBMTUtQzBGRkVFMDAwMDAxIiwidHdvX3Bvd181MyI6OTAwNzE5OTI1NDc0MDk5MiwidHdvX3Bvd181M19taW51c18xIjo5MDA3MTk5MjU0NzQwOTkxLCJ6ZXJvIjowfSwiZGV2aWNlIjoibWFjLWFhYWFhYWFhIiwiaWQiOiI5MDQ1ZjU0YmQyZGI4ZjcwZDgzZGYxOGY2NzZmNWJiMyIsImtpbmQiOiJ0dXJuIiwic2VxIjo1fQ==",
+      "name" : "integers",
+      "note" : "0, -1, 2^53, 2^53-1, -(2^53), Int64.max, Int64.min",
+      "sha256_hex" : "9045f54bd2db8f70d83df18f676f5bb3501e3e396efc1e47cee082a3561b9215"
+    },
+    {
+      "canonical" : "{\"after\":[],\"at\":\"2026-08-29T10:40:04.000Z\",\"body\":{\"big_with_fraction\":123456789.125,\"one_e_minus_7\":9.9999999999999995e-08,\"one_e21\":1e+21,\"one_e100\":1e+100,\"one_point_five\":1.5,\"one_point_zero\":1,\"tenth\":0.10000000000000001,\"thread\":\"7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001\"},\"device\":\"mac-aaaaaaaa\",\"kind\":\"turn\",\"seq\":6}",
+      "canonical_base64" : "eyJhZnRlciI6W10sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDowNC4wMDBaIiwiYm9keSI6eyJiaWdfd2l0aF9mcmFjdGlvbiI6MTIzNDU2Nzg5LjEyNSwib25lX2VfbWludXNfNyI6OS45OTk5OTk5OTk5OTk5OTk1ZS0wOCwib25lX2UyMSI6MWUrMjEsIm9uZV9lMTAwIjoxZSsxMDAsIm9uZV9wb2ludF9maXZlIjoxLjUsIm9uZV9wb2ludF96ZXJvIjoxLCJ0ZW50aCI6MC4xMDAwMDAwMDAwMDAwMDAwMSwidGhyZWFkIjoiN0IyRTFDNEEtOUYwMy00RDZFLThBMTUtQzBGRkVFMDAwMDAxIn0sImRldmljZSI6Im1hYy1hYWFhYWFhYSIsImtpbmQiOiJ0dXJuIiwic2VxIjo2fQ==",
+      "id" : "8ca80b8206d0a9ef5f1c694b1fd866c7",
+      "input" : {
+        "after" : [
+
+        ],
+        "at" : "2026-08-29T10:40:04.000Z",
+        "at_epoch" : 1788000004,
+        "body" : {
+          "big_with_fraction" : 123456789.125,
+          "one_e_minus_7" : 9.9999999999999995e-08,
+          "one_e21" : 1e+21,
+          "one_e100" : 1e+100,
+          "one_point_five" : 1.5,
+          "one_point_zero" : 1,
+          "tenth" : 0.10000000000000001,
+          "thread" : "7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001"
+        },
+        "device" : "mac-aaaaaaaa",
+        "double_keys" : [
+          "big_with_fraction",
+          "one_e100",
+          "one_e21",
+          "one_e_minus_7",
+          "one_point_five",
+          "one_point_zero",
+          "tenth"
+        ],
+        "kind" : "turn",
+        "prev" : null,
+        "seq" : 6
+      },
+      "line" : "{\"after\":[],\"at\":\"2026-08-29T10:40:04.000Z\",\"body\":{\"big_with_fraction\":123456789.125,\"one_e_minus_7\":9.9999999999999995e-08,\"one_e21\":1e+21,\"one_e100\":1e+100,\"one_point_five\":1.5,\"one_point_zero\":1,\"tenth\":0.10000000000000001,\"thread\":\"7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001\"},\"device\":\"mac-aaaaaaaa\",\"id\":\"8ca80b8206d0a9ef5f1c694b1fd866c7\",\"kind\":\"turn\",\"seq\":6}",
+      "line_base64" : "eyJhZnRlciI6W10sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDowNC4wMDBaIiwiYm9keSI6eyJiaWdfd2l0aF9mcmFjdGlvbiI6MTIzNDU2Nzg5LjEyNSwib25lX2VfbWludXNfNyI6OS45OTk5OTk5OTk5OTk5OTk1ZS0wOCwib25lX2UyMSI6MWUrMjEsIm9uZV9lMTAwIjoxZSsxMDAsIm9uZV9wb2ludF9maXZlIjoxLjUsIm9uZV9wb2ludF96ZXJvIjoxLCJ0ZW50aCI6MC4xMDAwMDAwMDAwMDAwMDAwMSwidGhyZWFkIjoiN0IyRTFDNEEtOUYwMy00RDZFLThBMTUtQzBGRkVFMDAwMDAxIn0sImRldmljZSI6Im1hYy1hYWFhYWFhYSIsImlkIjoiOGNhODBiODIwNmQwYTllZjVmMWM2OTRiMWZkODY2YzciLCJraW5kIjoidHVybiIsInNlcSI6Nn0=",
+      "name" : "doubles",
+      "note" : "1.5, 1.0, 1e21, 0.1, 1e-7, 1e100, 123456789.125 as JSONValue.double (the app never writes doubles; LEDGER-WIRE §10.3)",
+      "sha256_hex" : "8ca80b8206d0a9ef5f1c694b1fd866c7f156a1364d92564d2d5baf0e7c10d4da"
+    },
+    {
+      "canonical" : "{\"after\":[],\"at\":\"2026-08-29T10:40:05.000Z\",\"body\":{\"thread\":\"7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001\"},\"device\":\"mac-aaaaaaaa\",\"kind\":\"thread.delete\",\"prev\":\"0123456789abcdef0123456789abcdef\",\"seq\":7}",
+      "canonical_base64" : "eyJhZnRlciI6W10sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDowNS4wMDBaIiwiYm9keSI6eyJ0aHJlYWQiOiI3QjJFMUM0QS05RjAzLTRENkUtOEExNS1DMEZGRUUwMDAwMDEifSwiZGV2aWNlIjoibWFjLWFhYWFhYWFhIiwia2luZCI6InRocmVhZC5kZWxldGUiLCJwcmV2IjoiMDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWYiLCJzZXEiOjd9",
+      "id" : "e851d9afc7136633b42b83eaa8733be2",
+      "input" : {
+        "after" : [
+
+        ],
+        "at" : "2026-08-29T10:40:05.000Z",
+        "at_epoch" : 1788000005,
+        "body" : {
+          "thread" : "7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001"
+        },
+        "device" : "mac-aaaaaaaa",
+        "kind" : "thread.delete",
+        "prev" : "0123456789abcdef0123456789abcdef",
+        "seq" : 7
+      },
+      "line" : "{\"after\":[],\"at\":\"2026-08-29T10:40:05.000Z\",\"body\":{\"thread\":\"7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001\"},\"device\":\"mac-aaaaaaaa\",\"id\":\"e851d9afc7136633b42b83eaa8733be2\",\"kind\":\"thread.delete\",\"prev\":\"0123456789abcdef0123456789abcdef\",\"seq\":7}",
+      "line_base64" : "eyJhZnRlciI6W10sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDowNS4wMDBaIiwiYm9keSI6eyJ0aHJlYWQiOiI3QjJFMUM0QS05RjAzLTRENkUtOEExNS1DMEZGRUUwMDAwMDEifSwiZGV2aWNlIjoibWFjLWFhYWFhYWFhIiwiaWQiOiJlODUxZDlhZmM3MTM2NjMzYjQyYjgzZWFhODczM2JlMiIsImtpbmQiOiJ0aHJlYWQuZGVsZXRlIiwicHJldiI6IjAxMjM0NTY3ODlhYmNkZWYwMTIzNDU2Nzg5YWJjZGVmIiwic2VxIjo3fQ==",
+      "name" : "prev_present_after_empty",
+      "note" : "prev present, after empty, thread.delete kind with the exact production body {\"thread\": id}",
+      "sha256_hex" : "e851d9afc7136633b42b83eaa8733be26e9b5c1757ca613ff52b36db555a63e3"
+    },
+    {
+      "canonical" : "{\"after\":[\"0123456789abcdef0123456789abcdef\",\"fedcba9876543210fedcba9876543210\",\"0123456789abcdef0123456789abcdef\"],\"at\":\"2026-08-29T10:40:06.000Z\",\"body\":{},\"device\":\"mac-aaaaaaaa\",\"kind\":\"turn\",\"seq\":8}",
+      "canonical_base64" : "eyJhZnRlciI6WyIwMTIzNDU2Nzg5YWJjZGVmMDEyMzQ1Njc4OWFiY2RlZiIsImZlZGNiYTk4NzY1NDMyMTBmZWRjYmE5ODc2NTQzMjEwIiwiMDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWYiXSwiYXQiOiIyMDI2LTA4LTI5VDEwOjQwOjA2LjAwMFoiLCJib2R5Ijp7fSwiZGV2aWNlIjoibWFjLWFhYWFhYWFhIiwia2luZCI6InR1cm4iLCJzZXEiOjh9",
+      "id" : "80516aae12af9bc2d4ecc7773ff676ff",
+      "input" : {
+        "after" : [
+          "0123456789abcdef0123456789abcdef",
+          "fedcba9876543210fedcba9876543210",
+          "0123456789abcdef0123456789abcdef"
+        ],
+        "at" : "2026-08-29T10:40:06.000Z",
+        "at_epoch" : 1788000006,
+        "body" : {
+
+        },
+        "device" : "mac-aaaaaaaa",
+        "kind" : "turn",
+        "prev" : null,
+        "seq" : 8
+      },
+      "line" : "{\"after\":[\"0123456789abcdef0123456789abcdef\",\"fedcba9876543210fedcba9876543210\",\"0123456789abcdef0123456789abcdef\"],\"at\":\"2026-08-29T10:40:06.000Z\",\"body\":{},\"device\":\"mac-aaaaaaaa\",\"id\":\"80516aae12af9bc2d4ecc7773ff676ff\",\"kind\":\"turn\",\"seq\":8}",
+      "line_base64" : "eyJhZnRlciI6WyIwMTIzNDU2Nzg5YWJjZGVmMDEyMzQ1Njc4OWFiY2RlZiIsImZlZGNiYTk4NzY1NDMyMTBmZWRjYmE5ODc2NTQzMjEwIiwiMDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWYiXSwiYXQiOiIyMDI2LTA4LTI5VDEwOjQwOjA2LjAwMFoiLCJib2R5Ijp7fSwiZGV2aWNlIjoibWFjLWFhYWFhYWFhIiwiaWQiOiI4MDUxNmFhZTEyYWY5YmMyZDRlY2M3NzczZmY2NzZmZiIsImtpbmQiOiJ0dXJuIiwic2VxIjo4fQ==",
+      "name" : "prev_absent_after_nonempty",
+      "note" : "prev absent, after non-empty (three ids), empty body object",
+      "sha256_hex" : "80516aae12af9bc2d4ecc7773ff676ff35abd54c42d6658dd9eb62b788e844eb"
+    },
+    {
+      "canonical" : "{\"after\":[],\"at\":\"2026-08-29T10:40:07.000Z\",\"body\":{\"deep\":{\"a\":{\"b\":{\"c\":\"d\"}}},\"empty_array\":[],\"empty_object\":{},\"mixed\":[null,true,1,\"s\",[2],{\"k\":null}],\"no\":false,\"nothing\":null,\"thread\":\"7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001\",\"yes\":true},\"device\":\"mac-bbbbbbbb\",\"kind\":\"claim\",\"seq\":1}",
+      "canonical_base64" : "eyJhZnRlciI6W10sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDowNy4wMDBaIiwiYm9keSI6eyJkZWVwIjp7ImEiOnsiYiI6eyJjIjoiZCJ9fX0sImVtcHR5X2FycmF5IjpbXSwiZW1wdHlfb2JqZWN0Ijp7fSwibWl4ZWQiOltudWxsLHRydWUsMSwicyIsWzJdLHsiayI6bnVsbH1dLCJubyI6ZmFsc2UsIm5vdGhpbmciOm51bGwsInRocmVhZCI6IjdCMkUxQzRBLTlGMDMtNEQ2RS04QTE1LUMwRkZFRTAwMDAwMSIsInllcyI6dHJ1ZX0sImRldmljZSI6Im1hYy1iYmJiYmJiYiIsImtpbmQiOiJjbGFpbSIsInNlcSI6MX0=",
+      "id" : "b7686db025b0b4c7c0f661ff11215c38",
+      "input" : {
+        "after" : [
+
+        ],
+        "at" : "2026-08-29T10:40:07.000Z",
+        "at_epoch" : 1788000007,
+        "body" : {
+          "deep" : {
+            "a" : {
+              "b" : {
+                "c" : "d"
+              }
+            }
+          },
+          "empty_array" : [
+
+          ],
+          "empty_object" : {
+
+          },
+          "mixed" : [
+            null,
+            true,
+            1,
+            "s",
+            [
+              2
+            ],
+            {
+              "k" : null
+            }
+          ],
+          "no" : false,
+          "nothing" : null,
+          "thread" : "7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001",
+          "yes" : true
+        },
+        "device" : "mac-bbbbbbbb",
+        "kind" : "claim",
+        "prev" : null,
+        "seq" : 1
+      },
+      "line" : "{\"after\":[],\"at\":\"2026-08-29T10:40:07.000Z\",\"body\":{\"deep\":{\"a\":{\"b\":{\"c\":\"d\"}}},\"empty_array\":[],\"empty_object\":{},\"mixed\":[null,true,1,\"s\",[2],{\"k\":null}],\"no\":false,\"nothing\":null,\"thread\":\"7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001\",\"yes\":true},\"device\":\"mac-bbbbbbbb\",\"id\":\"b7686db025b0b4c7c0f661ff11215c38\",\"kind\":\"claim\",\"seq\":1}",
+      "line_base64" : "eyJhZnRlciI6W10sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDowNy4wMDBaIiwiYm9keSI6eyJkZWVwIjp7ImEiOnsiYiI6eyJjIjoiZCJ9fX0sImVtcHR5X2FycmF5IjpbXSwiZW1wdHlfb2JqZWN0Ijp7fSwibWl4ZWQiOltudWxsLHRydWUsMSwicyIsWzJdLHsiayI6bnVsbH1dLCJubyI6ZmFsc2UsIm5vdGhpbmciOm51bGwsInRocmVhZCI6IjdCMkUxQzRBLTlGMDMtNEQ2RS04QTE1LUMwRkZFRTAwMDAwMSIsInllcyI6dHJ1ZX0sImRldmljZSI6Im1hYy1iYmJiYmJiYiIsImlkIjoiYjc2ODZkYjAyNWIwYjRjN2MwZjY2MWZmMTEyMTVjMzgiLCJraW5kIjoiY2xhaW0iLCJzZXEiOjF9",
+      "name" : "nested_null_bool_empty",
+      "note" : "null keeps its key; true/false; empty object and array inside body; arrays of mixed values; `claim` kind; a second device id",
+      "sha256_hex" : "b7686db025b0b4c7c0f661ff11215c383383dc3f12cb23da82fa8d305d45051a"
+    },
+    {
+      "canonical" : "{\"after\":[],\"at\":\"2026-08-29T10:40:00.123Z\",\"body\":{\"thread\":\"7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001\"},\"device\":\"mac-aaaaaaaa\",\"kind\":\"turn\",\"seq\":9}",
+      "canonical_base64" : "eyJhZnRlciI6W10sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDowMC4xMjNaIiwiYm9keSI6eyJ0aHJlYWQiOiI3QjJFMUM0QS05RjAzLTRENkUtOEExNS1DMEZGRUUwMDAwMDEifSwiZGV2aWNlIjoibWFjLWFhYWFhYWFhIiwia2luZCI6InR1cm4iLCJzZXEiOjl9",
+      "id" : "70a9fff9f643fe8849e54ad5cac7ca9b",
+      "input" : {
+        "after" : [
+
+        ],
+        "at" : "2026-08-29T10:40:00.123Z",
+        "at_epoch" : 1788000000.1234567,
+        "body" : {
+          "thread" : "7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001"
+        },
+        "device" : "mac-aaaaaaaa",
+        "kind" : "turn",
+        "prev" : null,
+        "seq" : 9
+      },
+      "line" : "{\"after\":[],\"at\":\"2026-08-29T10:40:00.123Z\",\"body\":{\"thread\":\"7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001\"},\"device\":\"mac-aaaaaaaa\",\"id\":\"70a9fff9f643fe8849e54ad5cac7ca9b\",\"kind\":\"turn\",\"seq\":9}",
+      "line_base64" : "eyJhZnRlciI6W10sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDowMC4xMjNaIiwiYm9keSI6eyJ0aHJlYWQiOiI3QjJFMUM0QS05RjAzLTRENkUtOEExNS1DMEZGRUUwMDAwMDEifSwiZGV2aWNlIjoibWFjLWFhYWFhYWFhIiwiaWQiOiI3MGE5ZmZmOWY2NDNmZTg4NDllNTRhZDVjYWM3Y2E5YiIsImtpbmQiOiJ0dXJuIiwic2VxIjo5fQ==",
+      "name" : "timestamp_sub_millisecond",
+      "note" : "at = epoch + 0.1234567 s (more than three fractional digits in the Date; LEDGER-WIRE §10.4)",
+      "sha256_hex" : "70a9fff9f643fe8849e54ad5cac7ca9bcbe87ffb817043f611410d1ec4bc5871"
+    },
+    {
+      "canonical" : "{\"after\":[],\"at\":\"2026-08-29T10:40:08.000Z\",\"body\":{\"at\":\"2026-08-29T10:40:08.000Z\",\"role\":\"moe\",\"source\":\"live\",\"text\":\"Done — I read /etc/hosts.\",\"thread\":\"7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001\",\"thread_started_at\":\"2026-08-29T10:40:00.000Z\",\"tools\":[\"read /etc/hosts\",\"ran `ls -la`\"],\"turn_id\":\"0F1E2D3C-4B5A-6978-8796-A5B4C3D2E1F0\"},\"device\":\"mac-aaaaaaaa\",\"kind\":\"turn\",\"seq\":10}",
+      "canonical_base64" : "eyJhZnRlciI6W10sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDowOC4wMDBaIiwiYm9keSI6eyJhdCI6IjIwMjYtMDgtMjlUMTA6NDA6MDguMDAwWiIsInJvbGUiOiJtb2UiLCJzb3VyY2UiOiJsaXZlIiwidGV4dCI6IkRvbmUg4oCUIEkgcmVhZCAvZXRjL2hvc3RzLiIsInRocmVhZCI6IjdCMkUxQzRBLTlGMDMtNEQ2RS04QTE1LUMwRkZFRTAwMDAwMSIsInRocmVhZF9zdGFydGVkX2F0IjoiMjAyNi0wOC0yOVQxMDo0MDowMC4wMDBaIiwidG9vbHMiOlsicmVhZCAvZXRjL2hvc3RzIiwicmFuIGBscyAtbGFgIl0sInR1cm5faWQiOiIwRjFFMkQzQy00QjVBLTY5NzgtODc5Ni1BNUI0QzNEMkUxRjAifSwiZGV2aWNlIjoibWFjLWFhYWFhYWFhIiwia2luZCI6InR1cm4iLCJzZXEiOjEwfQ==",
+      "id" : "93c744a6cd76e88763bb35671f0646f6",
+      "input" : {
+        "after" : [
+
+        ],
+        "at" : "2026-08-29T10:40:08.000Z",
+        "at_epoch" : 1788000008,
+        "body" : {
+          "at" : "2026-08-29T10:40:08.000Z",
+          "role" : "moe",
+          "source" : "live",
+          "text" : "Done — I read /etc/hosts.",
+          "thread" : "7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001",
+          "thread_started_at" : "2026-08-29T10:40:00.000Z",
+          "tools" : [
+            "read /etc/hosts",
+            "ran `ls -la`"
+          ],
+          "turn_id" : "0F1E2D3C-4B5A-6978-8796-A5B4C3D2E1F0"
+        },
+        "device" : "mac-aaaaaaaa",
+        "kind" : "turn",
+        "prev" : null,
+        "seq" : 10
+      },
+      "line" : "{\"after\":[],\"at\":\"2026-08-29T10:40:08.000Z\",\"body\":{\"at\":\"2026-08-29T10:40:08.000Z\",\"role\":\"moe\",\"source\":\"live\",\"text\":\"Done — I read /etc/hosts.\",\"thread\":\"7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001\",\"thread_started_at\":\"2026-08-29T10:40:00.000Z\",\"tools\":[\"read /etc/hosts\",\"ran `ls -la`\"],\"turn_id\":\"0F1E2D3C-4B5A-6978-8796-A5B4C3D2E1F0\"},\"device\":\"mac-aaaaaaaa\",\"id\":\"93c744a6cd76e88763bb35671f0646f6\",\"kind\":\"turn\",\"seq\":10}",
+      "line_base64" : "eyJhZnRlciI6W10sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDowOC4wMDBaIiwiYm9keSI6eyJhdCI6IjIwMjYtMDgtMjlUMTA6NDA6MDguMDAwWiIsInJvbGUiOiJtb2UiLCJzb3VyY2UiOiJsaXZlIiwidGV4dCI6IkRvbmUg4oCUIEkgcmVhZCAvZXRjL2hvc3RzLiIsInRocmVhZCI6IjdCMkUxQzRBLTlGMDMtNEQ2RS04QTE1LUMwRkZFRTAwMDAwMSIsInRocmVhZF9zdGFydGVkX2F0IjoiMjAyNi0wOC0yOVQxMDo0MDowMC4wMDBaIiwidG9vbHMiOlsicmVhZCAvZXRjL2hvc3RzIiwicmFuIGBscyAtbGFgIl0sInR1cm5faWQiOiIwRjFFMkQzQy00QjVBLTY5NzgtODc5Ni1BNUI0QzNEMkUxRjAifSwiZGV2aWNlIjoibWFjLWFhYWFhYWFhIiwiaWQiOiI5M2M3NDRhNmNkNzZlODg3NjNiYjM1NjcxZjA2NDZmNiIsImtpbmQiOiJ0dXJuIiwic2VxIjoxMH0=",
+      "name" : "encrypted_turn_shape_plain",
+      "note" : "the unsealed `turn` body shape (text/tools) exactly as ConversationProjector.turnBody writes it without a key",
+      "sha256_hex" : "93c744a6cd76e88763bb35671f0646f6f85da0b8ad7755a8860d475c92bf20b4"
+    }
+  ],
+  "thread_crypto" : {
+    "captured" : {
+      "turn_record" : {
+        "id" : "b56755056671735a53618661bc4143ae",
+        "key" : "AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8=",
+        "line" : "{\"after\":[],\"at\":\"2026-08-29T10:40:08.250Z\",\"body\":{\"at\":\"2026-08-29T10:40:08.250Z\",\"enc\":\"aes-gcm-256.v1\",\"role\":\"moe\",\"source\":\"live\",\"text_enc\":\"4MHNjt0S60CdRxsPlW9wnkf3tWEYhTdCMcCW4nQBHVK6YOp++/c/nJ8W1hP7VTKSlEGegX8aH8wz0KaUxJlgPXu0lulxOm0VROn5IdINmER9x+qL8PKIpAgPYg==\",\"thread\":\"7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001\",\"thread_started_at\":\"2026-08-29T10:40:00.000Z\",\"tools_enc\":\"wtBlcAwJsIZEnss+nRBAqxIjmSKFrwXAEvk1NSSJOpjVAI41fgXlV45caEU/RZtja+BTN/uDAcwBfI+5GM4qurUuS86gcpCEcMA7KxjZuW9hPi3rSLvJF9UDFA==\",\"turn_id\":\"0F1E2D3C-4B5A-6978-8796-A5B4C3D2E1F0\"},\"device\":\"mac-aaaaaaaa\",\"id\":\"b56755056671735a53618661bc4143ae\",\"kind\":\"turn\",\"seq\":11}",
+        "line_base64" : "eyJhZnRlciI6W10sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDowOC4yNTBaIiwiYm9keSI6eyJhdCI6IjIwMjYtMDgtMjlUMTA6NDA6MDguMjUwWiIsImVuYyI6ImFlcy1nY20tMjU2LnYxIiwicm9sZSI6Im1vZSIsInNvdXJjZSI6ImxpdmUiLCJ0ZXh0X2VuYyI6IjRNSE5qdDBTNjBDZFJ4c1BsVzl3bmtmM3RXRVloVGRDTWNDVzRuUUJIVks2WU9wKysvYy9uSjhXMWhQN1ZUS1NsRUdlZ1g4YUg4d3owS2FVeEpsZ1BYdTBsdWx4T20wVlJPbjVJZElObUVSOXgrcUw4UEtJcEFnUFlnPT0iLCJ0aHJlYWQiOiI3QjJFMUM0QS05RjAzLTRENkUtOEExNS1DMEZGRUUwMDAwMDEiLCJ0aHJlYWRfc3RhcnRlZF9hdCI6IjIwMjYtMDgtMjlUMTA6NDA6MDAuMDAwWiIsInRvb2xzX2VuYyI6Ind0QmxjQXdKc0laRW5zcytuUkJBcXhJam1TS0Zyd1hBRXZrMU5TU0pPcGpWQUk0MWZnWGxWNDVjYUVVL1JadGphK0JUTi91REFjd0JmSSs1R000cXVyVXVTODZnY3BDRWNNQTdLeGpadVc5aFBpM3JTTHZKRjlVREZBPT0iLCJ0dXJuX2lkIjoiMEYxRTJEM0MtNEI1QS02OTc4LTg3OTYtQTVCNEMzRDJFMUYwIn0sImRldmljZSI6Im1hYy1hYWFhYWFhYSIsImlkIjoiYjU2NzU1MDU2NjcxNzM1YTUzNjE4NjYxYmM0MTQzYWUiLCJraW5kIjoidHVybiIsInNlcSI6MTF9",
+        "note" : "written by ConversationProjector.turnBody with random nonces; same inputs as thread_crypto.turn_record",
+        "text" : "Done — I read /etc/hosts and found 😀 nothing.\nSecond line.",
+        "tools_plaintext" : "[\"read \\/etc\\/hosts\",\"ran `ls -la`\",\"wrote ~\\/notes\\/today.md\"]"
+      }
+    },
+    "cipher" : "AES-256-GCM, 12-byte nonce, 16-byte tag, no AAD; combined = nonce || ciphertext || tag; base64",
+    "primitive" : [
+      {
+        "aad" : "",
+        "ciphertext" : "",
+        "combined_base64" : "EBESExQVFhcYGRobAY9enWbm++wDiW7ksejQMA==",
+        "key" : "AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8=",
+        "name" : "empty",
+        "nonce" : "EBESExQVFhcYGRob",
+        "plaintext" : "",
+        "plaintext_base64" : "",
+        "tag" : "AY9enWbm++wDiW7ksejQMA=="
+      },
+      {
+        "aad" : "",
+        "ciphertext" : "FZv0eiblGsSlB2R5",
+        "combined_base64" : "EBESExQVFhcYGRobFZv0eiblGsSlB2R5apkvjiYELnIdbw2Ky9SjVQ==",
+        "key" : "AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8=",
+        "name" : "ascii",
+        "nonce" : "EBESExQVFhcYGRob",
+        "plaintext" : "hello, world",
+        "plaintext_base64" : "aGVsbG8sIHdvcmxk",
+        "tag" : "apkvjiYELnIdbw2Ky9SjVQ=="
+      },
+      {
+        "aad" : "",
+        "ciphertext" : "FT0xeiWmGkNV7Yg92NC+zwDFmZM7INclx5jNBX52Jfla",
+        "combined_base64" : "EBESExQVFhcYGRobFT0xeiWmGkNV7Yg92NC+zwDFmZM7INclx5jNBX52JflaPhh+Fu3MOYzyP5CCrggevQ==",
+        "key" : "AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8=",
+        "name" : "non_ascii",
+        "nonce" : "EBESExQVFhcYGRob",
+        "plaintext" : "héllo 😀 שלום — a/b \"q\"\n",
+        "plaintext_base64" : "aMOpbGxvIPCfmIAg16nXnNeV150g4oCUIGEvYiAicSIK",
+        "tag" : "Phh+Fu3MOYzyP5CCrggevQ=="
+      }
+    ],
+    "scheme" : "aes-gcm-256.v1",
+    "turn_record" : {
+      "canonical" : "{\"after\":[],\"at\":\"2026-08-29T10:40:08.250Z\",\"body\":{\"at\":\"2026-08-29T10:40:08.250Z\",\"enc\":\"aes-gcm-256.v1\",\"role\":\"moe\",\"source\":\"live\",\"text_enc\":\"MDEyMzQ1Njc4OTo791pfpcmNypcKeq6ed/haSLNCOzTsVit2U81xLYbXXlgsFWIADDAEPy4EfCYOrrpDyWJXGk7SqknJYA09Li1/8rFUxHIr2mWR9lU27ZD8Yg==\",\"thread\":\"7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001\",\"thread_started_at\":\"2026-08-29T10:40:00.000Z\",\"tools_enc\":\"YGFiY2RlZmdoaWprsfnpMNokozNTc41ILqKpLFUB+quoRkC4zYHgAA/S2mTT+RrUhnxnyU9Ey4tC/PPF8U3b4wYJna0H75IQgEbQbtTivpP0m5mbuHXuXBQMhQ==\",\"turn_id\":\"0F1E2D3C-4B5A-6978-8796-A5B4C3D2E1F0\"},\"device\":\"mac-aaaaaaaa\",\"kind\":\"turn\",\"seq\":11}",
+      "canonical_base64" : "eyJhZnRlciI6W10sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDowOC4yNTBaIiwiYm9keSI6eyJhdCI6IjIwMjYtMDgtMjlUMTA6NDA6MDguMjUwWiIsImVuYyI6ImFlcy1nY20tMjU2LnYxIiwicm9sZSI6Im1vZSIsInNvdXJjZSI6ImxpdmUiLCJ0ZXh0X2VuYyI6Ik1ERXlNelExTmpjNE9Ubzc5MXBmcGNtTnlwY0tlcTZlZC9oYVNMTkNPelRzVml0MlU4MXhMWWJYWGxnc0ZXSUFEREFFUHk0RWZDWU9ycnBEeVdKWEdrN1Nxa25KWUEwOUxpMS84ckZVeEhJcjJtV1I5bFUyN1pEOFlnPT0iLCJ0aHJlYWQiOiI3QjJFMUM0QS05RjAzLTRENkUtOEExNS1DMEZGRUUwMDAwMDEiLCJ0aHJlYWRfc3RhcnRlZF9hdCI6IjIwMjYtMDgtMjlUMTA6NDA6MDAuMDAwWiIsInRvb2xzX2VuYyI6IllHRmlZMlJsWm1kb2FXcHJzZm5wTU5va296TlRjNDFJTHFLcExGVUIrcXVvUmtDNHpZSGdBQS9TMm1UVCtSclVobnhueVU5RXk0dEMvUFBGOFUzYjR3WUpuYTBINzVJUWdFYlFidFRpdnBQMG01bWJ1SFh1WEJRTWhRPT0iLCJ0dXJuX2lkIjoiMEYxRTJEM0MtNEI1QS02OTc4LTg3OTYtQTVCNEMzRDJFMUYwIn0sImRldmljZSI6Im1hYy1hYWFhYWFhYSIsImtpbmQiOiJ0dXJuIiwic2VxIjoxMX0=",
+      "id" : "30efa98bbc5c71cbcbd95f9bd45f6e3d",
+      "input" : {
+        "after" : [
+
+        ],
+        "at" : "2026-08-29T10:40:08.250Z",
+        "at_epoch" : 1788000008.25,
+        "body" : {
+          "at" : "2026-08-29T10:40:08.250Z",
+          "enc" : "aes-gcm-256.v1",
+          "role" : "moe",
+          "source" : "live",
+          "text_enc" : "MDEyMzQ1Njc4OTo791pfpcmNypcKeq6ed/haSLNCOzTsVit2U81xLYbXXlgsFWIADDAEPy4EfCYOrrpDyWJXGk7SqknJYA09Li1/8rFUxHIr2mWR9lU27ZD8Yg==",
+          "thread" : "7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001",
+          "thread_started_at" : "2026-08-29T10:40:00.000Z",
+          "tools_enc" : "YGFiY2RlZmdoaWprsfnpMNokozNTc41ILqKpLFUB+quoRkC4zYHgAA/S2mTT+RrUhnxnyU9Ey4tC/PPF8U3b4wYJna0H75IQgEbQbtTivpP0m5mbuHXuXBQMhQ==",
+          "turn_id" : "0F1E2D3C-4B5A-6978-8796-A5B4C3D2E1F0"
+        },
+        "device" : "mac-aaaaaaaa",
+        "kind" : "turn",
+        "prev" : null,
+        "seq" : 11
+      },
+      "key" : "AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8=",
+      "line" : "{\"after\":[],\"at\":\"2026-08-29T10:40:08.250Z\",\"body\":{\"at\":\"2026-08-29T10:40:08.250Z\",\"enc\":\"aes-gcm-256.v1\",\"role\":\"moe\",\"source\":\"live\",\"text_enc\":\"MDEyMzQ1Njc4OTo791pfpcmNypcKeq6ed/haSLNCOzTsVit2U81xLYbXXlgsFWIADDAEPy4EfCYOrrpDyWJXGk7SqknJYA09Li1/8rFUxHIr2mWR9lU27ZD8Yg==\",\"thread\":\"7B2E1C4A-9F03-4D6E-8A15-C0FFEE000001\",\"thread_started_at\":\"2026-08-29T10:40:00.000Z\",\"tools_enc\":\"YGFiY2RlZmdoaWprsfnpMNokozNTc41ILqKpLFUB+quoRkC4zYHgAA/S2mTT+RrUhnxnyU9Ey4tC/PPF8U3b4wYJna0H75IQgEbQbtTivpP0m5mbuHXuXBQMhQ==\",\"turn_id\":\"0F1E2D3C-4B5A-6978-8796-A5B4C3D2E1F0\"},\"device\":\"mac-aaaaaaaa\",\"id\":\"30efa98bbc5c71cbcbd95f9bd45f6e3d\",\"kind\":\"turn\",\"seq\":11}",
+      "line_base64" : "eyJhZnRlciI6W10sImF0IjoiMjAyNi0wOC0yOVQxMDo0MDowOC4yNTBaIiwiYm9keSI6eyJhdCI6IjIwMjYtMDgtMjlUMTA6NDA6MDguMjUwWiIsImVuYyI6ImFlcy1nY20tMjU2LnYxIiwicm9sZSI6Im1vZSIsInNvdXJjZSI6ImxpdmUiLCJ0ZXh0X2VuYyI6Ik1ERXlNelExTmpjNE9Ubzc5MXBmcGNtTnlwY0tlcTZlZC9oYVNMTkNPelRzVml0MlU4MXhMWWJYWGxnc0ZXSUFEREFFUHk0RWZDWU9ycnBEeVdKWEdrN1Nxa25KWUEwOUxpMS84ckZVeEhJcjJtV1I5bFUyN1pEOFlnPT0iLCJ0aHJlYWQiOiI3QjJFMUM0QS05RjAzLTRENkUtOEExNS1DMEZGRUUwMDAwMDEiLCJ0aHJlYWRfc3RhcnRlZF9hdCI6IjIwMjYtMDgtMjlUMTA6NDA6MDAuMDAwWiIsInRvb2xzX2VuYyI6IllHRmlZMlJsWm1kb2FXcHJzZm5wTU5va296TlRjNDFJTHFLcExGVUIrcXVvUmtDNHpZSGdBQS9TMm1UVCtSclVobnhueVU5RXk0dEMvUFBGOFUzYjR3WUpuYTBINzVJUWdFYlFidFRpdnBQMG01bWJ1SFh1WEJRTWhRPT0iLCJ0dXJuX2lkIjoiMEYxRTJEM0MtNEI1QS02OTc4LTg3OTYtQTVCNEMzRDJFMUYwIn0sImRldmljZSI6Im1hYy1hYWFhYWFhYSIsImlkIjoiMzBlZmE5OGJiYzVjNzFjYmNiZDk1ZjliZDQ1ZjZlM2QiLCJraW5kIjoidHVybiIsInNlcSI6MTF9",
+      "name" : "encrypted_turn",
+      "note" : "the sealed `turn` body shape",
+      "sha256_hex" : "30efa98bbc5c71cbcbd95f9bd45f6e3db7612864e92662fd6516d210c94aeca1",
+      "text" : "Done — I read /etc/hosts and found 😀 nothing.\nSecond line.",
+      "text_nonce" : "MDEyMzQ1Njc4OTo7",
+      "tools" : [
+        "read /etc/hosts",
+        "ran `ls -la`",
+        "wrote ~/notes/today.md"
+      ],
+      "tools_nonce" : "YGFiY2RlZmdoaWpr",
+      "tools_plaintext" : "[\"read \\/etc\\/hosts\",\"ran `ls -la`\",\"wrote ~\\/notes\\/today.md\"]",
+      "tools_plaintext_note" : "JSONSerialization.data(withJSONObject: tools) with NO options — note `/` is escaped as \\/ in this plaintext (LEDGER-WIRE §1.7.2)"
+    }
+  }
+}

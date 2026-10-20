@@ -1,0 +1,12 @@
+{
+  "_comment": "The checks behind open loops (docs/LOOPS.md §2): every five minutes, no agent, no model. moe-loop-check.py reads ~/.moe/proactive/open.json, and for every loop whose `check` is due — `{via: url, url, find, every}`, attached by the brain through moe_followups open when the user looked at a price, a slot, a page — fetches it with a conditional GET, keeps the bit `find` matches, hashes it, and records `seen` on the loop. The same bytes as last time: nothing else happens, and the monitor's digest ignores `seen`, so no agent is woken. Different: the loop is marked `changed` (what it was, what it is now) and pulled due, which is what the proactive pass reads on its next tick and says something about. Stdout stays empty in every path — a no_agent job's stdout IS a message to the person, and this is plumbing; a fetch that fails is one stderr line and a later retry, never a message. configure-hermes.py (install_jobs) copies the script into $HERMES_HOME/scripts/ and registers this spec by name. Keys mirror cron.jobs.create_job().",
+  "_deliver": "moe, so a failure Hermes reports about the job itself reaches Settings › Background as 'needs a look'. The script itself prints nothing.",
+  "name": "moe-loop-check",
+  "schedule": "every 5m",
+  "no_agent": true,
+  "script": "moe-loop-check.py",
+  "prompt": null,
+  "deliver": "moe",
+  "workdir": null,
+  "enabled_toolsets": null
+}

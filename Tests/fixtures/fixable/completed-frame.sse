@@ -1,0 +1,3 @@
+event: hermes.tool.progress
+data: {"tool": "mcp__hermes__browser_navigate", "toolCallId": "toolu_chrome_1", "status": "completed", "fix": {"code": "tcc_app_data", "owner": "app", "pane": "Privacy_AllFiles", "subject": "Google Chrome", "retry": true, "path": "/Users/x/Library/Application Support/Google/Chrome"}}
+

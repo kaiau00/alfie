@@ -1,0 +1,11 @@
+{
+  "_comment": "The nightly tidy of Hermes's memory (docs/PROACTIVE-MEMORY.md §3.1, §3.4; slice 4). Hourly, no agent: moe-memory-tidy.py does nothing unless the last tidy is 20+ hours old and the Mac has been idle 15 minutes (or 36 hours have passed). One cheapest-tier call; code vets and applies the changes (claimstore/tidy.py) and writes them to ~/.moe/memory/tidy/<day>.json, which the Memory page lists under Past with Restore. Mac only. stdout stays empty: a no_agent job's stdout is a message to the person.",
+  "name": "moe-memory-tidy",
+  "schedule": "every 1h",
+  "no_agent": true,
+  "script": "moe-memory-tidy.py",
+  "prompt": null,
+  "deliver": "moe",
+  "workdir": null,
+  "enabled_toolsets": null
+}

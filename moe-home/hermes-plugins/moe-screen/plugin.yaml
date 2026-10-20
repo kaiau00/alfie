@@ -1,0 +1,11 @@
+name: moe-screen
+kind: platform
+version: "0.1"
+description: >
+  `moe` as a Hermes delivery target: the screen of the Mac Moe runs on, plus
+  whichever chat connectors the user picked in Settings › Background. A cron
+  job that delivers to `moe` is spoken and shown by the app and, when asked,
+  forwarded through Hermes's own `hermes send` to Telegram, WhatsApp, email…
+  Also rewrites the cronjob tool's `deliver` when a job is created from Moe,
+  because Moe's api_server origin has no send path and the reminder would
+  otherwise go nowhere.

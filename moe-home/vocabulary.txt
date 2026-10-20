@@ -1,0 +1,26 @@
+# Dictation vocabulary — words the recogniser tends to get wrong.
+#
+# One entry per line. Matching is case-insensitive and whole-word; the
+# replacement takes the casing you write here. Blank lines and anything
+# after a `#` are ignored. Edits take effect on the next dictation.
+#
+# A bare term fixes casing:
+#
+#     Kubernetes          # "kubernetes" → "Kubernetes"
+#     PostgreSQL
+#     iOS
+#
+# A `heard => Correct Form` line fixes what the recogniser actually hears:
+#
+#     cooper netties => Kubernetes
+#     post gress => PostgreSQL
+#     jay son => JSON
+#     my project name => MyProjectName
+#
+# Names of colleagues and clients belong here too. Two more files sit under
+# this one: vocabulary-learned.txt (spellings Moe learned from your
+# corrections) and vocabulary-contacts.txt (names from Contacts, if you
+# switched that on in Settings). This file wins whenever they disagree.
+#
+#     Siobhan
+#     shiv on => Siobhan

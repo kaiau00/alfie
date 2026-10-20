@@ -1,0 +1,1256 @@
+{
+ "_about": "Learning profile defaults, one per source, keyed kind/name. Read by learn/source_profile.py; a person's own choices (consent.sh mode) win over these, and a source missing here falls back to a per-kind built-in. Unknown keys are ignored.",
+ "_composio": "A source spelled composio/<slug> \u2014 one of the services Composio brokers \u2014 falls back to this table's mcp/<slug> row when it has no composio/<slug> row of its own. The row answers a question about the SERVICE (how often does your GitHub change), not about the transport, and two copies of 77 rows would drift. learn/source_profile.py's table_entry is where that is done and why. Add a composio/<slug> key only when a brokered service genuinely differs from a dedicated server for it.",
+ "_mcp": "Every mcp/* row ships with sync=false: a gather is the connection read through a fresh Hermes process on its own copy of the OAuth token, which is what cost this Mac its Cloudflare sign-in twice in a day, so nothing is polled until the person switches it on \u2014 and even then sync.sh gathers hourly at most, never every tick. dated=false because an auto-resolved read-set has no window in it; a hand recipe at ~/.moe/gather/<name>.json that puts {since_days} or {since_date} in an arg IS dated, and lib/mcp_autoread substitutes the window there.",
+ "_speak": "Whether Moe may speak up about a source on its own: the proactive pass (hermes-jobs/moe-brief-monitor.sh drops the brief sections of a source whose speak is false) and a watch job. It follows the rest of the row rather than being an answer of its own \u2014 a source Moe keeps up with (sync), reads back (seed) or may watch is one it may mention; a reference service it never reads cannot surprise anyone, so it is false there. A person's own answer (consent.sh mode <source> speak no) wins over this, as over every other field.",
+ "mcp/airtable": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "weekly",
+  "watch": true,
+  "why": "Bases and records are personal knowledge that shifts week to week, not hour to hour."
+ },
+ "mcp/algolia": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "monthly",
+  "watch": true,
+  "why": "Index configuration and settings change occasionally; nothing personal to track daily."
+ },
+ "mcp/alltrails": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "weekly",
+  "watch": true,
+  "why": "Your saved trails and completed hikes are yours, so the gather recipe is re-read weekly."
+ },
+ "mcp/amplitude": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "monthly",
+  "watch": true,
+  "why": "Analytics charts and dashboards summarize trends that move slowly enough to catch up monthly."
+ },
+ "mcp/asana": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "daily",
+  "watch": true,
+  "why": "Your tasks and projects change through the day, so the gather recipe is re-read daily."
+ },
+ "mcp/atlassian": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "daily",
+  "watch": true,
+  "why": "Jira issues assigned to you and Confluence activity move all day, so the gather recipe is re-read daily."
+ },
+ "mcp/attio": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "never",
+  "watch": true,
+  "why": "A CRM holds your customers' records, not yours: nothing here is written into what Moe knows about you; watch it with a recipe if you want to hear when something changes."
+ },
+ "mcp/aws-knowledge": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "nothing personal to learn from here \u2014 it's a docs reference tool."
+ },
+ "mcp/betterstack": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "monthly",
+  "watch": true,
+  "why": "Uptime monitors, incidents, and status pages are infrastructure state, not personal activity."
+ },
+ "mcp/buildkite": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "monthly",
+  "watch": true,
+  "why": "CI pipeline and build configuration changes at project pace, not hourly."
+ },
+ "mcp/calendly": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "daily",
+  "watch": true,
+  "why": "Scheduling links and invitees are calendar events, which change all day, so the gather recipe is re-read daily."
+ },
+ "mcp/canva": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "weekly",
+  "watch": true,
+  "why": "Design boards change at the pace of a project, not a workday."
+ },
+ "mcp/circleci": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "monthly",
+  "watch": true,
+  "why": "CI pipeline and build configuration changes at project pace, not hourly."
+ },
+ "mcp/clickup": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "daily",
+  "watch": true,
+  "why": "Your tasks change through the day, so the gather recipe is re-read daily."
+ },
+ "mcp/close": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "never",
+  "watch": true,
+  "why": "A sales CRM holds your customers' records, not yours: nothing here is written into what Moe knows about you; watch it with a recipe if you want to hear when something changes."
+ },
+ "mcp/cloudflare": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "monthly",
+  "watch": true,
+  "why": "Account/zone configuration is infrastructure that barely changes day to day."
+ },
+ "mcp/cloudinary": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "weekly",
+  "watch": true,
+  "why": "A media library grows and gets reorganized at project pace, not hourly."
+ },
+ "mcp/comfy-cloud": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "nothing personal to learn from here \u2014 it's a generation tool, not a personal record."
+ },
+ "mcp/context7": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "nothing personal to learn from here \u2014 it's a docs reference tool."
+ },
+ "mcp/craft": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "weekly",
+  "watch": true,
+  "why": "A personal doc/knowledge base changes at the pace of writing, not hour to hour."
+ },
+ "mcp/datadog": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "monthly",
+  "watch": true,
+  "why": "Dashboards and monitor configuration are infrastructure state, not personal activity."
+ },
+ "mcp/deepwiki": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "nothing personal to learn from here \u2014 it's a public-repo Q&A tool."
+ },
+ "mcp/dropbox": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "weekly",
+  "watch": true,
+  "why": "Files change at project pace, not hour to hour."
+ },
+ "mcp/figma": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "weekly",
+  "watch": true,
+  "why": "Design files change at project pace, not hour to hour."
+ },
+ "mcp/fireflies": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "daily",
+  "watch": true,
+  "why": "Meeting transcripts land right after each call, so the gather recipe is re-read daily."
+ },
+ "mcp/gamma": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "nothing personal to learn from here \u2014 it's a generation tool, not a personal record."
+ },
+ "mcp/github": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "daily",
+  "watch": true,
+  "why": "Issues and pull requests assigned to you move all day, so the gather recipe is re-read daily."
+ },
+ "mcp/gitlab": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "daily",
+  "watch": true,
+  "why": "Issues and merge requests assigned to you move all day, so the gather recipe is re-read daily."
+ },
+ "mcp/globalping": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "nothing personal to learn from here \u2014 it's a network diagnostics tool."
+ },
+ "mcp/gmail": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "daily",
+  "watch": true,
+  "why": "Mail arrives all day, so the gather recipe is re-read daily (Moe's own Gmail connector is the one kept ready every ten minutes)."
+ },
+ "mcp/google-calendar": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "daily",
+  "watch": true,
+  "why": "Events change all day, so the gather recipe is re-read daily (Moe's own Calendar connector is the one kept ready every ten minutes)."
+ },
+ "mcp/google-drive": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "weekly",
+  "watch": true,
+  "why": "Files change at project pace, not hour to hour, so the gather recipe is re-read weekly."
+ },
+ "mcp/google_calendar": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "daily",
+  "watch": true,
+  "why": "Events change all day, so the gather recipe is re-read daily (Moe's own Calendar connector is the one kept ready every ten minutes)."
+ },
+ "mcp/google_drive": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "weekly",
+  "watch": true,
+  "why": "Files change at project pace, not hour to hour, so the gather recipe is re-read weekly."
+ },
+ "mcp/grafana": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "monthly",
+  "watch": true,
+  "why": "Dashboards, alerts, and metrics configuration are infrastructure state, not personal activity."
+ },
+ "mcp/hubspot": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "never",
+  "watch": true,
+  "why": "A CRM holds your customers' records, not yours: nothing here is written into what Moe knows about you; watch it with a recipe if you want to hear when something changes."
+ },
+ "mcp/hugging_face": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "weekly",
+  "watch": true,
+  "why": "Your liked models, datasets and spaces are yours, so the gather recipe is re-read weekly."
+ },
+ "mcp/indeed": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "nothing personal to learn from here \u2014 it's a job search tool."
+ },
+ "mcp/intercom": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "never",
+  "watch": true,
+  "why": "A support inbox holds your customers' records, not yours: nothing here is written into what Moe knows about you; watch it with a recipe if you want to hear when something changes."
+ },
+ "mcp/kiwi": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "nothing personal to learn from here \u2014 it's a flight search tool."
+ },
+ "mcp/klaviyo": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "never",
+  "watch": true,
+  "why": "Holds your customers' records \u2014 profiles, lists, segments \u2014 not yours, so nothing here is read into what Moe knows about you."
+ },
+ "mcp/linear": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "daily",
+  "watch": true,
+  "why": "Issues assigned to you move all day, so the gather recipe is re-read daily."
+ },
+ "mcp/microsoft-learn": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "nothing personal to learn from here \u2014 it's a docs reference tool."
+ },
+ "mcp/miro": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "weekly",
+  "watch": true,
+  "why": "Boards and diagrams change at project pace, not hour to hour."
+ },
+ "mcp/mixpanel": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "monthly",
+  "watch": true,
+  "why": "Analytics configuration and dashboards move slowly enough to catch up monthly."
+ },
+ "mcp/moe": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "Moe's own tools: the same Mac sources Moe already reads directly, so there is nothing to learn from them twice."
+ },
+ "mcp/monday": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "daily",
+  "watch": true,
+  "why": "Your boards and items change through the day, so the gather recipe is re-read daily."
+ },
+ "mcp/motherduck": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "monthly",
+  "watch": true,
+  "why": "Warehouse schema and query surface change at project pace, not hourly."
+ },
+ "mcp/n8n": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "monthly",
+  "watch": true,
+  "why": "Workflow definitions change when you build them, not continuously."
+ },
+ "mcp/neon": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "monthly",
+  "watch": true,
+  "why": "Database branches and schema change at project pace, not hourly."
+ },
+ "mcp/netlify": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "monthly",
+  "watch": true,
+  "why": "Site and deploy configuration is infrastructure state, not personal activity."
+ },
+ "mcp/notion": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "weekly",
+  "watch": true,
+  "why": "Workspace pages and databases change at the pace of writing, not hour to hour."
+ },
+ "mcp/obsidian": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "weekly",
+  "watch": true,
+  "why": "A vault changes at the pace of writing, not hour to hour, so the gather recipe is re-read weekly."
+ },
+ "mcp/paypal": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "never",
+  "watch": true,
+  "why": "A payments account holds your customers' records, not yours: nothing here is written into what Moe knows about you; watch it with a recipe if you want to hear when something changes."
+ },
+ "mcp/plaid": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "monthly",
+  "watch": true,
+  "why": "This is the developer dashboard for API integrations, not a balance feed; it changes at project pace."
+ },
+ "mcp/posthog": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "monthly",
+  "watch": true,
+  "why": "Insights, dashboards and feature flags are product analytics that move at project pace, so the gather recipe is re-read monthly."
+ },
+ "mcp/postman": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "monthly",
+  "watch": true,
+  "why": "Collections and environments change at project pace, not hourly."
+ },
+ "mcp/prisma-postgres": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "monthly",
+  "watch": true,
+  "why": "Database configuration changes at project pace, not hourly."
+ },
+ "mcp/pulse": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "never",
+  "watch": true,
+  "why": "a data platform; watch it with a recipe, nothing is learned from it on its own."
+ },
+ "mcp/railway": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "monthly",
+  "watch": true,
+  "why": "Project and deploy configuration is infrastructure state, not personal activity."
+ },
+ "mcp/robinhood": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "live trading balances and positions are never stored in a profile \u2014 nothing here is safe or useful to seed."
+ },
+ "mcp/semgrep": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "nothing personal to learn from here \u2014 it's a code scanning tool."
+ },
+ "mcp/sentry": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "monthly",
+  "watch": true,
+  "why": "Project and alert configuration is infrastructure state; individual errors are not read back as a feed here."
+ },
+ "mcp/slack": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "daily",
+  "watch": true,
+  "why": "Channels and direct messages move all day, so the gather recipe is re-read daily."
+ },
+ "mcp/square": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "never",
+  "watch": true,
+  "why": "A point-of-sale account holds your customers' records, not yours: nothing here is written into what Moe knows about you; watch it with a recipe if you want to hear when something changes."
+ },
+ "mcp/strava": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "weekly",
+  "watch": true,
+  "why": "Activities log at the pace you exercise, not continuously through the day."
+ },
+ "mcp/stripe": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "never",
+  "watch": true,
+  "why": "A payments account holds your customers' records, not yours: nothing here is written into what Moe knows about you; watch it with a recipe if you want to hear when something changes."
+ },
+ "mcp/supabase": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "monthly",
+  "watch": true,
+  "why": "Database, auth, and storage schema change at project pace, not hourly."
+ },
+ "mcp/todoist": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "daily",
+  "watch": true,
+  "why": "Your tasks change through the day, so the gather recipe is re-read daily."
+ },
+ "mcp/trivago": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "nothing personal to learn from here \u2014 it's a hotel search tool."
+ },
+ "mcp/twelve-data": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "nothing personal to learn from here \u2014 it's a market-data lookup tool."
+ },
+ "mcp/twilio-docs": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "nothing personal to learn from here \u2014 it's a docs reference tool."
+ },
+ "mcp/unreal-engine": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "nothing personal to learn from here \u2014 it's a local editor-control tool."
+ },
+ "mcp/vercel": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "monthly",
+  "watch": true,
+  "why": "Deploy and project configuration is infrastructure state, not personal activity."
+ },
+ "mcp/webflow": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "monthly",
+  "watch": true,
+  "why": "Sites and CMS collections are published content that changes at project pace, not hourly."
+ },
+ "mcp/wolfram": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "nothing personal to learn from here \u2014 it's a computation tool."
+ },
+ "mcp/wordpress-com": {
+  "dated": false,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": false,
+  "update": "monthly",
+  "watch": true,
+  "why": "Posts and pages are published content that changes at project pace, not hourly."
+ },
+ "native/calendar": {
+  "dated": true,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": true,
+  "update": "daily",
+  "watch": false,
+  "why": "Your Calendar.app events (including subscribed Google calendars) change all day, so Moe keeps today's schedule current and catches up daily."
+ },
+ "native/call-recordings": {
+  "dated": true,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": true,
+  "update": "weekly",
+  "watch": false,
+  "why": "Recorded-call transcripts are long and expensive to walk through AppleScript, so Moe reads them back weekly instead of daily."
+ },
+ "native/calls": {
+  "dated": true,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": true,
+  "update": "daily",
+  "watch": false,
+  "why": "Your iPhone call history arrives all day, so Moe keeps it current and catches up daily."
+ },
+ "native/chrome": {
+  "dated": true,
+  "seed": true,
+  "seed_days": 90,
+  "speak": true,
+  "sync": true,
+  "update": "daily",
+  "watch": false,
+  "why": "Nothing is read until you switch Chrome on under Connections; once on, it is kept ready and read back 90 days, since browsing history is voluminous and less about who you are than mail or chats."
+ },
+ "native/drive": {
+  "dated": true,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": true,
+  "update": "daily",
+  "watch": false,
+  "why": "Google Drive for Desktop already syncs the files; Moe walks the tree every ten minutes like any other Mac source and catches up daily."
+ },
+ "native/drive-docs": {
+  "dated": true,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": true,
+  "update": "daily",
+  "watch": false,
+  "why": "The Google Docs and Sheets you picked are re-read every ten minutes so today's edits are at hand, and caught up daily."
+ },
+ "native/gmail": {
+  "dated": true,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": true,
+  "update": "daily",
+  "watch": false,
+  "why": "Mail arrives all day, so Moe keeps today's inbox current and catches up daily."
+ },
+ "native/imessage": {
+  "dated": true,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": true,
+  "update": "daily",
+  "watch": false,
+  "why": "iMessage and SMS arrive all day, so Moe keeps today's threads current and catches up daily."
+ },
+ "native/mail": {
+  "dated": true,
+  "seed": false,
+  "seed_days": 0,
+  "speak": true,
+  "sync": true,
+  "update": "daily",
+  "watch": false,
+  "why": "Mail in the Mail app arrives all day; Moe reads what is new every ten minutes and keeps today's inbox current. There is no deep read back yet."
+ },
+ "native/notes": {
+  "dated": true,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": true,
+  "update": "daily",
+  "watch": false,
+  "why": "Apple Notes change throughout the day as you jot things down, so Moe keeps them current and catches up daily."
+ },
+ "native/reminders": {
+  "dated": true,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": true,
+  "update": "daily",
+  "watch": false,
+  "why": "Open tasks change throughout the day, so Moe keeps today's list current and catches up daily."
+ },
+ "native/telegram": {
+  "dated": true,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": true,
+  "update": "daily",
+  "watch": false,
+  "why": "Your own Telegram chats arrive all day, so Moe keeps them current and catches up daily."
+ },
+ "native/whatsapp": {
+  "dated": true,
+  "seed": true,
+  "seed_days": 365,
+  "speak": true,
+  "sync": true,
+  "update": "daily",
+  "watch": false,
+  "why": "Your WhatsApp chats arrive all day, so Moe keeps them current and catches up daily."
+ },
+ "platform/bluebubbles": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "a channel Moe talks through, not something it reads."
+ },
+ "platform/buzz": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "a channel Moe talks through, not something it reads."
+ },
+ "platform/dingtalk": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "a channel Moe talks through, not something it reads."
+ },
+ "platform/discord": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "a channel Moe talks through, not something it reads."
+ },
+ "platform/email": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "a channel Moe talks through, not something it reads."
+ },
+ "platform/feishu": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "a channel Moe talks through, not something it reads."
+ },
+ "platform/google_chat": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "a channel Moe talks through, not something it reads."
+ },
+ "platform/homeassistant": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "a channel Moe talks through, not something it reads."
+ },
+ "platform/irc": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "a channel Moe talks through, not something it reads."
+ },
+ "platform/line": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "a channel Moe talks through, not something it reads."
+ },
+ "platform/matrix": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "a channel Moe talks through, not something it reads."
+ },
+ "platform/mattermost": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "a channel Moe talks through, not something it reads."
+ },
+ "platform/ntfy": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "a channel Moe talks through, not something it reads."
+ },
+ "platform/photon": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "a channel Moe talks through, not something it reads."
+ },
+ "platform/qqbot": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "a channel Moe talks through, not something it reads."
+ },
+ "platform/signal": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "a channel Moe talks through, not something it reads."
+ },
+ "platform/simplex": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "a channel Moe talks through, not something it reads."
+ },
+ "platform/slack": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "a channel Moe talks through, not something it reads."
+ },
+ "platform/sms": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "a channel Moe talks through, not something it reads."
+ },
+ "platform/teams": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "a channel Moe talks through, not something it reads."
+ },
+ "platform/telegram": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "a channel Moe talks through, not something it reads."
+ },
+ "platform/webhook": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "a channel Moe talks through, not something it reads."
+ },
+ "platform/wecom": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "a channel Moe talks through, not something it reads."
+ },
+ "platform/weixin": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "a channel Moe talks through, not something it reads."
+ },
+ "platform/whatsapp": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "a channel Moe talks through, not something it reads."
+ },
+ "platform/whatsapp_cloud": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "a channel Moe talks through, not something it reads."
+ },
+ "platform/yuanbao": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "a channel Moe talks through, not something it reads."
+ },
+ "skill/1password": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "reached through the connection, not read on a clock."
+ },
+ "skill/airtable": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "reached through the connection, not read on a clock; mcp/airtable is the one Moe learns from."
+ },
+ "skill/canvas": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "reached through the connection, not read on a clock."
+ },
+ "skill/gif-search": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "reached through the connection, not read on a clock."
+ },
+ "skill/notion": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "reached through the connection, not read on a clock; mcp/notion is the one Moe learns from."
+ },
+ "skill/shopify": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "reached through the connection, not read on a clock."
+ },
+ "skill/siyuan": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "reached through the connection, not read on a clock."
+ },
+ "skill/teams-meeting-pipeline": {
+  "dated": false,
+  "seed": false,
+  "seed_days": 365,
+  "speak": false,
+  "sync": false,
+  "update": "never",
+  "watch": false,
+  "why": "reached through the connection, not read on a clock."
+ }
+}

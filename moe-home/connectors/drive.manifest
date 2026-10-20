@@ -1,0 +1,18 @@
+# Google Drive read straight off the disk, from whatever Google Drive for
+# Desktop has already synced. auth=local because there is no authentication
+# at all: Drive for Desktop holds the account, Moe only reads files.
+# Hourly, not every ten minutes — a tree walk gains nothing from six passes
+# an hour, and the files were already there.
+name=drive
+label=Google Drive
+verbs=status pull crawl
+cadence=1h
+deep_crawl=yes
+auth=local
+runs_in=mac
+cost=cheap
+context_file=drive
+# The same service through Composio. When this route is not set up and
+# Composio has it, the tools say so rather than "not connected"
+# (moe-connectors composio_connected).
+composio=googledrive

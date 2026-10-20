@@ -1,0 +1,9 @@
+{"name": "gmail.py send (terminal)", "expect": "refused", "payload": {"tool_name": "terminal", "tool_input": {"command": "~/.moe/connectors/gmail.py send"}}}
+{"name": "gmail.py send with the JSON piped in", "expect": "refused", "payload": {"tool_name": "terminal", "tool_input": {"command": "printf '%s' '{\"to\":[\"someone@example.com\"],\"subject\":\"Hi\",\"body\":\"hello\"}' | ~/.moe/connectors/gmail.py send"}}}
+{"name": "gmail.py send from execute_code", "expect": "refused", "payload": {"tool_name": "execute_code", "tool_input": {"code": "import subprocess; subprocess.run([\"/Users/x/.moe/connectors/gmail.py\",\"send\"], input=payload)"}}}
+{"name": "Hermes-native gmail send tool", "expect": "confirm", "payload": {"tool_name": "gmail_send_email", "tool_input": {"to": "someone@example.com", "subject": "Hi", "body": "hello"}}}
+{"name": "gmail.py status (read-only)", "expect": "pass", "payload": {"tool_name": "terminal", "tool_input": {"command": "~/.moe/connectors/gmail.py status"}}}
+{"name": "gmail.py pull (read-only)", "expect": "pass", "payload": {"tool_name": "terminal", "tool_input": {"command": "~/.moe/connectors/gmail.py pull"}}}
+{"name": "gmail.py crawl (read-only)", "expect": "pass", "payload": {"tool_name": "terminal", "tool_input": {"command": "~/.moe/connectors/gmail.py crawl --since 90"}}}
+{"name": "raw smtplib to smtp.gmail.com, around the connector", "expect": "confirm", "payload": {"tool_name": "execute_code", "tool_input": {"code": "import smtplib, ssl\ns = smtplib.SMTP_SSL('smtp.gmail.com', 465, context=ssl.create_default_context())\ns.login(a, p)\ns.send_message(m)"}}}
+{"name": "raw smtplib with the host in a variable, no literal 'gmail'", "expect": "gap", "payload": {"tool_name": "execute_code", "tool_input": {"code": "import smtplib, ssl\nhost = HOSTS['personal']\ns = smtplib.SMTP_SSL(host, 465, context=ssl.create_default_context())\ns.login(a, p)\ns.send_message(m)"}}}

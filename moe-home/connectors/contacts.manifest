@@ -1,0 +1,18 @@
+# Contacts.app — who a name is, and their number or email. Read on demand
+# (tools/apple.sh contacts-find, tools/contacts-cache.sh), never pulled into
+# context: an address book is looked up, not summarised. `status` is here so
+# the Connections row can say whether Moe may read it.
+name=contacts
+label=Contacts
+verbs=status find
+# `find <name>`: phone and email for a person, from Contacts (tools/apple.sh
+# contacts-find). A lookup the send gate trusts: a recipient it returns counts
+# as found (tools/recipients.py MOE_LOOKUPS), which is how "email my
+# accountant" reaches someone the person never spelled out.
+find_args=name*
+cadence=1h
+deep_crawl=no
+auth=local
+runs_in=mac
+cost=cheap
+context_file=contacts

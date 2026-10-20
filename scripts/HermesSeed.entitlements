@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <!-- The Hermes seed's runtimes, signed under the Hardened Runtime by
+       scripts/release.sh. Three entitlements, each measured as necessary
+       on 2026-09-11 against the 0.3.17 release's own seed:
+
+       allow-jit + allow-unsigned-executable-memory — Node (V8) cannot start
+         without them: `node -e 1` dies with "Failed to reserve virtual
+         memory for CodeRange". Node's own signature carries both; a
+         re-sign without them removes them. That took out npm, npx,
+         agent-browser (the browser lane's Chromium) and the WhatsApp bridge
+         on every Mac that installed the release.
+
+       disable-library-validation — Python under the Hardened Runtime refuses
+         a native wheel signed by anyone else ("mapping process and mapped
+         file have different Team IDs"). The seed's own wheels are re-signed
+         beside it, so the seed runs; anything installed afterwards — a venv
+         re-sync at a pin bump, `uv tool install browser-use`, pip — is
+         ad-hoc signed and could not load, which is how the hermes-tools MCP
+         server (pydantic_core) died and the brain ran with no tools.
+
+       Nothing else: no audio, no Apple events — those are the app's, in
+       Moe.entitlements. -->
+  <key>com.apple.security.cs.allow-jit</key>
+  <true/>
+  <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+  <true/>
+  <key>com.apple.security.cs.disable-library-validation</key>
+  <true/>
+</dict>
+</plist>

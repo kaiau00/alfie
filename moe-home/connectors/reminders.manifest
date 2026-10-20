@@ -1,0 +1,16 @@
+# Reminders.app via AppleScript — open tasks, soonest first.
+name=reminders
+label=Reminders
+verbs=status pull crawl create
+cadence=10m
+deep_crawl=yes
+auth=local
+runs_in=mac
+cost=cheap
+# sync.sh has always written this as context/tasks.md; the brief's "Tasks"
+# section reads that name.
+context_file=tasks
+# What `create` takes: one JSON object on stdin. Only the title is required;
+# `due` is local time as YYYY-MM-DD or YYYY-MM-DD HH:MM, `list` names the
+# Reminders list (the default list otherwise).
+create_stdin=title* notes due list

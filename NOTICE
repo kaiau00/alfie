@@ -1,0 +1,165 @@
+Memoe — third-party notices
+
+Memoe (the Mac app; Moe is the assistant inside it) is built on open models and open source. The following notices are
+required by the licences of the components it uses. Full licence texts are in
+THIRD_PARTY_LICENSES/. See LICENSES.md for the audit behind this file.
+
+-----------------------------------------------------------------------
+
+Speech recognition — Parakeet TDT 0.6B v3, Parakeet TDT-CTC 110M and Parakeet
+Realtime EOU 120M by NVIDIA Corporation. Parakeet TDT 0.6B v3 and Parakeet
+TDT-CTC 110M are used under CC-BY-4.0
+(https://creativecommons.org/licenses/by/4.0/). Parakeet Realtime EOU 120M is
+licensed by NVIDIA Corporation under the NVIDIA Open Model License. CoreML
+conversions by the FluidInference team. Whisper large-v3-turbo © OpenAI, MIT;
+CoreML conversion by Argmax, Inc., MIT.
+
+Speech recognition framework — WhisperKit © 2024 Argmax, Inc., MIT.
+
+Speech synthesis — Kokoro-82M by hexgrad, Apache-2.0. Inflect
+text normalisation © the Inflect authors, Apache-2.0. CoreML conversions by
+the FluidInference team.
+
+Audio framework — FluidAudio by FluidInference, Apache-2.0.
+
+Wake word — the "Hey Moe" detector follows the LiveKit WakeWord design
+(© 2026 LiveKit, Inc., Apache-2.0) and was trained with its pipeline. Its
+speech-embedding backbone is Google's speech_embedding model (© Google LLC,
+Apache-2.0), in the ONNX conversion distributed by openWakeWord and LiveKit.
+Its mel-spectrogram front end is Moe's own export of the public formula
+(scripts/wake-mel-export.py). The "Hey Moe" classifier was trained on speech
+synthesised from a Piper VITS model of the LibriTTS voices (Zen et al.,
+CC-BY-4.0) and on LibriSpeech (Panayotov et al., CC-BY-4.0) as non-target
+speech, with MUSAN noise (Snyder, Chen and Povey, 2015) and the MIT
+environmental impulse responses. Turn detection — Smart Turn v3.2 © 2025 Daily
+(Pipecat), BSD-2-Clause. ONNX Runtime © Microsoft Corporation, MIT.
+
+Agent runtime — Hermes Agent © 2025 Nous Research, MIT. Runs as a separate
+process that Memoe launches. Memoe installs it from a public fork with
+Memoe-specific changes, https://github.com/Izzy-Gottz/hermes-agent (branch
+claude-code-runtime, pinned by commit in scripts/install-hermes.sh), which is
+under the same MIT licence.
+
+Mac control — cua-driver, from Cua (https://github.com/trycua/cua),
+© 2025 Cua AI, Inc., MIT. Hermes installs and runs it as a separate
+program, and nothing of it is linked into Memoe.
+
+Signal — connecting Signal (and nothing else) downloads signal-cli 0.14.8
+(© AsamK and contributors, GPL-3.0-or-later), which contains libsignal 0.102.1
+(© Signal Messenger, LLC, AGPL-3.0-only), and an Eclipse Temurin JRE
+25.0.4.1+1 (GPL-2.0 with the Classpath Exception). All three are used
+unmodified; signal-cli runs as a separate program that Moe talks to over a
+local connection, and nothing of it is linked into Moe. Full texts:
+THIRD_PARTY_LICENSES/GPL-3.0.txt and THIRD_PARTY_LICENSES/AGPL-3.0.txt, and
+the runtime's own legal/ directory. Source, at the exact upstream tags:
+signal-cli's at https://github.com/AsamK/signal-cli/tree/v0.14.8, libsignal's
+at https://github.com/signalapp/libsignal/tree/v0.102.1, and the Java
+runtime's at https://github.com/adoptium/jdk25u/tree/jdk-25.0.4.1+1_adopt.
+For at least three years from the date you received this software, we will
+give anyone who asks
+the complete corresponding source for those exact versions, on a physical
+medium or by download, for no more than the cost of distribution — write to
+the contact address published at https://memoe.app.
+
+Software updates — Sparkle © 2006-2013 Andy Matuschak, © 2009-2013 Elgato
+Systems GmbH, © 2011-2014 Kornel Lesiński, © 2015-2017 Mayur Pawashe,
+© 2014 C.W. Betts, © 2014 Petroules Corporation, © 2014 Big Nerd Ranch, MIT.
+Ships inside Moe.app as Sparkle.framework and carries its own components:
+bsdiff/bspatch © 2003-2005 Colin Percival, BSD-2-Clause; sais-lite
+© 2008-2010 Yuta Mori, MIT; a portable Ed25519 implementation © 2015 Orson
+Peters, zlib; SUSignatureVerifier.m © 2011 Mark Hamlin, BSD-2-Clause. The
+full text of all of these is in THIRD_PARTY_LICENSES/Sparkle-MIT.txt.
+
+Dictation prompts — the dictation cleanup and dictionary prompts are adapted
+from OpenWhispr © 2024 OpenWhispr Team, MIT. No OpenWhispr code is linked.
+
+Kokoro-82M training data includes material from Koniwa (CC BY 3.0) and SIWIS
+(CC BY 4.0).
+
+Statically linked via FluidAudio — NeMo Text Processing FST grammars © NVIDIA
+CORPORATION & AFFILIATES, Apache-2.0, compiled as text-processing-rs by
+FluidInference, Apache-2.0, with rustfst © Alexandre Caulier and the rustfst
+contributors and flate2 © Alex Crichton and the flate2 contributors, each
+MIT OR Apache-2.0. VBx clustering © 2021-2024 BUT Speech@FIT, Apache-2.0.
+fastcluster © 2011 Daniel Müllner, changes from 1.1.24 on © Google Inc.,
+BSD-3-Clause; its copyright notice, conditions and disclaimer are reproduced
+below as the licence requires.
+
+-----------------------------------------------------------------------
+
+FluidAudio
+Copyright FluidInference
+https://github.com/FluidInference/FluidAudio
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations under
+the License.
+
+-----------------------------------------------------------------------
+
+WhisperKit (argmax-oss-swift) and Whisper large-v3-turbo
+Copyright (c) 2024 Argmax, Inc.
+Copyright (c) 2022 OpenAI
+https://github.com/argmaxinc/argmax-oss-swift
+https://github.com/openai/whisper
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+-----------------------------------------------------------------------
+
+Hermes Agent (and the Memoe fork of it)
+Copyright (c) 2025 Nous Research
+https://github.com/NousResearch/hermes-agent
+https://github.com/Izzy-Gottz/hermes-agent
+
+cua-driver
+Copyright (c) 2025 Cua AI, Inc.
+https://github.com/trycua/cua
+
+OpenWhispr (prompts only)
+Copyright (c) 2024 OpenWhispr Team
+https://github.com/OpenWhispr/OpenWhispr
+
+All under the MIT License: the permission notice reproduced above for
+WhisperKit applies to each, with the copyright lines given here.
+
+-----------------------------------------------------------------------
+
+fastcluster
+https://github.com/fastcluster/fastcluster
+
+Copyright:
+  * Until package version 1.1.23: © 2011 Daniel Müllner <https://danifold.net>
+  * All changes from version 1.1.24 on: © Google Inc. <https://www.google.com>
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+  * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+  * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

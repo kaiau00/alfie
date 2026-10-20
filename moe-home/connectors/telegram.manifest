@@ -1,0 +1,14 @@
+# Your own Telegram chats over MTProto (Telethon), after a one-time phone
+# login. The session file is a delegated login, which is the closest of the
+# four auth kinds to what it actually is.
+name=telegram
+label=Telegram (your chats)
+verbs=status pull crawl send items
+cadence=10m
+deep_crawl=yes
+auth=oauth
+runs_in=both
+cost=cheap
+context_file=telegram
+# What `send` takes: one JSON object on stdin, same reason as gmail's.
+send_stdin=to* text*
