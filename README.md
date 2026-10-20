@@ -90,7 +90,7 @@ reports). That code is not in this repository, and a build from this
 repository does not need it.
 
 The official download is built from this code plus those closed parts, and
-is signed by the maintainer.
+is signed and notarized by the maintainer.
 
 ## How it fits together
 
