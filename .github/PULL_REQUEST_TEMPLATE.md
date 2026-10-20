@@ -1,6 +1,8 @@
 <!--
 Thanks for the pull request. Keep it to one change. If it fixes an issue,
-say "Fixes #123" below so the issue closes on merge.
+say "Fixes #123" below. Accepted changes land through the private
+repository and reach main in the next sync (see CONTRIBUTING.md,
+"How a pull request lands"); we close the issue then.
 Security fix? Please report privately first (SECURITY.md) and coordinate.
 -->
 

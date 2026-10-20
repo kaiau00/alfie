@@ -1,0 +1,36 @@
+# Dependabot version updates for the public repository.
+#
+# main here is only ever fast-forwarded by the maintainers. Do not press
+# Merge on a Dependabot pull request: the maintainers apply the same bump
+# upstream, and Dependabot closes its own pull request once main already has
+# the new version.
+#
+# Monthly and grouped, so a month of updates is at most one pull request per
+# ecosystem. Security updates (on in the repository settings) ignore the
+# schedule and arrive as soon as an advisory lands.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 2
+    labels: [dependencies]
+    groups:
+      actions:
+        patterns: ["*"]
+
+  - package-ecosystem: swift
+    directory: /
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 2
+    labels: [dependencies]
+    groups:
+      swift-packages:
+        patterns: ["*"]
+        update-types: [minor, patch]
+    ignore:
+      # Sparkle is pinned exactly on purpose: it verifies every update the app
+      # installs. Move it by hand, after reading its release notes.
+      - dependency-name: "*Sparkle*"

@@ -3,9 +3,10 @@ contact_links:
   - name: Security vulnerability
     url: https://github.com/memoe-app/memoe/security/advisories/new
     about: Report it privately, never in a public issue.
+  # GitHub only shows http(s) links here; a mailto: entry is dropped silently.
   - name: Away, billing or your account
-    url: mailto:hello@moebot.app
-    about: The hosted part of Memoe is not in this repository.
+    url: https://github.com/memoe-app/memoe/blob/main/SUPPORT.md
+    about: Email hello@moebot.app. The hosted part of Memoe is not in this repository.
   - name: Documentation
     url: https://docs.memoe.app
     about: Every screen and setting, kept in step with the app.

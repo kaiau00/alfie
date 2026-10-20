@@ -99,6 +99,17 @@ push, or a test that does not compile will surprise you in CI.
 - Do not commit anything from your own Moe home, your keys, OAuth client
   files, model weights or `hermes-seed/`. They are gitignored for a reason.
 
+### How a pull request lands
+
+This repository is published from Memoe's private repository, which also
+holds the closed cloud service. Its `main` only ever moves forward from
+there, so a pull request here is never merged with the button. When we
+accept one, we apply your commits in the private repository with you as
+the author, or as `Co-authored-by:` when we had to change them. They reach
+this `main` in the next sync, usually within a day. Then we close the pull
+request with a link to the commit. Your sign-off, authorship and credit
+are kept. The same goes for Dependabot's pull requests.
+
 ### Writing for the app and the docs
 
 Plain words, short sentences, no hype. Not "AI assistant", not metaphors.
