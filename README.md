@@ -30,24 +30,11 @@
   <a href="CONTRIBUTING.md">Contributing</a>
 </p>
 
-<!-- VIDEO: owner uploads mp4 via GitHub editor
-     1. On github.com, edit README.md, drag the mp4 (under 10 MB on a free plan) into the editor.
-     2. GitHub inserts a line like  https://github.com/user-attachments/assets/<id>
-     3. Leave that URL alone on its own line, with a blank line above and below, right here.
-        It renders as GitHub's own player: controls, muted, no autoplay, no loop, no poster.
-        Do not wrap it in a link, a <p>, a <video> tag or a table cell. Export H.264 mp4.
-     4. Copy the same line back into .oss/overlay/README.md, or the next export overwrites it.
-     Keep the still below: it is what shows before the video is added, and the fallback
-     anywhere the player does not load. -->
+<!-- Launch film. The URL is a GitHub upload; GitHub renders it as its own player. -->
 
-<p align="center">
-  <a href="https://memoe.app">
-    <img src="docs/assets/memoe-demo-poster.png" width="860"
-         alt="Safari showing a flat listing. Under the notch, Moe answers out loud: “Little high. Places nearby go for about twenty-eight hundred.”">
-  </a>
-  <br>
-  <sub>A frame from the launch film. You asked from Safari; Moe answered under the notch, out loud.</sub>
-</p>
+https://github.com/user-attachments/assets/3f1d9316-e605-4fd4-9b55-ad303be67e62
+
+<p align="center"><sub>Sound on. A rendered film of real features; Moe's voice is the app's own.</sub></p>
 
 ## Download
 
