@@ -83,6 +83,10 @@ uses (its own Node and ffmpeg). Setting up fetches nothing, so the first run
 works offline, and that part of Moe never downloads pieces of itself while
 it runs.
 
+If you use Homebrew, `brew install --cask izzy-gottz/moe/memoe` installs the
+same app. Each version is also on the open-source repository's
+[Releases](https://github.com/memoe-app/memoe/releases) page.
+
 The one exception is the browser Moe uses for web pages (about 330 MB),
 which Memoe downloads in the background the first time it opens, just as it
 always has. Until it arrives, asking Moe to use a web page gets the answer
@@ -4750,6 +4754,10 @@ conversation lives in the page until you close the tab. The privacy page
 says exactly what leaves your browser.
 
 ## Change log
+- **2026-10-20** — **Homebrew and GitHub Releases.** `brew install --cask
+  izzy-gottz/moe/memoe` installs Memoe (the old `moe` cask still works and
+  moves across), and every version is on the open-source repository's
+  Releases page.
 - **2026-10-20** — ***Privacy* names everything that reaches us.** It used
   to open with "on the free plan nothing about you reaches us", which left
   out three things the app does on its own: the daily update check and the

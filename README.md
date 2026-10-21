@@ -39,6 +39,11 @@ https://github.com/user-attachments/assets/3f1d9316-e605-4fd4-9b55-ad303be67e62
 ## Download
 
 **[Download Memoe for Mac](https://memoe.app/download)**: a Mac with Apple silicon and macOS 15 or later.
+Or with Homebrew:
+
+```sh
+brew install --cask izzy-gottz/moe/memoe
+```
 
 It is a large download, a little over a gigabyte, because the speech and voice
 models and the part of Moe that thinks are all inside it. Drag Memoe onto
