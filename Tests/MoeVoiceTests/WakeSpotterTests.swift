@@ -7,57 +7,57 @@ struct WakeSpotterTests {
     let spotter = WakeSpotter(phrases: WakeSpotter.defaultPhrases)
 
     @Test func matchesThePhraseAtTheEnd() {
-        let m = spotter.match(in: "so anyway hey moe")
+        let m = spotter.match(in: "so anyway hey alfie")
         #expect(m?.tail == "")
-        #expect(m?.end == 17)
+        #expect(m?.end == 19)
     }
 
     @Test func returnsTheRequestAfterThePhrase() {
-        let m = spotter.match(in: "Hey Moe, what's the weather like")
+        let m = spotter.match(in: "Hey Alfie, what's the weather like")
         #expect(m?.tail == "what's the weather like")
     }
 
     @Test func wholeWordsOnly() {
-        #expect(spotter.match(in: "hey mobile") == nil)
-        #expect(spotter.match(in: "showmoe") == nil)
-        #expect(spotter.match(in: "hey moebius") == nil)
-        #expect(spotter.match(in: "hey mom") == nil)
-        #expect(spotter.match(in: "hey more") == nil)
+        #expect(spotter.match(in: "hey alfredo") == nil)
+        #expect(spotter.match(in: "showalfie") == nil)
+        #expect(spotter.match(in: "hey alfies") == nil)
+        #expect(spotter.match(in: "hey alpha") == nil)
+        #expect(spotter.match(in: "hey elfie") == nil)
     }
 
     @Test func caseInsensitive() {
-        #expect(spotter.match(in: "HEY MOE") != nil)
+        #expect(spotter.match(in: "HEY ALFIE") != nil)
     }
 
     @Test func onlyTheTailIsSearched() {
         let history = String(repeating: "blah ", count: 40)
-        #expect(spotter.match(in: "hey moe " + history) == nil)
-        #expect(spotter.match(in: history + "hey moe") != nil)
+        #expect(spotter.match(in: "hey alfie " + history) == nil)
+        #expect(spotter.match(in: history + "hey alfie") != nil)
     }
 
     @Test func latestOfSeveralWins() {
-        let m = spotter.match(in: "hey moe no wait hey moe stop")
+        let m = spotter.match(in: "hey alfie no wait hey alfie stop")
         #expect(m?.tail == "stop")
     }
 
     @Test func singleWordPhrasesAreRefused() {
-        let s = WakeSpotter(phrases: ["moe", "hey moe"])
-        #expect(s.phrases == ["hey moe"])
+        let s = WakeSpotter(phrases: ["alfie", "hey alfie"])
+        #expect(s.phrases == ["hey alfie"])
     }
 
     @Test func stripsALeadingPhraseFromTheAccurateRead() {
-        #expect(spotter.strippingPhrase(from: "Hey Moe, what time is it?") == "what time is it")
-        #expect(spotter.strippingPhrase(from: "hey moe") == "")
-        #expect(spotter.strippingPhrase(from: "Hey Moebius is a band") == "Hey Moebius is a band")
-        #expect(spotter.strippingPhrase(from: "what time is it, hey moe") == "what time is it, hey moe")
+        #expect(spotter.strippingPhrase(from: "Hey Alfie, what time is it?") == "what time is it")
+        #expect(spotter.strippingPhrase(from: "hey alfie") == "")
+        #expect(spotter.strippingPhrase(from: "Hey Alfies is a band") == "Hey Alfies is a band")
+        #expect(spotter.strippingPhrase(from: "what time is it, hey alfie") == "what time is it, hey alfie")
     }
 
     @Test func aWakeTurnIsCutAtTheLastMatch() {
         // The capture's pre-roll carries what came before the name.
-        #expect(spotter.strippingPhrase(from: "see you later. Hey Moe, what's the weather", anywhere: true) == "what's the weather")
-        #expect(spotter.strippingPhrase(from: "hey moe", anywhere: true) == "")
+        #expect(spotter.strippingPhrase(from: "see you later. Hey Alfie, what's the weather", anywhere: true) == "what's the weather")
+        #expect(spotter.strippingPhrase(from: "hey alfie", anywhere: true) == "")
         #expect(spotter.strippingPhrase(from: "no phrase here", anywhere: true) == "no phrase here")
-        #expect(spotter.strippingPhrase(from: "see you later. Hey Moe, what's the weather") == "see you later. Hey Moe, what's the weather")
+        #expect(spotter.strippingPhrase(from: "see you later. Hey Alfie, what's the weather") == "see you later. Hey Alfie, what's the weather")
     }
 
     @Test func aMisheardNameIsStrippedFromAWakeTurn() {
@@ -94,7 +94,7 @@ struct WakeSpotterTests {
     }
 
     @Test func unicodeSafeOffsets() {
-        let m = spotter.match(in: "café ☕ hey moe é")
+        let m = spotter.match(in: "café ☕ hey alfie é")
         #expect(m?.tail == "é")
     }
 }

@@ -606,7 +606,7 @@ enum HermesUpgrade {
         guard FileManager.default.fileExists(atPath: agent.path) else { return [] }
         switch acquireLock(in: home) {
         case .busy(let pid):
-            Log.write("hermes upgrade: another Moe (pid \(pid)) holds the upgrade lock; not tidying")
+            Log.write("hermes upgrade: another Alfie (pid \(pid)) holds the upgrade lock; not tidying")
             return []
         case .failed(let why):
             Log.write("hermes upgrade: \(why); not tidying")
@@ -657,7 +657,7 @@ enum HermesUpgrade {
                              onLine: ((String) -> Void)?) -> InstallerRun {
         let p = Process()
         p.executableURL = URL(fileURLWithPath: "/bin/bash")
-        p.arguments = ["-c", HermesSupervisor.wrapperScript, "Moe Installer", installer]
+        p.arguments = ["-c", HermesSupervisor.wrapperScript, "Alfie Installer", installer]
         // MOE_HERMES_SEED_BUNDLE: the seed inside this Memoe.app. When the pin
         // changes what the venv contains (the Python 3.14 move, any uv.lock
         // change) refresh-hermes-seed.sh refuses by design, and the installer
@@ -723,12 +723,12 @@ enum HermesUpgrade {
         let git = Git(exe: exe, dir: agent)
 
         if quitting {
-            return Outcome(moved: false, line: "hermes upgrade: Moe is quitting; the move was not started", notify: .log)
+            return Outcome(moved: false, line: "hermes upgrade: Alfie is quitting; the move was not started", notify: .log)
         }
 
         switch acquireLock(in: home) {
         case .busy(let pid):
-            return Outcome(moved: false, line: "hermes upgrade: another Moe\(pid > 0 ? " (pid \(pid))" : "") is already moving \(agent.path); this one stood aside and touched nothing", notify: .log)
+            return Outcome(moved: false, line: "hermes upgrade: another Alfie\(pid > 0 ? " (pid \(pid))" : "") is already moving \(agent.path); this one stood aside and touched nothing", notify: .log)
         case .failed(let why):
             return Outcome(moved: false, line: "hermes upgrade: \(why); nothing was touched", notify: .record)
         case .held:
@@ -765,7 +765,7 @@ enum HermesUpgrade {
             // nor the paths it touches can be known.
             let fetch = run(exe, ["-C", agent.path, "fetch", "--quiet", "origin", to], timeout: 300, cancellable: true)
             if quitting {
-                return Outcome(moved: false, line: "hermes upgrade: Moe quit during the fetch; nothing was moved", notify: .log)
+                return Outcome(moved: false, line: "hermes upgrade: Alfie quit during the fetch; nothing was moved", notify: .log)
             }
             if fetch.status != 0 {
                 rememberFailure(head: from, pin: to)
@@ -783,7 +783,7 @@ enum HermesUpgrade {
             }
             if now != from {
                 return Outcome(moved: false,
-                               line: "hermes upgrade: HEAD of \(agent.path) moved from \(HermesPin.short(from)) to \(HermesPin.short(now)) while Moe was waiting; nothing was moved this launch",
+                               line: "hermes upgrade: HEAD of \(agent.path) moved from \(HermesPin.short(from)) to \(HermesPin.short(now)) while Alfie was waiting; nothing was moved this launch",
                                notify: .log)
             }
             let fork = forkURL(script: script)
@@ -825,7 +825,7 @@ enum HermesUpgrade {
         }
         defer { try? fm.removeItem(at: rollback) }
         if quitting {
-            return Outcome(moved: false, line: "hermes upgrade: Moe is quitting; the installer was not started", notify: .log)
+            return Outcome(moved: false, line: "hermes upgrade: Alfie is quitting; the installer was not started", notify: .log)
         }
 
         let started = Date()
@@ -851,7 +851,7 @@ enum HermesUpgrade {
 
         // Put it back.
         let why: String
-        if cancelled { why = "Moe quit while the installer was running, so it was stopped" }
+        if cancelled { why = "Alfie quit while the installer was running, so it was stopped" }
         else if r.timedOut { why = "the installer ran past \(Int(installerTimeout))s and was stopped" }
         else if r.status != 0 { why = "the installer exited \(r.status): \(installerReason(r.output))" }
         else if head != to { why = "the installer finished but HEAD is \(head.map(HermesPin.short) ?? "unreadable"), not \(HermesPin.short(to))" }
@@ -920,11 +920,11 @@ enum HermesUpgrade {
         let installerLock = home.appendingPathComponent(".install.lock")
 
         if quitting {
-            return Outcome(moved: false, line: "hermes upgrade: Moe is quitting; the seed refresh was not started", notify: .log)
+            return Outcome(moved: false, line: "hermes upgrade: Alfie is quitting; the seed refresh was not started", notify: .log)
         }
         switch acquireLock(in: home) {
         case .busy(let pid):
-            return Outcome(moved: false, line: "hermes upgrade: another Moe\(pid > 0 ? " (pid \(pid))" : "") is already moving \(agent.path); this one stood aside and touched nothing", notify: .log)
+            return Outcome(moved: false, line: "hermes upgrade: another Alfie\(pid > 0 ? " (pid \(pid))" : "") is already moving \(agent.path); this one stood aside and touched nothing", notify: .log)
         case .failed(let why):
             return Outcome(moved: false, line: "hermes upgrade: \(why); nothing was touched", notify: .record)
         case .held:
@@ -949,11 +949,11 @@ enum HermesUpgrade {
         if nowStamp != from {
             return Outcome(moved: false,
                            line: "hermes upgrade: \(agent.path) was stamped \(HermesPin.short(from)) and is now "
-                                 + "\(nowStamp.map(HermesPin.short) ?? "unreadable") — it moved while Moe was waiting; nothing was done this launch",
+                                 + "\(nowStamp.map(HermesPin.short) ?? "unreadable") — it moved while Alfie was waiting; nothing was done this launch",
                            notify: .log)
         }
         if quitting {
-            return Outcome(moved: false, line: "hermes upgrade: Moe is quitting; the installer was not started", notify: .log)
+            return Outcome(moved: false, line: "hermes upgrade: Alfie is quitting; the installer was not started", notify: .log)
         }
 
         let started = Date()
@@ -976,7 +976,7 @@ enum HermesUpgrade {
         }
 
         let why: String
-        if cancelled { why = "Moe quit while the installer was running, so it was stopped" }
+        if cancelled { why = "Alfie quit while the installer was running, so it was stopped" }
         else if r.timedOut { why = "the installer ran past \(Int(installerTimeout))s and was stopped" }
         else if r.status != 0 { why = "the installer exited \(r.status): \(installerReason(r.output))" }
         else if after != to { why = "the installer finished but the seed is stamped \(after.map(HermesPin.short) ?? "unreadably"), not \(HermesPin.short(to))" }
@@ -1053,7 +1053,7 @@ enum HermesUpgrade {
         let clipped = body.count > 230 ? String(body.prefix(227)) + "…" : body
         let escaped = clipped.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "\"", with: "\\\"")
         _ = run("/usr/bin/osascript",
-                ["-e", "display notification \"\(escaped)\" with title \"Moe: the part that thinks\""],
+                ["-e", "display notification \"\(escaped)\" with title \"Alfie: the part that thinks\""],
                 timeout: 10)
     }
 
@@ -1158,12 +1158,12 @@ enum HermesUpgrade {
                 running = false
                 return
             }
-            Log.write(decision.line + " — once Moe's own gateway is up")
+            Log.write(decision.line + " — once Alfie's own gateway is up")
             DispatchQueue.main.async {
                 gatewayUp { ok, why in
                     queue.async {
                         guard ok, !quitting else {
-                            Log.write("hermes upgrade: not moving Hermes this launch — \(quitting ? "Moe is quitting" : why)")
+                            Log.write("hermes upgrade: not moving Hermes this launch — \(quitting ? "Alfie is quitting" : why)")
                             running = false
                             return
                         }

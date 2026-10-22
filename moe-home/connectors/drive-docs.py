@@ -79,7 +79,7 @@ def block(text, max_lines=400, limit=400):
     """A document's text, line by line, each one neutralised. This is the
     whole reason the connector exists — the contents *are* the payload — so
     a '### heading' or a code fence inside someone's Doc must not become
-    structure in the file Moe reads."""
+    structure in the file Alfie reads."""
     out = []
     for raw in str(text or "").splitlines():
         line = one_line(raw, limit)
@@ -351,7 +351,7 @@ def contents(session, info):
                 return None, "larger than Google's 10 MB export limit — skipped"
             return None, "Google refused the export (403)"
         if status == 404:
-            return None, "no longer available to Moe"
+            return None, "no longer available to Alfie"
         return None, "export failed (%d)" % status
     if mime in NATIVE_OTHER:
         return None, "%s — no text to export" % NATIVE_OTHER[mime]
@@ -367,7 +367,7 @@ def contents(session, info):
     if status == 200:
         return body[:MEDIA_LIMIT].decode("utf-8", "replace"), None
     if status == 404:
-        return None, "no longer available to Moe"
+        return None, "no longer available to Alfie"
     return None, "could not be read (%d)" % status
 
 
@@ -401,9 +401,9 @@ def crawl_args(argv):
 # The app cuts the line at that dash and shows only the first half, because
 # on screen the button *is* the command (ConnectionsCatalog.humanDetail); a
 # line that names the script anywhere else arrives on screen in pieces.
-NOT_CONFIGURED = ("needs-setup: this build of Moe has no Google sign-in client, "
+NOT_CONFIGURED = ("needs-setup: this build of Alfie has no Google sign-in client, "
                   "so Docs and Sheets contents are unavailable")
-NOT_CONNECTED = ("needs-setup: no Google documents are shared with Moe yet — run "
+NOT_CONNECTED = ("needs-setup: no Google documents are shared with Alfie yet — run "
                  "~/.moe/scripts/connect-drive-docs.sh")
 NOTHING_PICKED = ("needs-setup: signed in, but no documents are picked yet — run "
                   "~/.moe/scripts/connect-drive-docs.sh pick")

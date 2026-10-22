@@ -2,7 +2,7 @@ name: moe-no-verbatim
 description: >
   Keeps the Slack promise: after a Slack turn's reply is sent, the words of
   that turn are removed from Hermes's session store and from the Claude
-  child's transcript, on the Mac and on the away machine. What Moe learned
+  child's transcript, on the Mac and on the away machine. What Alfie learned
   stays; what was said goes. Slack only.
 events:
   - agent:end

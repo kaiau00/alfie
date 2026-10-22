@@ -1,0 +1,71 @@
+# "Hey Alfie" for Alfie's voice mode, through livekit-wakeword 0.2.1.
+# Adapted from scripts/wakeword/hey-moe.yaml and sized for an 8 GB M2:
+# two thirds of the clips, smaller TTS and augmentation batches, no AMI.
+model_name: hey_alfie
+target_phrases:
+  - "hey alfie"
+  - "hey alfy"
+  - "hey alfee"
+
+# Things that sound like it and must not fire. The generator also derives
+# phoneme-neighbour negatives on its own.
+custom_negative_phrases:
+  - "alfie"
+  - "hey"
+  - "hey alpha"
+  - "hey elfie"
+  - "hey ollie"
+  - "hey allie"
+  - "hey albie"
+  - "hey alfred"
+  - "hey selfie"
+  - "hey taffy"
+  - "hey daffy"
+  - "hey half"
+  - "hey ralphie"
+  - "hey archie"
+  - "hey also"
+  - "hey after"
+  - "hey you"
+  - "hello"
+  - "okay so"
+  - "say alfie"
+  - "hey all three"
+
+n_samples: 8000
+n_samples_val: 1500
+n_background_samples: 12000
+n_background_samples_val: 1500
+tts_batch_size: 25
+tts_backend: piper_vits
+
+data_dir: ./data
+output_dir: ./output
+output_format: onnx
+
+augmentation:
+  clip_duration: 2.0
+  batch_size: 8
+  rounds: 2
+  background_paths:
+    - ./data/backgrounds
+    - ./data/librispeech-test-clean
+    - ./data/librispeech-other
+  rir_paths:
+    - ./data/rirs
+
+model:
+  model_type: conv_attention
+  model_size: medium
+
+steps: 80000
+learning_rate: 0.0001
+weight_decay: 0.01
+label_smoothing: 0.05
+max_negative_weight: 3000
+target_fp_per_hour: 0.1
+batch_n_per_class:
+  positive: 40
+  adversarial_negative: 40
+  ACAV100M_sample: 768
+  background_noise: 400

@@ -176,7 +176,7 @@ struct NotedLines: View {
                             .font(style == .island ? .system(size: 11.5, weight: .medium)
                                                    : Theme.Typo.ui(12).weight(.medium))
                             .foregroundStyle(style == .island ? Color.white.opacity(0.7) : Theme.accent)
-                            .help("Forget this. Moe won't use it again.")
+                            .help("Forget this. Alfie won't use it again.")
                             .accessibilityLabel("Undo: forget that \(fact.note)")
                     }
                 }

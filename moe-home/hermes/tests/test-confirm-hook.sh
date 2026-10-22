@@ -173,7 +173,7 @@ run "terminal ls → pass" 0 no '{"tool_name":"terminal","tool_input":{"command"
 # A Hermes tool Moe has no entry for is not "harmless because it says search":
 # it asks once, and the dialog offers to remember.
 : >"$STUB_LOG"
-run "search_email (not in Moe's table) → asks once" 0 no '{"tool_name":"search_email","tool_input":{"query":"from:dad"}}'
+run "search_email (not in Alfie's table) → asks once" 0 no '{"tool_name":"search_email","tool_input":{"query":"from:dad"}}'
 grep -q '	act$' "$STUB_LOG" && ok "  …asked as an act" || fail "  …an unknown tool was waved through" "$(cat "$STUB_LOG")"
 
 # 7. Cancelled send is also blocked when the send is a shell command.
@@ -1180,7 +1180,7 @@ done
 ok "  …the dialog itself is a gate file"
 : >"$STUB_LOG"
 run "opening the app → pass" 0 no '{"tool_name":"terminal","tool_input":{"command":"open /Applications/Memoe.app"}}'
-[ ! -s "$STUB_LOG" ] && ok "  …and using the app is not touching the gate" || fail "  …opening Moe now asks"
+[ ! -s "$STUB_LOG" ] && ok "  …and using the app is not touching the gate" || fail "  …opening Alfie now asks"
 
 # Control+Enter is what actually sends in Gmail, Slack and WhatsApp Web. With
 # a chat page open the first one asks; the yes covers the conversation, so
@@ -1271,9 +1271,9 @@ bexec() { # bexec <session> <code> → a browser_exec payload
 }
 HN_SUBMIT='goto_url("https://news.ycombinator.com/submit")
 wait_for_load()
-js("document.querySelector(\"input[name=title]\").value = \"Show HN: Memoe – a Mac assistant you talk to from any app\"")
+js("document.querySelector(\"input[name=title]\").value = \"Show HN: Alfie – a Mac assistant you talk to from any app\"")
 js("document.querySelector(\"input[name=url]\").value = \"https://memoe.app\"")
-js("document.querySelector(\"textarea[name=text]\").value = \"I built Memoe because I wanted to search my own notes by voice.\"")
+js("document.querySelector(\"textarea[name=text]\").value = \"I built Alfie because I wanted to search my own notes by voice.\"")
 js("document.querySelector(\"input[type=submit]\").click()")
 wait_for_load()
 print(page_info())'
@@ -1537,11 +1537,11 @@ grep -q "^browser secret" "$STUB_LOG" && fail "  …the word was taken for the v
 STUB_ANSWER=no run "an own tool nobody described → the plain unknown card" 2 yes \
   '{"tool_name":"mcp__hermes-tools__frobnicate_widget","session_id":"u1","tool_input":{"id":"w-42","level":3}}'
 export STUB_ANSWER=yes
-[ "$(cat "$STUB_LOG.headline")" = "Let Moe try something it hasn’t done before?" ] \
+[ "$(cat "$STUB_LOG.headline")" = "Let Alfie try something it hasn’t done before?" ] \
   && ok "  …headed as a question a person can answer" || fail "  …wrong headline" "$(cat "$STUB_LOG.headline")"
-grep -q "^Moe	w-42	Moe hasn’t used “Frobnicate widget” before and can’t tell what it does" "$STUB_LOG" \
-  && ok "  …Moe's own, never \"hermes-tools\"; the name tidied, once" || fail "  …wrong body or heading" "$(cat "$STUB_LOG")"
-if grep -q "connector verb\|Tool: \|What Moe is passing\|level: 3\|hermes-tools" "$STUB_LOG" "$STUB_LOG.headline"; then
+grep -q "^Alfie	w-42	Alfie hasn’t used “Frobnicate widget” before and can’t tell what it does" "$STUB_LOG" \
+  && ok "  …Alfie's own, never \"hermes-tools\"; the name tidied, once" || fail "  …wrong body or heading" "$(cat "$STUB_LOG")"
+if grep -q "connector verb\|Tool: \|What Alfie is passing\|level: 3\|hermes-tools" "$STUB_LOG" "$STUB_LOG.headline"; then
   fail "  …tool words or raw arguments in the card's words" "$(cat "$STUB_LOG")"
 else
   ok "  …no \"connector verb\", no tool id, no raw arguments in the body"
@@ -1575,7 +1575,7 @@ run "save_login, generate=false → no dialog" 0 no \
   '{"tool_name":"browser_vault_save_login","session_id":"v1","tool_input":{"label":"Fazier","generate":false}}'
 run "save_login, generate=\"no\" → no dialog" 0 no \
   '{"tool_name":"browser_vault_save_login","session_id":"v1","tool_input":{"generate":"no"}}'
-run "vault_login, mode=login → no dialog (a saved login, or Moe's own password window)" 0 no \
+run "vault_login, mode=login → no dialog (a saved login, or Alfie's own password window)" 0 no \
   '{"tool_name":"browser_vault_login","session_id":"v1","tool_input":{"url":"https://www.fazier.com/login","mode":"login"}}'
 run "vault_login, no mode (the fork reads it as login) → no dialog" 0 no \
   '{"tool_name":"mcp__hermes-tools__browser_vault_login","session_id":"v1","tool_input":{"url":"https://www.fazier.com/login"}}'
@@ -1593,15 +1593,15 @@ for tool in browser_vault_login mcp__hermes-tools__browser_vault_login; do
     "$(printf '{"tool_name":"%s","session_id":"v2","tool_input":{"url":"https://www.fazier.com/submit","mode":"signup","username":"owner@example.com"}}' "$tool")"
   [ "$(cat "$STUB_LOG.headline")" = "Create an account on fazier.com?" ] \
     && ok "  …headed \"Create an account on fazier.com?\"" || fail "  …the account card has the wrong headline" "$(cat "$STUB_LOG.headline")"
-  grep -q "^browser account	www.fazier.com	Moe will make a strong password and keep it for you — you won’t need to type it." "$STUB_LOG" \
-    && ok "  …says, in plain words, what Moe will do" || fail "  …the account card body is wrong" "$(cat "$STUB_LOG")"
+  grep -q "^browser account	www.fazier.com	Alfie will make a strong password and keep it for you — you won’t need to type it." "$STUB_LOG" \
+    && ok "  …says, in plain words, what Alfie will do" || fail "  …the account card body is wrong" "$(cat "$STUB_LOG")"
   grep -q "^Email or username: owner@example.com	" "$STUB_LOG" \
     && ok "  …and shows the email it will use" || fail "  …the email is not on the card" "$(cat "$STUB_LOG")"
   grep -q "	browser_vault_login	chrome	send$" "$STUB_LOG" \
     && ok "  …as a plain send (no Always allow, no session button), drawn as the browser" \
     || fail "  …not a plain send" "$(cat "$STUB_LOG")"
   [ "$(tail -1 "$STUB_LOG.edit")" = "no" ] && ok "  …read-only" || fail "  …offered an edit" "$(tail -1 "$STUB_LOG.edit")"
-  if grep -q "not a tool Moe recognises\|connector verb\|mode: signup\|^username:\|^url:" "$STUB_LOG" "$STUB_LOG.headline"; then
+  if grep -q "not a tool Alfie recognises\|connector verb\|mode: signup\|^username:\|^url:" "$STUB_LOG" "$STUB_LOG.headline"; then
     fail "  …tool words or raw arguments on the card" "$(cat "$STUB_LOG")"
   else
     ok "  …no tool name, no \"connector verb\", no raw arguments"
@@ -1635,7 +1635,7 @@ run "save_login generate=true with no url → no card (the fork refuses it)" 0 n
 : >"$STUB_LOG"
 run "save_login, generate=true, approved → runs" 0 no \
   '{"tool_name":"mcp__hermes-tools__browser_vault_save_login","session_id":"v2","tool_input":{"label":"Fazier","generate":true,"url":"https://www.fazier.com/signup?ref=x","username":"me@example.com"}}'
-grep -q "^browser account	www.fazier.com	Moe will make a strong password" "$STUB_LOG" \
+grep -q "^browser account	www.fazier.com	Alfie will make a strong password" "$STUB_LOG" \
   && ok "  …the same card for the older route" || fail "  …the save_login account card is wrong" "$(cat "$STUB_LOG")"
 # "Allow everything this session" does not cover it either.
 python3 -c '
@@ -1674,7 +1674,7 @@ export STUB_ANSWER=yes
 said "no account was created on fazier.com and no password was made" \
   && ok "  …and the model is told no account and no password exist" || fail "  …an unclear refusal" "$LAST_OUT"
 INV="$(bash "$HOOK" --inventory 2>/dev/null)"
-printf '%s\n' "$INV" | grep -q "^browser_vault_login	local	runs	Moe's table of its own tools; mode=signup (a new account, a password Moe makes) asks every time, per site$" \
+printf '%s\n' "$INV" | grep -q "^browser_vault_login	local	runs	Alfie's table of its own tools; mode=signup (a new account, a password Alfie makes) asks every time, per site$" \
   && ok "  …--inventory lists browser_vault_login and when it asks" || fail "  …browser_vault_login missing from --inventory" "$(printf '%s\n' "$INV" | grep vault)"
 for n in browser_vault_confirm browser_vault_regenerate browser_vault_discard; do
   printf '%s\n' "$INV" | grep -q "^$n	local	runs	" && ok "  …--inventory: $n runs" || fail "  …$n missing from --inventory" "$(printf '%s\n' "$INV" | grep vault)"
@@ -2043,7 +2043,7 @@ run "mcp__moe__todo → pass (declared read)" 0 no \
   '{"tool_name":"mcp__moe__todo","tool_input":{"items":[{"content":"call dad","status":"pending"}]}}'
 run "write_file → pass (declared local)" 0 no \
   '{"tool_name":"write_file","tool_input":{"path":"/tmp/x","content":"Dear dad, hi"}}'
-[ ! -s "$STUB_LOG" ] && ok "  …no dialog for Moe's own declared reads and local work" \
+[ ! -s "$STUB_LOG" ] && ok "  …no dialog for Alfie's own declared reads and local work" \
   || fail "  …a declared read or local tool raised a dialog" "$(cat "$STUB_LOG")"
 
 # A labelled server: one whose labels discriminate. Hermes's schema cache is
@@ -2133,7 +2133,7 @@ PY
 : >"$STUB_LOG"
 : >"$STUB_LOG.detail"; : >"$STUB_LOG.headline"
 run "a declared read you marked ask → asks" 0 no '{"tool_name":"mcp__moe__gmail_status","tool_input":{}}'
-grep -q "You asked Moe to check with you before it uses" "$STUB_LOG" && grep -q "you asked to be asked" "$STUB_LOG.detail" \
+grep -q "You asked Alfie to check with you before it uses" "$STUB_LOG" && grep -q "you asked to be asked" "$STUB_LOG.detail" \
   && ok "  …your ask wins over the manifest" || fail "  …your ask was ignored" "$(cat "$STUB_LOG")"
 : >"$STUB_LOG"
 run "a tool you allowed, called with a recipient and a body → still shown as a message" 0 no \
@@ -2761,8 +2761,8 @@ run "moe_followups via the bridge → runs" 0 no \
   '{"tool_name":"mcp__hermes-tools__moe_followups","tool_input":{"action":"snooze","slug":"x","when":"2d"}}'
 run "moe_away_status → runs" 0 no '{"tool_name":"moe_away_status","tool_input":{}}'
 run "moe_away_enrol → runs" 0 no '{"tool_name":"moe_away_enrol","tool_input":{"ticket":"AAAA-BBBB-CCCC"}}'
-[ ! -s "$STUB_LOG" ] && ok "  …Moe's own tools never raise the 'not a tool Moe recognises' dialog" \
-  || fail "  …a Moe plugin tool asked" "$(cat "$STUB_LOG")"
+[ ! -s "$STUB_LOG" ] && ok "  …Alfie's own tools never raise the 'not a tool Alfie recognises' dialog" \
+  || fail "  …an Alfie plugin tool asked" "$(cat "$STUB_LOG")"
 bash "$HOOK" --inventory 2>/dev/null | grep -q "^moe_followups	local	runs	" \
   && ok "  …and the inventory files moe_followups" || fail "  …inventory missing moe_followups"
 
@@ -2783,21 +2783,21 @@ PLUGINS="$HERE/../../hermes-plugins"
 if [ -d "$PLUGINS" ]; then
   PLUGIN_TOOLS="$(python3 "$HERE/plugin-tool-names.py" "$PLUGINS" 2>/dev/null)"
   if [ -z "$PLUGIN_TOOLS" ]; then
-    fail "read the tools Moe's plugins register" "plugin-tool-names.py printed nothing"
+    fail "read the tools Alfie's plugins register" "plugin-tool-names.py printed nothing"
   else
-    ok "read the tools Moe's plugins register ($(printf '%s\n' "$PLUGIN_TOOLS" | wc -l | tr -d ' ') of them)"
+    ok "read the tools Alfie's plugins register ($(printf '%s\n' "$PLUGIN_TOOLS" | wc -l | tr -d ' ') of them)"
     UNKNOWN=""
     for t in $PLUGIN_TOOLS; do
       run "$t → runs, no dialog" 0 no "{\"tool_name\":\"$t\",\"tool_input\":{}}"
       bash "$HOOK" --inventory 2>/dev/null | grep -q "^$t	" || UNKNOWN="$UNKNOWN $t"
     done
     [ -z "$UNKNOWN" ] \
-      && ok "  …every Moe plugin tool is filed in the gate's table" \
-      || fail "  …Moe plugin tool(s) missing from BUILTIN in confirm-send.sh:" "$UNKNOWN"
+      && ok "  …every Alfie plugin tool is filed in the gate's table" \
+      || fail "  …Alfie plugin tool(s) missing from BUILTIN in confirm-send.sh:" "$UNKNOWN"
   fi
   [ ! -s "$STUB_LOG" ] \
     && ok "  …and not one of them asked the person for permission" \
-    || fail "  …a Moe plugin tool raised a dialog" "$(cat "$STUB_LOG")"
+    || fail "  …an Alfie plugin tool raised a dialog" "$(cat "$STUB_LOG")"
 else
   fail "find moe-home/hermes-plugins" "looked in $PLUGINS"
 fi
@@ -2813,8 +2813,8 @@ if [ -s "$STUB_LOG" ]; then
   ok "  …the dialog was raised"
   case "$(cat "$STUB_LOG" "$STUB_LOG.detail" 2>/dev/null)" in
     *Hermes*) fail "  …and never says Hermes to the person" "$(cat "$STUB_LOG")" ;;
-    *Moe*)    ok "  …and names Moe, never Hermes" ;;
-    *)        fail "  …and names Moe, never Hermes" "$(cat "$STUB_LOG")" ;;
+    *Alfie*)    ok "  …and names Alfie, never Hermes" ;;
+    *)        fail "  …and names Alfie, never Hermes" "$(cat "$STUB_LOG")" ;;
   esac
 else
   fail "  …the dialog was raised" "nothing reached the dialog"
@@ -2915,7 +2915,7 @@ rm -f "$POLICY"
 run "multiplexer: a draft is a change, not a send" 0 no \
   '{"tool_name":"mcp__composio__COMPOSIO_MULTI_EXECUTE_TOOL","tool_input":{"tools":[{"tool_slug":"GMAIL_CREATE_EMAIL_DRAFT","arguments":{"recipient_email":"dad@example.com","subject":"hi","body":"hello"}}]}}'
 grep -q "	mcp__composio__GMAIL_CREATE_EMAIL_DRAFT	gmail	act$" "$STUB_LOG" \
-  && ok "  …the act dialog, not 'Moe wants to send this'" || fail "  …a draft was shown as a send" "$(cat "$STUB_LOG")"
+  && ok "  …the act dialog, not 'Alfie wants to send this'" || fail "  …a draft was shown as a send" "$(cat "$STUB_LOG")"
 : >"$STUB_LOG"
 run "multiplexer: sending a draft is a send" 0 no \
   '{"tool_name":"mcp__composio__COMPOSIO_MULTI_EXECUTE_TOOL","tool_input":{"tools":[{"tool_slug":"GMAIL_SEND_DRAFT","arguments":{"draft_id":"r-1"}}]}}'

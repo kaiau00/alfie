@@ -14,8 +14,8 @@ struct LocalPrivacyPane: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 30) {
                     SettingGroup(title: "Delete") {
-                        SettingRow(title: "Erase Memoe from this Mac",
-                                   detail: "Removes everything Moe put on this Mac — what it knows, your conversations, "
+                        SettingRow(title: "Erase Alfie from this Mac",
+                                   detail: "Removes everything Alfie put on this Mac — what it knows, your conversations, "
                                        + "its connections and downloads — and starts it again like a new install.",
                                    last: true) {
                             PaneButton(title: "Erase…", danger: true) { MacEraseFlow.present(conductor: conductor) }

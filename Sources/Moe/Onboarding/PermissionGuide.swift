@@ -60,9 +60,9 @@ struct PermissionGuide: Identifiable, Sendable {
     static let microphone = PermissionGuide(
         id: "microphone",
         name: "Microphone",
-        what: "Moe hears you while you hold the talk key, and stops listening the moment you let go.",
-        ifDeclined: "Moe keeps working — it just can't hear you, so you type to it instead. You can switch the microphone on any time.",
-        steps: "System Settings → Privacy & Security → Microphone → switch Memoe on.",
+        what: "Alfie hears you while you hold the talk key, and stops listening the moment you let go.",
+        ifDeclined: "Alfie keeps working — it just can't hear you, so you type to it instead. You can switch the microphone on any time.",
+        steps: "System Settings → Privacy & Security → Microphone → switch Alfie on.",
         settings: pane + "Privacy_Microphone",
         needsRelaunch: false,
         codes: [.tccMicrophone],
@@ -71,9 +71,9 @@ struct PermissionGuide: Identifiable, Sendable {
     static let speechRecognition = PermissionGuide(
         id: "speech-recognition",
         name: "Speech Recognition",
-        what: "macOS asks for this at the same time as the microphone. Moe does its own listening, here on this Mac — your voice is not sent to a speech service.",
-        ifDeclined: "Nothing changes. Moe doesn't use Apple's dictation, so hearing you works either way.",
-        steps: "System Settings → Privacy & Security → Speech Recognition → switch Memoe on.",
+        what: "macOS asks for this at the same time as the microphone. Alfie does its own listening, here on this Mac — your voice is not sent to a speech service.",
+        ifDeclined: "Nothing changes. Alfie doesn't use Apple's dictation, so hearing you works either way.",
+        steps: "System Settings → Privacy & Security → Speech Recognition → switch Alfie on.",
         settings: pane + "Privacy_SpeechRecognition",
         needsRelaunch: false,
         codes: [],
@@ -84,12 +84,12 @@ struct PermissionGuide: Identifiable, Sendable {
         name: "Accessibility",
         // The dictation halves only while it is offered (Features.dictation).
         what: Features.dictation
-            ? "So Moe notices you holding the talk key while you're in another app, and can type what you dictate straight into whatever you're writing in."
-            : "So Moe notices you holding the talk key while you're in another app.",
+            ? "So Alfie notices you holding the talk key while you're in another app, and can type what you dictate straight into whatever you're writing in."
+            : "So Alfie notices you holding the talk key while you're in another app.",
         ifDeclined: Features.dictation
-            ? "Moe keeps working. Holding the key won't start it — click the little pill under the notch instead — and dictated text is copied to your clipboard for you to paste with Command-V."
-            : "Moe keeps working. Holding the key won't start it — click the little pill under the notch instead.",
-        steps: "System Settings → Privacy & Security → Accessibility → switch Memoe on. If Memoe isn't in the list, click +, then pick Memoe from your Applications folder. Then quit Memoe and open it again.",
+            ? "Alfie keeps working. Holding the key won't start it — click the little pill under the notch instead — and dictated text is copied to your clipboard for you to paste with Command-V."
+            : "Alfie keeps working. Holding the key won't start it — click the little pill under the notch instead.",
+        steps: "System Settings → Privacy & Security → Accessibility → switch Alfie on. If Alfie isn't in the list, click +, then pick Alfie from your Applications folder. Then quit Alfie and open it again.",
         settings: pane + "Privacy_Accessibility",
         // The key watcher is armed once, at launch (AppDelegate.registerHotKey):
         // granting this to a running Moe changes nothing until it restarts.
@@ -101,8 +101,8 @@ struct PermissionGuide: Identifiable, Sendable {
         id: "input-monitoring",
         name: "Input Monitoring",
         what: "The same job as Accessibility — noticing your talk key while you're in another app. Some Macs ask here instead.",
-        ifDeclined: "Moe keeps working, and on most Macs Accessibility alone is enough. If holding the key does nothing and Accessibility is already on, this is the other place to look.",
-        steps: "System Settings → Privacy & Security → Input Monitoring → switch Memoe on, then quit Memoe and open it again.",
+        ifDeclined: "Alfie keeps working, and on most Macs Accessibility alone is enough. If holding the key does nothing and Accessibility is already on, this is the other place to look.",
+        steps: "System Settings → Privacy & Security → Input Monitoring → switch Alfie on, then quit Alfie and open it again.",
         settings: pane + "Privacy_ListenEvent",
         needsRelaunch: true,
         codes: [],
@@ -111,9 +111,9 @@ struct PermissionGuide: Identifiable, Sendable {
     static let fullDiskAccess = PermissionGuide(
         id: "full-disk-access",
         name: "Full Disk Access",
-        what: "So Moe can read the things macOS keeps locked away even from you: your Messages and SMS, your call history, your Chrome history, and the Google Drive folder on this Mac.",
-        ifDeclined: "Moe keeps working, and everything else still works. Messages, call history, Chrome and Drive stay switched off, and Moe will say so rather than pretending it looked.",
-        steps: "System Settings → Privacy & Security → Full Disk Access → switch Memoe on. If Memoe isn't in the list, click +, then pick Memoe from your Applications folder. Then quit Memoe and open it again — macOS only notices this one at startup.",
+        what: "So Alfie can read the things macOS keeps locked away even from you: your Messages and SMS, your call history, your Chrome history, and the Google Drive folder on this Mac.",
+        ifDeclined: "Alfie keeps working, and everything else still works. Messages, call history, Chrome and Drive stay switched off, and Alfie will say so rather than pretending it looked.",
+        steps: "System Settings → Privacy & Security → Full Disk Access → switch Alfie on. If Alfie isn't in the list, click +, then pick Alfie from your Applications folder. Then quit Alfie and open it again — macOS only notices this one at startup.",
         settings: pane + "Privacy_AllFiles",
         needsRelaunch: true,
         codes: [.tccAppData, .tccFiles],
@@ -122,9 +122,9 @@ struct PermissionGuide: Identifiable, Sendable {
     static let automation = PermissionGuide(
         id: "automation",
         name: "Automation",
-        what: "So Moe can ask Notes, Calendar and Messages for what's in them — and, when you ask it to drive the Mac, click and type on your behalf.",
-        ifDeclined: "Moe keeps working. The apps you didn't allow simply aren't readable, and Moe tells you that instead of guessing.",
-        steps: "System Settings → Privacy & Security → Automation → find Memoe in the list and switch on each app you want it to reach. macOS also asks you the first time, one app at a time — saying yes there is the same thing.",
+        what: "So Alfie can ask Notes, Calendar and Messages for what's in them — and, when you ask it to drive the Mac, click and type on your behalf.",
+        ifDeclined: "Alfie keeps working. The apps you didn't allow simply aren't readable, and Alfie tells you that instead of guessing.",
+        steps: "System Settings → Privacy & Security → Automation → find Alfie in the list and switch on each app you want it to reach. macOS also asks you the first time, one app at a time — saying yes there is the same thing.",
         settings: pane + "Privacy_Automation",
         needsRelaunch: false,
         codes: [.tccAutomation],
@@ -134,10 +134,10 @@ struct PermissionGuide: Identifiable, Sendable {
         id: "contacts",
         name: "Contacts",
         what: Features.dictation
-            ? "So Moe knows who you mean when you say a name, and spells the people you talk about correctly when you dictate."
-            : "So Moe knows who you mean when you say a name.",
-        ifDeclined: "Moe keeps working. It won't know your people's names, so it may spell them the way they sound.",
-        steps: "System Settings → Privacy & Security → Contacts → switch Memoe on.",
+            ? "So Alfie knows who you mean when you say a name, and spells the people you talk about correctly when you dictate."
+            : "So Alfie knows who you mean when you say a name.",
+        ifDeclined: "Alfie keeps working. It won't know your people's names, so it may spell them the way they sound.",
+        steps: "System Settings → Privacy & Security → Contacts → switch Alfie on.",
         settings: pane + "Privacy_Contacts",
         needsRelaunch: false,
         codes: [.tccContacts],
@@ -146,9 +146,9 @@ struct PermissionGuide: Identifiable, Sendable {
     static let calendar = PermissionGuide(
         id: "calendar",
         name: "Calendar",
-        what: "So Moe knows what you have on today — every calendar in Calendar.app, including any Google calendars you added there — and can add events when you ask.",
-        ifDeclined: "Moe keeps working. It won't know your schedule, and it will say so rather than guess.",
-        steps: "System Settings → Privacy & Security → Calendars → switch Memoe on.",
+        what: "So Alfie knows what you have on today — every calendar in Calendar.app, including any Google calendars you added there — and can add events when you ask.",
+        ifDeclined: "Alfie keeps working. It won't know your schedule, and it will say so rather than guess.",
+        steps: "System Settings → Privacy & Security → Calendars → switch Alfie on.",
         settings: pane + "Privacy_Calendars",
         needsRelaunch: false,
         codes: [.tccCalendar],
@@ -157,9 +157,9 @@ struct PermissionGuide: Identifiable, Sendable {
     static let reminders = PermissionGuide(
         id: "reminders",
         name: "Reminders",
-        what: "So Moe knows what you still owe people, and can add a reminder when you ask it to.",
-        ifDeclined: "Moe keeps working. Your reminders stay private to Reminders.app.",
-        steps: "System Settings → Privacy & Security → Reminders → switch Memoe on.",
+        what: "So Alfie knows what you still owe people, and can add a reminder when you ask it to.",
+        ifDeclined: "Alfie keeps working. Your reminders stay private to Reminders.app.",
+        steps: "System Settings → Privacy & Security → Reminders → switch Alfie on.",
         settings: pane + "Privacy_Reminders",
         needsRelaunch: false,
         codes: [.tccReminders],
@@ -168,9 +168,9 @@ struct PermissionGuide: Identifiable, Sendable {
     static let screenRecording = PermissionGuide(
         id: "screen-recording",
         name: "Screen & System Audio Recording",
-        what: "Two things: Moe can see your screen when you ask it \"what do I do here\", and it can record the other side of a call when you start a meeting.",
-        ifDeclined: "Moe keeps working. It answers without looking at your screen, and a meeting records only what your microphone hears.",
-        steps: "System Settings → Privacy & Security → Screen & System Audio Recording → switch Memoe on, then quit Memoe and open it again.",
+        what: "Two things: Alfie can see your screen when you ask it \"what do I do here\", and it can record the other side of a call when you start a meeting.",
+        ifDeclined: "Alfie keeps working. It answers without looking at your screen, and a meeting records only what your microphone hears.",
+        steps: "System Settings → Privacy & Security → Screen & System Audio Recording → switch Alfie on, then quit Alfie and open it again.",
         settings: pane + "Privacy_ScreenCapture",
         needsRelaunch: true,
         codes: [],
@@ -182,9 +182,9 @@ struct PermissionGuide: Identifiable, Sendable {
     static let filesAndFolders = PermissionGuide(
         id: "files-and-folders",
         name: "Files & Folders",
-        what: "So Moe can open what you keep on your Desktop, in Documents and in Downloads when you ask it to.",
-        ifDeclined: "Moe keeps working. It can't open files in those folders, and it will say which folder rather than guess why.",
-        steps: "System Settings → Privacy & Security → Files & Folders → find Memoe and switch on the folder it needs.",
+        what: "So Alfie can open what you keep on your Desktop, in Documents and in Downloads when you ask it to.",
+        ifDeclined: "Alfie keeps working. It can't open files in those folders, and it will say which folder rather than guess why.",
+        steps: "System Settings → Privacy & Security → Files & Folders → find Alfie and switch on the folder it needs.",
         settings: pane + "Privacy_FilesAndFolders",
         needsRelaunch: false,
         codes: [.tccFiles],
@@ -200,9 +200,9 @@ struct PermissionGuide: Identifiable, Sendable {
     static let driverAccessibility = PermissionGuide(
         id: "driver-accessibility",
         name: "Accessibility (CuaDriver)",
-        what: "So CuaDriver, the screen helper Moe uses, can click and type for you when you ask Moe to do something on your Mac.",
-        ifDeclined: "Moe keeps working. It can't use your screen for you, and it tells you so rather than trying.",
-        steps: "System Settings → Privacy & Security → Accessibility → switch CuaDriver on. This is CuaDriver's own switch, not Memoe's.",
+        what: "So CuaDriver, the screen helper Alfie uses, can click and type for you when you ask Alfie to do something on your Mac.",
+        ifDeclined: "Alfie keeps working. It can't use your screen for you, and it tells you so rather than trying.",
+        steps: "System Settings → Privacy & Security → Accessibility → switch CuaDriver on. This is CuaDriver's own switch, not Alfie's.",
         settings: pane + "Privacy_Accessibility",
         needsRelaunch: false,
         codes: [.tccDriverAccessibility],
@@ -212,9 +212,9 @@ struct PermissionGuide: Identifiable, Sendable {
     static let driverScreenRecording = PermissionGuide(
         id: "driver-screen-recording",
         name: "Screen & System Audio Recording (CuaDriver)",
-        what: "So CuaDriver, the screen helper Moe uses, can see the window it is working in.",
-        ifDeclined: "Moe keeps working. It can't look at your screen for you, and it tells you so rather than guessing what is there.",
-        steps: "System Settings → Privacy & Security → Screen & System Audio Recording → switch CuaDriver on. This is CuaDriver's own switch, not Memoe's.",
+        what: "So CuaDriver, the screen helper Alfie uses, can see the window it is working in.",
+        ifDeclined: "Alfie keeps working. It can't look at your screen for you, and it tells you so rather than guessing what is there.",
+        steps: "System Settings → Privacy & Security → Screen & System Audio Recording → switch CuaDriver on. This is CuaDriver's own switch, not Alfie's.",
         settings: pane + "Privacy_ScreenCapture",
         needsRelaunch: false,
         codes: [.tccDriverScreen],
@@ -425,7 +425,7 @@ struct PermissionExplainer: View {
                     }
                 }
                 if guide.needsRelaunch {
-                    PaneButton(title: "Quit and reopen Moe") { Relaunch.now() }
+                    PaneButton(title: "Quit and reopen Alfie") { Relaunch.now() }
                 }
             }
             .padding(.top, Theme.Space.tight)

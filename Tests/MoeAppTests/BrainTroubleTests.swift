@@ -69,7 +69,7 @@ struct BrainTroubleTests {
         #expect(kind == .credentialRejected)
     }
 
-    @Test("every hard FailoverReason Moe knows maps to something a person can do")
+    @Test("every hard FailoverReason Alfie knows maps to something a person can do")
     func hardReasonsAreActionable() {
         // Falsifier: add a reason to `hardReasons` with no `sentence` case —
         // it will not compile — or blank one of the four sentences.
@@ -199,7 +199,7 @@ struct BrainTroubleTests {
         #expect(kind == .endpointUnreachable)
     }
 
-    @Test("with no verdict and nothing recognisable, Moe keeps its old answer rather than guessing")
+    @Test("with no verdict and nothing recognisable, Alfie keeps its old answer rather than guessing")
     func absentVerdictIsNotAGuess() {
         // The other half of the fallback contract. A pin that carries no
         // verdict and a message Moe cannot place must not be forced into one
@@ -420,7 +420,7 @@ struct BrainTroubleTests {
         #expect(got.keep == nil)
     }
 
-    @Test("a turn error Moe has no opinion about still gets the old translation")
+    @Test("a turn error Alfie has no opinion about still gets the old translation")
     func unknownFallsBackToTheOldPath() {
         // Falsifier: return something other than `personWords(message)` from
         // the `.unknown` branch.

@@ -298,11 +298,11 @@ public enum MeetingOfferText {
         switch mode {
         case .auto:
             if let countdown, countdown > 0 {
-                return "Recording starts in \(countdown) s — Moe will take the notes. Click to stop it."
+                return "Recording starts in \(countdown) s — Alfie will take the notes. Click to stop it."
             }
-            return "Recording — Moe is taking the notes."
+            return "Recording — Alfie is taking the notes."
         case .ask, .off:
-            return "Record it? Moe takes the notes; everyone on the \(app.noun) should know."
+            return "Record it? Alfie takes the notes; everyone on the \(app.noun) should know."
         }
     }
 

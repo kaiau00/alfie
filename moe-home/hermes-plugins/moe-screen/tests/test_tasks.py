@@ -59,7 +59,7 @@ def test_the_marker_is_recognised_and_nothing_else_is():
 def test_the_matching_ask_becomes_the_persons_words_behind_the_note(home):
     t = load_tasks()
     ask_file(home)
-    out = t.on_inbound(Event("[moe-task t-1] The person's Mac closed while Moe was working…"))
+    out = t.on_inbound(Event("[moe-task t-1] The person's Mac closed while Alfie was working…"))
     assert out["action"] == "rewrite"
     text = out["text"]
     assert text.startswith("[moe-task t-1]"), "the marker stays, so the reply hook can find the turn"

@@ -52,7 +52,7 @@ Never record, in any file:
 - amounts of money of any kind.
 
 HOW A LINE READS. The person reads every line on their Memory page, so each is short and plain:
-- identity, threads, voice, preferences: ONE short sentence, at most about 12 words, with no subject — start with the verb or the fact: "Lives in Monroe, NJ", "Builds Moe, a Mac assistant", "Trip to Southeast Asia from late October 2026". No lists of examples, no parentheses, no "e.g.", no semicolons.
+- identity, threads, voice, preferences: ONE short sentence, at most about 12 words, with no subject — start with the verb or the fact: "Lives in Monroe, NJ", "Builds Alfie, a Mac assistant", "Trip to Southeast Asia from late October 2026". No lists of examples, no parentheses, no "e.g.", no semicolons.
 - Never write "the user", "user", "he", "she", "I", "me" or "my" in a claim — just leave the subject out. (The page shows each line to the person as "you".)
 
 Rules:

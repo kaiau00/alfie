@@ -36,16 +36,16 @@ actor AddresseeJudge {
     #endif
 
     private static let instructions = """
-    A person is talking near an assistant named Moe, a moment after Moe \
+    A person is talking near an assistant named Alfie, a moment after Alfie \
     finished answering them. Decide what the sentence is. Answer with \
     exactly one word:
 
-    DIRECTED - it is for Moe: a follow-up question, a request, or an answer \
-    to what Moe just asked.
+    DIRECTED - it is for Alfie: a follow-up question, a request, or an answer \
+    to what Alfie just asked.
     NOT - it is for another person, or the person talking to themselves, or \
     dictating something to a different device.
-    DONE - it is for Moe and it means the conversation is over: they are \
-    thanking Moe off, saying they were not talking to it, telling it to \
+    DONE - it is for Alfie and it means the conversation is over: they are \
+    thanking Alfie off, saying they were not talking to it, telling it to \
     stop, or saying goodbye.
     UNSURE - it could be any of these.
 
@@ -90,7 +90,7 @@ actor AddresseeJudge {
         guard #available(macOS 26.0, *), isAvailable else { return nil }
         if session == nil { warmUp() }
         guard let session else { return nil }
-        let prompt = "Moe said: “\(String(moeSaid.suffix(400)))”\nThen the person said: “\(String(heard.prefix(300)))”\nOne word:"
+        let prompt = "Alfie said: “\(String(moeSaid.suffix(400)))”\nThen the person said: “\(String(heard.prefix(300)))”\nOne word:"
         let began = Date()
         // The session is not reused: its transcript grows by every
         // exchange and the context window ends the feature silently

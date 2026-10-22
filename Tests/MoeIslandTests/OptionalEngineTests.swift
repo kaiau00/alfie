@@ -186,7 +186,7 @@ struct OptionalEngineTests {
 
         let backends = try read("Sources/Moe/TtsBackends.swift")
         #expect(backends.contains("ModelNames.PocketTTS.requiredModels(precision: precision, placement: placement)"),
-                "isDownloaded no longer checks FluidAudio's required-file list for the variant Moe loads")
+                "isDownloaded no longer checks FluidAudio's required-file list for the variant Alfie loads")
         #expect(!backends.contains("return !contents.isEmpty"),
                 "isDownloaded is back to 'the folder is not empty', which a half-finished download satisfies")
     }

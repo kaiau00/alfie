@@ -28,7 +28,7 @@ struct VoicePane: View {
     /// The tabs, only while dictation is a feature (`Features.dictation`,
     /// docs/DEFAULTS.md row 4). Without it the page has no tab bar at all.
     static var tabs: [(Tab, String)] {
-        Features.dictation ? [(.typing, "Typing by voice"), (.talking, "Talking to Moe")] : [(.talking, "Talking to Moe")]
+        Features.dictation ? [(.typing, "Typing by voice"), (.talking, "Talking to Alfie")] : [(.talking, "Talking to Alfie")]
     }
 
     /// The pane's name. "& Dictation" only while there is a dictation tab.
@@ -121,7 +121,6 @@ struct VoicePane: View {
             if let teach {
                 WakeTeachCard(model: teach, clipsOnMac: wakeClips,
                               previous: wakeTuning?.note,
-                              send: { sendWakeRecordings() },
                               forget: { forgetWakeRecordings() })
             }
         }
@@ -226,7 +225,7 @@ struct VoicePane: View {
             SettingGroup(title: "Making it read well") {
                 SettingRow(
                     title: "Tidy it up with your AI",
-                    detail: "Punctuation, no ums, and the tone of the app you are typing into. Each dictation goes to the AI behind Moe and nowhere else; Moe never keeps the text. Off, nothing you dictate leaves this Mac."
+                    detail: "Punctuation, no ums, and the tone of the app you are typing into. Each dictation goes to the AI behind Alfie and nowhere else; Alfie never keeps the text. Off, nothing you dictate leaves this Mac."
                 ) {
                     Self.lever(Binding(get: { config.dictationPolish },
                                        set: { conductor.setDictationPolish($0) }), enabled: on)
@@ -271,7 +270,7 @@ struct VoicePane: View {
         let recogniser = SpeechLanguages.usesWhisper(config.locale) && !WhisperBackend.modelIsPresent
             ? "\(backend.displayName) recogniser — downloads a ~600 MB model the first time."
             : "\(backend.displayName) recogniser, on this Mac."
-        return "Moe starts in the language this Mac is set to. Talking to Moe is tuned for English — "
+        return "Alfie starts in the language this Mac is set to. Talking to Alfie is tuned for English — "
             + "another language works, with a beat of silence to mark the end of a sentence. "
             + recogniser
     }
@@ -334,13 +333,13 @@ struct VoicePane: View {
                     .labelsHidden().pickerStyle(.inline)
                 }
             }
-            Calm.Row(title: "Or just say “Hey Moe”",
-                     detail: "No keys. Moe listens only for its name — the room is not transcribed.") {
+            Calm.Row(title: "Or just say “Hey Alfie”",
+                     detail: "No keys. Alfie listens only for its name — the room is not transcribed.") {
                 Self.lever(model.heyMoe)
             }
             if open.contains(.teachName) {
                 Calm.Reveal {
-                    Calm.Row(title: wakeTuning == nil ? "Teach Moe how you say it" : "Moe knows how you say it",
+                    Calm.Row(title: wakeTuning == nil ? "Teach Alfie how you say it" : "Alfie knows how you say it",
                              detail: wakeTuning?.note ?? "About two minutes, in this room. The clips stay on this Mac.") {
                         PaneButton(title: wakeTuning == nil ? "Teach…" : "Teach again…") { openTeach() }
                             .disabled(micBusy)
@@ -353,7 +352,7 @@ struct VoicePane: View {
     private func conversation(_ open: Set<VoiceSettingsModel.Reveal>) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             Calm.header("The conversation")
-            Calm.Row(title: "Keep listening after Moe answers",
+            Calm.Row(title: "Keep listening after Alfie answers",
                      detail: "Just carry on talking — no key, no name. The island shows while it listens.") {
                 Self.lever(model.keepListening)
             }
@@ -377,21 +376,21 @@ struct VoicePane: View {
                     }
                 }
             }
-            Calm.Row(title: "Let me interrupt Moe by talking",
-                     detail: "Works best in a quiet room, on the Mac’s own microphone and speakers. Off: nothing you say stops Moe — the key still does.") {
+            Calm.Row(title: "Let me interrupt Alfie by talking",
+                     detail: "Works best in a quiet room, on the Mac’s own microphone and speakers. Off: nothing you say stops Alfie — the key still does.") {
                 Self.lever(model.interrupt)
             }
             if open.contains(.interruptCheck) {
                 Calm.Reveal {
                     Calm.Row(title: "Check my microphone and speakers",
-                             detail: "Moe says a sentence and listens for how much comes back. Stay quiet for the eight seconds.") {
+                             detail: "Alfie says a sentence and listens for how much comes back. Stay quiet for the eight seconds.") {
                         PaneButton(title: micBusy && ownerPrompt == nil && teach == nil ? "Testing…" : "Test") { runEchoTest() }
                             .disabled(micBusy)
                     }
                     if let echo = echoVerdict {
                         PaneBanner(tone: echo.good ? .good : .warn, text: echo.text)
                     } else if micBusy, ownerPrompt == nil, teach == nil {
-                        PaneBanner(tone: .neutral, text: "Stay quiet — Moe is listening to its own voice.", busy: true)
+                        PaneBanner(tone: .neutral, text: "Stay quiet — Alfie is listening to its own voice.", busy: true)
                     }
                 }
             }
@@ -400,17 +399,17 @@ struct VoicePane: View {
 
     private func answers(_ open: Set<VoiceSettingsModel.Reveal>) -> some View {
         VStack(alignment: .leading, spacing: 0) {
-            Calm.header("Moe’s answers")
+            Calm.header("Alfie’s answers")
             Calm.Row(title: "Answers",
                      detail: config.speakReplies
-                        ? "Out loud when you talk to Moe; a typed question is answered on screen."
-                        : "Moe never speaks — every answer is on screen.") {
+                        ? "Out loud when you talk to Alfie; a typed question is answered on screen."
+                        : "Alfie never speaks — every answer is on screen.") {
                 Calm.Segments(options: [("loud", "Out loud"), ("screen", "On screen only")], selection: model.answers)
             }
             if open.contains(.voice) {
                 voiceRow
             }
-            Calm.Row(title: "How much Moe says",
+            Calm.Row(title: "How much Alfie says",
                      detail: "Asking for more — “tell me everything” — always gets more.") {
                 Calm.Segments(options: ReplyLength.allCases.map { ($0.rawValue, $0.label) },
                               selection: model.replyLength)
@@ -493,7 +492,7 @@ struct VoicePane: View {
         switch engine {
         case .kokoro: return ""
         case .pocket: return "Starts speaking before it has finished thinking."
-        case .inworld: return "Rendered in the cloud on your plan; Moe speaks with Kokoro when it is out of reach."
+        case .inworld: return "Rendered in the cloud on your plan; Alfie speaks with Kokoro when it is out of reach."
         }
     }
 
@@ -570,7 +569,7 @@ struct VoicePane: View {
         VStack(alignment: .leading, spacing: 0) {
             moreLabel("Starting")
             Calm.Row(title: "Shortcut to ask",
-                     detail: "Works alongside the key you hold. If it pastes or starts something else, another app owns it — pick another. Takes effect when Moe restarts.") {
+                     detail: "Works alongside the key you hold. If it pastes or starts something else, another app owns it — pick another. Takes effect when Alfie restarts.") {
                 SettingMenu(value: Self.shortcutLabel(config.hotKeyModifiers)) {
                     Picker("", selection: model.shortcut) {
                         Text("⌃⌥Space").tag(UInt32(6144))
@@ -582,7 +581,7 @@ struct VoicePane: View {
                 }
             }
             Calm.Row(title: "Keep listening after a held-key turn too",
-                     detail: "Holding the key is a one-off question: Moe stops listening after that answer unless this is on.") {
+                     detail: "Holding the key is a one-off question: Alfie stops listening after that answer unless this is on.") {
                 Self.lever(model.alsoAfterHold, enabled: config.conversationMode)
             }
             Calm.Row(title: "Language", detail: languageNote) { languageMenu }
@@ -591,9 +590,9 @@ struct VoicePane: View {
 
     private var moreWhileWorking: some View {
         VStack(alignment: .leading, spacing: 0) {
-            moreLabel("While Moe works")
-            Calm.Row(title: "Say “on it” as soon as I ask",
-                     detail: "Only when Moe is going to answer out loud.") {
+            moreLabel("While Alfie works")
+            Calm.Row(title: "Say “Certainly” as soon as I ask",
+                     detail: "Only when Alfie is going to answer out loud.") {
                 Self.lever(model.sayOnIt)
             }
             Calm.Row(title: "Tell me what it’s doing while it works",
@@ -601,7 +600,7 @@ struct VoicePane: View {
                 Self.lever(model.tellProgress)
             }
             Calm.Row(title: "Ding when a written answer is ready",
-                     detail: "One soft note, only when Moe is not saying the answer.") {
+                     detail: "One soft note, only when Alfie is not saying the answer.") {
                 HStack(spacing: Theme.Space.small) {
                     PaneButton(title: "Hear it") { conductor.previewReplyChime() }
                         .disabled(!config.replyChime)
@@ -654,7 +653,7 @@ struct VoicePane: View {
     private var moreYou: some View {
         VStack(alignment: .leading, spacing: 0) {
             moreLabel("Your voice and Premium")
-            Calm.Row(title: ownerTurns >= 3 ? "Moe knows your voice" : "Teach Moe your voice",
+            Calm.Row(title: ownerTurns >= 3 ? "Alfie knows your voice" : "Teach Alfie your voice",
                      detail: ownerVoiceDetail) {
                 HStack(spacing: Theme.Space.small) {
                     if ownerTurns > 0 {
@@ -680,7 +679,7 @@ struct VoicePane: View {
             // allowance; on the free plan this changes nothing and nothing
             // is sent. The note says which is true right now.
             Calm.Row(title: "Premium hearing and voice",
-                     detail: "On a paid plan, what you say goes to the speech services behind the sharper ears and voice. Off keeps your voice on this Mac. Moe carries on with its own voice if the allowance runs out or anything goes wrong. " + CloudVoice.statusLine()) {
+                     detail: "On a paid plan, what you say goes to the speech services behind the sharper ears and voice. Off keeps your voice on this Mac. Alfie carries on with its own voice if the allowance runs out or anything goes wrong. " + CloudVoice.statusLine()) {
                 Self.lever(model.premium)
             }
         }
@@ -689,18 +688,18 @@ struct VoicePane: View {
     /// What is different in this language, in one sentence.
     private var languageDegradationNote: String {
         let name = SpeechLanguages.entry(for: config.locale)?.englishName ?? config.locale
-        return "Moe is listening in \(name). Talking to Moe is tuned for English: the model that hears "
-            + "a finished sentence only knows English, so in \(name) Moe waits for a moment of silence "
-            + "instead — leave a beat when you are done. “Hey Moe” is an English phrase too, so the "
+        return "Alfie is listening in \(name). Talking to Alfie is tuned for English: the model that hears "
+            + "a finished sentence only knows English, so in \(name) Alfie waits for a moment of silence "
+            + "instead — leave a beat when you are done. “Hey Alfie” is an English phrase too, so the "
             + "key is the reliable way in."
     }
 
     private var ownerVoiceDetail: String {
         switch ownerTurns {
         case 0:
-            return "Read one sentence so Moe can tell you from the room while it keeps listening. A hint, never a lock."
+            return "Read one sentence so Alfie can tell you from the room while it keeps listening. A hint, never a lock."
         case 1..<3:
-            return "\(ownerTurns) recording so far. One or two more and Moe can use it."
+            return "\(ownerTurns) recording so far. One or two more and Alfie can use it."
         default:
             return "Learned from \(ownerTurns) recordings, and it keeps learning. A hint, never a lock."
         }
@@ -731,11 +730,11 @@ struct VoicePane: View {
                 switch result {
                 case .enrolled(let turns):
                     ownerTurns = turns
-                    ownerPrompt = turns >= 3 ? "Got it. Moe knows your voice." : "Got it — \(turns) so far."
+                    ownerPrompt = turns >= 3 ? "Got it. Alfie knows your voice." : "Got it — \(turns) so far."
                 case .heardNothing:
-                    ownerPrompt = "Moe didn't hear a voice it could use. Try again, a little louder."
+                    ownerPrompt = "Alfie didn't hear a voice it could use. Try again, a little louder."
                 case .busy:
-                    ownerPrompt = "Moe is using the microphone for something else. Try again in a moment."
+                    ownerPrompt = "Alfie is using the microphone for something else. Try again in a moment."
                 case .unavailable(let why):
                     ownerPrompt = why
                 }
@@ -766,22 +765,7 @@ struct VoicePane: View {
         Task {
             await conductor.forgetWakeRecordings()
             refreshWake()
-            teach?.note = "Forgotten. Moe listens for its name the way it shipped."
-        }
-    }
-
-    /// Never sends: a compose window, or the zip in the Finder.
-    private func sendWakeRecordings() {
-        do {
-            let zip = try WakeRecordings.zip()
-            switch WakeRecordings.hand(zip) {
-            case .composed:
-                teach?.note = "A message to \(WakeRecordings.teamAddress) is open in your mail app. Nothing goes until you press Send."
-            case .revealed:
-                teach?.note = "The zip is selected in the Finder — drag it into a message to \(WakeRecordings.teamAddress)."
-            }
-        } catch {
-            teach?.note = "Moe could not zip the recordings: \(error.localizedDescription)"
+            teach?.note = "Forgotten. Alfie listens for its name the way it shipped."
         }
     }
 
@@ -950,14 +934,14 @@ struct VoiceMoreSheet: View {
                         }
                         SettingRow(
                             title: "Use the names on my screen",
-                            detail: "Before you speak, Moe reads the window you are dictating into and picks out its names and identifiers, for just that sentence. Nothing is saved; never a password field."
+                            detail: "Before you speak, Alfie reads the window you are dictating into and picks out its names and identifiers, for just that sentence. Nothing is saved; never a password field."
                         ) {
                             VoicePane.lever(Binding(get: { config.dictationScreenVocabulary },
                                                     set: { conductor.setDictationScreenVocabulary($0) }), enabled: on)
                         }
                         SettingRow(
                             title: "Learn spellings from my corrections",
-                            detail: "When you type over a word Moe just pasted, it remembers the spelling — after the second time, so a slip is not learned.",
+                            detail: "When you type over a word Alfie just pasted, it remembers the spelling — after the second time, so a slip is not learned.",
                             last: true
                         ) {
                             VoicePane.lever(Binding(get: { config.dictationLearnCorrections },

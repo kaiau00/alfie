@@ -18,7 +18,7 @@ struct InboxItemTests {
     Add one concrete example you actually used it for.
 
     **Overdue: Week 1 ended 09-27 and is still open**
-    - 1.1: Record a real 10-second screen clip of "Hey Moe".
+    - 1.1: Record a real 10-second screen clip of "Hey Alfie".
     - 1.2: Watch 5 people hit the site cold.
 
     **Due this week (Week 2, 09-28 to 10-04)**
@@ -27,7 +27,7 @@ struct InboxItemTests {
     **Postiz:** clean. Posts through 09-27 all show published.
     """
 
-    static func input(_ text: String, job: String = "Moe marketing standing brief",
+    static func input(_ text: String, job: String = "Alfie marketing standing brief",
                       jobID: String = "3a26f7d51a3c") -> NoticeInput {
         var m = NoticeInput(text: text, at: Date(timeIntervalSince1970: 1_790_000_000))
         m.job = job
@@ -42,7 +42,7 @@ struct InboxItemTests {
         // Its sections, not its first sentence cut short.
         #expect(n.summary == "Reply draft for you to post · Overdue · Due this week · Postiz")
         #expect(n.body == Self.brief)
-        #expect(n.source == "Moe marketing standing brief")
+        #expect(n.source == "Alfie marketing standing brief")
     }
 
     @Test func aShortReminderTheyScheduledIsAReminder() {
@@ -107,7 +107,7 @@ struct InboxItemTests {
         let blocks = NoticeBody.blocks(Self.brief)
         #expect(blocks.first == .heading("Marketing brief, Tue 09-29"))
         #expect(blocks.contains(.draft("Not a big-name app, but talking to my mail and calendar from whatever window I'm in, without opening anything first.\nWas skeptical it'd stick and it did.")))
-        #expect(blocks.contains(.bullets(["1.1: Record a real 10-second screen clip of \"Hey Moe\".",
+        #expect(blocks.contains(.bullets(["1.1: Record a real 10-second screen clip of \"Hey Alfie\".",
                                          "1.2: Watch 5 people hit the site cold."])))
         #expect(blocks.contains(.heading("Overdue: Week 1 ended 09-27 and is still open")))
         // "**Postiz:** clean." is a sentence that starts bold, not a heading.

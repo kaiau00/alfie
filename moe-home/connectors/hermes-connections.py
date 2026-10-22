@@ -49,7 +49,7 @@ PRODUCT.md §4.4 calls the real check the strength worth keeping.
         facts as JSON to _connections.json beside it, which travels to the
         person's cloud computer (the `context/connections` document) so a
         machine with no Mac knows what is behind COMPOSIO_SEARCH_TOOLS.
-        connect.sh runs this after anything that changes a connection, so Moe
+        connect.sh runs this after anything that changes a connection, so Alfie
         knows about a mailbox the moment it is added instead of on the next
         ten-minute sync.
   hermes-connections.py pull …          exit 1, nothing: Hermes's tools are
@@ -123,11 +123,11 @@ MOE_EMAIL_MARKER = "channel-moemail.json"
 #: be verified (the edge's `email_app.OWNER_UNVERIFIED_SENTENCE`, the same words).
 MOE_EMAIL_UNVERIFIED = ("An email from you couldn't be verified. Mail forwarded from another "
                         "account often fails this check, or someone may be pretending to be "
-                        "you. Send it to Moe directly.")
+                        "you. Send it to Alfie directly.")
 
 
 def moe_email_connections():
-    """The Email row for Moe's own address -- not a Hermes platform at all, so
+    """The Email row for Alfie's own address -- not a Hermes platform at all, so
     it is not in the catalog and gets its row here, as `platform/moemail`.
 
     From the marker alone: no marker is no row (the screen draws "not
@@ -145,13 +145,13 @@ def moe_email_connections():
            "credentials": []}
     if data.get("available", True) is False:
         return [dict(row, state="unavailable", address="",
-                     detail="not available yet — Moe's cloud isn't set up for email")]
+                     detail="not available yet — Alfie's cloud isn't set up for email")]
     address = H.one_line(str(data.get("address") or ""), 80)
     if not address:
         return []
     owners = [H.one_line(str(a), 80) for a in (data.get("owner_addresses") or [])
               if isinstance(a, str)][:3]
-    detail = "Write to Moe at %s" % address
+    detail = "Write to Alfie at %s" % address
     if owners:
         detail += (" — mail from %s is yours; anyone else has to be let in first"
                    % ", ".join(owners))
@@ -174,11 +174,11 @@ MOE_EMAIL_UNVERIFIED_WHY = {
     "misaligned": "it was signed by a different address",
     "dns_timeout": "its signature couldn't be checked in time",
     "weak_algorithm": "it was signed the old, weak way",
-    "wrong_recipient": "it was written to a different address, not to your Moe address",
+    "wrong_recipient": "it was written to a different address, not to your Alfie address",
     # Kept for a row written before reply-to-confirm (D1): such mail is now
     # asked about by email rather than refused.
-    "unsigned_recipient": "your email provider doesn't sign who an email is sent to, so Moe "
-                          "can't tell it was written to Moe",
+    "unsigned_recipient": "your email provider doesn't sign who an email is sent to, so Alfie "
+                          "can't tell it was written to Alfie",
     # Only a line the signature covers appearing twice, since D2: an unsigned
     # extra line is ignored, not refused.
     "unsigned_header": "a line it was signed with appears in it twice",
@@ -192,12 +192,12 @@ MOE_EMAIL_UNVERIFIED_WHY = {
 MOE_EMAIL_PROVIDER_DOMAIN = ("An email from you couldn't be verified: your email provider signs "
                              "mail as %s rather than as %s. Set up DKIM for %s in Google "
                              "Workspace (admin.google.com › Apps › Google Workspace › Gmail › "
-                             "Authenticate email), or write to Moe from an address that is "
+                             "Authenticate email), or write to Alfie from an address that is "
                              "signed as its own domain.")
 
 
 def moe_email_replies_lines(replies, now=None):
-    """What became of Moe's email replies this week, one sentence each, only
+    """What became of Alfie's email replies this week, one sentence each, only
     for what happened (docs/EMAIL-SETUP.md §10)."""
     def n(key):
         try:
@@ -211,7 +211,7 @@ def moe_email_replies_lines(replies, now=None):
 
     lines = []
     if n("confirm_waiting"):
-        lines.append("Moe emailed to check %s came from the address it says; the answer is a "
+        lines.append("Alfie emailed to check %s came from the address it says; the answer is a "
                      "reply saying YES." % ("an email" if n("confirm_waiting") == 1
                                             else "%d emails" % n("confirm_waiting")))
     if n("confirm_held"):
@@ -220,19 +220,19 @@ def moe_email_replies_lines(replies, now=None):
                      % (_moe_count(n("confirm_held"), "email", "emails").capitalize(),
                         when("confirm_held_at")))
     if n("approvals"):
-        lines.append("Moe needed your OK for something while answering an email, and it doesn't "
+        lines.append("Alfie needed your OK for something while answering an email, and it doesn't "
                      "ask for that by email, so that step wasn't done%s." % when("approvals_at"))
     if n("unsent"):
-        lines.append("%s of Moe's email replies this week couldn't be sent%s."
+        lines.append("%s of Alfie's email replies this week couldn't be sent%s."
                      % (_moe_count(n("unsent")), when("unsent_at")))
     if n("late_parts"):
-        lines.append("%s of Moe's email replies this week came too late to send%s."
+        lines.append("%s of Alfie's email replies this week came too late to send%s."
                      % (_moe_count(n("late_parts"), "part", "parts"), when("late_at")))
     if n("follow_ups"):
-        lines.append("%s this week took Moe more than two minutes and came in a second email%s."
+        lines.append("%s this week took Alfie more than two minutes and came in a second email%s."
                      % (_moe_count(n("follow_ups"), "reply", "replies"), when("follow_up_at")))
     if n("held_back"):
-        lines.append("Moe kept %s about its own work (like \"still on it\") out of your email "
+        lines.append("Alfie kept %s about its own work (like \"still on it\") out of your email "
                      "this week." % _moe_count(n("held_back"), "status note", "status notes"))
     return lines
 
@@ -292,7 +292,7 @@ def _slack_app_marker():
 
 
 def _slack_app_linked():
-    """Whether Moe's own Slack app is LINKED in some workspace. A marker from
+    """Whether Alfie's own Slack app is LINKED in some workspace. A marker from
     before the field existed was only ever written when linked. An install
     waiting for this Mac's word is not linked, and reaches nothing."""
     data = _slack_app_marker()
@@ -300,7 +300,7 @@ def _slack_app_linked():
 
 
 def _slack_app_unavailable():
-    """Whether Moe's cloud said Add to Slack cannot work there yet (third
+    """Whether Alfie's cloud said Add to Slack cannot work there yet (third
     review of slice G1): no Google web client for the install page to prove the
     account with, or no Slack app. `channels.py` writes `available` from the
     cloud's answer; a marker without the field is taken as available."""
@@ -309,8 +309,8 @@ def _slack_app_unavailable():
 
 
 def _slack_app_trouble():
-    """What Moe's cloud said went wrong per Slack workspace (fourth review of
-    slice G1): `removed` — Moe was revoked there because Slack refused its key —
+    """What Alfie's cloud said went wrong per Slack workspace (fourth review of
+    slice G1): `removed` — Alfie was revoked there because Slack refused its key —
     and `last_failure`, the latest reason a reply there was given up on."""
     data = _slack_app_marker() or {}
     return [t for t in (data.get("trouble") or []) if isinstance(t, dict)]
@@ -365,7 +365,7 @@ def recheck_slack_availability(now=None):
 
 
 def slack_install_pairings():
-    """Installs of Moe's own Slack app waiting for this Mac's word, in the
+    """Installs of Alfie's own Slack app waiting for this Mac's word, in the
     `pending_pairings` shape Connections already renders with an Approve
     button (`Pairing.parse`): platform `slack_link`, the 16-hex id, and the
     workspace and Slack name as the one line a person reads. `pairing.sh
@@ -387,7 +387,7 @@ def slack_install_pairings():
 
 
 def _slack_app_receiving():
-    """Whether Moe's own Slack app's marker says the cloud's socket is open.
+    """Whether Alfie's own Slack app's marker says the cloud's socket is open.
 
     `channels.py slack-status` writes `receiving` from the edge's answer. A
     marker without the field (an older edge) is taken as receiving, and an
@@ -402,7 +402,7 @@ def _slack_app_receiving():
 
 
 def moe_home():
-    """Moe's home. `MOE_HOME` redirects it, which is how the tests run."""
+    """Alfie's home. `MOE_HOME` redirects it, which is how the tests run."""
     return os.environ.get("MOE_HOME") or os.path.expanduser("~/.moe")
 
 
@@ -449,7 +449,7 @@ def note_watch_skips(conns):
 def signal_status():
     """`connect-signal.sh --status`, as (ok, its line). The link on disk is not
     enough to call Signal connected: the daemon also needs Signal support that
-    fetch-signal-cli.sh calls ready, and a Moe release that moves the pinned
+    fetch-signal-cli.sh calls ready, and an Alfie release that moves the pinned
     signal-cli makes the old copy not ready — signal-daemon.sh then exits "not
     downloaded" and nothing answers, while this row, which used to look only
     at signal/account, said Connected. --status asks both questions, the same
@@ -634,7 +634,7 @@ def mcp_test(name):
     whatever happened, so the answer is in the text."""
     hb = H.hermes_bin()
     if not hb:
-        return "unavailable", "Memoe is not fully installed — run scripts/install.sh"
+        return "unavailable", "Alfie is not fully installed — run scripts/install.sh"
     rc, out, err = H.run([hb, "mcp", "test", name], MCP_TEST_TIMEOUT, env=hermes_env())
     text = out + "\n" + err
     low = text.lower()
@@ -810,12 +810,12 @@ def relay_silences_direct_platforms():
 
 
 def cloud_holder_row(channel, label=None):
-    """The state/detail for a channel Moe's cloud holds; ``None`` when it does
+    """The state/detail for a channel Alfie's cloud holds; ``None`` when it does
     not hold it.
 
     ``label`` is the name a person calls this channel ("WhatsApp"), which is
     what the sentences below use. The slug is the file name, not a word anybody
-    says, and it used to land on screen as "Moe's cloud receives whatsapp now".
+    says, and it used to land on screen as "Alfie's cloud receives whatsapp now".
 
     **Why this comes before every other branch.** A channel the cloud holds is
     switched off on this Mac by name (`configure-hermes.py::apply_channel_holder`)
@@ -870,12 +870,12 @@ def cloud_holder_row(channel, label=None):
     if waiting and not said:
         who = (str(waiting[0].get("sender") or "").replace("\n", " ")[:60]
                or str(waiting[0].get("chat_id") or ""))
-        detail = (("%s messaged Moe here and is waiting to be let in. Moe does "
+        detail = (("%s messaged Alfie here and is waiting to be let in. Alfie does "
                    "not answer anybody who has not been let in, so nothing has "
                    "been sent to them." % H.one_line(who, 80))
                   if len(waiting) == 1 else
-                  "%d chats have messaged Moe here and are waiting to be let in. "
-                  "Moe does not answer anybody who has not been let in, so "
+                  "%d chats have messaged Alfie here and are waiting to be let in. "
+                  "Alfie does not answer anybody who has not been let in, so "
                   "nothing has been sent to them." % len(waiting))
         return {"state": "needs-setup",
                 "detail": detail + " Let them in: connectors/channels.py approve "
@@ -884,7 +884,7 @@ def cloud_holder_row(channel, label=None):
         # channel-holder.py wrote this for a person and it names the channel
         # and what has gone wrong. It never carries a token or a webhook path.
         return {"state": "needs-setup",
-                "detail": "%s Moe is putting it back; if it keeps happening, "
+                "detail": "%s Alfie is putting it back; if it keeps happening, "
                           "connect %s again in Settings › Away."
                           % (H.one_line(str(said), 220), shown)}
     return {"state": "ok",
@@ -936,28 +936,28 @@ def platform_connections(cfg, keys):
             held = None
         if removed and not unavailable:
             c.update(state="needs-setup",
-                     detail="Moe was removed from your Slack workspace %s — Slack stopped "
-                            "accepting its key (%s). Add Moe to Slack again to reconnect it"
+                     detail="Alfie was removed from your Slack workspace %s — Slack stopped "
+                            "accepting its key (%s). Add Alfie to Slack again to reconnect it"
                             % (H.one_line(str(removed[0].get("workspace") or "(unnamed)"), 80),
                                H.one_line(str(removed[0].get("removed")), 80)))
         elif unavailable:
             c.update(state="unavailable",
-                     detail="not available yet — Moe's cloud isn't set up for Add to Slack; "
+                     detail="not available yet — Alfie's cloud isn't set up for Add to Slack; "
                             "a Slack app of your own still works")
         elif one_click:
             if _slack_app_receiving():
-                c.update(state="ok", detail="Moe is in your Slack — write to it under Apps; "
+                c.update(state="ok", detail="Alfie is in your Slack — write to it under Apps; "
                                             "anyone else who messages there has to be approved "
                                             "in Connections first")
                 gone = [t for t in _slack_app_trouble() if t.get("removed")]
                 failed = [t for t in _slack_app_trouble() if t.get("last_failure")]
                 if gone:
-                    c["detail"] += (". Moe was removed from %s — Slack stopped accepting its "
-                                    "key (%s); add Moe to Slack again there"
+                    c["detail"] += (". Alfie was removed from %s — Slack stopped accepting its "
+                                    "key (%s); add Alfie to Slack again there"
                                     % (H.one_line(str(gone[0].get("workspace") or "(unnamed)"), 80),
                                        H.one_line(str(gone[0].get("removed")), 80)))
                 elif failed:
-                    c["detail"] += (". The last reply Moe couldn't send in %s: %s"
+                    c["detail"] += (". The last reply Alfie couldn't send in %s: %s"
                                     % (H.one_line(str(failed[0].get("workspace") or "(unnamed)"), 80),
                                        H.one_line(str(failed[0].get("last_failure")), 80)))
             else:
@@ -965,7 +965,7 @@ def platform_connections(cfg, keys):
                 # (DECISIONS §5c.7: handed over is not carrying). Nothing for
                 # the person to redo — the cloud keeps reconnecting.
                 c.update(state="needs-setup",
-                         detail="Moe is in your Slack, but Moe's cloud isn't connected to "
+                         detail="Alfie is in your Slack, but Alfie's cloud isn't connected to "
                                 "Slack right now — it keeps trying")
         elif held is not None:
             # First, on purpose: see `cloud_holder_row`. A channel the cloud
@@ -989,7 +989,7 @@ def platform_connections(cfg, keys):
             # platform, and saying "key saved" here is the lie this branch
             # exists to stop.
             c.update(state="needs-setup",
-                     detail="Moe is not listening here — messages for this account "
+                     detail="Alfie is not listening here — messages for this account "
                             "are going to your other devices instead")
         elif missing:
             c.update(state="needs-setup", detail="needs a key (%s) — %s %s" % (", ".join(missing), CONNECT, e["name"]))
@@ -1024,7 +1024,7 @@ def platform_connections(cfg, keys):
             # connect-signal.sh never asks for a second scan when
             # signal/account is already there.
             c.update(state="needs-setup",
-                     detail="linked, but Signal support has to be downloaded again before Moe can answer there "
+                     detail="linked, but Signal support has to be downloaded again before Alfie can answer there "
                             "— no new scan (%s signal)" % CONNECT)
         elif e["name"] == "line":
             # LINE only ever delivers to a public HTTPS address, which this
@@ -1038,19 +1038,19 @@ def platform_connections(cfg, keys):
             # accepts. Keys alone used to read "ok" — green over a bot nothing
             # could reach (the slice C review, 2026-09-11).
             if os.path.exists(os.path.join(moe_home(), "cloud", "channel-line.json")):
-                c.update(state="ok", detail="key saved; LINE reaches Moe through Moe's cloud — "
+                c.update(state="ok", detail="key saved; LINE reaches Alfie through Alfie's cloud — "
                                             "anyone who messages there has to be approved in Connections first")
             else:
                 c.update(state="needs-setup",
-                         detail="key saved, but nothing arrives yet — LINE reaches Moe only through "
-                                "Moe's cloud; sign in to Memoe, then connect LINE again")
+                         detail="key saved, but nothing arrives yet — LINE reaches Alfie only through "
+                                "Alfie's cloud; sign in to Alfie, then connect LINE again")
         elif e["allowed_users"] and e["allowed_users"] not in keys \
                 and e["allowed_users"].replace("_ALLOWED_USERS", "_ALLOW_ALL_USERS") not in keys \
                 and "GATEWAY_ALLOW_ALL_USERS" not in keys:
             # No allowlist is not a broken connection: Hermes answers a
             # stranger with a pairing code, and the app's Approve button
             # (pending_pairings in --json, pairing.sh) puts them on the list.
-            c.update(state="ok", detail="key saved; anyone who messages Moe here has to be approved in Connections first")
+            c.update(state="ok", detail="key saved; anyone who messages Alfie here has to be approved in Connections first")
         else:
             c.update(state="ok", detail="key saved")
         out.append(c)
@@ -1067,8 +1067,8 @@ def auth_connections():
 CONFIG_UNREADABLE = {
     "kind": "hermes", "name": "config", "label": "config.yaml", "auth": "none",
     "state": "unavailable",
-    "detail": "Moe could not read its own list of services, so it cannot say what is connected. "
-              "Quit Memoe and open it again; if it keeps happening, reinstall Memoe.",
+    "detail": "Alfie could not read its own list of services, so it cannot say what is connected. "
+              "Quit Alfie and open it again; if it keeps happening, reinstall Alfie.",
 }
 
 
@@ -1140,7 +1140,7 @@ def composio_connections(cfg, max_age=0, timeout=25):
     ONE row called "composio" — technically true and useless to a person, who
     connects Gmail, not a broker. The services come from Composio itself
     (connected accounts plus whatever the session is scoped to); nothing is
-    listed here, because a hard-coded set is how Moe ends up showing a
+    listed here, because a hard-coded set is how Alfie ends up showing a
     fraction of what it can reach.
 
     Kept cheap and offline-safe: if there is no composio server configured,
@@ -1195,17 +1195,17 @@ def composio_connections(cfg, max_age=0, timeout=25):
         elif started:
             state, detail = "needs-setup", "sign-in started but not finished"
         else:
-            state, detail = "not-connected", "not connected — sign in once and Moe can use it"
+            state, detail = "not-connected", "not connected — sign in once and Alfie can use it"
         tools = row.get("tools")
         if connected and tools:
-            detail = "signed in — %s things Moe can do here" % tools
+            detail = "signed in — %s things Alfie can do here" % tools
         # Moe's cleanup at the broker is still pending for it (composio.py
         # rows(), `cleanup_pending`). The app keeps Disconnect on such a row
         # whatever its state, because Disconnect is how that cleanup is
         # retried — and a not-connected row says why the button is there.
         pending = bool(row.get("cleanup_pending"))
         if pending and not connected and not started:
-            detail = "not connected — something Moe set up for it is still at the broker; Disconnect removes it"
+            detail = "not connected — something Alfie set up for it is still at the broker; Disconnect removes it"
         out.append({
             "cleanup_pending": pending,
             "kind": "composio", "name": row.get("slug") or "",
@@ -1288,7 +1288,7 @@ def make_live(conns, oauth_live=True):
                 if not plats:
                     plats = {"__down__": ""}
             if "__down__" in plats:
-                c["state"], c["detail"] = "unavailable", "set up, but not running yet — Moe starts it"
+                c["state"], c["detail"] = "unavailable", "set up, but not running yet — Alfie starts it"
             elif c["name"] in plats:
                 st = plats[c["name"]]
                 if st in ("connected", "running", "ready", "ok"):
@@ -1296,7 +1296,7 @@ def make_live(conns, oauth_live=True):
                 else:
                     c["state"], c["detail"] = "unavailable", "not working right now: %s" % H.one_line(st, 40)
             else:
-                c["state"], c["detail"] = "unavailable", "set up, but not running yet — quit Memoe and open it again"
+                c["state"], c["detail"] = "unavailable", "set up, but not running yet — quit Alfie and open it again"
     return conns
 
 
@@ -1577,7 +1577,7 @@ def github_cli_signed_in():
 def cmd_brief():
     """What is connected, as a few lines for the model's prompt.
 
-    This exists because the model was told none of it. Moe's connectors are
+    This exists because the model was told none of it. Alfie's connectors are
     not tools it can see — sync.sh runs them and writes the brief — and the
     brokered services ARE tools, but their names (COMPOSIO_SEARCH_TOOLS and
     friends) say nothing about Gmail. Asked "how's my inbox" with the local
@@ -1707,7 +1707,7 @@ def brief_text(conns=None):
             {c.get("label") or c["name"] for c in keyed})))
         say("")
     if reach:
-        say("Where the person can reach Moe from: " + ", ".join(sorted(
+        say("Where the person can reach Alfie from: " + ", ".join(sorted(
             {c.get("label") or c["name"] for c in reach})))
         # The other direction, said beside it: a channel they talk to Moe on
         # is not a tool Moe sends to them with. On 2026-09-25 "message me on
@@ -1777,7 +1777,7 @@ def cmd_refresh():
     **The whole point is the "now".** This file is what the model is told
     about which services exist, and until 2026-09-07 the only thing that ever
     wrote it was `sync.sh`, on its ten-minute tick. So the ten minutes after
-    someone connected a mailbox were exactly the ten minutes in which Moe
+    someone connected a mailbox were exactly the ten minutes in which Alfie
     would tell them, confidently and in the connector's own words, that "no
     mailbox is added yet" and offer to walk them through connecting the thing
     they had just connected. That is the report this verb exists for, and the

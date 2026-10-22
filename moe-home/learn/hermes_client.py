@@ -116,7 +116,7 @@ def _verify_applied(applied_header, requested):
         raise HermesError(
             "gateway did not confirm the toolset restriction (no "
             "X-Hermes-Applied-Toolsets) — refusing to send untrusted data to a "
-            "turn this gateway may not narrow; restart Memoe onto the current build")
+            "turn this gateway may not narrow; restart Alfie onto the current build")
     applied = {t.strip() for t in applied_header.split(",") if t.strip()}
     if req == {NO_TOOLS}:
         if applied:
@@ -183,7 +183,7 @@ def ensure_toolset_capable():
         if not _CAPABILITY["ok"]:
             raise HermesError(
                 "gateway cannot narrow a turn's toolset (checked this run) — "
-                "refusing to send untrusted data; restart Memoe onto the current build")
+                "refusing to send untrusted data; restart Alfie onto the current build")
         return
     _CAPABILITY["checked"] = True
     try:

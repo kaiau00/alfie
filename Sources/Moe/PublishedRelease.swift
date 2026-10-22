@@ -42,9 +42,10 @@ enum PublishedRelease {
     /// a build pointed at a different feed must report on THAT feed, or the
     /// line is about somebody else's releases.
     static func read(comparingAgainst repo: String?) -> Info? {
-        let feed = (Bundle.main.infoDictionary?["SUFeedURL"] as? String)
-            ?? "https://moebot.app/appcast.xml"
-        guard let url = URL(string: feed) else { return nil }
+        // No feed baked in (Alfie has no updater): there is no release to
+        // report on, and Memoe's feed is somebody else's releases.
+        guard let feed = Bundle.main.infoDictionary?["SUFeedURL"] as? String,
+              let url = URL(string: feed) else { return nil }
 
         var request = URLRequest(url: url)
         request.timeoutInterval = 20

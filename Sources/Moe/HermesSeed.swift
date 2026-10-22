@@ -147,7 +147,7 @@ enum HermesSeed {
             // The stamp matches but hermesInstalled() said no: the tree was
             // laid down and then damaged. Say so rather than silently
             // re-copying 818 MB on every launch forever.
-            return "hermes seed \(want) was installed but is not runnable; reinstall Memoe"
+            return "hermes seed \(want) was installed but is not runnable; reinstall Alfie"
         }
 
         let fm = FileManager.default
@@ -166,7 +166,7 @@ enum HermesSeed {
             // live one can legitimately still be running well past that.
             let age = (try? fm.attributesOfItem(atPath: lock.path)[.modificationDate] as? Date)
                 .flatMap { $0 }.map { Date().timeIntervalSince($0) } ?? 0
-            if age < 1800 { return "hermes seed: another copy of Memoe is installing it" }
+            if age < 1800 { return "hermes seed: another copy of Alfie is installing it" }
             try? fm.removeItem(at: lock)
             return "hermes seed: cleared a stale lock; the next launch installs it"
         }

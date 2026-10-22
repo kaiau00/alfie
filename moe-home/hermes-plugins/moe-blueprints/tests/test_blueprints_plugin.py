@@ -83,7 +83,7 @@ class BlueprintCreateGuardsTest(unittest.TestCase):
         """The create path, with Hermes's job store stood in for so nothing is
         written. Three things found on the owner's Mac on 2026-09-11, the first
         end-to-end run: the job was named `moe-workday-start`, which every
-        reader takes to mean one of Moe's OWN jobs — so it never travelled to
+        reader takes to mean one of Alfie's OWN jobs — so it never travelled to
         the cloud machine; the model was made to ask where it should land;
         and the job's prompt said nothing about the inbox the person had
         asked for, because the template's words replaced theirs."""

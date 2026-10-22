@@ -214,7 +214,7 @@ extension Cloud {
     static func connectionsBlurb(reach: Bool, tier: String) -> String {
         if let plan { return plan.connectionsBlurb(reach: reach, tier: tier) }
         return reach
-            ? "Moe lives on this Mac. Message it from anywhere below and it answers while the Mac is awake — asleep, your message waits."
-            : "Moe lives on this Mac. Everything below works while the Mac is awake — asleep, Moe is asleep too."
+            ? "Alfie lives on this Mac. Message it from anywhere below and it answers while the Mac is awake — asleep, your message waits."
+            : "Alfie lives on this Mac. Everything below works while the Mac is awake — asleep, Alfie is asleep too."
     }
 }

@@ -206,7 +206,7 @@ class ConfigureFixture(unittest.TestCase):
 
 class EraseAndDeleteTest(ConfigureFixture):
     """Slice F of consent (CLOUD-REMAINING D9.11, D9.12): what configure-hermes
-    does for Delete my account and Erase Memoe from this Mac."""
+    does for Delete my account and Erase Alfie from this Mac."""
 
     KEY = "ak_" + "1" * 24
 
@@ -248,7 +248,7 @@ class EraseAndDeleteTest(ConfigureFixture):
         self.assertEqual(text, "A=\n")
 
     def test_a_key_a_person_put_in_env_is_left(self):
-        """No marker: the key is not Moe's copy, and nothing removes it."""
+        """No marker: the key is not Alfie's copy, and nothing removes it."""
         self.seed_env("COMPOSIO_API_KEY=%s\nCOMPOSIO_MCP_URL=https://example.invalid/mcp\n" % self.KEY)
         self.run_script()
         self.assertIn("COMPOSIO_API_KEY=" + self.KEY, self.env_text())
@@ -265,7 +265,7 @@ class EraseAndDeleteTest(ConfigureFixture):
         self.assertIn("COMPOSIO_API_KEY=" + self.KEY, self.env_text())
 
     def test_the_eraser_is_denied_to_hermess_shell(self):
-        """`Moe --erase-mac` is started by the app alone; the shell gate refuses
+        """`Alfie --erase-mac` is started by the app alone; the shell gate refuses
         it outright, however the path to the binary is spelled."""
         import fnmatch
         self.run_script()
@@ -276,10 +276,10 @@ class EraseAndDeleteTest(ConfigureFixture):
 
         for cmd in ("/Applications/Memoe.app/Contents/MacOS/Moe --erase-mac",
                     "'/Applications/Memoe Dev.app/Contents/MacOS/Moe' --erase-mac < /tmp/request",
-                    "echo {} | Moe --erase-mac",
+                    "echo {} | Alfie --erase-mac",
                     ".build/debug/Moe --erase-mac-spawn"):
             self.assertTrue(denied(cmd), "the eraser is reachable from the shell: %r" % cmd)
-        for cmd in ("Moe --erase-plan", "ls -la ~/Library/Application\\ Support/Moe"):
+        for cmd in ("Alfie --erase-plan", "ls -la ~/Library/Application\\ Support/Alfie"):
             self.assertFalse(denied(cmd), "a deny rule blocks ordinary work: %r" % cmd)
 
 
@@ -337,7 +337,7 @@ class ConfigureHermesTest(ConfigureFixture):
         # Secrets never appear in the output.
         self.assertNotIn("FAKE-TOKEN", out)
         self.assertNotIn(api["key"], out)
-        self.assertIn("Moe starts Hermes and supplies the sign-in from the Keychain", out)
+        self.assertIn("Alfie starts Hermes and supplies the sign-in from the Keychain", out)
         self.assertIn('export CLAUDE_CODE_OAUTH_TOKEN="$(security find-generic-password -a moe '
                       '-s moe-child-oauth -w)" && hermes gateway --accept-hooks run', out)
         # The token is never written to .env — the Keychain is its home.
@@ -485,7 +485,7 @@ class ConfigureHermesTest(ConfigureFixture):
         on the next Hermes write. Measured on the developer's own machine:
         config.yaml said `model: opus` while load_config_readonly() returned
         {"provider": "claude-code-cli", "default": "haiku"} and all 66 log
-        lines read model=haiku. Moe wrote the alias, so Moe's model choice had
+        lines read model=haiku. Alfie wrote the alias, so Alfie's model choice had
         never once taken effect, and --check reported a value nothing honoured.
 
         The value moves rather than being replaced: an alias still on disk is
@@ -508,7 +508,7 @@ class ConfigureHermesTest(ConfigureFixture):
         """The enforced profile (§6), tested on a config that actually holds them.
 
         The `assertNotIn` further down used to run on a config that never had
-        the keys, and Moe never writes them, so it asserted that a thing nobody
+        the keys, and Alfie never writes them, so it asserted that a thing nobody
         did did not happen — this repo's own worst pattern, a check that
         reports PASS forever. So this test PUTS the keys there first. Break
         apply_refused_keys and it fails; delete a REFUSED_KEYS entry and it
@@ -686,7 +686,7 @@ class ConfigureHermesTest(ConfigureFixture):
 
         Hermes reads a name there that is not a toolset as "scope this MCP
         server to this platform", and `no_mcp` as "no MCP servers here" — its
-        own writer preserves them for exactly that reason. Moe's force_set
+        own writer preserves them for exactly that reason. Alfie's force_set
         replaced the whole list, so a user who scoped a server lost it on the
         next launch, silently, with the checklist reporting success."""
         self.run_script()
@@ -708,7 +708,7 @@ class ConfigureHermesTest(ConfigureFixture):
         """Hermes's config migration 45 (upstream, Sept 2026) appends the
         `connections` toolset — manage_connections, the tool that replaced
         `setup_mcp` and connects MCP servers on the model's say-so — to every
-        explicit platform_toolsets list, once, and stamps the version. Moe's
+        explicit platform_toolsets list, once, and stamps the version. Alfie's
         lists are a decision (a toolset Hermes ships later stays off until it
         is added to MOE_TOOLSETS), and "I'll connect an MCP for you" is one
         that was made against. So the next launch takes it back, and the one
@@ -773,7 +773,7 @@ class ConfigureHermesTest(ConfigureFixture):
 
     def test_secrets_are_denied_to_the_shell(self):
         """Security review S2 (2026-10-19): the model's shell could read every
-        secret Moe keeps. Asserted against Hermes's own matcher when it is
+        secret Alfie keeps. Asserted against Hermes's own matcher when it is
         importable (its de-obfuscated variants), else fnmatch as above."""
         self.run_script()
         deny = self.cfg()["approvals"]["deny"]
@@ -793,7 +793,7 @@ class ConfigureHermesTest(ConfigureFixture):
                 return any(fnmatch.fnmatch(cmd.lower(), r.lower()) for r in deny)
         for cmd in ("cat ~/.moe/cloud/admin-token",
                     "cd ~/.moe && cat cloud/admin-token",
-                    "cat ~/Library/Application\\ Support/Moe/cloud/admin-token",
+                    "cat ~/Library/Application\\ Support/Alfie/cloud/admin-token",
                     'cat "$HOME/Library/Application Support/Moe/cloud/credential.json"',
                     "grep KEY ~/.hermes/.e?v",
                     "cat ~/.hermes/.env.bak-20261009T170804Z",
@@ -802,20 +802,20 @@ class ConfigureHermesTest(ConfigureFixture):
                     "security dump-keychain -d",
                     "security export -k login.keychain -o /tmp/k.p12",
                     "cat ~/.moe/thread-keys.json",
-                    "cat ~/Library/Application\\ Support/Moe/gate/session-sends.json"):
+                    "cat ~/Library/Application\\ Support/Alfie/gate/session-sends.json"):
             self.assertTrue(denied(cmd), "a secret is reachable from the shell: %r" % cmd)
         for cmd in ("~/.moe/tools/apple.sh calendar today",
                     "security list-keychains",
                     "export PATH=$PATH:/opt/bin && ls",
-                    "cat ~/Library/Application\\ Support/Moe/context/messages.md",
+                    "cat ~/Library/Application\\ Support/Alfie/context/messages.md",
                     "ls ~/Documents"):
             self.assertFalse(denied(cmd), "a deny rule blocks ordinary work: %r" % cmd)
 
     def test_withdrawn_gate_rules_are_pruned(self):
-        """approvals.deny is append-only, so a rule Moe got wrong is forever.
+        """approvals.deny is append-only, so a rule Alfie got wrong is forever.
 
         `*/.moe/tools*` is exactly that: it shipped, it blocked the toolbelt,
-        and appending its replacement did not remove it. Moe prunes its own
+        and appending its replacement did not remove it. Alfie prunes its own
         withdrawn rules by exact string; anything else in the list is the
         user's and is left alone."""
         self.run_script()
@@ -848,8 +848,8 @@ class ConfigureHermesTest(ConfigureFixture):
         self.assertEqual(self.cfg()["claude_code"]["max_sessions"], 1)
 
     def test_no_prewarmed_spares_and_the_old_one_is_retracted(self):
-        """Measured 7 spares minted, 0 taken: Moe keeps none warm. An
-        install carrying Moe's earlier 1 is moved to 0; another value is the
+        """Measured 7 spares minted, 0 taken: Alfie keeps none warm. An
+        install carrying Alfie's earlier 1 is moved to 0; another value is the
         person's."""
         self.run_script()
         cfg = self.cfg()
@@ -867,7 +867,7 @@ class ConfigureHermesTest(ConfigureFixture):
         self.assertEqual(self.cfg()["claude_code"]["prewarm_spares"], 3)
 
     def test_turn_timeout_is_a_ceiling_and_the_old_leash_is_repaired(self):
-        """300 was Moe's own default until 2026-09-02 and cut a five-minute
+        """300 was Alfie's own default until 2026-09-02 and cut a five-minute
         research turn off mid-step; it is moved to 1800. A value a person set
         is not touched, and the silence guard stays what it was."""
         self.run_script()
@@ -881,7 +881,7 @@ class ConfigureHermesTest(ConfigureFixture):
         rc, out = self.run_script()
         self.assertEqual(rc, 0, out)
         self.assertEqual(self.cfg()["claude_code"]["turn_timeout"], 1800)
-        self.assertIn("was 300, Moe's earlier default", out)
+        self.assertIn("was 300, Alfie's earlier default", out)
         # A value the user chose: theirs.
         cfg["claude_code"]["turn_timeout"] = 900
         with open(self.cfg_path, "w") as f:
@@ -908,7 +908,7 @@ class ConfigureHermesTest(ConfigureFixture):
     def use_api_key_brain(self, provider="deepseek", model="deepseek-chat"):
         """Switch the scratch config to an API-key brain.
 
-        The vision-pinning tests below need one. Moe's default brain is
+        The vision-pinning tests below need one. Alfie's default brain is
         `claude-code-cli`, and since 2026-09-07 a CLI-subscription brain is
         deliberately NOT given a pinned auxiliary vision provider — it serves
         its own vision through the CLI, and a pin written on the user's behalf
@@ -925,7 +925,7 @@ class ConfigureHermesTest(ConfigureFixture):
             yaml.safe_dump(cfg, f)
 
     def test_vision_needs_a_key_it_can_reach(self):
-        """The lane is worth nothing without a key, and writing a provider Moe
+        """The lane is worth nothing without a key, and writing a provider Alfie
         cannot reach only moves the failure later."""
         code, out = self.run_script(env_extra={"MOE_SKIP_VISION": "1"})
         self.assertEqual(code, 0, out)
@@ -965,7 +965,7 @@ class ConfigureHermesTest(ConfigureFixture):
 
         The lanes exist because Hermes's auto chain reached nothing here:
         `claude-code-cli` cannot serve step 1, and OpenRouter and Nous are not
-        configured on this machine. Writing a provider Moe cannot reach would
+        configured on this machine. Writing a provider Alfie cannot reach would
         only move the failure from configure time into the middle of a turn,
         which is `vision_key_present`'s lesson one lane over."""
         code, out = self.run_script()
@@ -1096,7 +1096,7 @@ class ConfigureHermesTest(ConfigureFixture):
         This file used to pin one unconditionally, and the owner found what
         that costs: DeepSeek's balance ran out, and because the lane was
         PINNED, every computer_use screenshot came back `402 Insufficient
-        Balance`. Moe could not see the screen at all, and the error named a
+        Balance`. Alfie could not see the screen at all, and the error named a
         service the owner had never chosen.
 
         A pin answers "which lane". Writing one on the user's behalf turns a
@@ -1153,7 +1153,7 @@ class ConfigureHermesTest(ConfigureFixture):
         self.assertNotIn("claude-code-cli has no HTTP client", out)
 
     def test_a_vision_pin_the_owner_wrote_is_never_removed(self):
-        """The new rule must not reach past Moe's own defaults."""
+        """The new rule must not reach past Alfie's own defaults."""
         self.run_script()
         cfg = self.cfg()
         cfg.setdefault("auxiliary", {})["vision"] = {
@@ -1202,7 +1202,7 @@ class ConfigureHermesTest(ConfigureFixture):
         self.assertIn("missing", line)
 
     def test_show_reports_a_model_written_to_the_alias(self):
-        """--show feeds Moe's Brain pane. A config holding only the alias must
+        """--show feeds Alfie's Brain pane. A config holding only the alias must
         not report an empty model to it."""
         self.run_script()
         cfg = self.cfg()
@@ -1241,7 +1241,7 @@ class ConfigureHermesTest(ConfigureFixture):
     # -- brain settings (--set-*, --show) -----------------------------------
 
     def run_brain(self, *extra, secret=None):
-        """--set-* with the secret on stdin, the way Moe's Brain pane calls it."""
+        """--set-* with the secret on stdin, the way Alfie's Brain pane calls it."""
         env = dict(os.environ)
         env.update({"MOE_SECURITY_BIN": self.stub, "FAKE_OAUTH": "1", "HOME": self.tmp})
         env.pop("HERMES_HOME", None)
@@ -1317,7 +1317,7 @@ class ConfigureHermesTest(ConfigureFixture):
         """Audited 2026-09-11: `cron.model: haiku` was written for every
         provider, and only ChatGPT had been special-cased. Anthropic,
         OpenRouter, OpenAI, DeepSeek and a custom endpoint know no model
-        called `haiku`, so every one of Moe's jobs failed on every tick.
+        called `haiku`, so every one of Alfie's jobs failed on every tick.
         Since 2026-09-15 (DEFAULTS row 43) each provider gets its OWN
         cheapest model from model-tiers.json instead of the conversation's."""
         self.run_script()
@@ -1413,7 +1413,7 @@ class ConfigureHermesTest(ConfigureFixture):
         cheap reviewer said facts instead of saving them and mis-attributed a
         designed persona to the person. Hermes's own default — the review runs
         on the conversation's model — is provider-agnostic by construction, so
-        Moe writes nothing here and removes what it wrote before."""
+        Alfie writes nothing here and removes what it wrote before."""
         mod = _load_script()
         def run(provider, review=None):
             c = {"model": {"provider": provider, "default": "m"}}
@@ -1542,7 +1542,7 @@ class ConfigureHermesTest(ConfigureFixture):
         self.run_script()
         code, out = self.run_script("--check")
         self.assertEqual(code, 0, out)
-        self.assertIn("present in Keychain (Moe injects it at launch)", out)
+        self.assertIn("present in Keychain (Alfie injects it at launch)", out)
         self.assertIn("manual-launch ready: no", out)
         os.environ["CLAUDE_CODE_OAUTH_TOKEN"] = "x"
         try:
@@ -1595,7 +1595,7 @@ class ConfigureHermesTest(ConfigureFixture):
         self.assertIn("MOE_SKIP_DRIVER_INSTALL", out)
 
     def test_driver_install_is_detached_when_moe_is_the_caller(self):
-        """Moe gives this script 60s and then SIGKILLs it, which is less than a
+        """Alfie gives this script 60s and then SIGKILLs it, which is less than a
         driver download needs. Run without a tty, the install must be handed off
         rather than waited on — and it must really be handed off, not skipped.
 
@@ -1625,7 +1625,7 @@ class ConfigureHermesTest(ConfigureFixture):
     def test_explicit_api_server_toolsets_without_computer_use_is_flagged(self):
         """A hand-edited (or `hermes tools`-saved) list that omits computer_use.
 
-        Moe's own list always has it, so this can only be reached with
+        Alfie's own list always has it, so this can only be reached with
         --keep-toolsets — which is exactly the flag that promises not to
         overwrite the user's list, and therefore the one that owes them the
         warning that their list is hiding the tool computer_use.enabled just
@@ -1813,7 +1813,7 @@ class ConfigureHermesTest(ConfigureFixture):
         self.assertIn("bundled plugin security-guidance not found", out)
 
     def test_the_claim_store_plugin_installs_without_a_human_step(self):
-        """Hermes's memory, pointed at Moe's ledger, by running the installer.
+        """Hermes's memory, pointed at Alfie's ledger, by running the installer.
 
         Three things have to be true together or the plugin is inert: the
         files are in ~/.hermes/plugins/, the name is in plugins.enabled (user
@@ -1872,7 +1872,7 @@ class ConfigureHermesTest(ConfigureFixture):
         This was a force_set, on the reasoning that memory.provider is the
         point of the exercise the way model.provider is. It is not the same
         act: a user already on honcho or mem0 would have lost their backend to
-        a Moe upgrade — silently, on a run they started for some other reason,
+        an Alfie upgrade — silently, on a run they started for some other reason,
         with install.sh passing no flag that could stop it. No flag is needed
         to keep it now; the checklist says what it costs instead.
         """
@@ -1905,7 +1905,7 @@ class ConfigureHermesTest(ConfigureFixture):
             yaml.safe_dump(cfg, f, sort_keys=False)
         code, out = self.run_script("--check")
         self.assertEqual(code, 0, out)
-        self.assertIn("not on Moe's ledger", out)
+        self.assertIn("not on Alfie's ledger", out)
 
     def test_dry_run_says_it_would_leave_another_provider_alone(self):
         code, out = self.run_script()
@@ -1972,7 +1972,7 @@ class EnvValueRule(unittest.TestCase):
 
     Eight got through, and `render_env`'s own docstring says the LAST
     assignment wins — so `DEEPSEEK_API_KEY=sk-real<U+2028>API_SERVER_KEY=x`
-    overrode the real `API_SERVER_KEY`, reachable from Moe's own Brain pane.
+    overrode the real `API_SERVER_KEY`, reachable from Alfie's own Brain pane.
 
     The two are spelled separately (this file runs before the plugin is
     installed and must not depend on it) and pinned here by BEHAVIOUR over the
@@ -2102,7 +2102,7 @@ class BackgroundAuxTierTest(unittest.TestCase):
         aux = self.run_on(cfg)
         self.assertEqual(aux["monitor"], {"provider": "openai-api", "model": t["openai-api"]})
         cfg["model"] = {"provider": "custom", "default": "local", "base_url": "http://x"}
-        self.assertNotIn("monitor", self.run_on(cfg), "a custom brain drops Moe's old pin")
+        self.assertNotIn("monitor", self.run_on(cfg), "a custom brain drops Alfie's old pin")
 
 
 class PersonJobRepairTest(unittest.TestCase):
@@ -2238,14 +2238,14 @@ class PersonaSplitTests(ConfigureFixture):
         return self.read(os.path.join(self.hermes_home, "SOUL.md"))
 
     def test_seeded_soul_is_identity_only(self):
-        """A fresh install's SOUL.md says who Moe is and nothing about how a
+        """A fresh install's SOUL.md says who Alfie is and nothing about how a
         reply is delivered — because this file is read by a runtime that has
         no microphone."""
         code, out = self.run_script()
         self.assertEqual(code, 0, out)
         soul = self.soul()
-        self.assertIn("You are Moe", soul)
-        self.assertIn("you are Moe", soul)          # "if asked what you are"
+        self.assertIn("You are Alfie", soul)
+        self.assertIn("you are Alfie", soul)          # "if asked what you are"
         self.assertIn("never discuss, name, or allude to the software", soul)
         for word in self.SPEAKER_WORDS:
             self.assertNotIn(word, soul,
@@ -2259,11 +2259,11 @@ class PersonaSplitTests(ConfigureFixture):
             f.write("You are Hermes Agent, built by Nous Research.\n")
         code, out = self.run_script()
         self.assertEqual(code, 0, out)
-        self.assertIn("You are Moe", self.soul())
+        self.assertIn("You are Alfie", self.soul())
 
     def test_moes_own_earlier_soul_is_upgraded(self):
-        """The case the split lives or dies on. Every Mac that has run Moe
-        already has a SOUL.md Moe wrote, full of spoken-aloud rules, and it is
+        """The case the split lives or dies on. Every Mac that has run Alfie
+        already has a SOUL.md Alfie wrote, full of spoken-aloud rules, and it is
         already on the ledger. If that counted as "the person's", the split
         would reach no existing install at all."""
         prior = _script_constant("MOE_SOUL_PRIOR")
@@ -2348,7 +2348,7 @@ class PersonaSplitTests(ConfigureFixture):
         self.assertTrue(pre_reach[-1].rstrip("\n").endswith("none of this applies."))
 
     def test_human_checks_are_the_browsers_and_the_rest_go_to_them(self):
-        """2026-09-25, owner: Moe gets past "are you human?" checks itself
+        """2026-09-25, owner: Alfie gets past "are you human?" checks itself
         where its browser can (the fork's CAPTCHA ladder); anything else is the
         hand-over above. Never from a screenshot, and a ticket-selling site
         always goes to the person (US BOTS Act)."""
@@ -2399,7 +2399,7 @@ class PersonaSplitTests(ConfigureFixture):
         self.assertIn("COMPOSIO_SEARCH_TOOLS", before[-1])
 
     def test_an_either_or_yes_is_asked_about_not_guessed(self):
-        """Ticket #11, 2026-09-24. Moe asked "want me to open the Show HN
+        """Ticket #11, 2026-09-24. Alfie asked "want me to open the Show HN
         page so you just hit submit, or are you posting it yourself?", heard
         "yes and also its memoe.app", and submitted the post itself under
         the owner's account. The yes answered neither branch; the brain took
@@ -2429,8 +2429,8 @@ class PersonaSplitTests(ConfigureFixture):
         self.assertNotIn("Never open, script or drive", soul)
         self.assertIn("Never start a second copy of the person's browser from the shell", soul)
         self.assertIn("never launch their Chrome with a debugging port or a copied profile", soul)
-        self.assertIn("only through the Memoe extension, and only while it is connected", soul)
-        self.assertIn('in your own "Moe" tab group', soul)
+        self.assertIn("only through the Alfie extension, and only while it is connected", soul)
+        self.assertIn('in your own "Alfie" tab group', soul)
         self.assertIn("Never read, move, close or type into a tab outside that group", soul)
         self.assertIn("leave their focus where it is", soul)
         self.assertIn("If the extension is not connected", soul)
@@ -2441,16 +2441,16 @@ class PersonaSplitTests(ConfigureFixture):
         # (Found by content, not position: later changes file their own
         # priors after it — 2026-09-25's reach_owner paragraph is one.)
         prior = _script_constant("MOE_SOUL_PRIOR")
-        before = [p for p in prior if "Memoe extension" not in p]
+        before = [p for p in prior if "Alfie extension" not in p]
         self.assertIn("Never open, script or drive the person's", before[-1])
         self.assertIn("That yes must answer the question you actually asked", before[-1])
 
     def test_a_page_only_they_can_finish_is_handed_to_them_and_devices_are_grounded(self):
-        """2026-09-24/25. A Google sign-in in Moe's out-of-sight browser asked
+        """2026-09-24/25. A Google sign-in in Alfie's out-of-sight browser asked
         for a passkey; the owner said "open the page so I can do it", nothing
-        could be shown, and Moe told him three times to "approve it on your
+        could be shown, and Alfie told him three times to "approve it on your
         phone" -- nothing had been sent to a phone. When he read a sign-in code
-        aloud, Moe refused to enter it. The rule is general: no site, no
+        aloud, Alfie refused to enter it. The rule is general: no site, no
         vendor, no tool name."""
         soul = _script_constant("MOE_SOUL")
         self.assertIn("Only tell them that something was sent, or is waiting for them on their phone "
@@ -2468,7 +2468,7 @@ class PersonaSplitTests(ConfigureFixture):
         # (By content, not position: the reach_owner paragraph files the soul
         # it replaced after this one.)
         prior = _script_constant("MOE_SOUL_PRIOR")
-        filed = [p for p in prior if "only through the Memoe extension" in p
+        filed = [p for p in prior if "only through the Alfie extension" in p
                  and "Only tell them that something was sent" not in p]
         self.assertTrue(filed, "the extension-lane soul is not filed")
         self.assertTrue(any("Only tell them that something was sent" in p for p in prior),
@@ -2492,7 +2492,7 @@ class PersonaSplitTests(ConfigureFixture):
                       "the soul it replaced is filed")
 
     def test_a_step_it_cannot_do_is_asked_about_never_dropped(self):
-        """2026-09-29, owner: Moe met a step it could not do alone (a passcode
+        """2026-09-29, owner: Alfie met a step it could not do alone (a passcode
         only the person knows), said it could not, and moved on to the next
         thing without asking. The owner's rule, kept general on purpose because
         it must hold for any task: question your own approach first, then ask
@@ -2514,7 +2514,7 @@ class PersonaSplitTests(ConfigureFixture):
 
     def test_an_earlier_cant_is_tried_again(self):
         """2026-09-29, owner: having decided earlier in the conversation that a
-        step was the person's to do, Moe repeated that conclusion when the task
+        step was the person's to do, Alfie repeated that conclusion when the task
         came back to it instead of trying again with the tools it had by then.
         Its own earlier "can't" is not evidence. General on purpose — nothing
         about any site, check or kind of code."""
@@ -2542,7 +2542,7 @@ class PersonaSplitTests(ConfigureFixture):
                          "the filed soul is the current one without this sentence")
 
     def test_tools_are_checked_before_a_step_is_handed_over(self):
-        """2026-09-30, owner: Moe handed the person steps its own tools could do,
+        """2026-09-30, owner: Alfie handed the person steps its own tools could do,
         going by what it remembered they could do. Before anything becomes the
         person's, it reads what its tools say. General on purpose."""
         soul = _script_constant("MOE_SOUL")
@@ -2587,7 +2587,7 @@ class PersonaSplitTests(ConfigureFixture):
         self.assertTrue(os.path.isfile(os.path.join(moe, "owner.json")))
 
     def test_owner_identity_is_written_from_the_linked_accounts(self):
-        """The owner as data: owner.json under Moe's home, from what this Mac
+        """The owner as data: owner.json under Alfie's home, from what this Mac
         is linked as — the gate and every connector read it (tools/recipients.py)."""
         os.makedirs(self.hermes_home, exist_ok=True)
         with open(os.path.join(self.hermes_home, ".env"), "a", encoding="utf-8") as f:
@@ -2661,7 +2661,7 @@ class PersonaSplitTests(ConfigureFixture):
             json.dump(moe, f)
 
     def test_the_reply_length_setting_reaches_the_chat_channels_and_back(self):
-        """Settings › Replies › How much Moe says. The notch gets it per
+        """Settings › Replies › How much Alfie says. The notch gets it per
         turn from the app; a Telegram message never passes through that
         code, so its only carrier is the hint this script writes."""
         by_length = _load_script().MOE_DELIVERY_BY_LENGTH
@@ -2858,7 +2858,7 @@ class RelaySettingsRule(unittest.TestCase):
     def test_enrolling_writes_the_dial_and_the_platform_rule(self):
         """Four, not three, since 2026-09-07. The fourth keeps the gateway
         running the channels the owner already configured: the fork switches
-        every direct platform off when a relay is configured, and Moe's edge
+        every direct platform off when a relay is configured, and Alfie's edge
         does not carry Telegram yet, so writing the dial alone silently took
         a working bot off the air. relayconfig owns the reasoning."""
         self.enrol()
@@ -3000,7 +3000,7 @@ class RelaySettingsRule(unittest.TestCase):
         self.assertIn("would not load", note)
 
     def test_no_payload_at_all_is_silent(self):
-        """Absent is not broken. A Moe installed without the payload is
+        """Absent is not broken. An Alfie installed without the payload is
         reported elsewhere, not made noisy here on every launch.
 
         `moe_payload_dir` is patched rather than relied on: it falls back to
@@ -3100,7 +3100,7 @@ class ChannelHolderRule(unittest.TestCase):
         self.assertTrue(any("platforms.slack.enabled" in w for w in report.written))
 
     def test_a_platform_nobody_enabled_is_left_absent(self):
-        """Moe's own one-click Slack app leaves no keys on this Mac at all, so
+        """Alfie's own one-click Slack app leaves no keys on this Mac at all, so
         there is nothing to take away — and writing `enabled: false` for a
         platform that was never on is a line nobody can explain later."""
         self.hold("slack")
@@ -3110,7 +3110,7 @@ class ChannelHolderRule(unittest.TestCase):
         self.assertNotIn("slack", cfg["platforms"])
 
     def test_it_does_not_move_a_platform_twice(self):
-        """It runs on every launch. A second run must be silent, or Moe
+        """It runs on every launch. A second run must be silent, or Alfie
         restarts the gateway every time somebody opens it — five to seven
         seconds of the brain child, for nothing."""
         self.hold("slack")
@@ -3183,7 +3183,7 @@ class ChannelHolderRule(unittest.TestCase):
 
 
 class MoeEmailIsNotTheImapEmailPlatform(unittest.TestCase):
-    """Slice G3. Moe's email address rides the edge as the channel `moemail`,
+    """Slice G3. Alfie's email address rides the edge as the channel `moemail`,
     and Hermes has a platform literally named `email` -- the person's OWN
     mailbox, over IMAP. The holder rule writes `platforms.<name>.enabled:
     false` for every channel the edge holds, so an edge channel called `email`
@@ -3250,7 +3250,7 @@ class RelayRestartTrigger(unittest.TestCase):
     once, at boot, and `register_relay_adapter()` runs once, at startup. So a
     relay dial written while the gateway is up reaches **nothing**, and the
     gateway is always up when somebody enrols in Settings > Away. Writing the
-    file was 4a.1; telling Moe the file moved, so it restarts the gateway, is
+    file was 4a.1; telling Alfie the file moved, so it restarts the gateway, is
     this.
 
     Fast, like `RelaySettingsRule` and for the same reason: the end-to-end
@@ -3343,7 +3343,7 @@ class RelayRestartTrigger(unittest.TestCase):
         somewhere: changing either side's value breaks it, and changing both
         together is the only edit that should pass.
 
-        What it cannot catch is Moe parsing it wrongly, which is why
+        What it cannot catch is Alfie parsing it wrongly, which is why
         `scripts/test-hermes-supervisor.sh` restarts a real gateway off a real
         marker rather than trusting this.
         """
@@ -3357,8 +3357,8 @@ class RelayRestartTrigger(unittest.TestCase):
         self.assertIn(want, lines)
 
     def test_the_marker_is_one_line_and_carries_nothing(self):
-        """Moe matches it as a WHOLE line. A marker with a value in it would
-        make that impossible and would put the value in Moe's log."""
+        """Alfie matches it as a WHOLE line. A marker with a value in it would
+        make that impossible and would put the value in Alfie's log."""
         self.assertEqual(self.script.RELAY_CHANGED_MARKER.splitlines(),
                          [self.script.RELAY_CHANGED_MARKER])
         self.assertNotIn("=", self.script.RELAY_CHANGED_MARKER)
@@ -3400,7 +3400,7 @@ class RelayRestartTrigger(unittest.TestCase):
             self.script.load_relay_rule = real
 
     def test_no_payload_at_all_stays_quiet(self):
-        """The other half, and the one that must NOT fire: a Mac with no Moe
+        """The other half, and the one that must NOT fire: a Mac with no Alfie
         payload has nothing to say about a relay. Both halves, because
         reporting always and reporting never are the same bug twice."""
         real_rule = self.script.load_relay_rule
@@ -3601,8 +3601,8 @@ class RelayDialSettings(ConfigureFixture):
                       "adapter is what deletes the edge's webhook")
         self.assertEqual(self._env()["GATEWAY_RELAY_ALLOW_DIRECT_PLATFORMS"], "false")
         self.assertIn(self.marker(), out,
-                      "nothing asked Moe to restart the gateway, so the running "
-                      "one keeps polling until somebody quits and reopens Moe")
+                      "nothing asked Alfie to restart the gateway, so the running "
+                      "one keeps polling until somebody quits and reopens Alfie")
 
     def test_a_holder_change_alone_still_asks_for_a_restart(self):
         """The case the `.env` half cannot cover, and the reason the marker
@@ -3615,7 +3615,7 @@ class RelayDialSettings(ConfigureFixture):
         takes Telegram off this Mac, and the only record of it is
         `platforms.telegram.enabled`. If the marker asked only about `.env`,
         the running gateway would go on polling a bot the edge already holds
-        until somebody quit and reopened Moe — which is precisely the window
+        until somebody quit and reopened Alfie — which is precisely the window
         the 409s and the deleted webhook happened in.
 
         Two runs, because the second is what makes the first mean anything.
@@ -3639,7 +3639,7 @@ class RelayDialSettings(ConfigureFixture):
         self.assertIs(self.cfg()["platforms"]["telegram"]["enabled"], False,
                       "the channel the cloud holds is the only one switched off")
         self.assertIn(self.marker(), out,
-                      "no relay key moved, so nothing asked Moe to restart the "
+                      "no relay key moved, so nothing asked Alfie to restart the "
                       "gateway — and the Mac keeps polling a bot the edge holds")
 
     def test_an_unenrolled_mac_gets_no_relay_settings(self):
@@ -3671,7 +3671,7 @@ class RelayDialSettings(ConfigureFixture):
         """CLOUD-PLAN 4a.2. Two runs in one test because each costs ~35s, and
         because the SECOND is what makes the first mean anything.
 
-        Moe restarts the Hermes gateway when it sees this line, and a restart
+        Alfie restarts the Hermes gateway when it sees this line, and a restart
         costs the brain child five to seven seconds. An implementation that
         printed it whenever a relay key was merely *set* would pass the first
         assertion and stall every launch of every enrolled Mac; the second

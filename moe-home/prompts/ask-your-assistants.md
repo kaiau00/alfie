@@ -1,6 +1,6 @@
 # Getting your history out of Claude and ChatGPT
 
-Moe can read your Mac, but it can't see the years of conversations you've had
+Alfie can read your Mac, but it can't see the years of conversations you've had
 inside claude.ai or ChatGPT — those live on their servers, in their memory, and
 there's no API that hands them over on a subscription.
 
@@ -13,7 +13,7 @@ each one gives you back and save it:
 ~/moe/scripts/import-assistant-dump.sh chatgpt
 ```
 
-They land in `~/.moe/memory/`, which Moe reads on every conversation. Then
+They land in `~/.moe/memory/`, which Alfie reads on every conversation. Then
 run `~/.moe/hermes/migrate-memory.py` so Hermes's own USER.md and MEMORY.md
 pick them up too.
 

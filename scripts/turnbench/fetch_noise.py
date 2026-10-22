@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Fetch the noise and room-impulse sources the turn corpus is mixed with.
 
-Commercial use allowed only — Moe is a paid product, and these clips may end
+Commercial use allowed only — Alfie is a paid product, and these clips may end
 up in training (research-noise.md, research-eval-harness.md §4.1):
 
   DEMAND (CC BY-SA 3.0)      zenodo.org/records/1227121, the 16 kHz zips; channel 1

@@ -46,7 +46,7 @@ status)
        osascript -e 'tell application "Calendar" to return count of calendars' >/dev/null 2>&1; then
     echo "ok: reading Calendar.app"
   else
-    echo "needs-setup: allow Moe to control Calendar (System Settings › Privacy & Security › Automation)"
+    echo "needs-setup: allow Alfie to control Calendar (System Settings › Privacy & Security › Automation)"
     exit 1
   fi
   ;;
@@ -103,7 +103,7 @@ items)
   # changed and who organised it; AppleScript does not.
   shift
   [ "${1:-}" = "--since" ] || { echo "usage: calendar.sh items --since CURSOR" >&2; exit 2; }
-  have_moe || { echo "unavailable: Memoe is not installed" >&2; exit 1; }
+  have_moe || { echo "unavailable: Alfie is not installed" >&2; exit 1; }
   exec /usr/bin/perl -e 'alarm 60; exec @ARGV' "$MOE_BIN" --calendar --items-since "${2:-}"
   ;;
 crawl)

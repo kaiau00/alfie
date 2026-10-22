@@ -17,7 +17,7 @@ to prevent unintended spend" — so a job created any other way stops dead
 the next time the person changes their brain in Settings, with one line in
 a log nobody opens. That happened on this Mac and killed every background
 job. So this imports configure-hermes.py rather than reimplementing it:
-one definition of what a Moe job is, in the file that already reconciles
+one definition of what an Alfie job is, in the file that already reconciles
 every job on every launch. `moe-blueprints`' own `blueprint_create` calls
 `create_job` directly and is NOT that path — this is deliberately not a
 wrapper around the plugin tool.
@@ -50,7 +50,7 @@ pin, the snapshot, and Hermes's own verdict on the pair (`drift_helpers`).
 into the store and still produce no pin, and it can raise after writing.
 Both used to leave the job there: enabled, on the clock, and — with no
 snapshot of a brain either — outside the very guard that stops drifted
-jobs, so it followed whatever brain Moe was moved to and spent on it. See
+jobs, so it followed whatever brain Alfie was moved to and spent on it. See
 `abandon`; it is taken back, and the refusal says so.
 
 **Read-mostly.** `list` and `blueprints` write nothing. The four verbs
@@ -64,7 +64,7 @@ that do write go through Hermes's own `cron.jobs` functions.
 `--name=NAME`, with the equals sign, and the same at the call site. A
 person may legitimately call a reminder `-daily`, and `--name -daily`
 makes argparse exit 2 with an empty stdout — which is not a refusal the
-pane can read, so it says "Moe couldn't reach the part of itself that
+pane can read, so it says "Alfie couldn't reach the part of itself that
 keeps the clock" about a name there was nothing wrong with.
 
 One JSON object on stdout, always: `{"ok": true, …}` or
@@ -127,11 +127,11 @@ UPKEEP_PREFIX = "moe-watch-"
 
 
 def reserved_name(name):
-    """Whether Moe may be asked to CREATE a reminder under this name.
+    """Whether Alfie may be asked to CREATE a reminder under this name.
 
     Case-insensitive, because `resolve_job_ref` is (see UPKEEP). The whole
     `moe-watch-` family is reserved outright here even though only some of
-    it exists on any given Mac: reserving a name Moe might later want costs
+    it exists on any given Mac: reserving a name Alfie might later want costs
     the person one rename, and letting them take it costs them every Hermes
     command that names that job.
     """
@@ -141,24 +141,24 @@ def reserved_name(name):
 
 
 def is_upkeep(job):
-    """Whether this job RECORD is Moe's own upkeep — shown, never edited.
+    """Whether this job RECORD is Alfie's own upkeep — shown, never edited.
 
     Not the same question as `reserved_name`, and deliberately narrower.
-    The seven literal names are Moe's whatever they contain. A
-    `moe-watch-…` name is only Moe's when the record actually runs one of
+    The seven literal names are Alfie's whatever they contain. A
+    `moe-watch-…` name is only Alfie's when the record actually runs one of
     the watch shims `configure-hermes.py` writes (`monitor_script:
     moe-watch-<connection>.py`) — a well-formed identifier that resolves to
     nothing is more dangerous than an absent one, so this resolves rather
     than pattern-matching.
 
     That difference is the whole point: a reminder called
-    `moe-watch-prices`, which Moe itself will make from a conversation when
+    `moe-watch-prices`, which Alfie itself will make from a conversation when
     the caller gives no name, was refused pause, run AND remove from this
     pane with the words "it is switched off in Settings › Running in the
     background" — where it is not, because it is not upkeep. It was
     unremovable from anywhere the person could see. Now the prefix is still
     refused as a NEW name, and an existing job under it is theirs unless it
-    is running Moe's own shim.
+    is running Alfie's own shim.
     """
     name = str(job.get("name") or "").casefold()
     if name in {n.casefold() for n in UPKEEP}:
@@ -231,7 +231,7 @@ def configure_hermes():
     path = os.environ.get("MOE_CONFIGURE_HERMES") or os.path.join(
         os.path.dirname(os.path.abspath(__file__)), "configure-hermes.py")
     if not os.path.isfile(path):
-        raise RuntimeError("configure-hermes.py is not beside %s — a Moe job cannot be "
+        raise RuntimeError("configure-hermes.py is not beside %s — an Alfie job cannot be "
                            "pinned to your brain without it, so nothing was created."
                            % os.path.basename(os.path.abspath(__file__)))
     spec = importlib.util.spec_from_file_location("moe_configure_hermes", path)
@@ -246,7 +246,7 @@ def on_path():
     cfg = configure_hermes()
     agent = cfg.hermes_agent_dir(hermes_home())
     if not agent:
-        raise RuntimeError("Moe's thinking part isn't installed here yet, so there is "
+        raise RuntimeError("Alfie's thinking part isn't installed here yet, so there is "
                            "nothing to schedule against.")
     if agent not in sys.path:
         sys.path.insert(0, agent)
@@ -299,7 +299,7 @@ def drift_helpers(cfg):
 
     `unguarded(job)` is the opposite hole and the worse one. An axis that
     is unpinned AND has no snapshot is invisible to that guard, so nothing
-    stops it: the job follows whatever brain Moe is moved to, and spends on
+    stops it: the job follows whatever brain Alfie is moved to, and spends on
     it. That is the state `do_create` used to leave behind on a failure.
 
     Since upstream 0469740ab3 (merged in the October 2026 catch-up) there
@@ -518,7 +518,7 @@ def do_blueprints():
                 # goes with them: it explains `origin` and `local`, which
                 # are the two this pane deliberately does not offer.
                 field["options"] = deliver
-                field["help"] = ("Moe means this Mac, spoken and on screen, plus the chats "
+                field["help"] = ("Alfie means this Mac, spoken and on screen, plus the chats "
                                  "you ticked under Running in the background.")
             fields.append(field)
         out.append({
@@ -553,7 +553,7 @@ def abandon(name, list_jobs, remove_job):
     either. `cron/scheduler.py`'s fail-closed drift guard skips an unpinned
     job only when it has a snapshot to compare against; with none, the
     guard never engages, so the job is not stopped — it quietly follows
-    whatever brain Moe is moved to and spends on it, for as long as it
+    whatever brain Alfie is moved to and spends on it, for as long as it
     exists. Meanwhile the pane drew the row as "Next at 6:30 pm" and a
     second press of Create answered "There is already a reminder called…",
     which is a different refusal about a job the person was told was never
@@ -573,7 +573,7 @@ def abandon(name, list_jobs, remove_job):
         except Exception:
             stuck.append(str(j.get("id") or "?"))
     if stuck:
-        return (" A half-made reminder is still on the clock (%s) and Moe could not take "
+        return (" A half-made reminder is still on the clock (%s) and Alfie could not take "
                 "it back — remove it here before trying again." % ", ".join(stuck))
     return " Nothing was left on the clock."
 
@@ -600,7 +600,7 @@ def do_create(key, values, name):
     deliver = str(values.get("deliver") or "").strip()
     if deliver and deliver not in allowed_deliver():
         return answer("job", {"error":
-                              "Moe can't deliver a reminder to %s from here." % deliver})
+                              "Alfie can't deliver a reminder to %s from here." % deliver})
 
     try:
         spec = fill_blueprint(blueprint, values)
@@ -655,7 +655,7 @@ def do_create(key, values, name):
     # where it does not yet.
     if reserved_name(spec["name"]):
         return answer("job", {"error":
-                              "%s is a name Moe uses for its own upkeep. Give this reminder "
+                              "%s is a name Alfie uses for its own upkeep. Give this reminder "
                               "another one." % spec["name"]})
 
     ensure_dirs()
@@ -706,7 +706,7 @@ def do_create(key, values, name):
     # nothing was made.
     if not (job.get("provider") or job.get("model")):
         return answer("job", {"error":
-                              "That reminder wasn't created: Moe couldn't tie it to a brain, "
+                              "That reminder wasn't created: Alfie couldn't tie it to a brain, "
                               "and an untied one would follow whatever brain you move to and "
                               "spend on it. Choose a brain under Settings › Brain, then try "
                               "again.%s" % abandon(spec["name"], list_jobs, remove_job)})
@@ -723,7 +723,7 @@ def do_create(key, values, name):
 
 
 def guard_upkeep(job):
-    """Moe's own upkeep is read-only, wherever the request came from.
+    """Alfie's own upkeep is read-only, wherever the request came from.
 
     The pane draws no buttons on those rows, but a pane is not a guard: it
     is the same subprocess with the same arguments, and the only place this
@@ -735,7 +735,7 @@ def guard_upkeep(job):
     """
     if is_upkeep(job):
         return answer("job", {"error":
-                              "%s is part of how Moe keeps itself up to date. It is switched "
+                              "%s is part of how Alfie keeps itself up to date. It is switched "
                               "off in Settings › Running in the background, not here."
                               % str(job.get("name") or "")})
     return None
@@ -755,13 +755,13 @@ def guard_dispatch(job, drifted):
         return None
     was = ", ".join("%s %s" % (a, str(job.get("%s_snapshot" % a) or "?")) for a in axes)
     return answer("job", {"error":
-                          "Moe won't run this: it was set up for a different brain (%s) and "
+                          "Alfie won't run this: it was set up for a different brain (%s) and "
                           "is not tied to one, so Hermes skips it rather than spend on the "
                           "brain you are on now. Remove it and make it again." % was})
 
 
 def _recipients():
-    """Moe's tools/recipients.py, beside this payload."""
+    """Alfie's tools/recipients.py, beside this payload."""
     import importlib.util
     here = os.path.dirname(os.path.realpath(__file__))
     path = os.path.join(here, os.pardir, "tools", "recipients.py")
@@ -772,7 +772,7 @@ def _recipients():
 
 
 def app_parent():
-    """This script was started by the signed Memoe app itself (its parent
+    """This script was started by the signed Alfie app itself (its parent
     process), not by a shell a model is typing into."""
     try:
         return bool(_recipients().parent_is_the_app(os.getppid()))
@@ -802,12 +802,12 @@ def keep_question(job):
 
 def do_keep(job_id, answer_text):
     """The person's answer on the Jobs card, recorded as who asked for the job.
-    Refused unless the Memoe app started this script: a model's shell never is
+    Refused unless the Alfie app started this script: a model's shell never is
     its child. Residual risk, stated: any same-uid process could import
     cron.jobs and call set_job_grounding itself; the send gate refuses a
     model's tool call that names it."""
     if not app_parent():
-        return answer("job", {"error": "Only the Memoe app can record who asked for a job."})
+        return answer("job", {"error": "Only the Alfie app can record who asked for a job."})
     cfg, _ = on_path()
     from cron.jobs import get_job, set_job_grounding
     job = get_job(job_id)
@@ -883,9 +883,9 @@ def main(argv):
             try:
                 values = json.loads(args.values)
             except ValueError:
-                return die("Moe could not read the answers on that form.", kind)
+                return die("Alfie could not read the answers on that form.", kind)
             if not isinstance(values, dict):
-                return die("Moe could not read the answers on that form.", kind)
+                return die("Alfie could not read the answers on that form.", kind)
             out = do_create(args.key, values, args.name)
         elif args.action == "keep":
             if not args.job_id:

@@ -94,7 +94,7 @@ YAML
 import sys, pathlib
 home = pathlib.Path(sys.argv[1])
 (home / "MEMORY.md").write_text("\n".join(
-    "- %d. Something Moe learned about this person." % i for i in range(200)))
+    "- %d. Something Alfie learned about this person." % i for i in range(200)))
 (home / "USER.md").write_text("Name: Test Person\nTimezone: Asia/Jerusalem\n")
 PY
   fi

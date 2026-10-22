@@ -203,7 +203,7 @@ class LiveMac(unittest.TestCase):
     def test_the_answer_is_wrapped_as_untrusted_like_a_local_pull(self):
         """The Mac's output is the person's data from a third party — a
         reminder someone else wrote — and gets the same framing a pull run
-        here gets. A `create`'s answer is Moe's own sentence and does not."""
+        here gets. A `create`'s answer is Alfie's own sentence and does not."""
         with Enrolled(CATALOGUE) as m:
             with with_edge(FakeEdge(m.key)):
                 pull = m.call("reminders_pull")
@@ -226,7 +226,7 @@ class LiveMac(unittest.TestCase):
     def test_a_failure_on_the_mac_is_the_macs_own_sentence(self):
         def failing(payload):
             return {"state": "failed", "sealed": threadcrypto.seal(canonical_json(
-                intents.result_payload(error="needs-setup: allow Moe access to Reminders",
+                intents.result_payload(error="needs-setup: allow Alfie access to Reminders",
                                        callId=payload["call"]["id"])),
                 THREAD_KEY[0])}
         with Enrolled(CATALOGUE) as m:
@@ -340,7 +340,7 @@ class AbsentFirst(unittest.TestCase):
     def test_a_needs_setup_hand_is_the_absent_sentence_and_no_live_call(self):
         with Enrolled(CATALOGUE) as m:
             m.publish_capability({"reminders": {
-                "pull": "needs-setup", "why": "Moe has no access to Reminders on this Mac"}})
+                "pull": "needs-setup", "why": "Alfie has no access to Reminders on this Mac"}})
             edge = FakeEdge(m.key)
             with with_edge(edge):
                 answer = m.call("reminders_pull")

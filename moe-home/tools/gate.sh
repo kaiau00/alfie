@@ -121,7 +121,7 @@ print("gate.sh why <tool> · allow <tool> · ask <tool> · forget <tool> · trus
     [ -n "$ARG" ] || { echo "gate.sh why <tool>" >&2; exit 2; }
     LINE="$(inventory | awk -F'\t' -v t="$ARG" '$1 == t')"
     if [ -z "$LINE" ]; then
-      echo "$ARG: not a tool Moe knows of right now. If it is called, the gate asks"
+      echo "$ARG: not a tool Alfie knows of right now. If it is called, the gate asks"
       echo "(nothing has declared it), and the dialog offers to remember your answer."
       exit 0
     fi

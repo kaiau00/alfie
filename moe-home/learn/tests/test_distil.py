@@ -112,7 +112,7 @@ class ParseReplyTest(unittest.TestCase):
         benign = [
             ("preferences", "Prefers short replies in the evening"),
             ("people", "**Dani** — sister; talks daily, mostly logistics"),
-            ("people", "**Moe** — old roommate; sends memes"),
+            ("people", "**Alfie** — old roommate; sends memes"),
             ("threads", "Project Atlas: OAuth migration due 2026-09-12; decision on token storage pending"),
             ("voice", "Emails: short, no greeting, signs off 'cheers'; cc's his manager on client threads"),
             ("voice", "Texts: signs off 'see ya' or 'love you'; lots of emoji"),

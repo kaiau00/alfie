@@ -80,11 +80,11 @@ enum Onboarding {
     // MARK: - Words the tests hold
 
     /// "Say hello" (docs/DEFAULTS.md row 33): one plain line each, why.
-    static let accessibilityWhy = "So Moe can hear the talk key in any app and click for you when you ask."
-    static let screenRecordingWhy = "So Moe can see your screen when you ask about it."
+    static let accessibilityWhy = "So Alfie can hear the talk key in any app and click for you when you ask."
+    static let screenRecordingWhy = "So Alfie can see your screen when you ask about it."
     /// The last screen's two rows (rows 30 and 28).
-    static let launchAtLoginTitle = "Start Moe when my Mac starts"
-    static let problemReportsTitle = "Let Moe send problem reports"
+    static let launchAtLoginTitle = "Start Alfie when my Mac starts"
+    static let problemReportsTitle = "Let Alfie send problem reports"
 
     /// The screens, in order — named here rather than only inside the view
     /// so `Moe --onboarding-json` can prove every one has a way past it
@@ -115,14 +115,14 @@ enum Onboarding {
         /// One line, for the dump: what this screen is for.
         var purpose: String {
             switch self {
-            case .welcome:    return Features.dictation ? "What Moe does, all five of it." : "What Moe does, all four of it."
-            case .microphone: return "The microphone, and what Moe does with it."
-            case .brain:      return "Install the thinking part if it is missing, then choose whose account Moe borrows — a Claude or ChatGPT plan, recommended equally."
+            case .welcome:    return Features.dictation ? "What Alfie does, all five of it." : "What Alfie does, all four of it."
+            case .microphone: return "The microphone, and what Alfie does with it."
+            case .brain:      return "Install the thinking part if it is missing, then choose whose account Alfie borrows — a Claude or ChatGPT plan, recommended equally."
             case .tryIt:      return "Hold the key, say hello, hear an answer — and allow Accessibility and Screen Recording, both skippable."
             case .dictate:    return "Hold the other key and your words land in whatever app you are in."
-            case .meetings:   return "Moe takes the notes, and everyone can see it is recording."
-            case .learn:      return "What Moe may read to learn about you: the sources as switches, and the daily pass, recommended on."
-            case .connect:    return "The Mac's own apps first, then Google, then everything else — and whether Moe starts with your Mac and may send problem reports."
+            case .meetings:   return "Alfie takes the notes, and everyone can see it is recording."
+            case .learn:      return "What Alfie may read to learn about you: the sources as switches, and the daily pass, recommended on."
+            case .connect:    return "The Mac's own apps first, then Google, then everything else — and whether Alfie starts with your Mac and may send problem reports."
             }
         }
     }
@@ -182,7 +182,7 @@ final class OnboardingWindow: NSObject, NSWindowDelegate {
                                   relaunch: { [weak self] in self?.relaunch(resumingAt: $0) },
                                   pose: pose)
         let w = NSWindow(contentViewController: NSHostingController(rootView: view))
-        w.title = "Welcome to Memoe"
+        w.title = "Welcome to Alfie"
         w.styleMask = [.titled, .closable, .fullSizeContentView]
         w.titlebarAppearsTransparent = true
         w.titleVisibility = .hidden
@@ -461,7 +461,7 @@ struct OnboardingView: View {
 
     private var welcome: some View {
         VStack(alignment: .leading, spacing: Theme.Space.roomy) {
-            title("Hi, I'm Moe.")
+            title("Hi, I'm Alfie.")
             prose("I live in the little pill at the top of your screen. Here is what I can do.")
             VStack(alignment: .leading, spacing: Theme.Space.base) {
                 bullet("bubble.left.and.bubble.right", "Answer out loud.", "Hold a key, ask, let go.")
@@ -491,7 +491,7 @@ struct OnboardingView: View {
             if micDenied {
                 card {
                     PermissionExplainer(guide: .microphone,
-                                        lead: "You said no — that's fine, and Moe still works.",
+                                        lead: "You said no — that's fine, and Alfie still works.",
                                         showWhat: false)
                 }
                 primary("Next") { step = .brain }
@@ -527,7 +527,7 @@ struct OnboardingView: View {
     private var brain: some View {
         VStack(alignment: .leading, spacing: Theme.Space.roomy) {
             title("Give me something to think with")
-            prose("Moe costs you nothing and has no account of its own. Pick the one you already use — the account, and any bill, stay with them.")
+            prose("Alfie costs you nothing and has no account of its own. Pick the one you already use — the account, and any bill, stay with them.")
 
             // Before any of the four paths can work, the part that runs them
             // has to exist. On a Mac that only downloaded Moe it does not —
@@ -550,7 +550,7 @@ struct OnboardingView: View {
                 card {
                     VStack(alignment: .leading, spacing: Theme.Space.small) {
                         cardTitle("One thing first")
-                        cardText("The part of me that does the thinking isn't on this Mac yet. Moe can download it — about a gigabyte, once — and you don't have to do anything while it runs. Then you'll pick whose account I borrow.")
+                        cardText("The part of me that does the thinking isn't on this Mac yet. Alfie can download it — about a gigabyte, once — and you don't have to do anything while it runs. Then you'll pick whose account I borrow.")
                         if installing {
                             progressLine(installLine)
                         } else {
@@ -675,12 +675,12 @@ struct OnboardingView: View {
         installLine = "Starting…"
         if rehearsal {
             // The real thing prints these lines over about ninety seconds.
-            let script = ["› Setting up the part of Moe that thinks. This takes a minute or two.",
+            let script = ["› Setting up the part of Alfie that thinks. This takes a minute or two.",
                           "✓ uv 0.12.7 installed (sha256 verified)",
                           "✓ Python installed: Python 3.14",
                           "✓ hermes-agent cloned",
                           "✓ venv synced: 212 packages",
-                          "✓ Ready. Now choose how Moe should think."]
+                          "✓ Ready. Now choose how Alfie should think."]
             for (i, line) in script.enumerated() { later(Double(i) * 0.9) { installLine = line } }
             later(Double(script.count) * 0.9) { installing = false; bootstrapDone = true; installLine = "" }
             return
@@ -781,9 +781,9 @@ struct OnboardingView: View {
                         cardText(Onboarding.accessibilityWhy)
                         small("No rush — \(shortcut) and the button below work right now. Skip it and nothing breaks.")
                         if accessibilityAsked {
-                            cardText("Switched it on? Quit and reopen Moe so it takes effect.")
+                            cardText("Switched it on? Quit and reopen Alfie so it takes effect.")
                             HStack(spacing: Theme.Space.base) {
-                                PillButton(title: "Quit and reopen Moe") {
+                                PillButton(title: "Quit and reopen Alfie") {
                                     // In rehearsal the relaunch is the grant taking effect.
                                     // Back on this screen afterwards: the
                                     // grant is now in force and the key
@@ -801,7 +801,7 @@ struct OnboardingView: View {
                             // owner met exactly this on 2026-09-10 and had no
                             // way out but a terminal.
                             if !rehearsal, !snapshot, ax.staleSuspected {
-                                cardText("Already switched on, and still not working? macOS is remembering an older copy of Memoe. Reset clears it — then switch Memoe on once more.")
+                                cardText("Already switched on, and still not working? macOS is remembering an older copy of Alfie. Reset clears it — then switch Alfie on once more.")
                                 PaneButton(title: "Reset and ask again") { ax.fix() }
                             }
                         } else {
@@ -829,7 +829,7 @@ struct OnboardingView: View {
                         cardTitle("Screen Recording")
                         cardText(Onboarding.screenRecordingWhy)
                         if screenAsked {
-                            cardText("Switched it on? It takes effect the next time Moe opens. Rather not? Skip it — Moe asks again the first time you want it to look.")
+                            cardText("Switched it on? It takes effect the next time Alfie opens. Rather not? Skip it — Alfie asks again the first time you want it to look.")
                             PaneButton(title: "Open Screen Recording settings") {
                                 if !rehearsal { ScreenPermission.openSettings() }
                             }
@@ -1020,7 +1020,7 @@ struct OnboardingView: View {
             // people to Connections saying "messages", and the messaging apps
             // had moved to the screen below it — the only automatic way into
             // this part of the app, landing one row short of what it named.
-            prose("Mail, files, the apps you work in — one button each on the next screen. Beside it, Message Moe: set up Telegram or WhatsApp and you can text me from your phone. Nothing is connected until you say so, and before I send anything for you I show you the words and wait for a yes.")
+            prose("Mail, files, the apps you work in — one button each on the next screen. Beside it, Message Alfie: set up Telegram or WhatsApp and you can text me from your phone. Nothing is connected until you say so, and before I send anything for you I show you the words and wait for a yes.")
             // docs/DEFAULTS.md row 34 (slice 13): what to connect first, in
             // the order the Connections list now draws it
             // (ConnectionsCatalog.firstMac, then firstGoogle).

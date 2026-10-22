@@ -173,7 +173,7 @@ struct ReplyRoutingWiringTests {
         #expect(source.contains("selfOpened = false"), "foldByHand leaves selfOpened set.")
         // Folding is "I have read this", never "stop what you are doing".
         #expect(!source.contains("cancelEverything"),
-                "foldByHand cancels the turn; folding a panel must not stop Moe working.")
+                "foldByHand cancels the turn; folding a panel must not stop Alfie working.")
     }
 
     /// The owner, 2026-09-24: hovering the notch during a call showed the

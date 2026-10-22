@@ -20,7 +20,7 @@ ok()   { printf '✓ %s\n' "$*"; echo "OK  $*" >>"$LOG"; }
 fail() { printf '✗ %s\n' "$*"; echo "ERR $*" >>"$LOG"; exit 1; }
 
 if pgrep -f "$AGENT_DIR/.venv/bin/python" >/dev/null 2>&1; then
-  fail "a Hermes process from $AGENT_DIR is running (Moe's gateway?) — quit Moe first"
+  fail "a Hermes process from $AGENT_DIR is running (Alfie's gateway?) — quit Alfie first"
 fi
 
 if [ -d "$AGENT_DIR/.git" ]; then

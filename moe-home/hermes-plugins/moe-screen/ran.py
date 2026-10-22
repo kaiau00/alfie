@@ -139,7 +139,7 @@ MACHINE_COVERED = frozenset(("moe-proactive", "moe-situations", "moe-loop-check"
 
 def is_reported(job):
     """A job whose runs the edge must hear about: one that travels, or one of
-    Moe's own the machine covers."""
+    Alfie's own the machine covers."""
     return is_portable(job) or (isinstance(job, dict) and str(job.get("name") or "") in MACHINE_COVERED)
 
 

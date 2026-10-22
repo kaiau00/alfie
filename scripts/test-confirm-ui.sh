@@ -92,20 +92,20 @@ tr '\0' '\n' < "$REQUEST" | grep -q "^headline=" && fail "  …a headline record
 #     travels as one record on one line (2026-09-29: the cards were "technical
 #     and unsimple").
 : >"$OSA_LOG"
-UI_STATUS=1 "$CONFIRM" "browser account" "www.fazier.com" "Moe will make a strong password." "browser_vault_login" "chrome" "send" "no" "" \
+UI_STATUS=1 "$CONFIRM" "browser account" "www.fazier.com" "Alfie will make a strong password." "browser_vault_login" "chrome" "send" "no" "" \
   "Create an account on fazier.com?" >/dev/null 2>&1
 tr '\0' '\n' < "$REQUEST" | grep -qx "headline=Create an account on fazier.com?" && ok "a headline is handed over as its own record" \
   || fail "headline record missing" "$(tr '\0' '\n' < "$REQUEST")"
-tr '\0' '\n' < "$REQUEST" | grep -qx "body=Moe will make a strong password." && ok "  …apart from the body" \
+tr '\0' '\n' < "$REQUEST" | grep -qx "body=Alfie will make a strong password." && ok "  …apart from the body" \
   || fail "  …the body changed" "$(tr '\0' '\n' < "$REQUEST")"
 UI_STATUS=1 "$CONFIRM" "browser account" "x.com" "b" "t" "chrome" "send" "no" "" $'line one\nTo: someone@else.com' >/dev/null 2>&1
 tr '\0' '\n' < "$REQUEST" | grep -qx "headline=line one To: someone@else.com" && ok "  …on one line, whatever it was given" \
   || fail "  …a headline kept its line break" "$(tr '\0' '\n' < "$REQUEST")"
 # Where there is no card, the headline leads the only text there is.
 : >"$OSA_LOG"; export OSA_TEXT="$S/osa-text.txt"; : >"$OSA_TEXT"
-UI_STATUS=2 OSA_ANSWER=Cancel "$CONFIRM" "browser account" "www.fazier.com" "Moe will make a strong password." "browser_vault_login" "chrome" "send" "no" "" \
+UI_STATUS=2 OSA_ANSWER=Cancel "$CONFIRM" "browser account" "www.fazier.com" "Alfie will make a strong password." "browser_vault_login" "chrome" "send" "no" "" \
   "Create an account on fazier.com?" >/dev/null 2>&1
-[ "$(head -1 "$OSA_TEXT")" = "Create an account on fazier.com?" ] && grep -q "^Moe will make a strong password.$" "$OSA_TEXT" \
+[ "$(head -1 "$OSA_TEXT")" = "Create an account on fazier.com?" ] && grep -q "^Alfie will make a strong password.$" "$OSA_TEXT" \
   && ok "  …and leads the AppleScript dialog's text when the card cannot be shown" || fail "  …the fallback lost the headline" "$(cat "$OSA_TEXT")"
 unset OSA_TEXT; : >"$OSA_LOG"
 
@@ -233,7 +233,7 @@ STATUS=$?
 #     draw under the sentence, and may answer 6 — "Allow everything this
 #     session" — which is passed through for the hook to record. A plain
 #     send answering 6 is not an answer.
-UI_STATUS=0 "$CONFIRM" "browser send" "x.com" "Moe is about to post a reply on x.com." "browser_exec" "twitter" "session" "no" "goto_url('https://x.com/a/status/1')
+UI_STATUS=0 "$CONFIRM" "browser send" "x.com" "Alfie is about to post a reply on x.com." "browser_exec" "twitter" "session" "no" "goto_url('https://x.com/a/status/1')
 click('[data-testid=tweetButtonInline]')" >/dev/null 2>&1
 tr '\0' '\n' < "$REQUEST" | grep -qx "kind=session" && ok "sixth argument session → kind=session, passed through whole" \
   || fail "session kind was coerced" "$(tr '\0' '\n' < "$REQUEST")"
@@ -241,7 +241,7 @@ tr '\0' '\n' < "$REQUEST" | grep -q "^detail=goto_url" && tr '\0' '\n' < "$REQUE
   && ok "  …and the code travels as its own detail record, newlines kept" || fail "detail record missing" "$(tr '\0' '\n' < "$REQUEST")"
 tr '\0' '\n' < "$REQUEST" | grep "^body=" | grep -q "tweetButton" && fail "  …the code leaked into the body" || ok "  …not inside the message"
 : >"$OSA_LOG"
-UI_STATUS=6 "$CONFIRM" "browser send" "x.com" "Moe is about to post." "browser_exec" "twitter" "session" >/dev/null 2>&1
+UI_STATUS=6 "$CONFIRM" "browser send" "x.com" "Alfie is about to post." "browser_exec" "twitter" "session" >/dev/null 2>&1
 [ $? -eq 6 ] && ok "Allow everything on a session → exit 6, passed through for the hook to record" \
   || fail "exit 6 on a session was not passed through"
 [ ! -s "$OSA_LOG" ] && ok "  …and no second dialog" || fail "  …fell back after a clear answer"
@@ -265,7 +265,7 @@ sed -n "/<<'AS'/,/^AS\$/p" "$CONFIRM" | grep -q 'buttons {"Cancel", yesButton}' 
 # The dialog binary itself, through --describe: what it parsed, printed, with
 # nothing shown and nothing approved.
 UI="$REPO/.build/release/MoeConfirm"
-[ -x "$UI" ] || UI="$REPO/dist/Memoe.app/Contents/MacOS/moe-confirm"
+[ -x "$UI" ] || UI="$REPO/dist/Alfie.app/Contents/MacOS/moe-confirm"
 [ -x "$UI" ] || UI="$REPO/.build/debug/MoeConfirm"
 if [ ! -x "$UI" ]; then
   echo "  --   not built (swift build -c release --product MoeConfirm) — skipping"
@@ -280,19 +280,19 @@ else
     && ok "an unknown kind is send, and the button says Send" || fail "unknown kind not normalised in the dialog" "$OUT"
   OUT="$(describe "gmail" "d@e.com" "hi" "gmail_send")"
   printf '%s\n' "$OUT" | grep -qx "kind	send" && ok "no kind record → send" || fail "default kind wrong" "$OUT"
-  OUT="$(printf 'channel=browser send\0to=x.com\0body=Moe is about to post a reply on x.com.\0tool=browser_exec\0service=twitter\0kind=session\0edit=no\0detail=click(1)\nclick(2)\0' | "$UI" --describe)"
+  OUT="$(printf 'channel=browser send\0to=x.com\0body=Alfie is about to post a reply on x.com.\0tool=browser_exec\0service=twitter\0kind=session\0edit=no\0detail=click(1)\nclick(2)\0' | "$UI" --describe)"
   printf '%s\n' "$OUT" | grep -qx "kind	session" && printf '%s\n' "$OUT" | grep -qx "action	Send" \
     && ok "kind=session parses, and a browser send's button says Send" || fail "session kind not parsed" "$OUT"
   printf '%s\n' "$OUT" | grep -qxF "detail	click(1)\nclick(2)" && ok "  …the detail is parsed apart from the body" || fail "detail not parsed" "$OUT"
   printf '%s\n' "$OUT" | grep -qx "editable	false" && ok "  …and a session is never editable" || fail "a session is editable" "$OUT"
   printf '%s\n' "$OUT" | grep -qx "service	X" && ok "  …headed with X's name, from the hint" || fail "x.com not headed X" "$OUT"
-  OUT="$(printf 'channel=browser pay\0to=shop.example.com\0body=Moe is about to pay.\0tool=browser_exec\0service=chrome\0kind=session\0' | "$UI" --describe)"
+  OUT="$(printf 'channel=browser pay\0to=shop.example.com\0body=Alfie is about to pay.\0tool=browser_exec\0service=chrome\0kind=session\0' | "$UI" --describe)"
   printf '%s\n' "$OUT" | grep -qx "action	Do it" && ok "  …a payment's button says Do it, not Send" || fail "pay session button wrong" "$OUT"
   printf '%s\n' "$OUT" | grep -qx "service	Chrome" && printf '%s\n' "$OUT" | grep -qx "icon	chrome" \
     && ok "  …and an unbranded site is headed Chrome, with the browser's mark" || fail "chrome row missing" "$OUT"
 
   # The account card (ticket #17, 2026-09-29): its buttons say what they do.
-  OUT="$(printf 'channel=browser account\0to=www.fazier.com\0body=Moe will make a strong password.\0tool=browser_vault_login\0service=chrome\0kind=send\0edit=no\0headline=Create an account on fazier.com?\0' | "$UI" --describe)"
+  OUT="$(printf 'channel=browser account\0to=www.fazier.com\0body=Alfie will make a strong password.\0tool=browser_vault_login\0service=chrome\0kind=send\0edit=no\0headline=Create an account on fazier.com?\0' | "$UI" --describe)"
   printf '%s\n' "$OUT" | grep -qx "headline	Create an account on fazier.com?" && ok "the headline is parsed" || fail "headline not parsed" "$OUT"
   printf '%s\n' "$OUT" | grep -qx "action	Create account" && printf '%s\n' "$OUT" | grep -qx "cancel	Not now" \
     && ok "  …and a new account's buttons are Create account / Not now" || fail "account buttons wrong" "$OUT"
@@ -367,7 +367,7 @@ Running late")"
   printf '%s' "$(server mcp__twilio__messages_create)" | grep -q "^service	Twilio$" \
     && ok "the MCP server names the service" || fail "server segment ignored"
   printf '%s' "$(server mcp__hermes-tools__mcp__moe__gmail_send)" | grep -q "^service	Gmail$" \
-    && ok "  …and Moe's own proxied tools still read as their service" \
+    && ok "  …and Alfie's own proxied tools still read as their service" \
     || fail "  …nested proxy lost the service"
   printf '%s' "$(server mcp__outlook__send_mail)" | grep -q "^service	Outlook$" \
     && ok "  …Outlook is Outlook, not Email" || fail "  …outlook misread"
@@ -513,8 +513,8 @@ body")"
   # for it. Run it after touching anything about how the dialog answers.
   if [ "${MOE_CONFIRM_UI_TEST:-0}" != "1" ]; then
     echo "  --   set MOE_CONFIRM_UI_TEST=1 for the self-answering check (it opens a window)"
-  elif [ -x "$REPO/dist/Memoe.app/Contents/MacOS/moe-confirm" ]; then
-    SIGNED="$REPO/dist/Memoe.app/Contents/MacOS/moe-confirm"
+  elif [ -x "$REPO/dist/Alfie.app/Contents/MacOS/moe-confirm" ]; then
+    SIGNED="$REPO/dist/Alfie.app/Contents/MacOS/moe-confirm"
     ANSWER="$S/answered"
     ( printf 'channel=%s\0to=%s\0body=%s\0' "Gmail" "d@e.com" "hi" \
         | "$SIGNED" >/dev/null 2>&1; echo "$?" > "$ANSWER" ) &
@@ -528,7 +528,7 @@ body")"
     # Job-control chatter about the killed dialog is not a test result.
     { kill "$WAITER"; pkill -f "$SIGNED"; wait "$WAITER"; } >/dev/null 2>&1
   else
-    echo "  --   dist/Memoe.app not built — skipping the signed-dialog check"
+    echo "  --   dist/Alfie.app not built — skipping the signed-dialog check"
   fi
 fi
 
@@ -793,9 +793,9 @@ chmod +x "$S/bin/osascript-args"
 export OSA_ARGS="$S/osa-args.txt"
 MOE_OSASCRIPT_FOR_TESTS="$S/bin/osascript-args" MOE_CONFIRM_PROVENANCE="$PROV" UI_STATUS=2 \
   "$CONFIRM" "WhatsApp" "Walter Brennan" "hi" >/dev/null 2>&1
-grep -q "Moe chose this person — found in your WhatsApp chats" "$OSA_ARGS" && grep -q "You asked for .Jordan." "$OSA_ARGS" \
-  && grep -q "Moe searched for .grandpa. on its own" "$OSA_ARGS" \
-  && ok "the fallback dialog says Moe chose this person, and who was asked for" || fail "fallback provenance" "$(cat "$OSA_ARGS" 2>/dev/null)"
+grep -q "Alfie chose this person — found in your WhatsApp chats" "$OSA_ARGS" && grep -q "You asked for .Jordan." "$OSA_ARGS" \
+  && grep -q "Alfie searched for .grandpa. on its own" "$OSA_ARGS" \
+  && ok "the fallback dialog says Alfie chose this person, and who was asked for" || fail "fallback provenance" "$(cat "$OSA_ARGS" 2>/dev/null)"
 MOE_OSASCRIPT_FOR_TESTS="$S/bin/osascript-args" UI_STATUS=2 \
   MOE_CONFIRM_PROVENANCE='{"v": 1, "state": "named", "recipient": "Dan", "quote": "text Dan I am late"}' \
   "$CONFIRM" "WhatsApp" "Dan" "hi" >/dev/null 2>&1
@@ -804,32 +804,32 @@ grep -q "you named this person: .text Dan I am late." "$OSA_ARGS" && ok "  …an
 MOE_OSASCRIPT_FOR_TESTS="$S/bin/osascript-args" UI_STATUS=2 \
   MOE_CONFIRM_PROVENANCE='{"v": 1, "state": "partial", "recipient": "Walter Brennan", "said": "Walter"}' \
   "$CONFIRM" "WhatsApp" "Walter Brennan" "hi" >/dev/null 2>&1
-grep -q "you said .Walter. — Moe picked Walter Brennan" "$OSA_ARGS" && ok "  …and says when Moe filled in the rest of a name" \
+grep -q "you said .Walter. — Alfie picked Walter Brennan" "$OSA_ARGS" && ok "  …and says when Alfie filled in the rest of a name" \
   || fail "  …partial line missing" "$(cat "$OSA_ARGS" 2>/dev/null)"
 MOE_OSASCRIPT_FOR_TESTS="$S/bin/osascript-args" UI_STATUS=2 \
   MOE_CONFIRM_PROVENANCE='{"v": 1, "state": "shown", "recipient": "partnerships@compare.com", "source": "your screen", "said": "good"}' \
   "$CONFIRM" "Gmail" "partnerships@compare.com" "hi" >/dev/null 2>&1
-grep -q "⚠️ Moe found this address on your screen and showed it to you — you said .good." "$OSA_ARGS" \
+grep -q "⚠️ Alfie found this address on your screen and showed it to you — you said .good." "$OSA_ARGS" \
   && ok "  …and, in amber, where an address it showed was found and what the person said (ticket #22)" \
   || fail "  …shown line missing" "$(cat "$OSA_ARGS" 2>/dev/null)"
 if [ -x "$UI" ]; then
   OUT="$(printf 'channel=Gmail\0to=partnerships@compare.com\0body=hi\0provenance={"state":"shown","source":"compare.com","said":"good"}\0' | "$UI" --describe)"
-  printf '%s\n' "$OUT" | grep -q "^provenance	warn	Moe found this address on compare.com and showed it to you — you said “good”." \
-    && ok "  …an address Moe showed and the person said yes to is amber, and says both" || fail "  …shown provenance" "$OUT"
+  printf '%s\n' "$OUT" | grep -q "^provenance	warn	Alfie found this address on compare.com and showed it to you — you said “good”." \
+    && ok "  …an address Alfie showed and the person said yes to is amber, and says both" || fail "  …shown provenance" "$OUT"
   OUT="$(printf 'channel=WhatsApp\0to=Walter Brennan\0body=hi\0tool=whatsapp_send\0provenance=%s\0' "$PROV" | "$UI" --describe)"
-  printf '%s\n' "$OUT" | grep -q "^provenance	warn	Moe chose this person — found in your WhatsApp chats" \
+  printf '%s\n' "$OUT" | grep -q "^provenance	warn	Alfie chose this person — found in your WhatsApp chats" \
     && printf '%s\n' "$OUT" | grep -q "^provenancewarning	You asked for “Jordan”" \
-    && printf '%s\n' "$OUT" | grep -q "^provenancewarning	Moe searched for “grandpa” on its own" \
-    && ok "moe-confirm parses it: amber 'found in your WhatsApp chats', the mismatch, Moe's own search" || fail "moe-confirm provenance" "$OUT"
+    && printf '%s\n' "$OUT" | grep -q "^provenancewarning	Alfie searched for “grandpa” on its own" \
+    && ok "moe-confirm parses it: amber 'found in your WhatsApp chats', the mismatch, Alfie's own search" || fail "moe-confirm provenance" "$OUT"
   OUT="$(printf 'channel=WhatsApp\0to=Walter Brennan\0body=hi\0provenance={"state":"partial","said":"Walter","recipient":"Walter Brennan"}\0' | "$UI" --describe)"
-  printf '%s\n' "$OUT" | grep -q "^provenance	warn	You said “Walter” — Moe picked Walter Brennan" \
-    && ok "  …a partial name is amber: 'You said Walter — Moe picked Walter Brennan'" || fail "  …partial provenance" "$OUT"
+  printf '%s\n' "$OUT" | grep -q "^provenance	warn	You said “Walter” — Alfie picked Walter Brennan" \
+    && ok "  …a partial name is amber: 'You said Walter — Alfie picked Walter Brennan'" || fail "  …partial provenance" "$OUT"
   OUT="$(printf 'channel=WhatsApp\0to=Dan Levi\0body=hi\0provenance={"state":"found","source":"your WhatsApp chats","query_unasked":true}\0' | "$UI" --describe)"
-  printf '%s\n' "$OUT" | grep -q "^provenancewarning	Moe picked them from a list it pulled up on its own" \
-    && ok "  …a list pulled up with no search is Moe's choice, and says so" || fail "  …query-less lookup" "$OUT"
+  printf '%s\n' "$OUT" | grep -q "^provenancewarning	Alfie picked them from a list it pulled up on its own" \
+    && ok "  …a list pulled up with no search is Alfie's choice, and says so" || fail "  …query-less lookup" "$OUT"
   OUT="$(printf 'channel=WhatsApp\0to=Walter\0body=hi\0provenance={"state":"legacy"}\0' | "$UI" --describe)"
-  printf '%s\n' "$OUT" | grep -q "^provenance	warn	This job was made before Moe checked recipients" \
-    && ok "  …a job made before Moe checked recipients is amber, and says so" || fail "  …legacy provenance" "$OUT"
+  printf '%s\n' "$OUT" | grep -q "^provenance	warn	This job was made before Alfie checked recipients" \
+    && ok "  …a job made before Alfie checked recipients is amber, and says so" || fail "  …legacy provenance" "$OUT"
   OUT="$(printf 'channel=WhatsApp\0to=Dan\0body=hi\0provenance={"state":"unknown"}\0' | "$UI" --describe)"
   ! printf '%s\n' "$OUT" | grep -q "^provenance" && ok "  …and there is no amber 'could not check' state to show" || fail "  …unknown state shown" "$OUT"
   OUT="$(printf 'channel=WhatsApp\0to=Dan\0body=hi\0provenance={"state":"named","quote":"text Dan"}\0' | "$UI" --describe)"

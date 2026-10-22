@@ -124,7 +124,7 @@ enum Payload {
             // A lock older than ten minutes is a crashed run, not a live one.
             let age = (try? FileManager.default.attributesOfItem(atPath: lock.path)[.modificationDate] as? Date)
                 .flatMap { $0 }.map { Date().timeIntervalSince($0) } ?? 0
-            if age < 600 { return "payload: another copy of Memoe is installing it" }
+            if age < 600 { return "payload: another copy of Alfie is installing it" }
             try? FileManager.default.removeItem(at: lock)
             return "payload: cleared a stale lock; the next launch installs it"
         }
@@ -145,7 +145,7 @@ enum Payload {
         try? want.write(to: stamp, atomically: true, encoding: .utf8)
 
         if !failed.isEmpty {
-            return "payload \(want): copied \(copied), could not write \(failed.count): \(failed.prefix(3).joined(separator: ", ")) — `Moe --install-payload` retries"
+            return "payload \(want): copied \(copied), could not write \(failed.count): \(failed.prefix(3).joined(separator: ", ")) — `Alfie --install-payload` retries"
         }
         return have == nil
             ? "payload \(want) installed (\(copied) files)"
@@ -189,7 +189,7 @@ enum Payload {
         // fixing them. So they are not written at all; the next launch from
         // /Applications writes them properly.
         if exe.hasPrefix("/Volumes/") || exe.contains("/AppTranslocation/") {
-            return "background jobs: not yet — Moe is running from \(exe.hasPrefix("/Volumes/") ? "the disk image" : "a temporary copy")"
+            return "background jobs: not yet — Alfie is running from \(exe.hasPrefix("/Volumes/") ? "the disk image" : "a temporary copy")"
         }
 
         // A third path that must never be written, and it is worse than the
@@ -214,7 +214,7 @@ enum Payload {
         // installed.
         if Bundle.main.bundleIdentifier == nil {
             return "background jobs: not written — this build has no bundle "
-                 + "identifier, so it would claim the installed Moe's launchd job"
+                 + "identifier, so it would claim the installed Alfie's launchd job"
         }
 
         // The marker records which executable the jobs point at, so an app

@@ -42,7 +42,7 @@ struct SecretPromptTests {
     /// Hermes's passcode mode (2026-09-29) asks as kind "code" with this exact
     /// message; a passcode the person knows is not a code the site sent.
     @Test func aPasscodeIsNotCalledASignInCode() throws {
-        let r = try request(#"{"kind":"code","origin":"https://x.com","label":"x.com","message":"Enter your passcode for x.com (4 digits). Moe types it into the page without seeing it.","fields":["code"]}"#)
+        let r = try request(#"{"kind":"code","origin":"https://x.com","label":"x.com","message":"Enter your passcode for x.com (4 digits). Alfie types it into the page without seeing it.","fields":["code"]}"#)
         #expect(r.headline == "Your passcode for x.com")
         #expect(r.explanation.contains("passcode or PIN you use on x.com"))
         #expect(!r.explanation.contains("sent you"))
@@ -186,7 +186,7 @@ struct SecretPromptTests {
         try StallGuardConductorTests.requireScratchHome()
         let fm = FileManager.default
         let root = fm.temporaryDirectory.appendingPathComponent("secret-\(UUID().uuidString)")
-        let macos = root.appendingPathComponent("Memoe Dev.app/Contents/MacOS", isDirectory: true)
+        let macos = root.appendingPathComponent("Alfie Dev.app/Contents/MacOS", isDirectory: true)
         try fm.createDirectory(at: macos, withIntermediateDirectories: true)
         defer { try? fm.removeItem(at: root) }
         let link = macos.appendingPathComponent("moe-secret")
@@ -195,7 +195,7 @@ struct SecretPromptTests {
 
         let env = HermesSupervisor.childEnvironment(token: "", executableDirectory: macos)
         #expect(env["HERMES_SECRET_PROMPT_CMD"] == link.path)
-        #expect(env["HERMES_SECRET_PROMPT_CMD"]?.contains("Memoe Dev.app/") == true)
+        #expect(env["HERMES_SECRET_PROMPT_CMD"]?.contains("Alfie Dev.app/") == true)
         #expect(env["HERMES_SECRET_PROMPT_CMD"]?.hasPrefix("\"") == false, "a path, not a quoted shell word")
 
         // Inherited, with no window in the app: removed, not passed on.

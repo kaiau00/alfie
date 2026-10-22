@@ -177,10 +177,10 @@ struct ConfirmSheet: View {
                         // drew a two-line heading four times the size of the
                         // real recipient, claiming a different one.
                         .lineLimit(2)
-                    Text(request.kind == "act" ? "Moe wants to run this. Read it first."
-                         : request.kind == "session" ? "Moe wants to do this\(request.displayedTo.isEmpty ? "" : " on " + request.displayedTo). Read it first."
-                         : request.editable ? "Moe wants to send this. Read it first — you can change the words before it goes."
-                         : "Moe wants to send this. Read it first.")
+                    Text(request.kind == "act" ? "Alfie wants to run this. Read it first."
+                         : request.kind == "session" ? "Alfie wants to do this\(request.displayedTo.isEmpty ? "" : " on " + request.displayedTo). Read it first."
+                         : request.editable ? "Alfie wants to send this. Read it first — you can change the words before it goes."
+                         : "Alfie wants to send this. Read it first.")
                         .font(Theme.Typo.ui(12))
                         .foregroundStyle(Theme.ink3)
                         .fixedSize(horizontal: false, vertical: true)
@@ -277,7 +277,7 @@ struct ConfirmSheet: View {
                     .fixedSize(horizontal: false, vertical: true)
                     .frame(maxWidth: .infinity, alignment: .leading)
             } else {
-                field(request.kind == "session" ? "What Moe is about to do" : "Message",
+                field(request.kind == "session" ? "What Alfie is about to do" : "Message",
                       message.isEmpty ? "(empty message)" : message, prose: true)
             }
             if !request.detail.isEmpty {

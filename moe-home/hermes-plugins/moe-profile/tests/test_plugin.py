@@ -94,7 +94,7 @@ class PluginTest(unittest.TestCase):
         self.write("identity", ["- Lives in a small town [fixture, 2026-04-01, med]"])
         self.write("threads", ["- Office lease renewal [fixture, 2026-07-15, high]"])
         text = self.section()
-        self.assertTrue(text.startswith("# What Moe knows about the user"))
+        self.assertTrue(text.startswith("# What Alfie knows about the user"))
         self.assertLess(text.index("## Identity"), text.index("## Threads"))
         self.assertLess(text.index("## Threads"), text.index("## People"))
         self.assertIn("- Lives in a small town (fixture 2026-04)", text)

@@ -57,8 +57,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         // line that reads like routine housekeeping.
         if !InstanceLock.acquire(waiting: 3), !InstanceLock.evictLesserHolder() {
             let who = InstanceLock.holderDescription
-            Log.write("another Moe is already running: \(who); this one is quitting")
-            FileHandle.standardError.write(Data("Moe is already running: \(who)\n".utf8))
+            Log.write("another Alfie is already running: \(who); this one is quitting")
+            FileHandle.standardError.write(Data("Alfie is already running: \(who)\n".utf8))
             if let pid = InstanceLock.holder {
                 NSRunningApplication(processIdentifier: pid)?.activate()
             }
@@ -187,7 +187,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         // whoever owns the checkout.
         HermesUpgrade.checkAtLaunch(
             gatewayUp: { [weak self] done in
-                guard let self else { done(false, "Moe is gone"); return }
+                guard let self else { done(false, "Alfie is gone"); return }
                 self.conductor.whenOwnGatewayUp(done)
             },
             reload: { [weak self] reason in self?.conductor.reloadGateway(reason: reason) })
@@ -384,7 +384,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         }
         let hosting = NSHostingController(rootView: MainWindow(conductor: conductor))
         let w = NSWindow(contentViewController: hosting)
-        w.title = "Moe"
+        w.title = "Alfie"
         w.setContentSize(NSSize(width: 900, height: 600))
         w.styleMask = [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView]
         // No titlebar of its own: the sidebar runs the full height of the
@@ -407,7 +407,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
         let appItem = NSMenuItem()
         let appMenu = NSMenu()
-        appMenu.addItem(withTitle: "About Memoe", action: #selector(about), keyEquivalent: "").target = self
+        appMenu.addItem(withTitle: "About Alfie", action: #selector(about), keyEquivalent: "").target = self
         appMenu.addItem(.separator())
         appMenu.addItem(withTitle: "Settings…", action: #selector(openSettings), keyEquivalent: ",").target = self
         // Only on a build that was released with an appcast: an item that can
@@ -415,15 +415,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         // it from here on.
         if let updates = Updates.menuItem() { appMenu.addItem(updates) }
         appMenu.addItem(.separator())
-        appMenu.addItem(withTitle: "Hide Memoe", action: #selector(NSApplication.hide(_:)), keyEquivalent: "h")
-        appMenu.addItem(withTitle: "Quit Memoe", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
+        appMenu.addItem(withTitle: "Hide Alfie", action: #selector(NSApplication.hide(_:)), keyEquivalent: "h")
+        appMenu.addItem(withTitle: "Quit Alfie", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
         appItem.submenu = appMenu
         main.addItem(appItem)
 
         let moeItem = NSMenuItem()
-        let moeMenu = NSMenu(title: "Moe")
+        let moeMenu = NSMenu(title: "Alfie")
         let shortcut = HotKey.describe(keyCode: config.hotKeyCode, modifiers: config.hotKeyModifiers)
-        moeMenu.addItem(withTitle: "Talk to Moe  (\(shortcut))",
+        moeMenu.addItem(withTitle: "Talk to Alfie  (\(shortcut))",
                         action: #selector(talk), keyEquivalent: "").target = self
         moeMenu.addItem(withTitle: "New Conversation", action: #selector(newConversation), keyEquivalent: "n").target = self
         moeMenu.addItem(.separator())
@@ -476,13 +476,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     private func buildStatusItem(config: Config) {
         let item = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         item.button?.image = NSImage(systemSymbolName: "waveform.circle",
-                                     accessibilityDescription: "Moe")
+                                     accessibilityDescription: "Alfie")
         item.button?.image?.isTemplate = true
 
         let menu = NSMenu()
         let shortcut = HotKey.describe(keyCode: config.hotKeyCode, modifiers: config.hotKeyModifiers)
-        menu.addItem(withTitle: "Talk to Moe  (\(shortcut))", action: #selector(talk), keyEquivalent: "").target = self
-        menu.addItem(withTitle: "Open Memoe", action: #selector(showWindowAction), keyEquivalent: "").target = self
+        menu.addItem(withTitle: "Talk to Alfie  (\(shortcut))", action: #selector(talk), keyEquivalent: "").target = self
+        menu.addItem(withTitle: "Open Alfie", action: #selector(showWindowAction), keyEquivalent: "").target = self
         menu.addItem(signInMenuItem())
         menu.addItem(.separator())
         let meetingItem = NSMenuItem(title: "Start meeting", action: #selector(toggleMeeting), keyEquivalent: "")
@@ -497,7 +497,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         for item in captureMenuItems() { menu.addItem(item) }
         menu.addItem(.separator())
 
-        let listening = NSMenuItem(title: "Always Listening  (\u{201C}Hey Moe\u{201D})",
+        let listening = NSMenuItem(title: "Always Listening  (\u{201C}Hey Alfie\u{201D})",
                                    action: #selector(toggleAlwaysListening), keyEquivalent: "")
         listening.target = self
         listening.state = conductor.alwaysListening ? .on : .off
@@ -506,7 +506,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
         menu.addItem(withTitle: "Hide Island", action: #selector(hideIsland), keyEquivalent: "").target = self
         menu.addItem(.separator())
-        menu.addItem(withTitle: "Quit Memoe", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
+        menu.addItem(withTitle: "Quit Alfie", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
         item.menu = menu
         statusItem = item
     }
@@ -684,7 +684,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
                 let recording = state.isRecording
                 self.statusItem?.button?.image = NSImage(
                     systemSymbolName: recording ? "record.circle.fill" : "waveform.circle",
-                    accessibilityDescription: recording ? "Moe is recording a meeting" : "Moe")
+                    accessibilityDescription: recording ? "Alfie is recording a meeting" : "Alfie")
                 self.statusItem?.button?.image?.isTemplate = !recording
                 self.statusItem?.button?.contentTintColor = recording ? .systemRed : nil
                 // The notes open on the island itself — summary, action
@@ -720,10 +720,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             let alert = NSAlert()
             alert.messageText = "Record this meeting?"
             alert.informativeText = """
-            Moe will listen to your microphone and this call's audio, and write notes when it ends. \
+            Alfie will listen to your microphone and this call's audio, and write notes when it ends. \
             Everything stays on this Mac.
 
-            Moe can't tell the other people on this call that it's listening — please do that yourself.
+            Alfie can't tell the other people on this call that it's listening — please do that yourself.
             """
             alert.addButton(withTitle: "Start")
             alert.addButton(withTitle: "Not now")
@@ -738,7 +738,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         showWindow()
         NSApp.activate(ignoringOtherApps: true)
         Notice.show(over: window,
-                    title: permission ? "Moe can't hear the call" : "Meeting",
+                    title: permission ? "Alfie can't hear the call" : "Meeting",
                     body: message,
                     confirm: permission ? "Open System Settings" : nil) { confirmed in
             if confirmed { MeetingSession.openAudioCaptureSettings() }
@@ -749,7 +749,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         showWindow()
         NSApp.activate(ignoringOtherApps: true)
         Notice.show(over: window,
-                    title: permission ? "Moe can't see the screen" : "Meeting capture",
+                    title: permission ? "Alfie can't see the screen" : "Meeting capture",
                     body: message,
                     confirm: permission ? "Open System Settings" : nil) { confirmed in
             if confirmed { ScreenPermission.openSettings() }
@@ -853,7 +853,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         let g = PermissionGuide.accessibility
         showWindow()
         Notice.show(over: window,
-                    title: "Let Moe notice the talk key",
+                    title: "Let Alfie notice the talk key",
                     body: "\(g.what)\n\n\(g.ifDeclined)",
                     detail: g.steps,
                     confirm: "Open Accessibility settings") { confirmed in
@@ -865,16 +865,19 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
     @objc private func about() {
         let alert = NSAlert()
-        alert.messageText = "Memoe"
+        alert.messageText = "Alfie"
         alert.informativeText = """
         A personal assistant that runs on this Mac.
 
         Speech in and out is on-device (Parakeet and Kokoro on the Neural Engine). \
         Thinking runs through Hermes Agent on this Mac, which drives Claude Code \
-        on your Claude subscription. Your memory lives in ~/.moe and ~/.hermes as \
-        plain markdown you can read and edit.
+        on your Claude subscription. Your memory lives in \(Config.homeDir.path) and \
+        ~/.hermes as plain markdown you can read and edit.
 
         Press \(HotKey.describe(keyCode: conductor.config.hotKeyCode, modifiers: conductor.config.hotKeyModifiers)) to talk. ⌘Q to quit.
+
+        Alfie is a fork of Memoe (github.com/memoe-app/memoe) and is not \
+        affiliated with or endorsed by Memoe.
         """
         alert.runModal()
     }

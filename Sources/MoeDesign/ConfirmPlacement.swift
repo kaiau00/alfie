@@ -72,7 +72,7 @@ public enum ConfirmPlacement {
         CGRect(x: rect.minX, y: primaryHeight - rect.maxY, width: rect.width, height: rect.height)
     }
 
-    /// Memoe's own windows are the ones to keep clear of: the app (either
-    /// name it has shipped under) and its workbench build.
-    public static let appNames: Set<String> = ["Memoe", "Memoe Dev", "Moe", "Moe Dev"]
+    /// Alfie's own windows are the ones to keep clear of: the app
+    /// and its workbench build.
+    public static let appNames: Set<String> = ["Alfie", "Alfie Dev"]
 }

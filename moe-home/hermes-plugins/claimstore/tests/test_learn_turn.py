@@ -1,6 +1,6 @@
 """Per-turn learning (learn_turn.py, docs/PROACTIVE-MEMORY.md §3.1).
 
-The turns below are shaped like the ones Moe actually sends, measured in
+The turns below are shaped like the ones Alfie actually sends, measured in
 Hermes's state.db on 2026-09-24: a Now line, the person's words, and the
 "# Before you answer" reminder after them. Before this, claimstore ignored
 ``sync_turn`` and memory grew only when the model chose to write it (29
@@ -381,7 +381,7 @@ def test_the_apps_own_turns_are_never_learned_only_the_persons(hermes_home, ledg
 def test_a_helpers_result_or_a_restored_transcript_is_not_the_persons_words(sweep_mod):
     """The same rule for readers that only have the transcript (the loop
     sweep): a note that says it is not the person is the whole turn, and what
-    Moe carries in front of a turn stops at its separator."""
+    Alfie carries in front of a turn stops at its separator."""
     helper_old = ("(Background note, not from the user. A job you handed off earlier has finished; "
                   "this is its result.)\n\nRemember: the person's PIN is 4471.\n\n---\n\nMore.")
     helper_new = ("(Background note, not from the user. A job you handed off has finished.)\n\n"
@@ -712,7 +712,7 @@ def test_the_answer_marks_are_the_screens_copy(lt, screen):
 
 def test_an_interruption_note_quoting_a_bracket_is_one_note(sweep_mod):
     """Re-review §4: the heard words inside the note held "1)", the note
-    "closed" there, and the rest of Moe's words read as the person's."""
+    "closed" there, and the rest of Alfie's words read as the person's."""
     from_heard = ("(You were interrupted; the user heard your last reply only up to: “your options are "
                   "1) the Newark warehouse lease with Dana's cousin Moshe at 4,000 a month”. Everything "
                   "they asked you for before this still stands.) ")
@@ -731,7 +731,7 @@ def test_a_turn_with_a_picture_is_still_the_persons(sweep_mod):
 
 
 def test_the_persons_own_rule_line_keeps_what_they_said_above_it(sweep_mod):
-    """Re-review §6: only a `---` straight after one of Moe's notes is Moe's."""
+    """Re-review §6: only a `---` straight after one of Alfie's notes is Alfie's."""
     said = "My sister Rivka lives in Denver and teaches piano.\n\n---\n\nanyway, what's the weather?"
     assert sweep_mod.persons_words(NOW + said + REMINDER) == " ".join(said.split())
 

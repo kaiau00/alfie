@@ -59,18 +59,18 @@ enum ChromeExtension {
     static let rowID = "\u{1}chrome-extension"
 
     enum Copy {
-        static let title = "Moe in your Chrome"
-        static let whatItDoes = "Moe works in its own tab group in your Chrome, only on turns you start; Chrome shows a bar while it does."
-        static let why = "Some sites block Moe's own browser. With this on, Moe can do those in your Chrome instead — in a tab group called Moe, never in your tabs, and without taking your focus."
+        static let title = "Alfie in your Chrome"
+        static let whatItDoes = "Alfie works in its own tab group in your Chrome, only on turns you start; Chrome shows a bar while it does."
+        static let why = "Some sites block Alfie's own browser. With this on, Alfie can do those in your Chrome instead — in a tab group called Alfie, never in your tabs, and without taking your focus."
         static let steps = [
             "Turn on Developer mode, at the top right of the Extensions page.",
             "Click Load unpacked.",
             "Pick the chrome-extension folder (Show folder opens it in Finder).",
         ]
         static let pageFallback = "If the Extensions page didn't open, type chrome://extensions into Chrome's address bar."
-        static let offNote = "Off: Moe won't use your Chrome. The extension stays in Chrome until you remove it there — Chrome › Extensions › Memoe › Remove."
-        static let noChrome = "Install Google Chrome first — Moe works in your Chrome through an extension, and this Mac has no Chrome to add it to."
-        static let update = "A newer Memoe extension came with this version of Memoe. Click Update, then Reload on Memoe in Chrome's Extensions page."
+        static let offNote = "Off: Alfie won't use your Chrome. The extension stays in Chrome until you remove it there — Chrome › Extensions › Alfie › Remove."
+        static let noChrome = "Install Google Chrome first — Alfie works in your Chrome through an extension, and this Mac has no Chrome to add it to."
+        static let update = "A newer Alfie extension came with this version of Alfie. Click Update, then Reload on Alfie in Chrome's Extensions page."
     }
 }
 
@@ -199,7 +199,7 @@ final class ChromeExtensionModel: ObservableObject {
     var fileAccessWarning: String? {
         guard state == .connected, let w = report?.warnings.first(where: { $0.code == "file_access_on" })
         else { return nil }
-        return w.text ?? "Moe's Chrome extension is allowed to open files on this Mac. Moe never uses that; turn off “Allow access to file URLs” in Chrome › Extensions › Memoe."
+        return w.text ?? "Alfie's Chrome extension is allowed to open files on this Mac. Alfie never uses that; turn off “Allow access to file URLs” in Chrome › Extensions › Alfie."
     }
 
     // MARK: Status

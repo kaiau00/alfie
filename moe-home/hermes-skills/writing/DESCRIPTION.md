@@ -1,4 +1,4 @@
-Writing skills — how Moe edits words that are going out under a person's
+Writing skills — how Alfie edits words that are going out under a person's
 name: a reply, an email, a note, a post.
 
 `humanizer` is the one skill here: take text that sounds like a chatbot and

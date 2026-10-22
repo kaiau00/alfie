@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Hand the facts Moe learned about the user to Hermes, and let Hermes save them.
+"""Hand the facts Alfie learned about the user to Hermes, and let Hermes save them.
 
-This is the seam that keeps Moe out of the engine. The learn crawl (learn.sh)
+This is the seam that keeps Alfie out of the engine. The learn crawl (learn.sh)
 gathers facts about the user from their connectors and distils them
 (distil.py) into per-source digests. This step does NOT write Hermes's memory
-files itself — that would race the memory tool's lock and put Moe's hand inside
+files itself — that would race the memory tool's lock and put Alfie's hand inside
 the engine's core files. Instead it hands a small, high-signal, scrubbed slice
 of the facts to Hermes as one agent turn and asks the agent to save the durable
 ones with its own `memory` tool. Hermes decides what to keep and writes
@@ -17,7 +17,7 @@ prompt:
 
   * Never trust the digest. The crawl is attacker-controlled, and distil's own
     guard has holes, so this step re-runs the instruction guard AND scrubs
-    secrets and health detail on Moe's side before anything is offered
+    secrets and health detail on Alfie's side before anything is offered
     (defence in depth). Facts are fenced with a per-run nonce and every
     interpolated field is sanitised, so a tampered digest cannot forge an
     instruction line.

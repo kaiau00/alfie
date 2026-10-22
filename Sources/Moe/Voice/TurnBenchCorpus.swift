@@ -49,7 +49,7 @@ extension TurnBench {
         }
         guard let dirPath = value("--corpus") else {
             print("""
-            usage: Moe --turn-bench --corpus <dir> [--tapes <file>] [--out <file>] [--rerecord]
+            usage: Alfie --turn-bench --corpus <dir> [--tapes <file>] [--out <file>] [--rerecord]
                    [--limit n] [--shard k/n] [--first-voices n] [--snr clean,20,…] [--kind turn|reply] [--category c]
                    [--set key=value]… [--before] [--brain s] [--inference-ms n] [--label text] [--self-check]
                    (--set riseMarginDb=n is the pipeline's rise margin: record it to its own --tapes)
@@ -583,7 +583,7 @@ extension TurnBench {
 
         if !turns.isEmpty {
             out.append("")
-            out.append("TURNS (Moe listening): cut-off = answered inside a pause the person went on after; latency = true end → reply audible")
+            out.append("TURNS (Alfie listening): cut-off = answered inside a pause the person went on after; latency = true end → reply audible")
             out.append("  group            turns  pauses  cut-off [95% CI]          p50 ms  p90 ms  missed  ceiling")
             func line(_ name: String, _ ts: [CorpusScore.Turn]) -> String {
                 let s = CorpusScore.summarize(ts)
@@ -602,8 +602,8 @@ extension TurnBench {
         }
         if !replies.isEmpty {
             out.append("")
-            out.append("REPLIES (Moe talking): false = paused with no real interruption; missed = real one not paused within 2 s")
-            out.append("  group            scen  Moe min  false/10min  falseDuck/10min  missed [95% CI]           stop p50  p90   duck p50  bc stops")
+            out.append("REPLIES (Alfie talking): false = paused with no real interruption; missed = real one not paused within 2 s")
+            out.append("  group            scen  Alfie min  false/10min  falseDuck/10min  missed [95% CI]           stop p50  p90   duck p50  bc stops")
             func line(_ name: String, _ ts: [CorpusScore.ReplyTurn]) -> String {
                 let s = CorpusScore.summarize(ts)
                 let ci = CorpusScore.wilson(s.missed, s.real)

@@ -54,7 +54,7 @@ enum MacEraseRun {
             applications: MacEraseCuaDriver.systemApplications,
             debugBuild: debug)
         guard scope.moeHome.standardizedFileURL.path == Config.homeDir.standardizedFileURL.path else {
-            throw MacEraseScopeError("the erase resolved \(scope.moeHome.path), but this Moe's home is "
+            throw MacEraseScopeError("the erase resolved \(scope.moeHome.path), but this Alfie's home is "
                                      + "\(Config.homeDir.path); refused")
         }
         return scope
@@ -107,7 +107,7 @@ enum MacEraseRun {
         let s = try scope()
         try await Task.detached(priority: .userInitiated) { try spawnHelper(scope: s) }.value
         await MainActor.run {
-            Log.write("erase: the person confirmed Erase Memoe from this Mac; the eraser accepted; quitting")
+            Log.write("erase: the person confirmed Erase Alfie from this Mac; the eraser accepted; quitting")
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { NSApp.terminate(nil) }
         }
     }
@@ -255,7 +255,7 @@ enum MacEraseRun {
             handle.write(Data("REPORT\t\(report.ok ? "ok" : "failed")\n\(report.text)\n".utf8))
             try? handle.close()
         }
-        NSLog("Moe erase (%@): %ld items, %ld not removed",
+        NSLog("Alfie erase (%@): %ld items, %ld not removed",
               s.identity.bundleID, report.outcomes.count, report.failures.count)
         exit(report.ok ? 0 : 1)
     }

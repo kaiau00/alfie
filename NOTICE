@@ -1,4 +1,10 @@
-Memoe — third-party notices
+Alfie — third-party notices
+
+Alfie is a modified version of Memoe (https://github.com/memoe-app/memoe),
+by the Memoe authors, licensed under the Apache License 2.0. Alfie renames the app and its assistant and changes its
+icon, bundle identifier, data folder and wake word; the git history of this
+repository records every file changed from Memoe. Alfie is not affiliated
+with or endorsed by Memoe.
 
 Memoe (the Mac app; Moe is the assistant inside it) is built on open models and open source. The following notices are
 required by the licences of the components it uses. Full licence texts are in

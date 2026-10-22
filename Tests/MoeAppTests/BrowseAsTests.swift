@@ -29,7 +29,7 @@ struct BrowseAsTests {
         #expect(b.problem == nil)
     }
 
-    @Test("unpinned, Moe is whoever Chrome used last — and the row says that is a moving target")
+    @Test("unpinned, Alfie is whoever Chrome used last — and the row says that is a moving target")
     func unpinnedFollowsLastUsed() throws {
         let b = try #require(BrowseAs.parse(Self.facts))
         #expect(b.effective?.dir == "Profile 4")
@@ -44,7 +44,7 @@ struct BrowseAsTests {
         json = json.replacingOccurrences(of: "\"pinned\": null", with: "\"pinned\": \"Default\"")
         let b = try #require(BrowseAs.parse(Data(json.utf8)))
         #expect(b.effective?.dir == "Default")
-        #expect(b.summary == "Moe browses as Jordy (s@x.com) — you chose this.")
+        #expect(b.summary == "Alfie browses as Jordy (s@x.com) — you chose this.")
     }
 
     @Test("a pin that names no profile falls back to last-used, never to nothing")

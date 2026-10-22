@@ -456,17 +456,17 @@ enum MeetingCaptureCLI {
             Thread.sleep(forTimeInterval: 0.2)
         }
         try? FileManager.default.removeItem(at: cmdURL)
-        print("Moe isn't recording a meeting right now, so there is nothing to capture. "
+        print("Alfie isn't recording a meeting right now, so there is nothing to capture. "
               + "Ask for one instead: write \u{003C}meeting:start/\u{003E} in your reply, "
-              + "or the user can start one from the Moe menu.")
+              + "or the user can start one from the Alfie menu.")
         return 2
     }
 
     private static func usage() -> Int32 {
         FileHandle.standardError.write(Data("""
-        usage: Moe --meeting-capture screenshot [reason]
-               Moe --meeting-capture record start|stop [reason]
-               Moe --meeting-capture status
+        usage: Alfie --meeting-capture screenshot [reason]
+               Alfie --meeting-capture record start|stop [reason]
+               Alfie --meeting-capture status
 
         """.utf8))
         return 64
@@ -484,7 +484,7 @@ enum MeetingCaptureCLI {
 enum MeetingCaptureSmokeTest {
     static func run(_ argv: [String]) async -> Int32 {
         @Sendable func err(_ s: String) { FileHandle.standardError.write(Data((s + "\n").utf8)) }
-        guard let dir = argv.first else { err("usage: Moe --capture-test <out-dir> [live]"); return 64 }
+        guard let dir = argv.first else { err("usage: Alfie --capture-test <out-dir> [live]"); return 64 }
         let out = URL(fileURLWithPath: dir, isDirectory: true)
         let live = argv.contains("live")
         var failures = 0
@@ -642,7 +642,7 @@ final class RegionPicker {
                 NSBezierPath(roundedRect: box, xRadius: 4, yRadius: 4).fill()
                 label.draw(at: NSPoint(x: box.minX + 5, y: box.minY + 2), withAttributes: attrs)
             } else {
-                let hint = "Drag to choose the area Moe captures · Esc to cancel"
+                let hint = "Drag to choose the area Alfie captures · Esc to cancel"
                 let attrs: [NSAttributedString.Key: Any] = [
                     .font: NSFont.systemFont(ofSize: 15, weight: .medium),
                     .foregroundColor: NSColor.white,

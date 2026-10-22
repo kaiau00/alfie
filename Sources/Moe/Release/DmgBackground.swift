@@ -57,7 +57,7 @@ enum DmgBackground {
                 // large enough to read from across a desk — and a quieter
                 // line under it for what happens next.
                 VStack(alignment: .center, spacing: 7) {
-                    Text("Drag Memoe onto Applications")
+                    Text("Drag Alfie onto Applications")
                         .font(Theme.Typo.ui(21, weight: .bold))
                         .foregroundStyle(Theme.ink)
                     Text("Then open it from there.")

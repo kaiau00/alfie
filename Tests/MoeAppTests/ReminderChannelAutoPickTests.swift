@@ -92,7 +92,7 @@ struct ReminderChannelAutoPickTests {
 
     // MARK: The launch watcher stops
 
-    @Test("row 26 — the watcher stops once a chat is picked, by Moe or the person")
+    @Test("row 26 — the watcher stops once a chat is picked, by Alfie or the person")
     func watcherStopsWhenPicked() {
         #expect(ReminderChannels.watchStep(alreadyPicked: true, looks: 1, platforms: [Self.telegram]) == .stop)
         #expect(ReminderChannels.watchStep(alreadyPicked: true, looks: 1, platforms: nil) == .stop)
@@ -103,7 +103,7 @@ struct ReminderChannelAutoPickTests {
                                            platforms: [Self.telegram]) == .stop)
     }
 
-    @Test("row 26 — two chat apps ready at one look: stop, and remember Moe will never guess")
+    @Test("row 26 — two chat apps ready at one look: stop, and remember Alfie will never guess")
     func watcherStopsOnTwoReady() {
         #expect(ReminderChannels.watchStep(alreadyPicked: false, looks: 1,
                                            platforms: [Self.telegram, Self.whatsapp]) == .stopAndRemember)

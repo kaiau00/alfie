@@ -2,7 +2,7 @@
 name: composio-router
 description: "Read FIRST before any Composio tool call — Gmail, Calendar, Drive, Slack, Notion, GitHub, any of the ~500 toolkits. How to pick the tool, how to call it without dumping a megabyte into the turn, and the four things Composio's own schemas will not tell you. Also: how to check whether a service is connected WITHOUT triggering a connection request."
 version: 1.0.0
-author: Moe
+author: Alfie
 license: MIT
 metadata:
   hermes:

@@ -23,12 +23,12 @@ by a model, and this script makes exactly those calls.
 Three gates before anything is read, all printing the one word "disabled" —
 the same bytes every tick, so a switched-off watch costs nothing:
 
-  * Settings › Background › "Let Moe get your attention" (`nudges` in
-    ~/.moe/config.json) — the answer to "may Moe speak up on its own";
+  * Settings › Background › "Let Alfie get your attention" (`nudges` in
+    ~/.moe/config.json) — the answer to "may Alfie speak up on its own";
   * Settings › Running in the background › "Learn from … and watch it" (one switch per source since 2026-09-29, over the older "Tell me when something happens here") for this
     connection (`speak` in its learning profile, learn/source_profile.py)
     — the same answer that decides whether the proactive pass may see its
-    section of the brief, so one switch silences both ways Moe could bring
+    section of the brief, so one switch silences both ways Alfie could bring
     this connection up;
   * `learn/consent.sh check watch:<connector>` — the answer for THIS
     connection, off by default.

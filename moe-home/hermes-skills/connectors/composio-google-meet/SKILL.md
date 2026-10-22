@@ -2,7 +2,7 @@
 name: composio-google-meet
 description: "Read before any GOOGLEMEET_* call through Composio. You cannot ask for a meeting's transcript or recording directly — there is a three-step chain through the conference record, and skipping a step is why the obvious call fails. Also: an empty transcript list often means 'not ready yet', not 'none'."
 version: 1.0.0
-author: Moe
+author: Alfie
 license: MIT
 metadata:
   hermes:
@@ -21,7 +21,7 @@ Meet account, and this machine had none. Transcript entries are the one thing
 here that can grow without bound — a long meeting is a lot of segments — so
 page them rather than asking for all of them.
 
-**Moe narrates nothing while this toolkit runs.** `googlemeet` is not one of
+**Alfie narrates nothing while this toolkit runs.** `googlemeet` is not one of
 the toolkits `SpokenStep.place()` has words for, so a spoken turn goes quiet
 for the whole chain below — and this chain is three or four calls long. Say
 what you are doing yourself.

@@ -9,7 +9,7 @@ from, with the confirmation card and no model in between.
                                            "body": …, "at": …}
 
 **Structure, not prompts, keeps it safe:**
-- only the Memoe app can start a send, and only within minutes of the
+- only the Alfie app can start a send, and only within minutes of the
   person pressing Use draft (tools/recipients.py `offer`, the check
   WhatsApp and Telegram use): the parent process's signature, the offer's
   age — checked in THIS process after the re-exec into Hermes's
@@ -302,7 +302,7 @@ def fill(plan: Dict[str, Any], known: Dict[str, str], body: str) -> Tuple[Option
             args[k] = body
         elif isinstance(v, str) and v in known:
             if not known[v]:
-                return None, "Moe does not know the %s of that conversation" % v.strip("{}").replace("_", " ")
+                return None, "Alfie does not know the %s of that conversation" % v.strip("{}").replace("_", " ")
             args[k] = known[v]
         else:
             args[k] = v
@@ -371,7 +371,7 @@ def execute(slug: str, tool: str, args: Dict[str, Any]) -> Any:
                                                                  {"tool": tool, "args": args}),
                                 task="moe-offer-send")
     if not isinstance(result, (dict, list)):
-        raise Unsure("the service answered in a way Moe could not read")
+        raise Unsure("the service answered in a way Alfie could not read")
     why = refused(result)
     if why:
         raise RuntimeError(why)
@@ -410,7 +410,7 @@ def send_offer(stdin_text: str, *, check=offer_check, plan_fn=ensure_plan, confi
     target, body = got
     m = re.match(r"^composio/([a-z][a-z0-9_-]{0,63})\|(.+)$", target)
     if not m:
-        return 1, "not sent — that is not a conversation Moe can reply to here."
+        return 1, "not sent — that is not a conversation Alfie can reply to here."
     slug, thread = m.group(1), m.group(2)
     plan, why = plan_fn(slug)
     if plan is None:

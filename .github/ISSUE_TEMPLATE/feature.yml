@@ -1,12 +1,12 @@
 name: Feature request
-description: A change with a plan behind it. Early ideas belong in Discussions › Ideas first.
+description: A change with a plan behind it. Early ideas belong in Discussions first.
 title: "[Feature]: "
 labels: ["enhancement", "needs-triage"]
 body:
   - type: markdown
     attributes:
       value: |
-        Ideas that are still forming are better in [Discussions › Ideas](https://github.com/memoe-app/memoe/discussions/categories/ideas), where others can weigh in. Open an issue here when the problem is clear.
+        Ideas that are still forming are better in [Discussions](https://github.com/kaiau00/alfie/discussions), where others can weigh in. Open an issue here when the problem is clear.
 
   - type: textarea
     id: problem
@@ -21,7 +21,7 @@ body:
     id: proposal
     attributes:
       label: What you would like to happen
-      description: How it would work from the point of view of someone using Memoe. What would they say, see or hear?
+      description: How it would work from the point of view of someone using Alfie. What would they say, see or hear?
     validations:
       required: true
 
@@ -53,7 +53,7 @@ body:
     id: fit
     attributes:
       label: Fit
-      description: Memoe has a few firm rules. Tick what applies.
+      description: Alfie has a few firm rules. Tick what applies.
       options:
         - label: This works the same whatever the person thinks with (a Claude or ChatGPT plan, any API key, or a local model).
         - label: Nothing goes out to another person without the person's yes.

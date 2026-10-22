@@ -21,7 +21,7 @@ struct UnavailableSheet: View {
                 .font(Theme.Typo.heading(24))
                 .foregroundStyle(Theme.ink)
 
-            Text(row.blurb.isEmpty ? "A source Moe can read once it is available." : row.blurb)
+            Text(row.blurb.isEmpty ? "A source Alfie can read once it is available." : row.blurb)
                 .font(Theme.Typo.prose(15))
                 .foregroundStyle(Theme.ink2)
                 .fixedSize(horizontal: false, vertical: true)
@@ -91,7 +91,7 @@ struct UnavailableSheet: View {
     /// already prints a reason — and a plain sentence where it does not.
     private var reason: String {
         if !row.detail.isEmpty { return row.detail }
-        return "Moe checked for it on this Mac and didn't find it."
+        return "Alfie checked for it on this Mac and didn't find it."
     }
 
     /// Written per connector where the answer is specific, because "check the
@@ -103,7 +103,7 @@ struct UnavailableSheet: View {
             return """
             Recorded calls come from a folder called “Call Recordings” in Notes. \
             It appears once you record a call on an iPhone signed in to the same \
-            Apple account, with Notes syncing to iCloud. Moe reads the transcripts \
+            Apple account, with Notes syncing to iCloud. Alfie reads the transcripts \
             from there and never the audio. If your folder has a different name, \
             set MOE_CALL_FOLDER to it.
             """
@@ -112,12 +112,12 @@ struct UnavailableSheet: View {
             This one needs a Google sign-in client that isn't in your build — the \
             file is deliberately not committed, so a checkout can't ship someone \
             else's credentials. With it in place, connecting opens Google's own \
-            picker and Moe can read only the documents you tick, over the one \
+            picker and Alfie can read only the documents you tick, over the one \
             scope Google classes non-sensitive.
             """
         case "chrome":
             return """
-            Moe reads Chrome's history and bookmarks from a copy of the profile \
+            Alfie reads Chrome's history and bookmarks from a copy of the profile \
             on this Mac, so Chrome has to be installed and to have been used at \
             least once. It is off until you switch it on, and switching it off \
             stops both the reading and the crawl.
@@ -125,20 +125,20 @@ struct UnavailableSheet: View {
         case "imessage", "mail", "calls":
             return """
             This reads a database inside your Library folder, which macOS keeps \
-            sealed until Moe has Full Disk Access. Settings → Permissions shows \
+            sealed until Alfie has Full Disk Access. Settings → Permissions shows \
             whether that grant is live, and the row there deep-links to the exact \
             System Settings pane.
             """
         case "notes", "reminders", "calendar":
             return """
-            Moe asks macOS for this the first time it needs it. If you said no, \
+            Alfie asks macOS for this the first time it needs it. If you said no, \
             the grant is in Settings → Permissions, which shows whether it is \
             currently allowed and links to the pane that changes it.
             """
         default:
             return """
             Nothing is broken — this source isn't present on this Mac yet. When \
-            whatever it reads exists, Moe picks it up on the next check, and \
+            whatever it reads exists, Alfie picks it up on the next check, and \
             “Check again” at the bottom of this screen forces one now.
             """
         }

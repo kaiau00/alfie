@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""What Moe has spent, out of the one table Hermes keeps it in.
+"""What Alfie has spent, out of the one table Hermes keeps it in.
 
 Settings › Usage reads this. `hermes insights` computes the same numbers and
 prints them in a box-drawing table with no `--json` anywhere in the
@@ -19,7 +19,7 @@ Hermes does not already store.
 Four things measured on this Mac on 2026-09-04, each of which changes what
 an honest pane can say.
 
-**"Total tokens" is not what you and Moe wrote.** Thirty days here: 2.08M
+**"Total tokens" is not what you and Alfie wrote.** Thirty days here: 2.08M
 input, 1.06M output — and 193M of cache read and cache write. `hermes
 insights` adds all four and prints "Total tokens: 216,847,032", which reads
 as a bill and is mostly the same system prompt being re-read. The two are
@@ -411,7 +411,7 @@ def tools(conn, since, limit):
 
 
 def last_warning():
-    """The last time Moe told you it was near a limit, if it ever has.
+    """The last time Alfie told you it was near a limit, if it ever has.
 
     `HermesBrain` logs every engine status as `status: …` and shows exactly
     one of them — the one containing "limit used", which is the phrase

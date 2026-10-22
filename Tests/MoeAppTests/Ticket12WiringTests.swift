@@ -39,7 +39,7 @@ struct Ticket12WiringTests {
 
         let engine = try Self.source("Sources/Moe/Voice/VoiceEngine.swift")
         #expect(engine.contains("frontEnd.playbackBusy = { [weak self] in self?.speech.busy ?? false }"),
-                "the watchdog cannot tell a restart would cut Moe off")
+                "the watchdog cannot tell a restart would cut Alfie off")
     }
 
     /// Out of credits: remembered, the pump goes local, the notice is given

@@ -2,7 +2,7 @@
 name: composio-google-tasks
 description: "Read before any GOOGLETASKS_* call through Composio. The default task list is the literal string '@default' and nothing else works; there is no full-text search so filtering is yours to do; and the tool that reads every list at once has a built-in cap of a thousand tasks, which is a cap in name only."
 version: 1.0.0
-author: Moe
+author: Alfie
 license: MIT
 metadata:
   hermes:
@@ -19,7 +19,7 @@ Read `composio-router` first for the method.
 Composio on 2026-09-04 and hold for anyone; sizes need a connected Google
 Tasks account, and this machine had none.
 
-**Moe narrates nothing while this toolkit runs.** `googletasks` is not one of
+**Alfie narrates nothing while this toolkit runs.** `googletasks` is not one of
 the toolkits `SpokenStep.place()` has words for, so a spoken turn goes quiet
 for the whole call. Keep the work short, or say what you are doing yourself.
 

@@ -30,7 +30,7 @@ status=$?
 echo
 if [ "$status" = 0 ]; then
   echo "signed in"
-  echo "Back in Moe, choose \"ChatGPT — your subscription\" and press Apply."
+  echo "Back in Alfie, choose \"ChatGPT — your subscription\" and press Apply."
 else
   echo "hermes auth add openai-codex exited $status — sign-in did not complete." >&2
 fi

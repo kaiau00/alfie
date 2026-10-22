@@ -20,11 +20,11 @@ pi=18000; ni=25000; pt=3450; nt=4400
 for v in "${VOICES[@]}"; do
   say -v "$v" -o "$TMP/probe.aiff" "hi" 2>/dev/null || { echo "skip $v"; continue; }
   for r in 140 170 200 230; do
-    say_wav "$v" "$r" "Hey Moe." "$OUT/positive_train/clip_$(printf %06d $pi).wav"; pi=$((pi+1))
+    say_wav "$v" "$r" "Hey Alfie." "$OUT/positive_train/clip_$(printf %06d $pi).wav"; pi=$((pi+1))
     for q in "${REQUESTS[@]}"; do
-      say_wav "$v" "$r" "Hey Moe, $q" "$OUT/positive_train/clip_$(printf %06d $pi).wav"; pi=$((pi+1))
+      say_wav "$v" "$r" "Hey Alfie, $q" "$OUT/positive_train/clip_$(printf %06d $pi).wav"; pi=$((pi+1))
     done
-    say_wav "$v" "$r" "Hey Moe, can you help me?" "$OUT/positive_test/clip_$(printf %06d $pt).wav"; pt=$((pt+1))
+    say_wav "$v" "$r" "Hey Alfie, can you help me?" "$OUT/positive_test/clip_$(printf %06d $pt).wav"; pt=$((pt+1))
     for n in "${NEGS[@]}"; do
       say_wav "$v" "$r" "$n" "$OUT/negative_train/clip_$(printf %06d $ni).wav"; ni=$((ni+1))
     done

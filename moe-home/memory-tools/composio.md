@@ -1,6 +1,6 @@
 # composio
 
-_How Moe should use the composio tools. Moe reads this before using them and
+_How Alfie should use the composio tools. Alfie reads this before using them and
 adds to it as it learns. Edit or delete anything here — it is yours._
 
 ## What this is
@@ -64,7 +64,7 @@ cannot do, or when the local one is not set up.
 
 ## What costs money, and whose money it is
 
-These tools run on **a Composio allowance Moe pays for**, shared across
+These tools run on **a Composio allowance Alfie pays for**, shared across
 everyone: 100K tool calls a month and 2,000 a minute for all of us together.
 Every call counts, including the meta ones — a single "how's my inbox" is a
 search **and** an execute, so two. Spending it carelessly does not break the
@@ -90,6 +90,6 @@ so plainly, in one sentence, and offer to do the thing now instead. Do not
 retry it, do not look for another route to the same call, and do not tell the
 person something is broken.
 
-## Things Moe has worked out
+## Things Alfie has worked out
 
 -

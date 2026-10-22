@@ -24,7 +24,7 @@ struct TurnSemanticsTests {
 
     /// An utterance that is only a way in: nothing to act on yet.
     @Test func anOpenerAloneIsUnfinished() {
-        for text in ["so", "okay so", "can you", "i was thinking", "hey moe", "what about"] {
+        for text in ["so", "okay so", "can you", "i was thinking", "hey alfie", "what about"] {
             #expect(TurnSemantics.read(text) == .unfinished, "\(text)")
         }
     }

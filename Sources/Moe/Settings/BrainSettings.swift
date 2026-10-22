@@ -189,7 +189,7 @@ enum BrainSetup {
         let base = baseURL.trimmingCharacters(in: .whitespaces)
                           .trimmingCharacters(in: CharacterSet(charactersIn: "/"))
         guard let models = URL(string: base + "/models") else {
-            return .failure(.init(message: "That address isn't a web address Moe can use."))
+            return .failure(.init(message: "That address isn't a web address Alfie can use."))
         }
         let session = URLSession(configuration: .ephemeral)
         defer { session.finishTasksAndInvalidate() }
@@ -238,7 +238,7 @@ enum BrainSetup {
             }
             // No /models here — every service has to answer this one.
             guard !model.isEmpty else {
-                return .failure(.init(message: "That address has no model list, so Moe needs a model name to test it with."))
+                return .failure(.init(message: "That address has no model list, so Alfie needs a model name to test it with."))
             }
             let body = try JSONSerialization.data(withJSONObject: [
                 "model": model,
@@ -246,7 +246,7 @@ enum BrainSetup {
                 "max_tokens": 1,
             ])
             guard let chat = URL(string: base + "/chat/completions") else {
-                return .failure(.init(message: "That address isn't a web address Moe can use."))
+                return .failure(.init(message: "That address isn't a web address Alfie can use."))
             }
             let (d2, r2) = try await session.data(for: authorised(chat, body: body))
             let s2 = (r2 as? HTTPURLResponse)?.statusCode ?? 0
@@ -259,7 +259,7 @@ enum BrainSetup {
             case .timedOut:
                 return .failure(.init(message: "The service didn't answer within twenty seconds."))
             case .secureConnectionFailed, .serverCertificateUntrusted:
-                return .failure(.init(message: "Moe couldn't make a secure connection to that address."))
+                return .failure(.init(message: "Alfie couldn't make a secure connection to that address."))
             default:
                 return .failure(.init(message: "Couldn't reach that address: \(error.localizedDescription)"))
             }
@@ -319,15 +319,15 @@ enum BrainSetup {
                     if let m = (obj?["error"] as? [String: Any])?["message"] as? String { return m }
                     let said = ((choice["message"] as? [String: Any])?["content"] as? String ?? "")
                         .trimmingCharacters(in: .whitespacesAndNewlines)
-                    return said.isEmpty ? "Moe couldn't finish the check (it stopped: \(reason))." : said
+                    return said.isEmpty ? "Alfie couldn't finish the check (it stopped: \(reason))." : said
                 }
                 return nil
             }
             if let msg = (obj?["error"] as? [String: Any])?["message"] as? String { return msg }
-            if status == 401 { return "Moe couldn't unlock its own thinking. Quit Memoe and open it again." }
+            if status == 401 { return "Alfie couldn't unlock its own thinking. Quit Alfie and open it again." }
             return "Something went wrong during the check. Try it again."
         } catch {
-            return "Moe couldn't reach the part of itself that thinks. Try again in a moment."
+            return "Alfie couldn't reach the part of itself that thinks. Try again in a moment."
         }
     }
 }

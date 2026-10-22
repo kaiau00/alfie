@@ -221,7 +221,7 @@ if [ "$target" = all ]; then
     deep="$(connector_field "$name" deep_crawl)"; rc=$?
     if [ "$rc" -eq 2 ]; then
       # Too slow to say what it is (lib/connectors.sh) is not "not a source".
-      log "skipped $name — Moe could not tell what it is in time; it is read next time"
+      log "skipped $name — Alfie could not tell what it is in time; it is read next time"
       echo "learn.sh: skipped $name — too slow to say what it is" >&2
       continue
     fi
@@ -538,7 +538,7 @@ done
 if [ "$dry_run" = 0 ] && [ -f "$LEARN/consolidate.py" ]; then
   if cout="$(MOE_PROFILE_DIR="$PROFILE" python3 "$LEARN/consolidate.py" 2>>"$LOG")"; then
     log "consolidate: $cout"
-    [ -n "$done_list" ] && say "· tidied what Moe knows: $(python3 -c '
+    [ -n "$done_list" ] && say "· tidied what Alfie knows: $(python3 -c '
 import json, sys
 s = json.loads(sys.argv[1])
 print("%d merged, %d past events archived, %d over the limit, %d sensitive removed" % (s["merged"], s["past"], s["capped"], s["sensitive"]))' "$cout" 2>/dev/null || echo done)"
@@ -590,7 +590,7 @@ fi
 if [ "$dry_run" = 1 ]; then
   echo "Dry run: nothing was distilled or merged."
 elif [ -n "$done_list" ]; then
-  echo "Done. See what Moe knows: ~/.moe/learn/profile.py list"
-  [ -s "$PROFILE/questions.md" ] && echo "Some things Moe could not tell — $PROFILE/questions.md"
+  echo "Done. See what Alfie knows: ~/.moe/learn/profile.py list"
+  [ -s "$PROFILE/questions.md" ] && echo "Some things Alfie could not tell — $PROFILE/questions.md"
 fi
 exit 0

@@ -1,21 +1,21 @@
-"""Did the person start talking again the moment Moe took the turn?
+"""Did the person start talking again the moment Alfie took the turn?
 
 The falsifier for the turn-taking work, and the only one that runs on the
 owner's own voice rather than a corpus. `bench-turn-model.sh` measures the
 model on LibriSpeech with a synthetic mid-phrase cut; this measures what
 actually happened to him.
 
-The signal: the gap between Moe deciding the turn is over (`→ deciding`) and
+The signal: the gap between Alfie deciding the turn is over (`→ deciding`) and
 the microphone opening on speech again (`→ capturing`). Someone who had
 finished waits for the answer. Someone who was cut off carries straight on.
 
-Two seconds is the line because Moe's first token takes three to five, so
-inside two seconds he is talking *before Moe has said anything* — which is
+Two seconds is the line because Alfie's first token takes three to five, so
+inside two seconds he is talking *before Alfie has said anything* — which is
 continuing a sentence, not answering.
 
 Measured 2026-09-05, before `TurnAudio.trimTrailingSilence` shipped:
 
-    371 turns Moe decided were over
+    371 turns Alfie decided were over
     110 (30%) he was talking again within 2 s
     149 (40%) within 4 s
 
@@ -58,7 +58,7 @@ for i, (t, kind, body) in enumerate(events):
 gaps_only = sorted(g for g, _ in gaps)
 n = len(gaps_only)
 def pc(p): return gaps_only[int(n*p)] if n else 0
-print(f"{n} turns Moe decided were over\n")
+print(f"{n} turns Alfie decided were over\n")
 print(f"  he was talking again within 2 s:  {sum(1 for g in gaps_only if g<=2):>4}  ({sum(1 for g in gaps_only if g<=2)/max(n,1):.0%})")
 print(f"                     within 4 s:  {sum(1 for g in gaps_only if g<=4):>4}  ({sum(1 for g in gaps_only if g<=4)/max(n,1):.0%})")
 print(f"\n  p10 {pc(.10):.0f}s   p50 {pc(.50):.0f}s   p90 {pc(.90):.0f}s")
@@ -85,7 +85,7 @@ submitted = len(re.findall(r"→ submitted", text))
 levels = [float(x) for x in re.findall(r"level ([0-9.]+)", text)]
 print()
 if dropped + submitted:
-    print(f"  dropped as 'not for Moe': {dropped}/{dropped+submitted}  ({dropped/(dropped+submitted):.0%})"
+    print(f"  dropped as 'not for Alfie': {dropped}/{dropped+submitted}  ({dropped/(dropped+submitted):.0%})"
           f"   [was 41% on 2026-09-05]")
 if levels:
     levels.sort()

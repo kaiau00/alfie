@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""What Moe knows how to do, and the one key that turns a piece of it off.
+"""What Alfie knows how to do, and the one key that turns a piece of it off.
 
 Settings › Skills reads this. `hermes skills list` prints a rich table with
 no `--json` anywhere in the subcommand, and it truncates every name past
@@ -32,14 +32,14 @@ builds its result with `"required_commands": []` and
 1874 and 1877), so the model is never told a skill's command is absent: it
 reads the skill, runs `memo`, gets `command not found`, and spends the turn
 finding out. That is why §4.5 calls curation a security property rather than
-a nicety, and it is bigger than the four names Moe disables — on this Mac
+a nicety, and it is bigger than the four names Alfie disables — on this Mac
 **eleven** of the fourteen skills that declare a command are missing it, and
 seven of those eleven are switched on.
 
 **The command search does not use PATH alone.** A GUI application launched
 from the Dock inherits launchd's PATH, which is `/usr/bin:/bin:/usr/sbin:
 /sbin` — no Homebrew, no `~/.local/bin` — so a `shutil.which` answer taken
-inside Moe would report half the machine missing. The directories Hermes
+inside Alfie would report half the machine missing. The directories Hermes
 itself would find a command in are searched as well, and the answer is about
 the *machine*, not about this process's environment.
 
@@ -600,26 +600,26 @@ def do_set(name, state):
         # well-formed setting that resolves to nothing is worse than a
         # refusal, because a refusal is honest.
         return answer("set", {"name": name, "state": state,
-                              "error": "%s can't be switched off — Moe needs it to "
+                              "error": "%s can't be switched off — Alfie needs it to "
                                        "work at all." % name})
     yaml = yaml_module()
     if yaml is None:
         return answer("set", {
             "name": name, "state": state,
-            "error": "Moe can't safely change that from here — it has no way to "
+            "error": "Alfie can't safely change that from here — it has no way to "
                      "check its own work afterwards."})
     text = config_text()
     if text is None:
         return answer("set", {"name": name, "state": state,
-                              "error": "Moe couldn't find its settings file."})
+                              "error": "Alfie couldn't find its settings file."})
     try:
         before = yaml.safe_load(text) or {}
     except Exception as e:
         return answer("set", {"name": name, "state": state,
-                              "error": "Moe's settings file didn't parse: %s" % e})
+                              "error": "Alfie's settings file didn't parse: %s" % e})
     if not isinstance(before, dict):
         return answer("set", {"name": name, "state": state,
-                              "error": "The settings file isn't in the shape Moe expects."})
+                              "error": "The settings file isn't in the shape Alfie expects."})
 
     current = normalise(((before.get("skills") or {}) if isinstance(before.get("skills"), dict) else {}).get("disabled"))
     wanted = sorted(set(current) - {name}) if state == "on" else sorted(set(current) | {name})
@@ -637,7 +637,7 @@ def do_set(name, state):
         atomic_write(config_path(), rewrite(text, wanted))
     except OSError as e:
         return answer("set", {"name": name, "state": state,
-                              "error": "Moe couldn't save that: %s" % e})
+                              "error": "Alfie couldn't save that: %s" % e})
 
     # THE check this write exists to survive. A surgical text edit can go
     # wrong in exactly one interesting way — it can hit the wrong block — and
@@ -662,7 +662,7 @@ def do_set(name, state):
             pass
         return answer("set", {
             "name": name, "state": state, "disabled": current,
-            "error": "Moe changed more of its settings than it meant to, so it "
+            "error": "Alfie changed more of its settings than it meant to, so it "
                      "put them back. Nothing was switched."})
     return answer("set", {"ok": True, "name": name, "state": state,
                           "disabled": wanted, "changed": True})
@@ -682,7 +682,7 @@ def do_list():
         "disabled": disabled,
         "can_write": yaml is not None and os.path.isfile(config_path()),
         "why_not": "" if yaml is not None else
-                   "Moe can't change these from here — the part of itself that "
+                   "Alfie can't change these from here — the part of itself that "
                    "edits settings safely isn't installed.",
         "config": config_path(),
         "root": root,

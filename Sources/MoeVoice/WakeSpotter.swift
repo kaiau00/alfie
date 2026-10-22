@@ -23,7 +23,7 @@ public struct WakeSpotter: Sendable {
 
     /// The default phrase plus the misreadings the recogniser produces
     /// for it.
-    public static let defaultPhrases = ["hey moe", "hey mo", "heymo", "hey mow", "hey moore"]
+    public static let defaultPhrases = ["hey alfie", "hey alfy", "hey alfee", "hey alphie"]
 
     public struct Match: Equatable, Sendable {
         /// Character offset just past the phrase in the text it was found in.

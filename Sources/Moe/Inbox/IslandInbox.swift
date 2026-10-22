@@ -237,7 +237,7 @@ struct IslandInboxView: View {
                 // The learner's strongest no, reachable at last: it used to
                 // be wired nowhere (docs/INBOX-QUIET.md).
                 InboxButton("Not this kind", style: .quiet) { conductor.declineNotice(n.id, kind: true) }
-                    .help("Moe stops offering this kind of thing")
+                    .help("Alfie stops offering this kind of thing")
             }
         case .brief:
             FlowRow {

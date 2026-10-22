@@ -1,11 +1,11 @@
-"""After a Slack reply is sent, the words go; what Moe learned stays.
+"""After a Slack reply is sent, the words go; what Alfie learned stays.
 
 THE PROMISE
 -----------
 
-On 2026-09-11 the owner decided how Moe treats Slack: "look at messages,
+On 2026-09-11 the owner decided how Alfie treats Slack: "look at messages,
 update memory, don't copy them into our DB". The ledger already keeps it where
-Moe writes memory — ``sync_turn`` skips Slack turns — and the edge empties a
+Alfie writes memory — ``sync_turn`` skips Slack turns — and the edge empties a
 stored Slack body once the first reply chunk is sent. The G1 review
 (2026-09-15) measured where verbatim copies were still being made, and the
 owner chose to prune them rather than soften the promise. This hook is that
@@ -62,7 +62,7 @@ WHAT SURVIVES, deliberately
   ``platform_message_id``, each message's ``id`` and ``timestamp``, the
   transcript's ``uuid``/``parentUuid``/``sessionId`` chain. A reply still
   threads, a retry still de-duplicates, a resume still resumes.
-* ``role='tool'`` rows and the assistant's ``tool_calls``: that is what Moe
+* ``role='tool'`` rows and the assistant's ``tool_calls``: that is what Alfie
   *did* — the claim it wrote, the cron it set — which the memory rule allows.
   ``tool_use`` blocks in the transcript, likewise.
 * An obligation not yet delivered: it still has to be sent.
@@ -131,7 +131,7 @@ PLATFORM = "slack"
 
 #: What a scrubbed message says instead of its words. Names the platform and
 #: the rule, and nothing that was said.
-MARKER = "[slack: no verbatim copy kept — Moe keeps what it learned, not what was said]"
+MARKER = "[slack: no verbatim copy kept — Alfie keeps what it learned, not what was said]"
 #: The title a Slack session carries once its auto-title is gone, followed by
 #: the WHOLE session id: the store has ``UNIQUE INDEX idx_sessions_title_unique
 #: ON sessions(title)`` and gateway ids are date-prefixed

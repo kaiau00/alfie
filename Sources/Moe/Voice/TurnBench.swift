@@ -210,7 +210,7 @@ enum TurnBench {
         guard let path = args.first,
               let data = try? Data(contentsOf: URL(fileURLWithPath: path)),
               let output = try? JSONDecoder().decode(Output.self, from: data) else {
-            print("usage: Moe --turn-replay <tapes.json> [--probe 0.30] [--brain s] [--split fit|val|test|fitval]")
+            print("usage: Alfie --turn-replay <tapes.json> [--probe 0.30] [--brain s] [--split fit|val|test|fitval]")
             print("       [--set key=value]… [--sweep key=a,b,c]…")
             return 2
         }

@@ -1,4 +1,4 @@
-Connector skills — how to drive a third-party service that Moe reaches
+Connector skills — how to drive a third-party service that Alfie reaches
 through a gateway rather than through a native tool. Composio is the big one:
 one MCP session standing in front of ~500 toolkits, whose schemas are
 authored per-tool and cannot be reasoned about as a set.

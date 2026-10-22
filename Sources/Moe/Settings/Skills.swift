@@ -323,8 +323,8 @@ enum Skills {
     /// "Comes with Hermes", not "builtin". The words a person can act on.
     static func origin(_ skill: Skill) -> String {
         switch skill.source {
-        case "builtin": return "Comes with Moe"
-        case "official": return "Installed by Moe from a trusted registry"
+        case "builtin": return "Comes with Alfie"
+        case "official": return "Installed by Alfie from a trusted registry"
         case "local": return "Written for this Mac"
         case "hub": return "Installed from a registry"
         default: return skill.source.isEmpty ? "" : "From \(skill.source)"
@@ -346,13 +346,13 @@ enum Skills {
             parts.append("Only offered inside a \(skill.onlyIn.joined(separator: " or ")) session, which this is not.")
         }
         if skill.essential {
-            parts.append("Moe needs this one to work at all, so it cannot be switched off.")
+            parts.append("Alfie needs this one to work at all, so it cannot be switched off.")
         }
         if skill.uses > 0 {
             let when = day(skill.lastUsed)
             parts.append(skill.uses == 1
-                         ? "Moe has opened it once\(when.isEmpty ? "" : ", \(when)")."
-                         : "Moe has opened it \(skill.uses) times\(when.isEmpty ? "" : ", last \(when)").")
+                         ? "Alfie has opened it once\(when.isEmpty ? "" : ", \(when)")."
+                         : "Alfie has opened it \(skill.uses) times\(when.isEmpty ? "" : ", last \(when)").")
         }
         return parts.joined(separator: " ")
     }

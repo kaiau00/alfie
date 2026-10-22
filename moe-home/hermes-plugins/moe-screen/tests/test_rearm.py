@@ -52,7 +52,7 @@ def load_rearm():
 
 @pytest.fixture()
 def home(tmp_path, monkeypatch):
-    """A scratch Hermes home and Moe home. Hermes re-resolves its cron store
+    """A scratch Hermes home and Alfie home. Hermes re-resolves its cron store
     from HERMES_HOME per call (`cron/jobs.py` `_current_cron_store`, precedence
     3), so this is real isolation, not a mock."""
     hermes = tmp_path / "hermes"

@@ -1,5 +1,5 @@
 #!/bin/bash
-# From a fresh clone to a running community build of Memoe.
+# From a fresh clone to a running build of Alfie (a fork of Memoe).
 #
 #   ./scripts/bootstrap.sh            build, then open it
 #   ./scripts/bootstrap.sh --models   also bundle the speech and voice models
@@ -9,16 +9,16 @@
 #
 # What it does, in order:
 #   1. checks for the Command Line Tools and a Swift that can read Package.swift;
-#   2. builds the COMMUNITY edition (MOE_EDITION=community), named Memoe OSS:
-#      bundle id app.memoe.oss, its own home under ~/Library/Application
-#      Support/Memoe OSS, no updater, no cloud, ad-hoc signed unless you have a
+#   2. builds the COMMUNITY edition (MOE_EDITION=community), named Alfie:
+#      bundle id io.github.kaiau00.alfie, its own home under ~/Library/Application
+#      Support/Alfie, no updater, no cloud, ad-hoc signed unless you have a
 #      signing identity — so it can never take the place of an official Memoe
 #      installed on the same Mac;
 #   3. with --models, runs scripts/fetch-models.sh against that build (which is
 #      why the build must work without Models/ first) and builds again;
-#   4. opens dist/Memoe.app. Nothing is copied into /Applications.
+#   4. opens dist/Alfie.app. Nothing is copied into /Applications.
 #
-# Hermes, the agent Memoe runs, is not in the clone either: on first launch the
+# Hermes, the agent Alfie runs, is not in the clone either: on first launch the
 # app installs the pinned commit of the public fork (scripts/install-hermes.sh).
 set -euo pipefail
 cd "$(dirname "$0")/.."
@@ -33,7 +33,7 @@ for a in "$@"; do
   esac
 done
 
-[ "$(uname -s)" = Darwin ] || { echo "✗ Memoe is a Mac app; this needs macOS" >&2; exit 1; }
+[ "$(uname -s)" = Darwin ] || { echo "✗ Alfie is a Mac app; this needs macOS" >&2; exit 1; }
 xcode-select -p >/dev/null 2>&1 || {
   echo "✗ no Command Line Tools. Install them with:  xcode-select --install" >&2; exit 1; }
 command -v swift >/dev/null 2>&1 || { echo "✗ no swift on PATH (Command Line Tools)" >&2; exit 1; }
@@ -41,14 +41,14 @@ need="$(sed -n '1s/.*swift-tools-version: *\([0-9.]*\).*/\1/p' Package.swift)"
 echo "› $(swift --version 2>&1 | head -1)  (Package.swift needs tools ${need:-?})"
 
 export MOE_EDITION=community
-echo "› building the community edition (Memoe OSS) — this takes a few minutes the first time"
+echo "› building the community edition (Alfie) — this takes a few minutes the first time"
 ./build.sh
 if [ "$MODELS" = 1 ]; then
   ./scripts/fetch-models.sh
   ./build.sh
 fi
-echo "✓ built dist/Memoe.app ($(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' dist/Memoe.app/Contents/Info.plist))"
+echo "✓ built dist/Alfie.app ($(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' dist/Alfie.app/Contents/Info.plist))"
 if [ "$OPEN" = 1 ]; then
-  open dist/Memoe.app
-  echo "✓ opened it. Its data lives in ~/Library/Application Support/Memoe OSS."
+  open dist/Alfie.app
+  echo "✓ opened it. Its data lives in ~/Library/Application Support/Alfie."
 fi

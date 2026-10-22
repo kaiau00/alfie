@@ -6,7 +6,7 @@
 set -eu
 B=/path/to/wake/bench
 mkdir -p "$B/positive" "$B/confusable"
-VOICES="Samantha Alex Daniel Karen Moira Fred Rishi Tessa"
+VOICES="Samantha Daniel Karen Moira Fred Rishi Tessa"
 say_clip() {  # dir name voice rate text
   local dir=$1 name=$2 voice=$3 rate=$4 text=$5
   local aiff="$B/tmp_$name.aiff"
@@ -29,13 +29,13 @@ i=0
 for v in $VOICES; do
   for r in 150 190 230; do
     i=$((i+1))
-    say_clip "$B/positive" "heymoe_${v}_${r}" "$v" "$r" "Hey Moe."
-    say_clip "$B/positive" "heymoe_ask_${v}_${r}" "$v" "$r" "Hey Moe, what's the weather like tomorrow?"
-    say_clip "$B/positive" "heymoe_mid_${v}_${r}" "$v" "$r" "So anyway. Hey Moe, remind me at five."
+    say_clip "$B/positive" "heyalfie_${v}_${r}" "$v" "$r" "Hey Alfie."
+    say_clip "$B/positive" "heyalfie_ask_${v}_${r}" "$v" "$r" "Hey Alfie, what's the weather like tomorrow?"
+    say_clip "$B/positive" "heyalfie_mid_${v}_${r}" "$v" "$r" "So anyway. Hey Alfie, remind me at five."
   done
 done
-for v in Samantha Alex Daniel Karen; do
-  for phrase in "Hey no." "Hey Joe." "Hey Mom." "Moe." "Hey mode." "Hey, more." "Hey, you." "Hey bro." "They know." "Hey Mo bile." "Hello." "Hey Siri."; do
+for v in Samantha Daniel Karen Moira; do
+  for phrase in "Hey alpha." "Hey Elfie." "Hey Ollie." "Hey Allie." "Alfie." "Hey Albie." "Hey Alfred." "Hey, selfie." "Hey, half." "Hey Archie." "Hello." "Hey Siri." "Hey, coffee." "Okay, also."; do
     n=$(echo "$phrase" | tr -cd 'A-Za-z' | tr 'A-Z' 'a-z')
     say_clip "$B/confusable" "${n}_${v}" "$v" 180 "$phrase"
   done

@@ -1,7 +1,7 @@
-"""`report_problem`: filing a ticket with the Memoe team is a TOOL.
+"""`report_problem`: filing a ticket with the Alfie team is a TOOL.
 
 2026-09-25 and 2026-09-29, the owner, answering from the away machine: told
-to report a bug to the Memoe team, Moe said there was "no ticket/feedback tool
+to report a bug to the Alfie team, Alfie said there was "no ticket/feedback tool
 in my toolkit, and search turned up nothing", and kept it in its notes. Filing
 existed only as a skill (moe-tickets: SKILL.md + moe-ticket.py through the
 shell), and the claude-code child searches tools. These pin the tool: it is
@@ -112,7 +112,7 @@ class Registered(unittest.TestCase):
             text = (plugin.REPORT_TOOL + " " + tool["description"]).lower()
             for word in SEARCH_WORDS:
                 self.assertIn(word, text, "%r not findable by %r" % (runs_in, word))
-            self.assertIn("Memoe team", tool["description"])
+            self.assertIn("Alfie team", tool["description"])
             self.assertEqual(tool["schema"]["name"], plugin.REPORT_TOOL)
             params = tool["schema"]["parameters"]
             self.assertEqual(sorted(params["required"]), ["body", "title"])
@@ -137,7 +137,7 @@ class Registered(unittest.TestCase):
 
     def test_the_send_gate_knows_it(self):
         """A plugin tool missing from confirm-send.sh's table is a "not a tool
-        Moe recognises" dialog; a ticket has never had one."""
+        Alfie recognises" dialog; a ticket has never had one."""
         hook = os.path.join(_PKG, os.pardir, os.pardir, "hermes", "hooks", "confirm-send.sh")
         self.assertIn('"report_problem "', open(hook, encoding="utf-8").read())
 
@@ -300,7 +300,7 @@ class NeverRaises(unittest.TestCase):
             fourth = self.call(env, {"title": "Mail reader empty", "body": "b"})
         self.assertTrue(first["success"] and second["success"] and third["success"])
         self.assertFalse(again["success"])
-        self.assertIn("already with the Memoe team", again["error"])
+        self.assertIn("already with the Alfie team", again["error"])
         self.assertFalse(fourth["success"])
         self.assertIn("tomorrow", fourth["error"])
 

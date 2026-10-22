@@ -44,9 +44,9 @@ num() { case "${1:-}" in (''|*[!0-9]*) echo "$2";; (*) echo "$1";; esac; }
 # Connections signs in with a token and needs no terminal at all.
 need_gh() {
   command -v gh >/dev/null 2>&1 \
-    || die "the GitHub CLI isn't installed on this Mac — connect GitHub in Moe's Connections instead, or install gh"
+    || die "the GitHub CLI isn't installed on this Mac — connect GitHub in Alfie's Connections instead, or install gh"
   gh auth status >/dev/null 2>&1 \
-    || die "the GitHub CLI isn't signed in — connect GitHub in Moe's Connections, or run: gh auth login"
+    || die "the GitHub CLI isn't signed in — connect GitHub in Alfie's Connections, or run: gh auth login"
 }
 
 # Fill in the owner when only a repo name is given.

@@ -130,7 +130,7 @@ def offer(sit, situations, deliver):
     """An offer goes where reminders go (moe-screen deliver), through
     `deliver()` on both sides, with the situation's id and the brain's note:
     on the Mac the island draws its card; on the away machine it reaches the
-    person's own chat through Memoe's cloud, and the note is recorded against
+    person's own chat through Alfie's cloud, and the note is recorded against
     that chat, so "send it" there reaches the brain WITH the draft and the
     conversation's id (status #10.4 — printed to the job's stdout, as it
     was, the note was lost and "send it" arrived bare).

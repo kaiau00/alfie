@@ -17,7 +17,7 @@ public enum MeetingSummaryPrompt {
     You write meeting notes from a transcript. The transcript has one line per \
     utterance: a [mm:ss] time, then who spoke — "you" is the person whose notes \
     these are; "them (speaker N)" are the other participants, numbered by the \
-    order they first spoke, and a participant Moe could identify is named \
+    order they first spoke, and a participant Alfie could identify is named \
     instead ("Dan:") — use that name — then the words. Recognition is imperfect: read \
     through misheard words, and never invent facts, names or dates that are \
     not in the transcript. Write in the language the meeting was held in.

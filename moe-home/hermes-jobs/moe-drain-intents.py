@@ -101,8 +101,8 @@ STATE_FILE = "moe-drain-intents.json"
 
 #: §14.4 rule 9: a `via` with no executor is refused with a reason naming it,
 #: rather than leaving the person in silence until the TTL.
-NO_EXECUTOR = ("This Mac's Moe doesn't know how to do `%s` work yet, so there was "
-               "nothing here to run it — update Memoe.")
+NO_EXECUTOR = ("This Mac's Alfie doesn't know how to do `%s` work yet, so there was "
+               "nothing here to run it — update Alfie.")
 
 #: Rule 8, once the absence has stopped being transient.
 GAVE_UP = ("This could not be run because %s, and that has not changed in %d "
@@ -120,7 +120,7 @@ GAVE_UP = ("This could not be run because %s, and that has not changed in %d "
 #: refuse with what the gate said. Until that exists the only honest answer is
 #: to refuse and say so — a tool that is offered and always refuses is a lie,
 #: but a queued send that goes out unconfirmed is worse.
-SEND_REFUSAL = ("Moe does not send anything that was queued while you were away — a send "
+SEND_REFUSAL = ("Alfie does not send anything that was queued while you were away — a send "
                 "needs your confirmation, and nobody was here to give it. Ask again now "
                 "and it goes straight out.")
 
@@ -150,7 +150,7 @@ def plugins_dir():
 def ledger_dir():
     """``$MOE_HOME/ledger``, the same directory ``claimstore`` resolves.
 
-    Not under ``$HERMES_HOME``: the ledger is Moe's, it holds conversations as
+    Not under ``$HERMES_HOME``: the ledger is Alfie's, it holds conversations as
     well as memory, and Hermes is one of several writers to it.
     """
     return moe_home() / "ledger"
@@ -409,7 +409,7 @@ class ConnectorExecutor(Executor):
         connector that was back thirty seconds later."""
         connectors = self.connectors
         if connectors is None:
-            return "Moe's connectors are not installed on this Mac right now"
+            return "Alfie's connectors are not installed on this Mac right now"
         if connectors.connector_script(intent.target) is None:
             return "the %s connector's script is not on this Mac right now" % intent.target
         entry = self._entry(intent)

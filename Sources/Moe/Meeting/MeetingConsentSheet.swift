@@ -40,7 +40,7 @@ struct MeetingConsentSheet: View {
     static let copyTitle = "Copy a line to tell them"
     static let copiedTitle = "Copied"
     /// The small print: what Moe cannot do, and what the button beside it is for.
-    static let smallPrint = "Everything stays on your Mac, in your meetings folder. The recording is deleted once the notes are written. Moe can't tell the other people on this call that it's listening — copy a line below and paste it into the call's chat, or just say so."
+    static let smallPrint = "Everything stays on your Mac, in your meetings folder. The recording is deleted once the notes are written. Alfie can't tell the other people on this call that it's listening — copy a line below and paste it into the call's chat, or just say so."
 
     /// The announcement, onto a pasteboard. A function of its own so the
     /// clipboard write is a thing a test can point at a scratch pasteboard.
@@ -64,7 +64,7 @@ struct MeetingConsentSheet: View {
                 .font(Theme.Typo.heading(26))
                 .foregroundStyle(Theme.ink)
 
-            Text("Moe will listen to your microphone and to this call's audio, and write you notes when it ends.")
+            Text("Alfie will listen to your microphone and to this call's audio, and write you notes when it ends.")
                 .font(Theme.Typo.prose(15))
                 .foregroundStyle(Theme.ink2)
                 .fixedSize(horizontal: false, vertical: true)

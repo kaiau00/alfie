@@ -61,7 +61,7 @@ struct SkillsPane: View {
             case .all: return "Everything"
             case .trouble: return "Can't run"
             case .off: return "Switched off"
-            case .used: return "Moe has used"
+            case .used: return "Alfie has used"
             }
         }
     }
@@ -90,7 +90,7 @@ struct SkillsPane: View {
                         if !trouble.isEmpty { PaneBanner(tone: .bad, text: trouble) }
                         if !catalogue.canWrite, catalogue.ok {
                             PaneBanner(tone: .warn, text: catalogue.whyNot.isEmpty
-                                       ? "Moe can't change these from here."
+                                       ? "Alfie can't change these from here."
                                        : catalogue.whyNot)
                         }
                         if catalogue.ok {
@@ -98,7 +98,7 @@ struct SkillsPane: View {
                             groups(catalogue)
                         }
                     } else {
-                        checking("Looking at what Moe knows how to do…")
+                        checking("Looking at what Alfie knows how to do…")
                     }
                 }
                 .padding(.horizontal, 36)
@@ -124,13 +124,13 @@ struct SkillsPane: View {
             // trying.
             if c.misfiring > 0 {
                 PaneBanner(tone: .warn,
-                           text: "\(c.misfiring) \(c.misfiring == 1 ? "skill is" : "skills are") switched on but tell Moe to run something that isn't installed on this Mac. Moe finds that out by trying, which costs you the answer.")
+                           text: "\(c.misfiring) \(c.misfiring == 1 ? "skill is" : "skills are") switched on but tell Alfie to run something that isn't installed on this Mac. Alfie finds that out by trying, which costs you the answer.")
             }
             // On plus off equals the total, always. It did not until this
             // was rendered — the gated one was quietly missing from both
             // sides and the sentence read "96 skills — 91 on, 4 off",
             // which invites a reader to go looking for the ninety-sixth.
-            Text("\(c.counted) skills on this Mac — \(c.on) switched on, \(c.off) off. Moe reads one when a job looks like it."
+            Text("\(c.counted) skills on this Mac — \(c.on) switched on, \(c.off) off. Alfie reads one when a job looks like it."
                  + (c.gated == 0 ? ""
                     : " \(c.gated == 1 ? "One of them is" : "\(c.gated) of them are") only offered inside another kind of session."))
                 .font(Theme.Typo.ui(12))
@@ -198,7 +198,7 @@ struct SkillsPane: View {
         case .all: return "There are no skills on this Mac."
         case .trouble: return "Nothing switched on is missing a command. This is the state to be in."
         case .off: return "Nothing is switched off."
-        case .used: return "Moe hasn't opened any of these yet."
+        case .used: return "Alfie hasn't opened any of these yet."
         }
     }
 
@@ -301,12 +301,12 @@ struct SkillsPane: View {
                     // No answer at all — the script could not be found or
                     // it crashed. Different from a refusal, and said
                     // differently: a refusal has words of its own.
-                    trouble = "Moe couldn't reach the part of itself that keeps the skill list."
+                    trouble = "Alfie couldn't reach the part of itself that keeps the skill list."
                     return
                 }
                 if !result.ok {
                     trouble = result.error.isEmpty
-                        ? "Moe couldn't change that one."
+                        ? "Alfie couldn't change that one."
                         : result.error
                     return
                 }
@@ -332,7 +332,7 @@ struct SkillsPane: View {
                     catalogue = c
                 } else {
                     var blank = Skills.Catalogue()
-                    blank.error = "Moe couldn't reach the part of itself that keeps the skill list."
+                    blank.error = "Alfie couldn't reach the part of itself that keeps the skill list."
                     catalogue = blank
                 }
             }

@@ -41,7 +41,7 @@ struct RememberingSectionTests {
         // the person's own line, the old bullet, the old paragraph, and one
         // managed block already at its version.
         let before = """
-        # Moe
+        # Alfie
 
         Mine: keep the coffee order in mind.
 
@@ -76,7 +76,7 @@ struct RememberingSectionTests {
     func editedParagraphStays() throws {
         let edited = FirstRun.legacyRemembering.replacingOccurrences(of: "short dated line",
                                                                      with: "short line, dated, mine")
-        let url = scratch("# Moe\n\n" + edited + "## After\n\ntext\n")
+        let url = scratch("# Alfie\n\n" + edited + "## After\n\ntext\n")
         FirstRun.refreshManagedSections(at: url)
         let after = try String(contentsOf: url, encoding: .utf8)
         #expect(after.contains("short line, dated, mine"))

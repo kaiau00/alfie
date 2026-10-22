@@ -100,8 +100,8 @@ enum Licenses {
     (© AsamK and contributors, GPL-3.0-or-later), which contains libsignal \
     0.102.1 (© Signal Messenger, LLC, AGPL-3.0-only), and an Eclipse Temurin JRE \
     25.0.4.1+1 (GPL-2.0 with the Classpath Exception). All three are used \
-    unmodified; signal-cli runs as a separate program that Moe talks to over a \
-    local connection, and nothing of it is linked into Moe. Full texts: \
+    unmodified; signal-cli runs as a separate program that Alfie talks to over a \
+    local connection, and nothing of it is linked into Alfie. Full texts: \
     THIRD_PARTY_LICENSES/GPL-3.0.txt and THIRD_PARTY_LICENSES/AGPL-3.0.txt, and \
     the runtime's own legal/ directory. Source, at the exact upstream tags: \
     signal-cli's at https://github.com/AsamK/signal-cli/tree/v0.14.8, \
@@ -111,7 +111,7 @@ enum Licenses {
     three years from the date you received this software, we will give anyone \
     who asks the complete corresponding source for those exact versions, on a \
     physical medium or by download, for no more than the cost of distribution \
-    — write to the contact address published at https://memoe.app.
+    — ask through https://github.com/kaiau00/alfie.
 
     Software updates — Sparkle © 2006-2013 Andy Matuschak, © 2009-2013 Elgato \
     Systems GmbH, © 2011-2014 Kornel Lesiński, © 2015-2017 Mayur Pawashe, \
@@ -401,7 +401,7 @@ struct LicensesView: View {
                     // is the version AND the fact that it is early, and the
                     // two belong on one line.
                     HStack(alignment: .firstTextBaseline, spacing: Theme.Space.small) {
-                        Text("Memoe \(Licenses.appVersion)")
+                        Text("Alfie \(Licenses.appVersion)")
                             .font(Theme.Typo.heading(19))
                             .foregroundStyle(Theme.ink)
                         Text("BETA")
@@ -417,7 +417,11 @@ struct LicensesView: View {
                     }
                     Text(Updates.controller == nil
                          ? "Built from source — updates come from wherever you got it."
-                         : "Keeps itself up to date: a new version is downloaded quietly, and Memoe asks before restarting to install it.")
+                         : "Keeps itself up to date: a new version is downloaded quietly, and Alfie asks before restarting to install it.")
+                        .font(Theme.Typo.ui(12))
+                        .foregroundStyle(Theme.ink3)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Text("Alfie is a fork of Memoe (github.com/memoe-app/memoe) and is not affiliated with or endorsed by Memoe.")
                         .font(Theme.Typo.ui(12))
                         .foregroundStyle(Theme.ink3)
                         .fixedSize(horizontal: false, vertical: true)
@@ -431,7 +435,7 @@ struct LicensesView: View {
             // actually works from inside the app. Not an email address:
             // telling Moe reaches us with the version, the machine and what
             // it was doing, none of which a person should have to type out.
-            Text("You're on an early version. Bugs, edge cases and rough corners are part of the deal for now — when you hit one, just tell Moe. Say it out loud or type it; it comes to us with everything needed to fix it, and it is what makes the next version better.")
+            Text("You're on an early version. Bugs, edge cases and rough corners are part of the deal for now — when you hit one, just tell Alfie. Say it out loud or type it; it comes to us with everything needed to fix it, and it is what makes the next version better.")
                 .font(Theme.Typo.prose(12))
                 .foregroundStyle(Theme.ink3)
                 .fixedSize(horizontal: false, vertical: true)

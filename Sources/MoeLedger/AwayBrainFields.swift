@@ -259,15 +259,15 @@ public enum AwayBrainCopy {
     /// Mac is not where it is.
     public static func setupTokenExplanation(signInAvailable available: Bool) -> String {
         if available {
-            return "Press Sign in with Claude. Moe opens claude.ai in your browser, you "
+            return "Press Sign in with Claude. Alfie opens claude.ai in your browser, you "
                 + "approve, and your machine gets a token of its own: a year long, model "
-                + "requests only, Anthropic's own path for servers. Moe seals it here and "
+                + "requests only, Anthropic's own path for servers. Alfie seals it here and "
                 + "never keeps a copy, so it is not the token this Mac thinks with. "
                 + "Already have one? Paste it instead."
         }
         return "Claude Code isn't on this Mac, so there is no sign-in here to run. On a "
             + "computer that has it, `claude setup-token` prints a token that lasts a year "
-            + "and can only make model requests; paste that below. Moe seals it here and "
+            + "and can only make model requests; paste that below. Alfie seals it here and "
             + "never keeps a copy."
     }
 
@@ -327,7 +327,7 @@ public enum AwayBrainCopy {
         case .needsItsOwnKey(let provider):
             let named = provider.isEmpty ? "that" : shortProviderName(provider)
             return AwayBrainFollowNote(
-                sentence: "Your \(machine) doesn't have your \(named) key — Moe won't send a "
+                sentence: "Your \(machine) doesn't have your \(named) key — Alfie won't send a "
                     + "key off this Mac that you didn't just type. Give it the same key and "
                     + "it thinks with the same thing you do; until then it keeps thinking "
                     + "with \(still).",
@@ -361,7 +361,7 @@ public enum AwayBrainCopy {
         let trimmed = why.trimmingCharacters(in: .whitespacesAndNewlines)
         return AwayBrainFollowNote(
             sentence: trimmed.isEmpty
-                ? "Moe couldn't send this to your \(machine). It keeps what it had."
+                ? "Alfie couldn't send this to your \(machine). It keeps what it had."
                 : trimmed,
             needsYou: true, action: "Change what your machine uses…")
     }

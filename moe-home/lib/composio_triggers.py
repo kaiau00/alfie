@@ -2,7 +2,7 @@
 (docs/PROACTIVE-MEMORY.md slice 7; owner decisions 2026-09-28).
 
 A toolkit whose read plan found no "what is new for me" lister (LinkedIn,
-Slack's live messages) can still tell Moe something happened — if Composio
+Slack's live messages) can still tell Alfie something happened — if Composio
 pushes it. This module, on the Mac, turns such pushes on:
 
   1. only for a PAID tenant (tier away/away_plus: anything on a clock is

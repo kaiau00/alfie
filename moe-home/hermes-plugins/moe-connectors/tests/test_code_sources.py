@@ -1,4 +1,4 @@
-"""The person's Gmail as the engine's source of sign-in codes (Moe ticket #13).
+"""The person's Gmail as the engine's source of sign-in codes (Alfie ticket #13).
 
 The engine (Hermes agent/vault_code_sources.py) decides which message and which code; this plugin
 only answers "what mail arrived recently, from every Gmail account this person connected". These

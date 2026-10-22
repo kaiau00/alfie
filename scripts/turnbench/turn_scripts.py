@@ -20,10 +20,10 @@ Each line is one of:
   and         "and…" then a pause, then the rest            (continuing intonation)
   correction  "no wait, I mean…"                             (FDB v3's hardest case)
   short       "yes", "no", "sure" — a whole turn            (review M3: a lone yes in noise)
-  stop        "stop", "wait" — said over Moe's reply
+  stop        "stop", "wait" — said over Alfie's reply
   interrupt   a real new request said over the reply (two or more words)
   backchannel "mm-hm", "yeah" over the reply — must NOT stop it
-and Moe's own replies, spoken by Moe's Inworld voices (Clive, Ashley), which
+and Alfie's own replies, spoken by Alfie's Inworld voices (Clive, Ashley), which
 mix.py plays back into the microphone as simulated echo and as the reply a
 barge-in lands on.
 
@@ -81,7 +81,7 @@ CORRECTION = [
     "Call Mike,{P} actually no, text him instead.",
 ]
 SHORT = ["Yes.", "No.", "Sure.", "Yeah, go ahead.", "Nope.", "Okay, do it.", "That's right.", "Not yet."]
-STOP = ["Stop.", "Wait.", "Hold on.", "No, stop.", "Moe, stop.", "Stop, stop."]
+STOP = ["Stop.", "Wait.", "Hold on.", "No, stop.", "Alfie, stop.", "Stop, stop."]
 INTERRUPT = [
     "Wait, actually, make it Tuesday instead.",
     "No no, I meant the other one.",

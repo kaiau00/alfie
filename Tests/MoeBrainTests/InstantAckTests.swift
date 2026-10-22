@@ -41,8 +41,8 @@ struct InstantAckTests {
 
     @Test func theAddressIsSteppedPastToFindTheVerb() {
         // "Hey Moe" is how the turn is opened, not what is being asked.
-        #expect(ack("hey Moe create a cron for the morning digest") != nil)
-        #expect(ack("ok Moe check my mail") != nil)
+        #expect(ack("hey Alfie create a cron for the morning digest") != nil)
+        #expect(ack("ok Alfie check my mail") != nil)
         #expect(ack("so, uh, find that email from Eli") != nil)
     }
 
@@ -52,8 +52,8 @@ struct InstantAckTests {
         // These get an ordinary reply, and "on it" in front of one would be
         // absurd. Every one of them is a real line from the log.
         for turn in [
-            "thanks", "thanks Moe", "cool", "nice one", "ok", "okay great",
-            "yeah", "yep", "no", "hi", "hey Moe", "good morning",
+            "thanks", "thanks Alfie", "cool", "nice one", "ok", "okay great",
+            "yeah", "yep", "no", "hi", "hey Alfie", "good morning",
             "busy day", "wow", "never mind", "stop", "that's all",
             "goodbye", "alright", "sorry",
         ] {

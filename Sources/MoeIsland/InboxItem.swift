@@ -262,7 +262,7 @@ public enum NoticeWords {
         let lines = text.split(separator: "\n", omittingEmptySubsequences: true)
             .map { String($0).trimmingCharacters(in: .whitespaces) }
             .filter { !$0.isEmpty }
-        guard let first = lines.first else { return (jobLabel(job).isEmpty ? "Moe" : jobLabel(job), "") }
+        guard let first = lines.first else { return (jobLabel(job).isEmpty ? "Alfie" : jobLabel(job), "") }
 
         var title = ""
         var rest = Array(lines.dropFirst())
@@ -386,7 +386,7 @@ public enum NoticeWords {
         case "moe-away": return "Away"
         case "moe-tickets": return "Support"
         default:
-            if NoticeMaker.isMoeJob(j) { return "Moe" }
+            if NoticeMaker.isMoeJob(j) { return "Alfie" }
             return j
         }
     }
@@ -523,7 +523,7 @@ public enum NoticeThread {
     static let stop: Set<String> = [
         "the", "and", "for", "you", "your", "with", "that", "this", "from", "have", "are", "was",
         "not", "but", "about", "what", "when", "will", "can", "all", "one", "out", "get", "has",
-        "moe", "just", "today", "now", "here", "there", "they", "them", "their", "its", "into",
+        "alfie", "just", "today", "now", "here", "there", "they", "them", "their", "its", "into",
         "reply", "draft", "ready", "brief", "reminder", "remind", "need", "want", "would", "could",
     ]
 

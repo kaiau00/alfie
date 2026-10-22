@@ -165,12 +165,12 @@ enum ActiveSpeakerProbe {
 
         guard AXIsProcessTrusted() else {
             say("""
-                ax-dump-meeting: Moe is not trusted for Accessibility, so every window
+                ax-dump-meeting: Alfie is not trusted for Accessibility, so every window
                 reads as empty — which is indistinguishable from a meeting app that
                 exposes nothing, and that is the whole question here.
 
-                Turn it on: System Settings › Privacy & Security › Accessibility › Moe.
-                It lets Moe read what is on a window; it does not record the screen.
+                Turn it on: System Settings › Privacy & Security › Accessibility › Alfie.
+                It lets Alfie read what is on a window; it does not record the screen.
                 """)
             return 2
         }

@@ -236,7 +236,7 @@ struct NoticedTab: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: Theme.Space.section) {
-            Text("Moe looks at what's new in the chats you let it learn from, and asks one question of each conversation that moved: is something open here where you have something at stake, that it could prepare for you? For the ones that matter most, it gets the work ready: the research, the options worked out, a draft. Nothing is ever sent unless you say so and confirm.")
+            Text("Alfie looks at what's new in the chats you let it learn from, and asks one question of each conversation that moved: is something open here where you have something at stake, that it could prepare for you? For the ones that matter most, it gets the work ready: the research, the options worked out, a draft. Nothing is ever sent unless you say so and confirm.")
                 .font(Theme.Typo.prose(13))
                 .foregroundStyle(Theme.ink2)
                 .fixedSize(horizontal: false, vertical: true)
@@ -245,7 +245,7 @@ struct NoticedTab: View {
             SettingGroup(title: "Offers") {
                 SettingRow(
                     title: "Offer what's ready",
-                    detail: "When Moe has the work ready and is fairly sure you'd want it, the island glows with one line: Use draft, See it, Not now. Use draft sends exactly that reply where the conversation is, after you see it and confirm. Off, it's only shown here."
+                    detail: "When Alfie has the work ready and is fairly sure you'd want it, the island glows with one line: Use draft, See it, Not now. Use draft sends exactly that reply where the conversation is, after you see it and confirm. Off, it's only shown here."
                 ) {
                     VoicePane.lever(Binding(get: { conductor?.config.situationOffers ?? false },
                                             set: { conductor?.setSituationOffers($0) }),
@@ -253,7 +253,7 @@ struct NoticedTab: View {
                 }
                 SettingRow(
                     title: "Also send offers to my chats when I'm away",
-                    detail: "To the chats you get reminders in, with the draft written out. Reply \u{201C}send it\u{201D} and Moe asks you to confirm before anything goes. Off, offers wait for you at the Mac.",
+                    detail: "To the chats you get reminders in, with the draft written out. Reply \u{201C}send it\u{201D} and Alfie asks you to confirm before anything goes. Off, offers wait for you at the Mac.",
                     last: true
                 ) {
                     VoicePane.lever(Binding(get: { conductor?.config.situationOffersToChats ?? false },
@@ -277,7 +277,7 @@ struct NoticedTab: View {
             }
 
             SettingGroup(title: "Promises") {
-                Text("What you said you'd do, and what others said they'd do for you, found in the same conversations. Moe checks everywhere it reads for signs a promise was kept and closes it by itself; if not, it comes up the morning it's due, and again if the day passes.")
+                Text("What you said you'd do, and what others said they'd do for you, found in the same conversations. Alfie checks everywhere it reads for signs a promise was kept and closes it by itself; if not, it comes up the morning it's due, and again if the day passes.")
                     .font(Theme.Typo.ui(12))
                     .foregroundStyle(Theme.ink3)
                     .fixedSize(horizontal: false, vertical: true)
@@ -515,7 +515,7 @@ struct NoticedTab: View {
         case "notes": return "Notes"
         case "call-recordings": return "recorded calls"
         case "meetings": return "Meetings"
-        case "chats": return "your chats with Moe"
+        case "chats": return "your chats with Alfie"
         default: return s.prefix(1).uppercased() + s.dropFirst()
         }
     }

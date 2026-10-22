@@ -103,7 +103,7 @@ if [ "$MODE" = forget ]; then
   # device the phone linked, whatever the phone still lists.
   if [ -e "$ACCOUNT_FILE" ] || [ -e "$SIG/data" ]; then
     rm -rf "$SIG/data" "$ACCOUNT_FILE"
-    echo "✓ Signal unlinked on this Mac. Remove “Moe” in Signal › Settings › Linked devices on your phone too."
+    echo "✓ Signal unlinked on this Mac. Remove “Alfie” in Signal › Settings › Linked devices on your phone too."
   else
     echo "✓ Signal was not linked on this Mac."
   fi
@@ -112,7 +112,7 @@ fi
 
 PY="$AGENT_DIR/.venv/bin/python"
 if [ ! -x "$PY" ]; then
-  echo "✗ Moe's brain is not installed yet — run scripts/install.sh first."
+  echo "✗ Alfie's brain is not installed yet — run scripts/install.sh first."
   exit 1
 fi
 HERMES_BIN="${HERMES_BIN:-$(command -v hermes 2>/dev/null || true)}"
@@ -143,13 +143,13 @@ else
     cat <<'EOF'
 Connect Signal
 ──────────────
-Signal has no bot accounts, so Moe links to your own Signal as a device —
+Signal has no bot accounts, so Alfie links to your own Signal as a device —
 the same as Signal Desktop. That means:
 
   • this Mac receives your whole Signal account: every chat, contact and
-    group — Moe answers only what you write in Note to Self, but it holds
+    group — Alfie answers only what you write in Note to Self, but it holds
     the rest;
-  • Moe's replies appear in Note to Self;
+  • Alfie's replies appear in Note to Self;
   • you can unlink it any time: Signal › Settings › Linked devices.
 
 EOF
@@ -182,7 +182,7 @@ if not env.get("JAVA_HOME"):
     env.pop("JAVA_HOME", None)
 try:
     # "Moe" is the name the phone lists the device under; it learns it at the scan.
-    proc = subprocess.Popen([cli, "--config", data, "link", "-n", "Moe"],
+    proc = subprocess.Popen([cli, "--config", data, "link", "-n", "Alfie"],
                             stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True,
                             encoding="utf-8", errors="replace", start_new_session=True, env=env)
 except OSError as e:
@@ -282,5 +282,5 @@ cfg() { # key value → non-fatal: the .env keys are what start the platform
 }
 cfg platforms.signal.enabled true
 cfg platforms.signal.extra.unauthorized_dm_behavior ignore
-echo "✓ Signal connected. Once Moe restarts, write to yourself in Note to Self."
+echo "✓ Signal connected. Once Alfie restarts, write to yourself in Note to Self."
 echo "NEEDS_RESTART=gateway"

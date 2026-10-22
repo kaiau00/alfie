@@ -207,7 +207,9 @@ struct WakeTeachCard: View {
     var clipsOnMac: Int = 0
     /// What the last run found, for the intro.
     var previous: String?
-    var send: () -> Void = {}
+    /// Hands the recordings to the maintainers. Nil hides the item: Alfie
+    /// has no team inbox, and the inherited one was Memoe's.
+    var send: (() -> Void)? = nil
     var forget: () -> Void = {}
 
     static let size = CGSize(width: 540, height: 540)
@@ -313,7 +315,7 @@ struct WakeTeachCard: View {
         case .measuring:
             PaneButton(title: "Close") { model.send(.cancel) }
                 .keyboardShortcut(.cancelAction)
-                .help("Moe keeps measuring and applies what it finds")
+                .help("Alfie keeps measuring and applies what it finds")
         case .failed:
             PaneButton(title: "Close") { model.send(.cancel) }
                 .keyboardShortcut(.cancelAction)
@@ -342,7 +344,7 @@ struct WakeTeachCard: View {
 
     private var recordingsMenu: some View {
         Menu {
-            Button("Send them to the Moe team…", action: send)
+            if let send { Button("Send them to the Alfie team…", action: send) }
             Button("Forget my recordings", role: .destructive, action: forget)
         } label: {
             HStack(spacing: Theme.Space.tight) {
@@ -372,18 +374,18 @@ struct WakeTeachCard: View {
                 .background(Circle().fill(Theme.accentTint))
                 .accessibilityHidden(true)
             VStack(alignment: .leading, spacing: Theme.Space.small) {
-                Text("Teach Moe how you say its name")
+                Text("Teach Alfie how you say its name")
                     .font(Theme.Typo.display(24))
                     .foregroundStyle(Theme.ink)
                     .accessibilityAddTraits(.isHeader)
-                Text("Moe learns how you say “Hey Moe” in this room, so it answers you and not a phrase that only sounds like it.")
+                Text("Alfie learns how you say “Hey Alfie” in this room, so it answers you and not a phrase that only sounds like it.")
                     .font(Theme.Typo.prose(15))
                     .foregroundStyle(Theme.ink2)
                     .fixedSize(horizontal: false, vertical: true)
             }
             VStack(alignment: .leading, spacing: Theme.Space.base) {
-                fact("clock", "About two minutes: “Hey Moe” twelve times, then eight sound-alikes.")
-                fact("text.bubble", "One phrase at a time. Say it when it appears — Moe moves on by itself.")
+                fact("clock", "About two minutes: “Hey Alfie” twelve times, then eight sound-alikes.")
+                fact("text.bubble", "One phrase at a time. Say it when it appears — Alfie moves on by itself.")
                 fact("lock", "The clips stay on this Mac. Nothing is sent anywhere.")
             }
             if let previous {
@@ -567,7 +569,7 @@ struct WakeTeachCard: View {
     private func measuring(done: Int, total: Int) -> some View {
         VStack(alignment: .leading, spacing: Theme.Space.base) {
             Spacer(minLength: 0)
-            Text("Measuring how Moe hears you")
+            Text("Measuring how Alfie hears you")
                 .font(Theme.Typo.display(24))
                 .foregroundStyle(Theme.ink)
                 .accessibilityAddTraits(.isHeader)
@@ -595,7 +597,7 @@ struct WakeTeachCard: View {
                     .font(Theme.Typo.data(11))
                     .foregroundStyle(Theme.ink3)
             }
-            Text("The microphone is off. Moe plays every clip back through the wake word and finds the setting that catches your voice and leaves the sound-alikes alone.")
+            Text("The microphone is off. Alfie plays every clip back through the wake word and finds the setting that catches your voice and leaves the sound-alikes alone.")
                 .font(Theme.Typo.prose(14))
                 .foregroundStyle(Theme.ink2)
                 .fixedSize(horizontal: false, vertical: true)
@@ -628,15 +630,15 @@ struct WakeTeachCard: View {
                         .fixedSize(horizontal: false, vertical: true)
                 }
             }
-            compare(title: "Your “Hey Moe”s it catches", better: "more is better",
+            compare(title: "Your “Hey Alfie”s it catches", better: "more is better",
                     before: o.caughtBefore, now: o.caughtNow, of: o.names)
             if o.soundAlikes > 0 {
                 compare(title: "Sound-alikes it answers by mistake", better: "fewer is better",
                         before: o.letThroughBefore, now: o.letThroughNow, of: o.soundAlikes)
             }
             Text(o.changed
-                 ? "Moe uses the new setting from now on, on this Mac. Teach it again in another room if it still misses you there."
-                 : "The setting Moe had is already the best one for your voice here, so nothing changed.")
+                 ? "Alfie uses the new setting from now on, on this Mac. Teach it again in another room if it still misses you there."
+                 : "The setting Alfie had is already the best one for your voice here, so nothing changed.")
                 .font(Theme.Typo.prose(13))
                 .foregroundStyle(Theme.ink2)
                 .fixedSize(horizontal: false, vertical: true)
@@ -705,7 +707,7 @@ struct WakeTeachCard: View {
                 .font(Theme.Typo.prose(14))
                 .foregroundStyle(Theme.ink2)
                 .fixedSize(horizontal: false, vertical: true)
-            Text("Nothing changed: Moe listens for its name the way it did before.")
+            Text("Nothing changed: Alfie listens for its name the way it did before.")
                 .font(Theme.Typo.ui(12))
                 .foregroundStyle(Theme.ink3)
             Spacer(minLength: 0)

@@ -53,7 +53,7 @@ public struct VoiceFallback: Equatable, Sendable {
     /// but not the substitute leaves them hearing a mystery voice, and one
     /// that names the substitute but not the reason cannot be acted on.
     public var sentence: String {
-        "\(asked) couldn't be used — \(why). Moe is speaking with \(used), "
+        "\(asked) couldn't be used — \(why). Alfie is speaking with \(used), "
             + "in \(voice), until that changes."
     }
 

@@ -127,7 +127,7 @@ struct StallGuardConductorTests {
             let (moe, brain) = try Self.make()
             moe.submit("find me a flight", origin: .typed, starter: .person)
             try await brain.waitForSends(1)
-            if end == .failed { brain.emit(.error("Moe lost its train of thought")) }
+            if end == .failed { brain.emit(.error("Alfie lost its train of thought")) }
             brain.reply(Self.promise, end: end)
             #expect(brain.sent.count == 1, "\(end)")
         }

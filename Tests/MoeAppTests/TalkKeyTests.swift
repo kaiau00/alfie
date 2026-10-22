@@ -73,7 +73,7 @@ struct TalkKeyTests {
         #expect(old.talkKey == .rightOption)
     }
 
-    @Test("a chosen key survives a save, and a name Moe does not know falls back to right ⌥")
+    @Test("a chosen key survives a save, and a name Alfie does not know falls back to right ⌥")
     func roundTripAndUnknown() throws {
         var c = Config()
         c.talkKey = .fn

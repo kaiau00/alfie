@@ -20,7 +20,7 @@ import OnnxRuntimeBindings
 /// training run found, so a retrained head never needs a code change.
 actor WakeHead {
 
-    /// `hey-moe.json` beside the classifier: what the training run found
+    /// `hey-alfie.json` beside the classifier: what the training run found
     /// and what the bench settled on. Every field optional.
     struct Metadata: Decodable {
         var threshold: Float?
@@ -65,7 +65,7 @@ actor WakeHead {
     /// it — what a per-Mac threshold on disk is checked against.
     static func shippedIdentity() -> String? {
         guard let dir = locate(),
-              let data = try? Data(contentsOf: dir.appendingPathComponent("hey-moe.json")),
+              let data = try? Data(contentsOf: dir.appendingPathComponent("hey-alfie.json")),
               let meta = try? JSONDecoder().decode(Metadata.self, from: data) else { return nil }
         return meta.trained
     }
@@ -93,12 +93,12 @@ actor WakeHead {
         }
         candidates.append(Config.homeDir.appendingPathComponent("models/wakeword"))
         let fm = FileManager.default
-        return candidates.first { fm.fileExists(atPath: $0.appendingPathComponent("hey-moe.onnx").path) }
+        return candidates.first { fm.fileExists(atPath: $0.appendingPathComponent("hey-alfie.onnx").path) }
     }
 
     func load(from dir: URL? = nil) throws {
         guard head == nil else { return }
-        guard let dir = dir ?? Self.locate() else { throw LoadError.missing("Resources/WakeWord/hey-moe.onnx") }
+        guard let dir = dir ?? Self.locate() else { throw LoadError.missing("Resources/WakeWord/hey-alfie.onnx") }
         let env = try ORTEnv(loggingLevel: .warning)
         let opts = try ORTSessionOptions()
         try opts.setIntraOpNumThreads(1)
@@ -110,8 +110,8 @@ actor WakeHead {
         }
         let mel = try open("melspectrogram.onnx")
         let embed = try open("embedding_model.onnx")
-        let head = try open("hey-moe.onnx")
-        let sidecar = dir.appendingPathComponent("hey-moe.json")
+        let head = try open("hey-alfie.onnx")
+        let sidecar = dir.appendingPathComponent("hey-alfie.json")
         if let data = try? Data(contentsOf: sidecar) {
             do {
                 let meta = try JSONDecoder().decode(Metadata.self, from: data)

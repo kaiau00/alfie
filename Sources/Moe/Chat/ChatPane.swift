@@ -236,7 +236,7 @@ struct ChatPane: View {
                     Image(systemName: "arrow.down.doc")
                         .font(.system(size: 24, weight: .light))
                         .foregroundStyle(Theme.accent)
-                    Text("Drop to give it to Moe")
+                    Text("Drop to give it to Alfie")
                         .font(Theme.Typo.heading(20))
                         .foregroundStyle(Theme.ink)
                     Text("Photos, PDFs, documents — anything on your Mac")
@@ -338,7 +338,7 @@ struct ChatPane: View {
             // Grows to six lines, then scrolls with the trackpad
             // (`ComposerEditor`); Return sends, Shift-Return is a new line.
             ComposerEditor(text: $typed,
-                           placeholder: conductor.meeting.isRecording ? "Ask Moe — quietly" : "Ask Moe",
+                           placeholder: conductor.meeting.isRecording ? "Ask Alfie — quietly" : "Ask Alfie",
                            size: 13, lineHeight: 18, maxLines: 6,
                            ink: Theme.ink, placeholderInk: Theme.ink3,
                            onSubmit: send)
@@ -354,7 +354,7 @@ struct ChatPane: View {
                     .foregroundStyle(conductor.mode == .listening ? Theme.accent : Theme.ink3)
             }
             .buttonStyle(.plain)
-            .help("Talk to Moe (\(talkKey))")
+            .help("Talk to Alfie (\(talkKey))")
 
             Button(action: send) {
                 Image(systemName: "arrow.up")
@@ -528,7 +528,7 @@ struct TurnRow: View {
 
             VStack(alignment: .leading, spacing: Theme.Space.snug) {
                 HStack(spacing: Theme.Space.small) {
-                    Text("Moe")
+                    Text("Alfie")
                         .font(Theme.Typo.ui(12, weight: .semibold))
                         .foregroundStyle(Theme.ink)
                     Text(Self.clock.string(from: turn.at))

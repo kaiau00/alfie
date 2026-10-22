@@ -17,7 +17,7 @@ struct GrantWatchTests {
 
     final class Switch { var on = false; var calls = 0; var fixes: [ToolFix] = [] }
 
-    static let answer = "I can't read Chrome's data: Full Disk Access is off for Memoe. Want me to open that setting?"
+    static let answer = "I can't read Chrome's data: Full Disk Access is off for Alfie. Want me to open that setting?"
 
     /// A Conductor whose last turn failed with the fixture's tcc_app_data and
     /// has finished, with its Fix card on show.
@@ -141,7 +141,7 @@ struct GrantWatchTests {
         await moe.grantWatch.tick()
         #expect(brain.sent.count == 1, "no second turn while one is in flight")
         #expect(moe.grantWatch.watches[.tccAppData] != nil)
-        brain.reply("Opened it — switch Memoe on and I'll carry on.", end: .answered)
+        brain.reply("Opened it — switch Alfie on and I'll carry on.", end: .answered)
         await moe.grantWatch.tick()
         try await brain.waitForSends(2)
         #expect(brain.sent.last?.starter == .background)
@@ -372,8 +372,8 @@ struct GrantWatchTests {
     @Test func theDriverNoteNamesCuaDriverOnce() {
         let note = Conductor.carryOnNote(.driverAccessibility, fix: ToolFix(code: .tccDriverAccessibility))
         #expect(note == "(Background note, not from the person: Accessibility (CuaDriver) is on now. Carry on with what you were doing.)")
-        let own = Conductor.carryOnNote(.fullDiskAccess, fix: ToolFix(code: .tccAppData), app: "Memoe")
-        #expect(own.contains("Full Disk Access for Memoe is on now"))
+        let own = Conductor.carryOnNote(.fullDiskAccess, fix: ToolFix(code: .tccAppData), app: "Alfie")
+        #expect(own.contains("Full Disk Access for Alfie is on now"))
     }
 
     /// The plugin's allowlist and signal are the app's: one list, two languages.

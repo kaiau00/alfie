@@ -29,7 +29,7 @@ struct OfferConductorTests {
         try text.write(to: url, atomically: true, encoding: .utf8)
     }
 
-    static let note = "This was an offer Moe made on its own.\n========\n\(draft)\n========\nSend exactly that."
+    static let note = "This was an offer Alfie made on its own.\n========\n\(draft)\n========\nSend exactly that."
 
     static func make() throws -> (Conductor, FakeBrain) {
         let (moe, brain) = try StallGuardConductorTests.make()

@@ -51,7 +51,7 @@ DESCRIPTION = (
     "browser on their cloud computer. Use it when a site needs them: a password you do not "
     "have, a 2FA code, 'is this you?', a CAPTCHA you could not pass. Pass `site` (its name, "
     "e.g. \"x.com\") and `url` (the sign-in page, or omit it to show the page the browser is "
-    "on). Memoe sends the one-time link to the person's own chat itself -- you never see it, "
+    "on). Alfie sends the one-time link to the person's own chat itself -- you never see it, "
     "and you must never write, invent or pass on a link for this. It works for 10 minutes, on "
     "the first phone that opens it. They sign in, tap Done and tell you; the "
     "sign-in stays in this browser for every later job, so ask again only if a site signs "
@@ -254,7 +254,7 @@ class Relay(threading.Thread):
 def make_link(site: str, url: str | None, edge_and_bearer, *, post=None, start=True) -> dict:
     """The whole tool: ``{"success", "link", ...}`` or ``{"success": False, "error"}``."""
     if edge_and_bearer is None:
-        return {"success": False, "error": "this cloud computer is not signed in to Memoe, so it "
+        return {"success": False, "error": "this cloud computer is not signed in to Alfie, so it "
                                            "cannot make a sign-in link"}
     edge, bearer = edge_and_bearer
     port, target, page_url, err = open_page(url)
@@ -266,10 +266,10 @@ def make_link(site: str, url: str | None, edge_and_bearer, *, post=None, start=T
                                              headers={"Authorization": "Bearer " + bearer})
     response = post("/v1/live", {"site": site or ""})
     if response.status_code != 200:
-        return {"success": False, "error": f"Memoe would not make a sign-in link ({response.status_code})"}
+        return {"success": False, "error": f"Alfie would not make a sign-in link ({response.status_code})"}
     minted = response.json()
     if not minted.get("delivered"):
-        return {"success": False, "error": "Memoe could not send the sign-in link to the person's own "
+        return {"success": False, "error": "Alfie could not send the sign-in link to the person's own "
                                            "chat (%s), so none was made. Tell them the site needs them "
                                            "and that no chat of theirs is reachable from their cloud "
                                            "computer." % (minted.get("error") or "no chat reachable")}
@@ -287,7 +287,7 @@ def make_link(site: str, url: str | None, edge_and_bearer, *, post=None, start=T
     minutes = int(minted.get("expires_in", 600)) // 60
     chat = str(minted.get("channel") or "chat").replace("_", " ")
     return {"success": True, "sent_to": f"the person's own {chat} chat", "works_for_minutes": minutes,
-            "next": f"Memoe has sent the sign-in link for {site or 'the site'} to the person's own {chat} "
+            "next": f"Alfie has sent the sign-in link for {site or 'the site'} to the person's own {chat} "
                     f"chat. Say in one line that it's there (\"I've sent you a link on {chat.title()} to sign "
                     f"in to {site or 'the site'}\"); do not write any link yourself. It works for {minutes} "
                     f"minutes. Then END YOUR TURN; when they say they're done, carry on in the same browser "

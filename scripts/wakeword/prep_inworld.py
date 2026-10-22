@@ -6,15 +6,15 @@ Held out: ~30 of 282 voices (every 9th voice in a stratified order: English
 voices by the accent their description names, others by language), whole
 voices only — no clip of a held-out voice reaches training or threshold
 choice. The bench gets every clip of those voices, untrimmed:
-  bench/inworld/positive/positive_<voice>-NN.wav   ("Hey Moe", "Hey Moe, <request>")
+  bench/inworld/positive/positive_<voice>-NN.wav   ("Hey Alfie", "Hey Alfie, <request>")
   bench/inworld/confusable/confusable_<voice>-NN.wav (near misses: "Hey Joe", "Hey Mona")
   bench/inworld/speech/speech_<voice>-NN.wav   (ordinary sentences, some with
-                                           "Moe"/"mobile"/"moment" inside)
-`Moe --wake-bench` counts a file towards recall only when a path component is
+                                           "Alfie"/"mobile"/"moment" inside)
+`Alfie --wake-bench` counts a file towards recall only when a path component is
 exactly "positive"; the other two count as false accepts.
 
 Training copies: leading/trailing silence cut (energy gate, 60 ms kept), then
-the first 1.9 s kept for pos/neg, so a long "Hey Moe, what's on my calendar"
+the first 1.9 s kept for pos/neg, so a long "Hey Alfie, what's on my calendar"
 keeps the name (the augmenter keeps the LAST 2 s of anything longer). Speech
 clips are left whole; fold_inworld.py cuts them into windows.
 Usage: prep_inworld.py <clips dir> <out dir>   (writes <out>/inworld/{pos,neg,speech},

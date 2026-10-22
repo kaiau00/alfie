@@ -9,7 +9,7 @@ Two errors, and they are not the same thing to the person:
 
 Ground truth comes from the audio, not from the model: a whole clip is a
 speaker finishing, the same clip cut at 55% is a speaker still going. The
-variable is how much silence follows — because Moe cannot ask until the VAD
+variable is how much silence follows — because Alfie cannot ask until the VAD
 reports a stop, and the VAD will not report one until it has heard
 `minSilenceDuration` of quiet.
 """
@@ -58,5 +58,5 @@ for q in RESID:
         print(f"{q:>14.2f} s{t:>11.2f}{wrong:>21.0%}{late:>10.0%}{wrong+late:>8.2f}")
     print()
 print(f"best combined:   silence {best[1]:.2f} s, threshold {best[2]:.2f}")
-print(f"Moe ships:       silence 0.00 s (TurnAudio.trimTrailingSilence),")
+print(f"Alfie ships:       silence 0.00 s (TurnAudio.trimTrailingSilence),")
 print(f"                 threshold {0.3:.2f} (SmartTurnDetector.threshold)")

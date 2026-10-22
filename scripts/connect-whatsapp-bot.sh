@@ -100,7 +100,7 @@ fi
 
 PY="$AGENT_DIR/.venv/bin/python"
 if [ ! -x "$PY" ]; then
-  echo "✗ Moe's brain is not installed yet — run scripts/install.sh first."
+  echo "✗ Alfie's brain is not installed yet — run scripts/install.sh first."
   exit 1
 fi
 HERMES_BIN="${HERMES_BIN:-$(command -v hermes 2>/dev/null || true)}"
@@ -120,7 +120,7 @@ else
     cat <<'EOF'
 Connect WhatsApp
 ────────────────
-WhatsApp has no personal API. Moe links as a device, the same as WhatsApp
+WhatsApp has no personal API. Alfie links as a device, the same as WhatsApp
 Web, which means:
 
   • it is against WhatsApp's terms of service;
@@ -128,7 +128,7 @@ Web, which means:
     quiet, read-only ones;
   • the link drops every few weeks and you scan again.
 
-If your WhatsApp number matters to you, skip this and let Moe cover
+If your WhatsApp number matters to you, skip this and let Alfie cover
 everything else.
 
 EOF
@@ -161,16 +161,16 @@ else:
         from gateway.platforms.whatsapp_common import resolve_whatsapp_bridge_dir
         from hermes_constants import find_node_executable, with_hermes_node_path
     except ImportError as e:
-        print("✗ This version of Memoe cannot link WhatsApp (%s)." % e)
+        print("✗ This version of Alfie cannot link WhatsApp (%s)." % e)
         sys.exit(3)
     bridge_dir = resolve_whatsapp_bridge_dir()
     script = bridge_dir / "bridge.js"
     if not script.exists():
-        print("✗ Moe's WhatsApp bridge is missing — reinstall Memoe.")
+        print("✗ Alfie's WhatsApp bridge is missing — reinstall Alfie.")
         sys.exit(3)
     node = find_node_executable("node")
     if not node:
-        print("✗ Moe's copy of Node is missing — reinstall Memoe.")
+        print("✗ Alfie's copy of Node is missing — reinstall Alfie.")
         sys.exit(3)
     env = with_hermes_node_path()
     # The bridge's dependencies, installed once, from the npm that ships
@@ -178,7 +178,7 @@ else:
     if not (bridge_dir / "node_modules").exists():
         npm = find_node_executable("npm")
         if not npm:
-            print("✗ Moe's copy of npm is missing — reinstall Memoe.")
+            print("✗ Alfie's copy of npm is missing — reinstall Alfie.")
             sys.exit(3)
         print("Setting up WhatsApp for the first time (about a minute)…")
         sys.stdout.flush()
@@ -205,7 +205,7 @@ else:
 # the scan — so it has to be right for THIS process, not only in .env for
 # the next one. Outside the branch above on purpose: the test's stand-in
 # bridge (MOE_WHATSAPP_BRIDGE_CMD) measures what it was handed.
-env["WHATSAPP_DEVICE_NAME"] = os.environ.get("WHATSAPP_DEVICE_NAME") or "Moe"
+env["WHATSAPP_DEVICE_NAME"] = os.environ.get("WHATSAPP_DEVICE_NAME") or "Alfie"
 # The history the one device keeps, to the pairing process too: the phone
 # sends its recent chats right after the scan, and without a store to put
 # them in they land on the floor. A person's own "false" is respected.
@@ -344,14 +344,14 @@ if "WHATSAPP_REPLY_PREFIX" not in keys:
 # Reaches a bridge that reads WHATSAPP_DEVICE_NAME (the fork, from a95583fd7f);
 # an older bridge ignores it and keeps its default. Left alone if chosen.
 if "WHATSAPP_DEVICE_NAME" not in keys:
-    H.dotenv_set(env_path, "WHATSAPP_DEVICE_NAME", "Moe")
+    H.dotenv_set(env_path, "WHATSAPP_DEVICE_NAME", "Alfie")
 
 name = H.one_line(str(user.get("name") or ""), 40)
 print("✓ Linked%s." % ((" to %s" % name) if name else ""))
 if isinstance(history, dict):
     m, c = history.get("messages"), history.get("chats")
     if isinstance(m, int) and isinstance(c, int) and not isinstance(m, bool):
-        print("✓ Saved %d chat%s and %d message%s so far; the rest arrive while Moe runs."
+        print("✓ Saved %d chat%s and %d message%s so far; the rest arrive while Alfie runs."
               % (c, "" if c == 1 else "s", m, "" if m == 1 else "s"))
 PY
   [ "$rc" -eq 0 ] || exit "$rc"
@@ -374,14 +374,14 @@ if "WHATSAPP_HISTORY_DB" not in keys:
     H.dotenv_set(env_path, "WHATSAPP_HISTORY_DB", store)
 if "WHATSAPP_SYNC_FULL_HISTORY" not in keys:
     H.dotenv_set(env_path, "WHATSAPP_SYNC_FULL_HISTORY", "true")
-print("✓ Moe keeps your chats to read, in %s" % store)
+print("✓ Alfie keeps your chats to read, in %s" % store)
 # The phone sends its history only at the moment of a scan, and nothing can
 # ask for it later. So a session that predates the store gets everything
 # from now on and none of the past, and the only way to the past is a fresh
 # scan. Said here, where the person has just been told the store is on.
 if had_session:
     print("  Your phone sends its chats over when you scan, so this keeps everything from now on.")
-    print("  To have the older ones too, unlink Moe on your phone (Settings › Linked Devices) and connect again.")
+    print("  To have the older ones too, unlink Alfie on your phone (Settings › Linked Devices) and connect again.")
 PY
 
 # The explicit flag in config.yaml (see connect.sh platform_enabled for why);
@@ -391,5 +391,5 @@ if out="$(HERMES_HOME="$HERMES_HOME" SSH_TTY="${SSH_TTY:-moe}" "$HERMES_BIN" con
 else
   echo "… could not set platforms.whatsapp.enabled in config.yaml ($(printf '%s' "$out" | tail -n 1))"
 fi
-echo "✓ WhatsApp connected. Message yourself once Moe restarts."
+echo "✓ WhatsApp connected. Message yourself once Alfie restarts."
 echo "NEEDS_RESTART=gateway"

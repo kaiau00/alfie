@@ -1,4 +1,4 @@
-"""Slim a Hermes pm tool store for shipping inside Memoe's seed.
+"""Slim a Hermes pm tool store for shipping inside Alfie's seed.
 
     slim-hermes-tools.py <store>            # do it
     slim-hermes-tools.py <store> --check    # say what would go; change nothing
@@ -6,7 +6,7 @@
 Called by stage-hermes-seed.sh after pm.prepare_tools. Two things leave:
 
 1. Chromium (Chrome for Testing, ~330 MB). pm pulls it in as agent-browser's
-   dependency; Memoe's installer puts the same pinned, sha256-checked build
+   dependency; Alfie's installer puts the same pinned, sha256-checked build
    into the store on first launch instead (fetch-hermes-browser.sh), so the
    download stays its old size. The store is left with `.browser-pending`,
    which the fork's browser tools read as "still downloading" until then.
@@ -78,7 +78,7 @@ def main(argv: list[str]) -> int:
         entry = store / fact["entry"]
         size = _size(entry) if entry.exists() else 0
         freed += size
-        print(f"  - {fact['entry']} ({size // 2**20} MB): Memoe's installer fetches it on first launch")
+        print(f"  - {fact['entry']} ({size // 2**20} MB): Alfie's installer fetches it on first launch")
         if not check:
             shutil.rmtree(entry, ignore_errors=True)
             del packages[name]
@@ -107,7 +107,7 @@ def main(argv: list[str]) -> int:
             pass
         else:                         # pm's own "publish digests after packaging changed bytes"
             Facts(facts_path).refresh_digests(store)
-        (store / MARKER).write_text("Memoe's installer puts the pinned Chromium here on first launch "
+        (store / MARKER).write_text("Alfie's installer puts the pinned Chromium here on first launch "
                                     "(scripts/fetch-hermes-browser.sh) and removes this file.\n")
     print(f"  {'would free' if check else 'freed'} {freed // 2**20} MB")
     return 0

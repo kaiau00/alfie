@@ -55,7 +55,7 @@ final class FakeHome {
     func populate() throws {
         // Moe's home and Moe Dev's.
         try file("Library/Application Support/Moe/config.json", "{}")
-        try file("Library/Application Support/Moe/memory/notes.md", "what Moe knows")
+        try file("Library/Application Support/Moe/memory/notes.md", "what Alfie knows")
         try file("Library/Application Support/Moe/models/whisper/model.bin")
         try file("Library/Application Support/Moe/cloud/credential.json")
         try file("Library/Application Support/Moe/.onboarded", "")
@@ -191,7 +191,7 @@ func scope(_ fake: FakeHome, _ id: String) throws -> MacEraseScope {
 @Suite("MacErase against a temporary home")
 struct MacEraseTests {
 
-    @Test("Moe's erase removes everything Moe's and nothing else")
+    @Test("Alfie's erase removes everything Alfie's and nothing else")
     func releaseErase() throws {
         let fake = try FakeHome()
         try fake.populate()
@@ -216,14 +216,14 @@ struct MacEraseTests {
                      "Library/Preferences/com.memoe.app.plist",
                      "Library/Saved Application State/com.memoe.app.savedState",
                      "Library/LaunchAgents/com.moe.jobs.plist", "Library/LaunchAgents/com.memoe.app.plist"] {
-            #expect(!fake.exists(gone), "\(gone) survived Moe's erase")
+            #expect(!fake.exists(gone), "\(gone) survived Alfie's erase")
         }
         // Not Moe's, or Moe Dev's: all still there.
         for kept in FakeHome.survivors + ["Library/Application Support/Moe Dev/memory/notes.md",
                                          "Library/Caches/com.memoe.app.dev/cache.db",
                                          "Library/Preferences/com.memoe.app.dev.plist",
                                          "Library/LaunchAgents/com.memoe.app.dev.jobs.plist"] {
-            #expect(fake.exists(kept), "\(kept) was removed by Moe's erase")
+            #expect(fake.exists(kept), "\(kept) was removed by Alfie's erase")
         }
         // Keychain: Moe's items gone, both gmail accounts; the others kept —
         // including a same-named service under an account that is not Moe's.
@@ -240,7 +240,7 @@ struct MacEraseTests {
         #expect(!rec.anyCall(mentioning: "com.memoe.app.dev"))
     }
 
-    @Test("Moe Dev's erase never touches Moe's home, Hermes, models or keychain")
+    @Test("Alfie Dev's erase never touches Alfie's home, Hermes, models or keychain")
     func devErase() throws {
         let fake = try FakeHome()
         try fake.populate()
@@ -259,7 +259,7 @@ struct MacEraseTests {
         for gone in ["Library/Application Support/Moe Dev", "Library/Caches/com.memoe.app.dev",
                      "Library/Preferences/com.memoe.app.dev.plist",
                      "Library/LaunchAgents/com.memoe.app.dev.jobs.plist"] {
-            #expect(!fake.exists(gone), "\(gone) survived Moe Dev's erase")
+            #expect(!fake.exists(gone), "\(gone) survived Alfie Dev's erase")
         }
         for kept in FakeHome.survivors + [
             "Library/Application Support/Moe/memory/notes.md", "Library/Application Support/Moe/config.json",
@@ -268,7 +268,7 @@ struct MacEraseTests {
             "Library/Caches/com.memoe.app/cache.db", "Library/Preferences/com.memoe.app.plist",
             "Library/LaunchAgents/com.moe.jobs.plist", "Library/LaunchAgents/com.memoe.app.plist",
         ] {
-            #expect(fake.exists(kept), "\(kept) — Moe's — was removed by Moe Dev's erase")
+            #expect(fake.exists(kept), "\(kept) — Alfie's — was removed by Alfie Dev's erase")
         }
         #expect(rec.calls.contains(["/usr/bin/tccutil", "reset", "All", "com.memoe.app.dev"]))
         #expect(!rec.calls.contains { $0.contains("com.memoe.app") })
@@ -339,7 +339,7 @@ struct MacEraseTests {
         #expect(fake2.exists(".moe/notes/mine.md"))
     }
 
-    @Test("a link inside Moe's home is removed as a link; what it points at survives")
+    @Test("a link inside Alfie's home is removed as a link; what it points at survives")
     func linksAreNotFollowed() throws {
         let fake = try FakeHome()
         try fake.populate()
@@ -356,7 +356,7 @@ struct MacEraseTests {
         #expect(fake.exists("Documents/my-essay.txt"))
     }
 
-    @Test("Moe's Chrome host goes with its Hermes; someone else's, or Moe Dev's erase, leaves it")
+    @Test("Alfie's Chrome host goes with its Hermes; someone else's, or Alfie Dev's erase, leaves it")
     func chromeHost() throws {
         let fake = try FakeHome()
         let manifest = MacEraseChromeHost.manifest
@@ -393,7 +393,7 @@ struct MacEraseTests {
         #expect(other.exists(manifest))
     }
 
-    @Test("a hermes command that is not Moe's Hermes is left")
+    @Test("a hermes command that is not Alfie's Hermes is left")
     func foreignHermesWrapper() throws {
         let fake = try FakeHome()
         try fake.file(".hermes/.env")
@@ -437,7 +437,7 @@ struct MacEraseRefusalTests {
         }
     }
 
-    @Test("Moe Dev without its own home, or with Moe's, is refused")
+    @Test("Alfie Dev without its own home, or with Alfie's, is refused")
     func devHomeMustBeItsOwn() throws {
         let fake = try FakeHome()
         for stamped in [nil, "", fake.url("Library/Application Support/Moe").path,
@@ -513,7 +513,7 @@ struct MacEraseRefusalTests {
         #expect(MacErase.standard(scope: ok, uid: 1, relaunch: {}).commands is RecordingCommands)
     }
 
-    @Test("the guard refuses everything outside Moe's reach", arguments: [
+    @Test("the guard refuses everything outside Alfie's reach", arguments: [
         "", ".claude", ".claude/settings.json", ".codex", "Library/Keychains",
         "Library/Keychains/login.keychain-db", "Moe-backup-2026-09-07", "Moe-backup-2026-09-10-1230/x",
         "Library/Application Support", "Library", "Library/Application Support/Moe Dev",
@@ -527,7 +527,7 @@ struct MacEraseRefusalTests {
         #expect(erase.refusal(for: fake.root) != nil)
     }
 
-    @Test("and for Moe Dev, Moe's home and everything shared", arguments: [
+    @Test("and for Alfie Dev, Alfie's home and everything shared", arguments: [
         "Library/Application Support/Moe", "Library/Application Support/Moe/memory",
         ".hermes", ".hermes/.env", "Library/Application Support/FluidAudio", ".cache/fluidaudio",
     ])
@@ -631,7 +631,7 @@ final class ThrowawayKeychain {
 @Suite("MacErase and a real keychain file", .serialized)
 struct MacEraseKeychainFileTests {
 
-    @Test("Moe's items go from the throwaway keychain; everything else in it stays")
+    @Test("Alfie's items go from the throwaway keychain; everything else in it stays")
     func throwaway() throws {
         let fake = try FakeHome()
         let kc = try ThrowawayKeychain(in: fake)
@@ -659,7 +659,7 @@ struct MacEraseKeychainFileTests {
         }
         for (s, a) in [("Claude Code-credentials", "me"), ("https://sparkle-project.org", "ed25519"),
                        ("com.other.app", "token"), ("assemblyai-api-key", "not-moe")] {
-            #expect(kc.has(s, a), "\(s)/\(a) — not Moe's — was deleted")
+            #expect(kc.has(s, a), "\(s)/\(a) — not Alfie's — was deleted")
         }
     }
 

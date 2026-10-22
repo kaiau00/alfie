@@ -7,11 +7,11 @@ the result on the session transcript for the person's NEXT turn — a turn
 they may not start for hours, while the thing they asked for "in the
 background" sits done and unreported.
 
-This is the ``deliver_detached_completion`` hook (Moe's fork,
+This is the ``deliver_detached_completion`` hook (Alfie's fork,
 ``gateway/run_notifications.py``): the gateway offers the completion here
 first. On a Mac with a screen it goes into the inbox as a ``turn`` — the app
-(``Conductor.watchForInbox``) waits until Moe is idle, then runs a turn on
-it, so Moe says the outcome in its own words instead of reading a results
+(``Conductor.watchForInbox``) waits until Alfie is idle, then runs a turn on
+it, so Alfie says the outcome in its own words instead of reading a results
 block aloud. Returning True tells the gateway it is delivered; anything
 else and the gateway keeps its own row, so nothing is ever lost to a
 screenless machine or a full disk.

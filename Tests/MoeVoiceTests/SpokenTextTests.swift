@@ -172,12 +172,25 @@ struct SpokenTextTests {
         #expect(SpokenText.clean("It is ~~not~~ late.") == "It is not late.")
     }
 
-    /// An underscore inside a name is part of the name. Stripping it turns
-    /// `speak_replies` into `speakreplies`, which is a different word — and
-    /// worse than reading the underscore, which is what this used to do.
-    @Test func anIdentifierKeepsItsUnderscores() {
+    /// An underscore inside a name is a joint between words. Stripping it
+    /// turns `speak_replies` into `speakreplies`, a different word, and
+    /// handing it to the synthesiser as written garbles the join; read as
+    /// its words, the name is clear.
+    @Test func anIdentifierIsSpokenAsItsWords() {
         #expect(SpokenText.clean("The flag is speak_typed_replies today.")
-                == "The flag is speak_typed_replies today.")
+                == "The flag is speak typed replies today.")
+    }
+
+    /// A job name such as `weekly-digest-job` was garbled into
+    /// gibberish by Kokoro (Alfie, 2026-10-22). Three or more hyphenated
+    /// parts are a name; two are an ordinary word, and digits alone are a
+    /// date.
+    @Test func aHyphenatedNameIsSpokenAsItsWords() {
+        #expect(SpokenText.clean("weekly-digest-job runs every hour.")
+                == "weekly digest job runs every hour.")
+        #expect(SpokenText.clean("A follow-up on the well-known e-mail.")
+                == "A follow-up on the well-known e-mail.")
+        #expect(SpokenText.clean("It is due 2026-10-21.") == "It is due 2026-10-21.")
     }
 
     // MARK: - Fragments

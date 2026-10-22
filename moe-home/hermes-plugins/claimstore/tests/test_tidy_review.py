@@ -101,7 +101,7 @@ def test_rewrite_both_readings_of_a_disagreement(store):
 
 # 5. retire guard is vacuous: 'on' makes everything dated; lowercase lines are 'covered' by anything
 def test_retire_guards(store):
-    print("is_dated('Izzy works on Memoe') =", tidy.is_dated("Izzy works on Memoe"))
+    print("is_dated('Izzy works on Alfie') =", tidy.is_dated("Izzy works on Alfie"))
     print("adds_something('Prefers short answers', ['Prefers tea']) =",
           tidy.adds_something("Prefers short answers", ["Prefers tea"]))
     store.assert_claim("memory", "Prefers short answers without emoji", source="moe:turn")

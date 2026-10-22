@@ -215,7 +215,7 @@ get() { # <url> <file name> <expected sha256> → $PARTIAL/<expected sha256>, ve
     # Said plainly and never "try again": a different file at a pinned URL is
     # not a network hiccup, and nothing from it may run. The partial goes
     # too, so a corrupt one is never resumed from.
-    echo "✗ $name is not the file Moe expects (its checksum does not match), so nothing was installed."
+    echo "✗ $name is not the file Alfie expects (its checksum does not match), so nothing was installed."
     rm -f "$part"
     return 1
   fi
@@ -233,7 +233,7 @@ tar -xzf "$PARTIAL/$JRE_SHA" -C "$STAGE/jre" || { echo "✗ Could not unpack the
 CLI="$STAGE/signal-cli-$SIGNAL_CLI_VERSION/bin/signal-cli"
 [ -x "$CLI" ] || { echo "✗ The signal-cli download has no bin/signal-cli."; exit 3; }
 [ -f "$STAGE/signal-cli-$SIGNAL_CLI_VERSION/lib/libsignal-client-$LIBSIGNAL_VERSION.jar" ] || {
-  echo "✗ The signal-cli download does not carry libsignal $LIBSIGNAL_VERSION, the version Moe's licence notices name, so nothing was installed."
+  echo "✗ The signal-cli download does not carry libsignal $LIBSIGNAL_VERSION, the version Alfie's licence notices name, so nothing was installed."
   exit 3; }
 JH="$(java_home_in "$STAGE" || true)"
 [ -n "$JH" ] || { echo "✗ The Java runtime download has no bin/java."; exit 3; }

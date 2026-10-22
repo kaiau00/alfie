@@ -120,7 +120,7 @@ struct MemoryRowView: View {
             case .past:
                 QuietLink(title: "Restore", help: "Bring this back", action: restore)
             case .line, .check, .question:
-                QuietLink(title: "Discuss", help: "Talk this line through with Moe, in Chat",
+                QuietLink(title: "Discuss", help: "Talk this line through with Alfie, in Chat",
                           over: pointOnDiscuss, action: discuss)
                 Button(action: forget) {
                     Text("×")
@@ -213,7 +213,7 @@ struct CheckCardView: View {
     /// subtitle does ("Moe isn't sure about these" is already above it).
     private var heading: String {
         let count = "\(position) of \(total)"
-        return card.label == "Moe isn't sure" ? count : "\(card.label) · \(count)"
+        return card.label == "Alfie isn't sure" ? count : "\(card.label) · \(count)"
     }
 
     /// Straight quotes as the crawl writes them, curled as a page sets them.
@@ -318,7 +318,7 @@ struct CheckCardView: View {
         }
         .buttonStyle(.plain)
         .fixedSize()
-        .help("Moe stops asking about this")
+        .help("Alfie stops asking about this")
     }
 
     private var other: some View {

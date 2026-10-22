@@ -51,7 +51,7 @@ if [ -z "$SRC" ] || [ ! -f "$SRC" ]; then
     ~/Library/Application Support/Moe/connectors/telegram.json
     a sibling checkout's Resources/telegram-client.json
 
-  If Moe has never connected Telegram here, get a pair from
+  If Alfie has never connected Telegram here, get a pair from
   https://my.telegram.org/apps and write it as:
 
     { "api_id": "1234567", "api_hash": "..." }

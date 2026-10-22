@@ -63,7 +63,7 @@ struct AddresseeForeignTests {
     /// A bilingual household must still be able to use their assistant: the
     /// name is a sound, not an English word, and saying it is deliberate.
     @Test func namingMoeIsNeverPenalised() {
-        let named = Addressee.Signals(text: "Moe, ça ne veut rien dire",
+        let named = Addressee.Signals(text: "Alfie, ça ne veut rien dire",
                                       namedMoe: true, secondsSinceReply: 2, moeAskedQuestion: false, speechSeconds: 2)
         let unnamed = Addressee.Signals(text: "ça ne veut rien dire",
                                         namedMoe: false, secondsSinceReply: 2, moeAskedQuestion: false, speechSeconds: 2)

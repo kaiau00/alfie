@@ -42,7 +42,7 @@ struct MemoryFolderTests {
     func contents() {
         let (memory, hermes) = scratch()
         let view = MemoryFolder.ensure(memoryDir: memory, hermesDir: hermes)
-        #expect(view.lastPathComponent == "What Moe knows")
+        #expect(view.lastPathComponent == "What Alfie knows")
         #expect(listing(view) == ["MEMORY.md", "USER.md", "identity.md", "people.md",
                                   "questions.md", "summary.md", "threads.md"])
         let dest = try? FileManager.default.destinationOfSymbolicLink(atPath: view.appendingPathComponent("USER.md").path)
@@ -167,7 +167,7 @@ struct MemoryReaderTests {
         #expect(MemoryReader.sourceWords("whatsapp", "2026-09-22").contains("22"))
         #expect(MemoryReader.sourceWords("github", "") == "GitHub")
         #expect(MemoryReader.sourceWords("user", "") == "Your words")
-        #expect(MemoryReader.sourceWords("", "") == "Something you let Moe read")
+        #expect(MemoryReader.sourceWords("", "") == "Something you let Alfie read")
     }
 
     @Test("people: active, stable people only, most support then most recent")
@@ -276,7 +276,7 @@ struct MemorySectionTests {
 
     @Test("each section has its own heading, line and empty state")
     func words() {
-        #expect(MemoryTab.you.subtitle == "What Moe believes about you. Click a line to change it.")
+        #expect(MemoryTab.you.subtitle == "What Alfie believes about you. Click a line to change it.")
         #expect(Set(MemoryTab.allCases.map(\.title)).count == MemoryTab.allCases.count)
         #expect(Set(MemoryTab.allCases.map(\.empty)).count == MemoryTab.allCases.count)
         #expect(MemoryTab.allCases.allSatisfy { !$0.subtitle.isEmpty })
@@ -365,11 +365,11 @@ struct MemoryEditTests {
         #expect(MemoryReader.command(edit, script: "/p.py") == nil)
     }
 
-    @Test("a USER.md line that speaks as Moe ('Prefers I take action') is not shown under You")
+    @Test("a USER.md line that speaks as Alfie ('Prefers I take action') is not shown under You")
     func speaksAsMoe() {
         #expect(MemoryReader.speaksAsMoe("Prefers I take action over explaining"))
         #expect(MemoryReader.speaksAsMoe("Expects me to context-switch"))
-        #expect(!MemoryReader.speaksAsMoe("Prefers Moe take action; UI redo in progress"))
+        #expect(!MemoryReader.speaksAsMoe("Prefers Alfie take action; UI redo in progress"))
         #expect(!MemoryReader.speaksAsMoe("Said \"I quit\" once"))
         let lines = [
             MemoryLine(id: "hermes:a", section: .you, text: "Prefers I take action", origin: .hermes(group: "you"),
@@ -383,7 +383,7 @@ struct MemoryEditTests {
         #expect(page[1].items.map(\.id) == ["hermes:a"])
     }
 
-    @Test("no ledger id (cli.py cannot run): the change is handed to Moe")
+    @Test("no ledger id (cli.py cannot run): the change is handed to Alfie")
     func hermesAsksMoe() {
         guard case .askMoe(let fix) = MemoryReader.plan(hermes, draft: "Call me Al") else {
             Issue.record("expected askMoe"); return

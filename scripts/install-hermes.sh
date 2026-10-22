@@ -206,7 +206,7 @@ else
     mkdir "$LOCK" 2>/dev/null || { echo "✗ another install is running (${LOCK})"; exit 1; }
     LOCK_HELD=1
   else
-    echo "✗ Moe is already setting this up. Give it a minute — running it twice at once would break the install."
+    echo "✗ Alfie is already setting this up. Give it a minute — running it twice at once would break the install."
     exit 1
   fi
 fi
@@ -441,7 +441,7 @@ elif [ -e "$AGENT_DIR" ]; then
   # that resolves to nothing, which is the failure this repo keeps meeting.
   REFRESH="$REPO/scripts/refresh-hermes-seed.sh"
   [ -x "$REFRESH" ] || fail "hermes-agent: $AGENT_DIR is a seed, and $REFRESH — the only thing that
-  can move one — is not here. Nothing was changed. This copy of Memoe is missing a file
+  can move one — is not here. Nothing was changed. This copy of Alfie is missing a file
   it ships: scripts/install.sh's payload list should carry refresh-hermes-seed.sh."
   # `--to "$HERMES_COMMIT"`, not just `--installer "$0"`. HERMES_COMMIT is the
   # documented way to aim this script somewhere other than its built-in pin —
@@ -475,13 +475,13 @@ elif [ -e "$AGENT_DIR" ]; then
   refresh_rc=0
   if [ "$bundle_at_pin" = 1 ] && { [ "$installed_py" != "$bundle_py" ] || [ ! -d "$HERMES_HOME/tools" ]; }; then
     refresh_rc=3
-    say "the installed seed is ${installed_py:-unknown}, this Memoe carries ${bundle_py:-unknown} — laying the bundled seed"
+    say "the installed seed is ${installed_py:-unknown}, this Alfie carries ${bundle_py:-unknown} — laying the bundled seed"
   else
     "$REFRESH" "$AGENT_DIR" --to "$HERMES_COMMIT" --installer "$0" || refresh_rc=$?
   fi
   if [ "$refresh_rc" = 3 ] && [ "$bundle_at_pin" = 1 ]; then
     if ! "$RESEED" "$BUNDLE_SEED" --home "$HERMES_HOME" --to "$HERMES_COMMIT"; then
-      fail "hermes-agent: the seed this Memoe carries could not be laid over $AGENT_DIR (the reason is above).
+      fail "hermes-agent: the seed this Alfie carries could not be laid over $AGENT_DIR (the reason is above).
   The Hermes you had is back in place and still works. Do NOT move it aside."
     fi
   elif [ "$refresh_rc" != 0 ]; then
@@ -550,7 +550,7 @@ if [ "$IS_SEED" = 1 ]; then
   else
     fail "venv: $AGENT_DIR/.venv/bin/hermes is not runnable, and this is a seed — there is no
   lockfile-and-interpreter pair here to rebuild it from without replacing the venv.
-  Nothing was changed. Reinstall Moe to lay a fresh seed on a machine that has none."
+  Nothing was changed. Reinstall Alfie to lay a fresh seed on a machine that has none."
   fi
 elif [ -x "$AGENT_DIR/.venv/bin/hermes" ] && [ "$(cat "$sync_stamp" 2>/dev/null)" = "$want" ]; then
   ok "venv already in sync (uv.lock @ ${HEAD_SHA:0:7}, extras: $HERMES_EXTRAS)"
@@ -583,10 +583,10 @@ fi
 STAMP="$AGENT_DIR/install-stamp.json"
 if [ -f "$AGENT_DIR/scripts/write_install_stamp.py" ]; then
   if grep -q '"updateMechanism": "external"' "$STAMP" 2>/dev/null && grep -q "\"commit\": \"$HEAD_SHA\"" "$STAMP" 2>/dev/null; then
-    ok "install stamp already says Memoe updates this Hermes (${HEAD_SHA:0:7})"
+    ok "install stamp already says Alfie updates this Hermes (${HEAD_SHA:0:7})"
   elif run "$AGENT_DIR/.venv/bin/python" "$AGENT_DIR/scripts/write_install_stamp.py" \
          --output "$STAMP" --commit "$HEAD_SHA" --source memoe --update-mechanism external; then
-    ok "install stamp written: Memoe updates this Hermes, it never updates itself (${HEAD_SHA:0:7})"
+    ok "install stamp written: Alfie updates this Hermes, it never updates itself (${HEAD_SHA:0:7})"
   else
     fail "install stamp: could not write $STAMP — without it Hermes adopts this tree as self-updating"
   fi
@@ -649,7 +649,7 @@ else
 fi
 case ":$PATH:" in
   *":$MOE_BIN_DIR:"*) ;;
-  *) say "note: $MOE_BIN_DIR is not on your PATH (Moe finds hermes anyway; add it for your shell)";;
+  *) say "note: $MOE_BIN_DIR is not on your PATH (Alfie finds hermes anyway; add it for your shell)";;
 esac
 
 # ---- 5. Smoke ----------------------------------------------------------------
@@ -695,7 +695,7 @@ if [ -n "$CHECK" ]; then
   rc=$?
   set -e
   printf '%s\n' "$out" | sed 's/^/  /' | tee -a "$LOG"
-  if [ $rc = 0 ]; then ok "Hermes is installed and configured as Moe's core"; else ok "Hermes is installed; configuration is the next step (above)"; fi
+  if [ $rc = 0 ]; then ok "Hermes is installed and configured as Alfie's core"; else ok "Hermes is installed; configuration is the next step (above)"; fi
 else
   ok "Hermes is installed (configure-hermes.py not found; run scripts/install.sh to lay out ~/.moe)"
 fi
@@ -719,7 +719,7 @@ if run "$WRAPPER" computer-use install; then
     say "grant it Accessibility + Screen Recording: hermes computer-use permissions grant"
   fi
 else
-  say "cua-driver did not install; Moe still runs, but it cannot confirm that a"
+  say "cua-driver did not install; Alfie still runs, but it cannot confirm that a"
   say "  click or keystroke landed. Retry later: hermes computer-use install"
 fi
 
@@ -796,6 +796,6 @@ cat <<EOF
 
   Next:
     $MOE_HOME/scripts/hermes-signin.sh      sign Hermes's Claude Code in, once (asks you; opens a browser)
-    $MOE_HOME/hermes/configure-hermes.py    make Hermes Moe's core (config, Telegram, memory)
-    hermes computer-use permissions grant   let Moe see and act on your screen (opens a macOS dialog)
+    $MOE_HOME/hermes/configure-hermes.py    make Hermes Alfie's core (config, Telegram, memory)
+    hermes computer-use permissions grant   let Alfie see and act on your screen (opens a macOS dialog)
 EOF

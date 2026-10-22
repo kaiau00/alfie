@@ -139,7 +139,7 @@ enum AttachmentIntake {
         panel.canChooseFiles = true
         panel.canChooseDirectories = true
         panel.prompt = "Add"
-        panel.message = "Choose what to give Moe."
+        panel.message = "Choose what to give Alfie."
         // Moe is usually not the active app — the + is often pressed on the
         // island — and an open panel that appears behind the frontmost window
         // looks like a button that did nothing.
@@ -277,7 +277,7 @@ private final class PhotoPickSession: NSObject, PHPickerViewControllerDelegate, 
         let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 780, height: 560),
                               styleMask: [.titled, .closable, .resizable],
                               backing: .buffered, defer: false)
-        window.title = "Choose Photos for Moe"
+        window.title = "Choose Photos for Alfie"
         window.contentViewController = picker
         window.isReleasedWhenClosed = false
         window.delegate = session

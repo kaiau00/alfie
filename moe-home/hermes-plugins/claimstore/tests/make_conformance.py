@@ -292,7 +292,7 @@ def build_cases():
 
 def main():
     out = {
-        "note": ("Shared conformance vectors for Moe's claim records. Read by "
+        "note": ("Shared conformance vectors for Alfie's claim records. Read by "
                  "moe-home/hermes-plugins/claimstore/tests/test_conformance.py "
                  "and Tests/MoeLedgerTests/ClaimConformanceTests.swift. "
                  "Regenerate with tests/make_conformance.py."),

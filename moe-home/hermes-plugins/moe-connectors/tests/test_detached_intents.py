@@ -461,7 +461,7 @@ class WhatTheMacSaysItCanDo(unittest.TestCase):
         with Machine() as m:
             m.publish_capability(
                 {"notes": {"pull": "needs-setup",
-                           "why": "Moe has no access to Notes on this Mac"}})
+                           "why": "Alfie has no access to Notes on this Mac"}})
             tools = m.tools()
             self.assertFalse(tools["notes_pull"]["check_fn"]())
             out = m.call("notes_pull")
@@ -621,7 +621,7 @@ class WhatTheMacSaysItCanDo(unittest.TestCase):
         self.assertEqual(out["result"], plugin.DEFERRED_UNSEEN_SENTENCE % "Notes")
 
     def test_a_document_sealed_before_that_mac_joined_a_tenant_still_opens(self):
-        """CLOUD-PLAN §15.1. A Mac that ran Moe free published its capability
+        """CLOUD-PLAN §15.1. A Mac that ran Alfie free published its capability
         tables under the `moe:memory` key it minted for itself; joining a
         tenant retires that key and adopts the tenant's. Reading asks the
         vault for every key that may open a document, not only the current

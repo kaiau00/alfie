@@ -6,7 +6,7 @@ with typed slots and a schedule template, and a `fill_blueprint` that turns
 filled slots into `create_job` kwargs. Its own design note says the point is
 that "users never type raw cron".
 
-Moe could not reach any of it. The documented route is the `/blueprint` slash
+Alfie could not reach any of it. The documented route is the `/blueprint` slash
 command, and slash commands are handled in the platform-adapter path that the
 OpenAI-compatible api_server never enters — measured on this machine:
 
@@ -15,7 +15,7 @@ OpenAI-compatible api_server never enters — measured on this machine:
     /help                     ->  /help isn't available in this environment.
 
 So the capability was real, complete, tested, and unreachable from the only
-surface Moe speaks. These two tools are the bridge: the model lists the
+surface Alfie speaks. These two tools are the bridge: the model lists the
 templates, asks the user for the blanks in ordinary conversation, and creates
 the job. Asking in conversation rather than through the `clarify` tool is not
 a workaround — on a voice surface the question IS the reply, and clarify now

@@ -109,17 +109,17 @@ struct FixOffer: Identifiable, Equatable {
         case .mcpNeedsReauth:
             return "\(subject ?? "A connection") needs you to sign in again."
         case .mcpNotConnected:
-            return "\(subject ?? "A connection") isn't connected, so Moe couldn't use it."
+            return "\(subject ?? "A connection") isn't connected, so Alfie couldn't use it."
         case .claudeLoginExpired:
-            return "Moe's sign-in to Claude has run out. Sign in again and Moe can carry on."
+            return "Alfie's sign-in to Claude has run out. Sign in again and Alfie can carry on."
         case .claudeUsageCap:
-            return "You've used up your Claude plan for now, so Moe can't think until it resets."
+            return "You've used up your Claude plan for now, so Alfie can't think until it resets."
         case .browserMissing:
-            return "The browser Moe uses isn't set up on this Mac yet."
+            return "The browser Alfie uses isn't set up on this Mac yet."
         case .profileLocked:
-            return "\(subject ?? "Your browser") has its profile in use. Quit it, then ask Moe again."
+            return "\(subject ?? "Your browser") has its profile in use. Quit it, then ask Alfie again."
         case .browserExtensionMissing:
-            return "The \(app) extension for Chrome isn't connected, so Moe couldn't work in your Chrome."
+            return "The \(app) extension for Chrome isn't connected, so Alfie couldn't work in your Chrome."
         case .windowOtherSpace, .personNeeded:
             return ""
         }

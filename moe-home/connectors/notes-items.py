@@ -78,7 +78,7 @@ def read(back_s, timeout=90):
     if p.returncode != 0:
         err = (p.stderr or "").strip()
         if "-1743" in err or "not allowed" in err.lower() or "not authorized" in err.lower():
-            raise PermissionError("allow Memoe to control Notes (System Settings › Privacy & Security › Automation)")
+            raise PermissionError("allow Alfie to control Notes (System Settings › Privacy & Security › Automation)")
         raise RuntimeError("Notes refused: %s" % (err[:200] or "no reason given"))
     out = []
     for rec in (p.stdout or "").rstrip("\n").split(RECORD):

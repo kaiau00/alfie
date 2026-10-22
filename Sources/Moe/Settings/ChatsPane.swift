@@ -132,11 +132,11 @@ struct ChatsPane: View {
         // page is a heading that lies about the page.
         SettingGroup(title: results == nil ? "All conversations" : "Everything else") {
             if library == nil, !asked {
-                checking("Reading what Moe has kept…")
+                checking("Reading what Alfie has kept…")
             } else if library?.ok != true {
                 Text(library?.error.isEmpty == false
                      ? library!.error
-                     : "Couldn't read what Moe has kept.")
+                     : "Couldn't read what Alfie has kept.")
                     .font(Theme.Typo.ui(12))
                     .foregroundStyle(Theme.warn)
                     .fixedSize(horizontal: false, vertical: true)
@@ -169,7 +169,7 @@ struct ChatsPane: View {
                         .padding(.vertical, Theme.Space.base)
                 }
                 if results.matches.isEmpty, results.error.isEmpty {
-                    Text("Nothing matched. Moe looked through what it holds and through Hermes's index of \(results.indexed) of those conversations.")
+                    Text("Nothing matched. Alfie looked through what it holds and through Hermes's index of \(results.indexed) of those conversations.")
                         .font(Theme.Typo.ui(12))
                         .foregroundStyle(Theme.ink3)
                         .fixedSize(horizontal: false, vertical: true)
@@ -230,7 +230,7 @@ struct ChatsPane: View {
     @ViewBuilder
     private var unreadableNote: some View {
         if let library, library.unreadable > 0 {
-            Text("\(library.unreadable) more \(library.unreadable == 1 ? "conversation is" : "conversations are") in Moe's record without their words. That is what deleting one does — the key is destroyed and the shape stays — and it is also what a conversation from another device looks like before its key has reached this Mac.")
+            Text("\(library.unreadable) more \(library.unreadable == 1 ? "conversation is" : "conversations are") in Alfie's record without their words. That is what deleting one does — the key is destroyed and the shape stays — and it is also what a conversation from another device looks like before its key has reached this Mac.")
                 .font(Theme.Typo.prose(13))
                 .foregroundStyle(Theme.ink3)
                 .fixedSize(horizontal: false, vertical: true)
@@ -265,7 +265,7 @@ struct ChatsPane: View {
                 }
             }
         } else if openFailed {
-            Text("Moe couldn't open that conversation. Its words are sealed with a key this Mac does not have — either it was deleted, or it belongs to a device that has not shared the key yet.")
+            Text("Alfie couldn't open that conversation. Its words are sealed with a key this Mac does not have — either it was deleted, or it belongs to a device that has not shared the key yet.")
                 .font(Theme.Typo.prose(14))
                 .foregroundStyle(Theme.ink2)
                 .fixedSize(horizontal: false, vertical: true)
@@ -277,7 +277,7 @@ struct ChatsPane: View {
 
     private func turnRow(_ turn: ConversationStore.StoredTurn) -> some View {
         VStack(alignment: .leading, spacing: 3) {
-            Text(turn.role == .you ? "You" : (turn.role == .moe ? "Moe" : "Note"))
+            Text(turn.role == .you ? "You" : (turn.role == .moe ? "Alfie" : "Note"))
                 .font(Theme.Typo.label(9))
                 .tracking(Theme.tracking)
                 .foregroundStyle(turn.role == .you ? Theme.accentDeep : Theme.ink3)

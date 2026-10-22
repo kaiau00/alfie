@@ -1,4 +1,4 @@
-"""Fold the owner's own recordings (`Moe --wake-record`) into the training set.
+"""Fold the owner's own recordings (`Alfie --wake-record`) into the training set.
 
 Heads v1–v5 were trained on synthesised speech alone, and VOICE-PLAN.md §8
 measured where that ends: v5 added twenty more synthetic voices and got
@@ -11,11 +11,11 @@ a silent failure:
 1. **It trims long clips from the front, not the back.** The augmenter's
    `align_clip_to_end` keeps the *last* `clip_duration` of anything longer
    than the window (`clip_start = len(audio) - ...`). A 3.9 s recording of
-   "Hey Moe, what's on my calendar" would therefore arrive as "…what's on my
+   "Hey Alfie, what's on my calendar" would therefore arrive as "…what's on my
    calendar": a clip labelled positive with no wake word in it, teaching the
    head that ordinary speech is the name. Every real positive is cut to the
    first `KEEP` seconds instead, which keeps the name *and* the speech that
-   follows it — the property v4 needed, since "Hey Moe" is a prefix of "hey
+   follows it — the property v4 needed, since "Hey Alfie" is a prefix of "hey
    mobile" and the policy can only wait for the rest if the training
    positives had a rest.
 
@@ -28,7 +28,7 @@ a silent failure:
 2. **It holds a third of them out.** Recall has only ever been measured on
    clips from macOS system voices, so nobody knows what any head does on the
    person who owns the Mac. The held-out third goes to `bench/`, where
-   `Moe --wake-bench` counts `positive` paths towards recall and everything
+   `Alfie --wake-bench` counts `positive` paths towards recall and everything
    else towards false accepts. Held out by stride over the prompt order, so
    the bench gets some of every style the recorder asks for (normal, quiet,
    across the room, fast, slow, turned away, whole sentences) rather than a
@@ -140,7 +140,7 @@ def room_windows(paths_and_audio) -> list:
 
 def main() -> None:
     if not SRC.exists():
-        raise SystemExit(f"no recordings at {SRC} — run `Moe --wake-record` first")
+        raise SystemExit(f"no recordings at {SRC} — run `Alfie --wake-record` first")
 
     print("positives")
     pos_train, pos_held = collect("positive")

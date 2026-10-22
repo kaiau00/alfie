@@ -7,7 +7,7 @@ Hermes's databases itself — the shapes here took a morning to find, the
 cost story has two very different halves, and a number that implies a bill
 when there is none is worse than no number.
 
-    job-activity.py            every job Moe installed, as JSON
+    job-activity.py            every job Alfie installed, as JSON
     job-activity.py <job>      one job, by name or id
     job-activity.py --days 30  a different window (default 7)
 

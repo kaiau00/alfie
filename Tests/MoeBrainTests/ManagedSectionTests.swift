@@ -11,7 +11,7 @@ struct ManagedSectionTests {
 
     func doc(_ version: Int, body: String = "old rules") -> String {
         """
-        # Moe
+        # Alfie
 
         The person's own opening notes.
 
@@ -37,7 +37,7 @@ struct ManagedSectionTests {
                                      to: doc(2))
         #expect(r.text.contains("The person's own opening notes."))
         #expect(r.text.contains("Their notes after it."))
-        #expect(r.text.hasPrefix("# Moe"))
+        #expect(r.text.hasPrefix("# Alfie"))
     }
 
     @Test func thesameVersionIsLeftByteIdentical() {
@@ -61,7 +61,7 @@ struct ManagedSectionTests {
     // MARK: The file everyone already has — no markers at all
 
     @Test func anUnmarkedDocumentGainsTheBlockAtTheEnd() {
-        let existing = "# Moe\n\nHand-written prompt from months ago.\n"
+        let existing = "# Alfie\n\nHand-written prompt from months ago.\n"
         let r = ManagedSection.apply(id: id, version: 1, body: "the rules",
                                      to: existing)
         #expect(r.outcome == .appended)
@@ -74,7 +74,7 @@ struct ManagedSectionTests {
 
     @Test func appendingLeavesExactlyOneBlankLineAndATrailingNewline() {
         let r = ManagedSection.apply(id: id, version: 1, body: "x",
-                                     to: "# Moe\nno trailing newline")
+                                     to: "# Alfie\nno trailing newline")
         #expect(r.text.contains("no trailing newline\n\n<!-- moe:begin"))
         #expect(r.text.hasSuffix("-->\n"))
     }
@@ -106,7 +106,7 @@ struct ManagedSectionTests {
     @Test func aTruncatedBlockIsNotEditedInPlace() {
         // An opening marker with no close: editing by range would eat the rest
         // of the person's file. Append instead and leave the wreckage visible.
-        let broken = "# Moe\n\(ManagedSection.begin(id, 1))\nhalf a block, no end\n"
+        let broken = "# Alfie\n\(ManagedSection.begin(id, 1))\nhalf a block, no end\n"
         let r = ManagedSection.apply(id: id, version: 2, body: "new", to: broken)
         #expect(r.outcome == .appended)
         #expect(r.text.contains("half a block, no end"))
@@ -114,7 +114,7 @@ struct ManagedSectionTests {
     }
 
     @Test func aMalformedVersionIsTreatedAsStaleAndRewritten() {
-        let weird = "# Moe\n<!-- moe:begin driving-the-mac vXYZ -->\nold\n\(ManagedSection.end(id))\n"
+        let weird = "# Alfie\n<!-- moe:begin driving-the-mac vXYZ -->\nold\n\(ManagedSection.end(id))\n"
         let r = ManagedSection.apply(id: id, version: 1, body: "new", to: weird)
         #expect(r.outcome == .updated(from: -1))
         #expect(r.text.contains("new"))
@@ -123,7 +123,7 @@ struct ManagedSectionTests {
 
     @Test func bodyContainingMarkerLikeTextDoesNotBreakTheNextUpdate() {
         let tricky = "talk about <!-- moe:end driving-the-mac --> in prose"
-        let first = ManagedSection.apply(id: id, version: 1, body: tricky, to: "# Moe\n").text
+        let first = ManagedSection.apply(id: id, version: 1, body: tricky, to: "# Alfie\n").text
         let second = ManagedSection.apply(id: id, version: 2, body: "clean", to: first)
         #expect(second.outcome == .updated(from: 1))
         #expect(second.text.contains("clean"))

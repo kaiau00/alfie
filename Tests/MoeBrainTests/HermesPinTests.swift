@@ -217,7 +217,7 @@ struct HermesCheckoutTests {
         var f = Self.clean; f.shallow = true
         let v = HermesCheckout.verdict(f)
         #expect(!v.pristine)
-        #expect(v.reasons == ["it is a shallow clone (.git/shallow), which Moe's own installer never makes"])
+        #expect(v.reasons == ["it is a shallow clone (.git/shallow), which Alfie's own installer never makes"])
     }
 
     @Test func theExtrasDefaultIsReadFromTheScriptForTheWholeStampComparison() {
@@ -260,7 +260,7 @@ struct HermesCheckoutTests {
 struct HermesUpgradeGateTests {
     @Test func onlyAnOwnedGatewayThatIsUpLetsTheMoveRun() {
         #expect(HermesUpgradeGate.mayRun(ready: true, owned: true, shuttingDown: false))
-        #expect(!HermesUpgradeGate.mayRun(ready: true, owned: false, shuttingDown: false), "adopted: not Moe's to restart")
+        #expect(!HermesUpgradeGate.mayRun(ready: true, owned: false, shuttingDown: false), "adopted: not Alfie's to restart")
         #expect(!HermesUpgradeGate.mayRun(ready: false, owned: true, shuttingDown: false), "failed: nothing to restart")
         #expect(!HermesUpgradeGate.mayRun(ready: true, owned: true, shuttingDown: true), "quitting: an orphan installer")
         #expect(!HermesUpgradeGate.mayRun(ready: false, owned: false, shuttingDown: true))
@@ -360,8 +360,8 @@ struct HermesUpgradeDecisionTests {
 
     @Test func theWorkbenchNamesItselfAndTheOwner() {
         let d = HermesUpgradeDecision.workbench(agentDir: Self.dir, head: Self.head, pin: Self.pin)
-        #expect(d.line.contains("this is Moe Dev, which never moves"))
-        #expect(d.line.contains("the real Moe owns it"))
+        #expect(d.line.contains("this is Alfie Dev, which never moves"))
+        #expect(d.line.contains("the real Alfie owns it"))
         #expect(d.exitCode == 7)
     }
 

@@ -376,7 +376,7 @@ struct BrainPane: View {
     /// words for it.
     private var installCard: some View {
         VStack(alignment: .leading, spacing: Theme.Space.small) {
-            Text("Moe's thinking part isn't installed yet")
+            Text("Alfie's thinking part isn't installed yet")
                 .font(Theme.Typo.ui(13, weight: .medium))
                 .foregroundStyle(Theme.ink)
             Text("It downloads about a gigabyte and takes a minute or two. Meetings and your connections work without it; answering a question is the part that needs it.")
@@ -554,7 +554,7 @@ struct BrainPane: View {
     private var workLimitGroup: some View {
         if provider == .claudeCode {
             SettingRow(title: "Longest it works on one thing",
-                       detail: "If a task is still going when time is up, Moe stops it and tells you.") {
+                       detail: "If a task is still going when time is up, Alfie stops it and tells you.") {
                 Calm.Segments(options: WorkLimit.choices.map { (String($0), $0 == 60 ? "1 hour" : "\($0) min") },
                               selection: Binding(
                                 get: { String(config.workLimitMinutes ?? WorkLimit.defaultMinutes) },
@@ -639,7 +639,7 @@ struct BrainPane: View {
                 return
             }
             busy = false
-            verdict = (.good, "Saved. Moe may work on one thing for up to \(WorkLimit.label(minutes)).")
+            verdict = (.good, "Saved. Alfie may work on one thing for up to \(WorkLimit.label(minutes)).")
         }
     }
 
@@ -694,7 +694,7 @@ struct BrainPane: View {
             // here: its failed case reads "Not running. exit 1: <log tail>".
             // That is a sentence for the log, which is where it goes now.
             Log.write("brain switch timed out: \(conductor.brainStatus)")
-            finish(bad: "Moe didn't come back within two minutes. "
+            finish(bad: "Alfie didn't come back within two minutes. "
                       + "Try switching again, or pick the model you were on before.")
             return
         }
@@ -705,7 +705,7 @@ struct BrainPane: View {
         }
         await conductor.refreshBrainCapabilities()
         busy = false
-        verdict = (.good, "It works. Moe is thinking with \(sel.provider.shortName) "
+        verdict = (.good, "It works. Alfie is thinking with \(sel.provider.shortName) "
                    + "(\(BrainProviderKind.prettyModel(sel.model.isEmpty ? sel.provider.defaultModel : sel.model)))"
                    + (sel.reasoningEffort.isEmpty ? "." : ", \(sel.reasoningEffort) effort."))
     }
@@ -773,6 +773,11 @@ struct BrainAccountSheet: View {
     @State private var chosen: BrainProviderKind
     @State private var apiKey = ""
     @State private var baseURL = ""
+    /// The model for a provider that has no default to start on (your own
+    /// service, a local server). Without it the switch was written with an
+    /// empty model, configure-hermes.py refused it ("--set-model: empty"),
+    /// and the Model row that could have fixed it only appears afterwards.
+    @State private var newModel = ""
     @State private var testing = false
     @State private var testResult = ""
     @State private var testFailed = false
@@ -802,7 +807,14 @@ struct BrainAccountSheet: View {
         guard !busy else { return false }
         if chosen.usesBaseURL, !baseURL.hasPrefix("http") { return false }
         if chosen.access == .apiKey, !hasKey(chosen), apiKey.isEmpty { return false }
+        if needsModel(chosen), newModel.trimmingCharacters(in: .whitespaces).isEmpty { return false }
         return true
+    }
+
+    /// A switch to `p` has to ask for the model: it has no default, and this
+    /// is not already the provider in use (whose model is kept).
+    private func needsModel(_ p: BrainProviderKind) -> Bool {
+        p.defaultModel.isEmpty && p != current
     }
 
     private func hasKey(_ p: BrainProviderKind) -> Bool {
@@ -821,10 +833,10 @@ struct BrainAccountSheet: View {
     var body: some View {
         VStack(alignment: .leading, spacing: Theme.Space.cosy) {
             VStack(alignment: .leading, spacing: Theme.Space.small) {
-                Text("Which account should Moe use?")
+                Text("Which account should Alfie use?")
                     .font(Theme.Typo.heading(20))
                     .foregroundStyle(Theme.ink)
-                Text("Moe borrows one you already have. It charges nothing and has no account of its own.")
+                Text("Alfie borrows one you already have. It charges nothing and has no account of its own.")
                     .font(Theme.Typo.prose(13))
                     .foregroundStyle(Theme.ink2)
                     .fixedSize(horizontal: false, vertical: true)
@@ -982,6 +994,11 @@ struct BrainAccountSheet: View {
                     TextField("Address", text: $baseURL, prompt: Text("https://api.example.com/v1"))
                         .textFieldStyle(.roundedBorder)
                 }
+                if needsModel(kind) {
+                    TextField("Model", text: $newModel, prompt: Text("The model's name, as the service spells it"))
+                        .textFieldStyle(.roundedBorder)
+                        .autocorrectionDisabled()
+                }
                 SecureField(hasKey(kind) ? "Stored — paste a new key to replace it" : "Paste your key here",
                             text: $apiKey)
                     .textFieldStyle(.roundedBorder)
@@ -1005,6 +1022,11 @@ struct BrainAccountSheet: View {
             case .localServer:
                 TextField("Address", text: $baseURL, prompt: Text(kind.defaultBaseURL))
                     .textFieldStyle(.roundedBorder)
+                if needsModel(kind) {
+                    TextField("Model", text: $newModel, prompt: Text("The name of a model loaded on the server"))
+                        .textFieldStyle(.roundedBorder)
+                        .autocorrectionDisabled()
+                }
                 Text("The address the server answers on, ending in /v1. Load a model there first.")
                     .font(Theme.Typo.ui(11)).foregroundStyle(Theme.ink3)
             }
@@ -1017,6 +1039,7 @@ struct BrainAccountSheet: View {
         guard kind != chosen else { return }
         chosen = kind
         apiKey = ""
+        newModel = ""
         testResult = ""
         testFailed = false
         problem = ""
@@ -1034,7 +1057,8 @@ struct BrainAccountSheet: View {
         testing = true
         testResult = ""
         let url = baseURL.trimmingCharacters(in: .whitespaces)
-        let model = kind == current ? conductor.config.brainModel : kind.defaultModel
+        let model = kind == current ? conductor.config.brainModel
+            : (needsModel(kind) ? newModel.trimmingCharacters(in: .whitespaces) : kind.defaultModel)
         Task {
             let result = await BrainSetup.testEndpoint(baseURL: url, key: key, model: model)
             testing = false
@@ -1062,9 +1086,12 @@ struct BrainAccountSheet: View {
         problem = ""
         Task {
             let keepModel = before.brainModel
+            let typedModel = needsModel(kind) ? newModel.trimmingCharacters(in: .whitespaces) : ""
             let (written, sel) = await Task.detached(priority: .userInitiated) {
-                // A new ChatGPT account starts on a model it offers.
-                let model = sameProvider ? keepModel : BrainSetup.startingModel(for: kind)
+                // A new ChatGPT account starts on a model it offers; a provider
+                // with no default starts on the one typed in.
+                let model = sameProvider ? keepModel
+                    : (typedModel.isEmpty ? BrainSetup.startingModel(for: kind) : typedModel)
                 let sel = BrainSelection(provider: kind, model: model, reasoningEffort: effort)
                 return (BrainSetup.apply(sel, baseURL: url, key: key), sel)
             }.value

@@ -141,7 +141,7 @@ struct LoginItemMomentTests {
         #expect(Self.marker(in: home))
     }
 
-    @Test("Moe Dev never registers")
+    @Test("Alfie Dev never registers")
     func developerBuild() throws {
         let home = try Self.home()
         defer { try? FileManager.default.removeItem(at: home) }

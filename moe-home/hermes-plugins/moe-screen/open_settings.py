@@ -2,8 +2,8 @@
 fixes a failure, while the person is there (docs/FIXABLE-FAILURES.md §3–4).
 
 A tool result that carries a fixable ``code`` names its ``pane``
-(``Privacy_AllFiles`` …). Moe says the cause, offers to open the setting, and
-on a yes calls this. The Memoe app does the opening, because only the app can
+(``Privacy_AllFiles`` …). Alfie says the cause, offers to open the setting, and
+on a yes calls this. The Alfie app does the opening, because only the app can
 watch the grant afterwards (GrantWatch) and carry the task on once it flips.
 
 Three things this refuses, each tested:
@@ -140,7 +140,7 @@ def handle_tool(params=None, **kwargs) -> str:
                        "is at the Mac in their own turn. Tell them what to switch on instead."
                        % (verdict.get("why") or "not the person's own turn"))
         if not post(pane):
-            return _no("Not opened: the Memoe app could not be reached.")
+            return _no("Not opened: the Alfie app could not be reached.")
         return _ok("opened %s, watching for the switch" % pane)
     except Exception as e:
         return _no("%s: %s" % (type(e).__name__, e))

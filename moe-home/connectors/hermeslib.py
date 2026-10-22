@@ -426,11 +426,11 @@ def safe_name(name):
 
 
 class _dotenv_lock:
-    """Serialise Moe's own read-modify-write of .env: two connect.sh runs at
+    """Serialise Alfie's own read-modify-write of .env: two connect.sh runs at
     once (say, the app and a terminal) would otherwise each read the old
     file and the second rename would drop the first one's key. flock on a
     sibling file, held only for the milliseconds of the rewrite. Hermes's
-    writer does not take it, so Moe-vs-Hermes at the same instant remains
+    writer does not take it, so Alfie-vs-Hermes at the same instant remains
     last-writer-wins — the same as Hermes-vs-Hermes today; readers are safe
     either way because every writer renames a complete file into place."""
 

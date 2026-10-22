@@ -235,7 +235,7 @@ public final class ProcessTap {
     public var targetDescription: String {
         var what: String
         switch target {
-        case .allExceptSelf: what = "every process except Moe"
+        case .allExceptSelf: what = "every process except Alfie"
         case .processes(let ids): what = "process object(s) \(ids.map(String.init).joined(separator: ", "))"
         }
         if let out = AudioDevices.defaultOutput() { what += ", playing through \(out.label)" }
@@ -269,7 +269,7 @@ public final class ProcessTap {
         case .processes(let ids):
             description = CATapDescription(stereoMixdownOfProcesses: ids)
         }
-        description.name = "Moe meeting tap"
+        description.name = "Alfie meeting tap"
         description.uuid = UUID()
         description.isPrivate = true
         description.muteBehavior = .unmuted   // the user still hears the call
@@ -303,7 +303,7 @@ public final class ProcessTap {
         let outputUID = try defaultOutputDeviceUID()
         let aggregateUID = UUID().uuidString
         var composition: [String: Any] = [
-            kAudioAggregateDeviceNameKey: "Moe meeting tap",
+            kAudioAggregateDeviceNameKey: "Alfie meeting tap",
             kAudioAggregateDeviceUIDKey: aggregateUID,
             kAudioAggregateDeviceIsPrivateKey: 1,
             kAudioAggregateDeviceIsStackedKey: 0,

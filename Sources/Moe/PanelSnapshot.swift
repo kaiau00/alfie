@@ -285,12 +285,12 @@ enum PanelSnapshot {
                  state: {
                      var s = Conductor.SnapshotState()
                      s.turns = [Turn(role: .you, text: "draft the pitch to the indie mac blog"),
-                                Turn(role: .moe, text: "Here it is, ready to check:\n\n> **To:** reviewer@example.com\n> **Subject:** Memoe, a free Mac assistant\n>\n> Hi,\n>\n> I built Memoe and I think your audience would want to know about it. It lives in the notch, reads your mail and calendar, and works the Mac itself.\n>\n> Thanks,\n> Jordan\n\nSend it, or change anything first?")]
+                                Turn(role: .moe, text: "Here it is, ready to check:\n\n> **To:** reviewer@example.com\n> **Subject:** Alfie, a free Mac assistant\n>\n> Hi,\n>\n> I built Alfie and I think your audience would want to know about it. It lives in the notch, reads your mail and calendar, and works the Mac itself.\n>\n> Thanks,\n> Jordan\n\nSend it, or change anything first?")]
                      return s
                  }()),
 
             Shot(name: "18-nudge-while-thinking",
-                 note: "the same while Moe is working: BOTH chrome buttons are up, and the card must clear them",
+                 note: "the same while Alfie is working: BOTH chrome buttons are up, and the card must clear them",
                  state: nudge(thinking: true)),
 
             // The owner's screenshot, 2026-09-14: a two-line reminder and the
@@ -365,7 +365,7 @@ enum PanelSnapshot {
             // docs/PROACTIVE-MEMORY.md §3.4: what per-turn learning kept, under
             // the answer it followed, with Undo (owner, 2026-09-24).
             Shot(name: "26b-answered-noted",
-                 note: "the answer, and under it what Moe noted from what you said, with Undo",
+                 note: "the answer, and under it what Alfie noted from what you said, with Undo",
                  presentation: .peek,
                  state: {
                      var s = Conductor.SnapshotState()
@@ -413,7 +413,7 @@ enum PanelSnapshot {
             // docs/FIXABLE-FAILURES.md bugs 10 and 11: mute for the whole
             // conversation, and ▶ ↺ ⋯ on every answer.
             Shot(name: "27-speaking-in-conversation",
-                 note: "Moe speaking its answer mid-conversation: ⏸ ↺ on the answer, and mute on the speaking row",
+                 note: "Alfie speaking its answer mid-conversation: ⏸ ↺ on the answer, and mute on the speaking row",
                  state: {
                      var s = Conductor.SnapshotState()
                      s.mode = .speaking
@@ -431,7 +431,7 @@ enum PanelSnapshot {
             // The owner's screenshot, 2026-09-24: speaking while muted, the
             // red pill left "speaking" no width and it ran one letter a line.
             Shot(name: "27b-speaking-muted",
-                 note: "Moe speaking while muted: ⏸ ↺ and the red pill on one line, the word 'speaking' gives way",
+                 note: "Alfie speaking while muted: ⏸ ↺ and the red pill on one line, the word 'speaking' gives way",
                  state: {
                      var s = Conductor.SnapshotState()
                      s.mode = .speaking
@@ -550,7 +550,7 @@ enum PanelSnapshot {
                  }()),
 
             Shot(name: "28c-muted-working",
-                 note: "muted while Moe works: the working row carries the red pill",
+                 note: "muted while Alfie works: the working row carries the red pill",
                  presentation: .peek,
                  state: {
                      var s = Conductor.SnapshotState()
@@ -566,7 +566,7 @@ enum PanelSnapshot {
             // docs/FIXABLE-FAILURES.md slice 3: a tool failed for a reason the
             // person can fix, and said which. Ticket #8's own failure first.
             Shot(name: "29a-fix-chrome-data",
-                 note: "Fix card: Memoe can't read Chrome's data — Open Settings (Full Disk Access) or Dismiss",
+                 note: "Fix card: Alfie can't read Chrome's data — Open Settings (Full Disk Access) or Dismiss",
                  presentation: .peek,
                  state: {
                      var s = Conductor.SnapshotState()
@@ -578,7 +578,7 @@ enum PanelSnapshot {
                  }()),
 
             Shot(name: "29b-fix-driver-screen",
-                 note: "Fix card for CuaDriver's own row: it names CuaDriver, not Memoe",
+                 note: "Fix card for CuaDriver's own row: it names CuaDriver, not Alfie",
                  state: {
                      var s = Conductor.SnapshotState()
                      s.turns = [Turn(role: .you, text: "what's on my screen in Keynote?"),
@@ -635,7 +635,7 @@ enum PanelSnapshot {
              inbox(peek: true)),
             ("waiting", "something waiting: the dot at full white, still",
              inbox()),
-            ("driving", "Moe has the screen: \"Using Safari · Stop\", and the light runs",
+            ("driving", "Alfie has the screen: \"Using Safari · Stop\", and the light runs",
              pose { $0.mode = .thinking; $0.acting = true; $0.working = true; $0.drivingApp = "Safari" }),
             ("dictation", "dictating: a text cursor and the bars",
              pose { $0.dictation = .listening; $0.level = 0.6 }),
@@ -710,7 +710,7 @@ enum PanelSnapshot {
                      return s
                  }()),
             Shot(name: "46-inbox-replying",
-                 note: "Reply with nothing typed: Moe says it, the strip says what the field is for, Cancel",
+                 note: "Reply with nothing typed: Alfie says it, the strip says what the field is for, Cancel",
                  state: {
                      var s = inbox(turns: [Turn(role: .moe, text: "Andrew Wilson Follow Up Discussion is tomorrow at 3 PM (Teams meeting). Want me to pull your recent work on the Andrew agent?")])
                      s.replyingTo = "sample-0"
@@ -764,7 +764,7 @@ enum PanelSnapshot {
                  notch: m.notch,
                  state: nudge(long: true)),
             Shot(name: "3\(i)b-\(m.slug)-working",
-                 note: "\(m.slug): the resting island while Moe works",
+                 note: "\(m.slug): the resting island while Alfie works",
                  presentation: .collapsed,
                  notch: m.notch,
                  state: { var s = Conductor.SnapshotState(); s.mode = .thinking; s.acting = true; return s }()),
@@ -895,7 +895,7 @@ enum PanelSnapshot {
     /// its two, which is the one in the screenshot.
     /// Named from the posed config's talk key (`Config()`, the conductor
     /// above), as `AccessibilityWatch.problem(for:)` names it in the app.
-    private static let staleAccessibility = "\(Config().talkKey.label) can't start me yet. If Memoe is already switched on in Accessibility, macOS is holding on to an older copy — Fix clears it, then switch Memoe on again."
+    private static let staleAccessibility = "\(Config().talkKey.label) can't start me yet. If Alfie is already switched on in Accessibility, macOS is holding on to an older copy — Fix clears it, then switch Alfie on again."
 
     private static let sampleTurns: [Turn] = [
         Turn(role: .you, text: "what did we agree the volume break was last quarter"),

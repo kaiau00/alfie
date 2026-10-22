@@ -103,7 +103,7 @@ enum InstanceLock {
         if app.bundleURL?.resolvingSymlinksInPath().path
             == Bundle.main.bundleURL.resolvingSymlinksInPath().path { return false }
 
-        Log.write("taking the lock from \(holderDescription): the installed Moe outranks it")
+        Log.write("taking the lock from \(holderDescription): the installed Alfie outranks it")
         app.terminate()
         // Its gateway and audio take a moment to go. SIGKILL is deliberately
         // not the next step — a half-killed Moe Dev leaves the microphone

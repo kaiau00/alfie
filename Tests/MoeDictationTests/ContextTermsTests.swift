@@ -64,7 +64,7 @@ struct ContextTermsTests {
     }
 
     @Test func shortTokensAreDropped() {
-        #expect(!ContextTerms.keeps("Moe", common: common))
+        #expect(!ContextTerms.keeps("Alfie", common: common))
         #expect(!ContextTerms.keeps("a", common: common))
         #expect(!ContextTerms.keeps("C++", common: common))
     }

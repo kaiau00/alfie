@@ -5,8 +5,8 @@
     cli.py correct <id> "<text>" [--json]  the line, reworded by the person
     cli.py delete <id> [--json]            the line, forgotten by the person
     cli.py neutral [--target user] [--apply] [--json]
-                                           first-person-from-Moe lines ("Prefers
-                                           I take action") reworded to name Moe;
+                                           first-person-from-Alfie lines ("Prefers
+                                           I take action") reworded to name Alfie;
                                            a dry run unless --apply
     cli.py tidied [--json]                 the nightly tidy's changes, last 30 days
     cli.py undo <change> [--json]          one tidy change put back (Restore)
@@ -178,16 +178,16 @@ def delete(store, cid: str, targets: Sequence[str]) -> Optional[Dict[str, Any]]:
 # first" — there "my" is theirs), and a regex cannot tell the two apart.
 
 _FIRST = [
-    (r"\bI'm\b", "Moe is"), (r"\bI am\b", "Moe is"), (r"\bI've\b", "Moe has"),
-    (r"\bI'll\b", "Moe will"), (r"\bI'd\b", "Moe would"), (r"\bI\b", "Moe"),
-    (r"\bmyself\b", "itself"), (r"\bme\b", "Moe"), (r"\bmy\b", "Moe's"), (r"\bMy\b", "Moe's"),
+    (r"\bI'm\b", "Alfie is"), (r"\bI am\b", "Alfie is"), (r"\bI've\b", "Alfie has"),
+    (r"\bI'll\b", "Alfie will"), (r"\bI'd\b", "Alfie would"), (r"\bI\b", "Alfie"),
+    (r"\bmyself\b", "itself"), (r"\bme\b", "Alfie"), (r"\bmy\b", "Alfie's"), (r"\bMy\b", "Alfie's"),
 ]
 
 
 def neutral(text: str) -> str:
     """"Prefers I take action over explaining: wants me to say what I'm
-    doing once" → "Prefers Moe take action over explaining: wants Moe to say
-    what Moe is doing once". Quoted text is left as it is."""
+    doing once" → "Prefers Alfie take action over explaining: wants Alfie to say
+    what Alfie is doing once". Quoted text is left as it is."""
     parts = re.split(r'("[^"]*"|“[^”]*”)', text)
     for i in range(0, len(parts), 2):
         for pat, rep in _FIRST:

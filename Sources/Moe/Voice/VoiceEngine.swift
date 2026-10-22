@@ -615,8 +615,8 @@ final class VoiceEngine {
                 // the log to show for it.
                 Log.write("VAD LOAD FAILED: \(error)")
                 if wakeWanted {
-                    Log.write("VAD is what tells the wake head when to listen — “Hey Moe” is off until it loads")
-                    onError?("“Hey Moe” is unavailable — Moe could not load the model that hears when someone is speaking. The key and the shortcut still work.")
+                    Log.write("VAD is what tells the wake head when to listen — “Hey Alfie” is off until it loads")
+                    onError?("“Hey Alfie” is unavailable — Alfie could not load the model that hears when someone is speaking. The key and the shortcut still work.")
                 }
                 retryVadInBackground()
             }
@@ -969,7 +969,7 @@ final class VoiceEngine {
         }
     }
 
-    func preview(_ text: String = "Hey, it's Moe. This is how I'll sound.") async {
+    func preview(_ text: String = "Hey, it's Alfie. This is how I'll sound.") async {
         await loadModels()
         speak(text)
     }
@@ -1951,7 +1951,7 @@ final class VoiceEngine {
                     // Moe hearing itself through what the canceller left.
                     // Measured: it said "Sure, take your time.", heard
                     // "Sugar take me", and answered itself.
-                    Log.write("heard: Moe's own voice coming back — ignored")
+                    Log.write("heard: Alfie's own voice coming back — ignored")
                     cleaned = ""
                     afterRead = echo
                 } else if !cleaned.isEmpty, isFollowUp || wasBargeIn,
@@ -2567,7 +2567,7 @@ final class VoiceEngine {
         guard await Self.requestMicrophone() else { onError?(Self.micDeniedMessage); return .unavailable(Self.micDeniedMessage) }
         await loadModels()
         guard ownerVoiceReady else {
-            return .unavailable("Moe's voice model isn't on this Mac yet. It downloads in the background; try again in a few minutes.")
+            return .unavailable("Alfie's voice model isn't on this Mac yet. It downloads in the background; try again in a few minutes.")
         }
         settingsHasMic = true
         defer {
@@ -2641,7 +2641,7 @@ final class VoiceEngine {
         guard await Self.requestMicrophone() else { onError?(Self.micDeniedMessage); return .unavailable(Self.micDeniedMessage) }
         await loadModels()
         guard vad != nil else {
-            return .unavailable("Moe's voice activity detector isn't loaded yet. Try again in a moment.")
+            return .unavailable("Alfie's voice activity detector isn't loaded yet. Try again in a moment.")
         }
         do { try frontEnd.start() } catch {
             return .unavailable("The microphone is unavailable: \(error.localizedDescription)")
@@ -2726,7 +2726,7 @@ final class VoiceEngine {
     func measureWakeTeach(progress: @escaping @MainActor (Int, Int) -> Void) async -> WakeTeachResult {
         await loadModels()
         guard let vad else {
-            return .unavailable("Moe's voice activity detector isn't loaded yet. Try again in a moment.")
+            return .unavailable("Alfie's voice activity detector isn't loaded yet. Try again in a moment.")
         }
         return await measureWakeThreshold(vad: vad, progress: progress)
     }
@@ -2739,7 +2739,7 @@ final class VoiceEngine {
         // incremental state must not be shared with a pipeline mid-run.
         let head = WakeHead()
         do { try await head.load() } catch {
-            return .unavailable("The wake word model is not in this copy of Memoe (\(error)).")
+            return .unavailable("The wake word model is not in this copy of Alfie (\(error)).")
         }
         let shipped = await head.shippedPolicy
         let current = await head.policy
@@ -2848,11 +2848,11 @@ final class VoiceEngine {
     func runEchoTest() async -> EchoTest.Verdict {
         guard !settingsHasMic, !dictating, !externalInput,
               machine.state == .off || machine.state == .standby else {
-            return .unavailable("Moe is busy with the microphone right now. Try again in a moment.")
+            return .unavailable("Alfie is busy with the microphone right now. Try again in a moment.")
         }
         guard await Self.requestMicrophone() else { return .unavailable(Self.micDeniedMessage) }
         await loadModels()
-        guard modelsReady else { return .unavailable("Moe's speech models are still loading.") }
+        guard modelsReady else { return .unavailable("Alfie's speech models are still loading.") }
         do { try frontEnd.start() } catch {
             return .unavailable("The microphone is unavailable: \(error.localizedDescription)")
         }
@@ -2886,12 +2886,12 @@ final class VoiceEngine {
         // A call app arriving mid-test takes voice processing away, and
         // what was measured after that is a measurement of nothing.
         guard frontEnd.echoCancellationActive else {
-            return .unavailable("A call started while Moe was measuring. Try again when the call ends.")
+            return .unavailable("A call started while Alfie was measuring. Try again when the call ends.")
         }
         // A muted or absent input device gives silence, and silence would
         // read as a perfect canceller.
         guard Self.rms(floor) > 1e-5 || Self.rms(during) > 1e-5 else {
-            return .unavailable("No sound is reaching Moe from this microphone. Check the input device in System Settings.")
+            return .unavailable("No sound is reaching Alfie from this microphone. Check the input device in System Settings.")
         }
 
         let heardBack = during.count > Int(AudioPipeline.rate * 0.5)
@@ -2930,7 +2930,7 @@ final class VoiceEngine {
         // level comes close to that, and it holds in any language.
         if ownerVoiceReady, seconds >= 0.8, let owner = await ownerVoice.score(spokenAudio) {
             if owner < 0.35 {
-                Log.write(String(format: "echo: the voice scored %.2f against yours — that is Moe", owner))
+                Log.write(String(format: "echo: the voice scored %.2f against yours — that is Alfie", owner))
                 return .ownerVoice
             }
             // A voice that *is* the owner's cannot be Moe's, whatever the
@@ -3164,15 +3164,15 @@ final class VoiceEngine {
                             anchor.map { String(format: "%.2f", $0) } ?? "-")
         switch verdict {
         case .directed:
-            Log.write("heard: \"\(text)\" — for Moe (\(by); \(detail))")
+            Log.write("heard: \"\(text)\" — for Alfie (\(by); \(detail))")
             pendingUnsure = nil
             let decided = trace?.decidedBy ?? ""
             trace?.decidedBy = decided + " addressee:\(by)"
             return text
         case .notDirected:
             Log.write(overAReply
-                      ? "window: talking to somebody else over Moe (\(by); \(detail)); carrying on"
-                      : "window: not for Moe (\(by); \(detail)); dropped")
+                      ? "window: talking to somebody else over Alfie (\(by); \(detail)); carrying on"
+                      : "window: not for Alfie (\(by); \(detail)); dropped")
             pendingUnsure = nil
             return ""
         case .done:
@@ -3202,7 +3202,7 @@ final class VoiceEngine {
 
     private func keepUnsent(_ text: String) {
         guard text.split(separator: " ").count >= Self.keepUnsentWords else { return }
-        onNotice?("Not sent to Moe — it wasn't sure that was meant for it: \u{201C}\(text)\u{201D}")
+        onNotice?("Not sent to Alfie — it wasn't sure that was meant for it: \u{201C}\(text)\u{201D}")
     }
 
     /// The last `seconds` of speech from a capture that also holds
@@ -3450,7 +3450,7 @@ final class VoiceEngine {
                     if self.wakesRefusedInARow >= Self.wakeRefusalsBeforeDoubt {
                         Log.write("WAKE: \(self.wakesRefusedInARow) refusals in a row — trusting the head over the enrolment from here")
                         self.trustOwnerVoiceForWake = false
-                        self.onError?("Moe was ignoring “Hey Moe” because it did not recognise your voice. It has stopped doing that — if it now wakes for other people, re-teach it your voice in Settings › Voice.")
+                        self.onError?("Alfie was ignoring “Hey Alfie” because it did not recognise your voice. It has stopped doing that — if it now wakes for other people, re-teach it your voice in Settings › Voice.")
                         self.acceptWake(score)
                     }
                     return
@@ -3720,9 +3720,9 @@ final class VoiceEngine {
     /// person needs to know that typing still works and that trying again
     /// is worth it.
     static let modelsUnavailableMessage =
-        "Moe can't listen just now — the voice is still being set up. You can type below."
+        "Alfie can't listen just now — the voice is still being set up. You can type below."
 
-    static let micDeniedMessage = "Moe can't hear you: microphone access is off. "
+    static let micDeniedMessage = "Alfie can't hear you: microphone access is off. "
         + "Turn it on in System Settings › Privacy & Security › Microphone."
 
     /// "820 ms" / "2.4 s".

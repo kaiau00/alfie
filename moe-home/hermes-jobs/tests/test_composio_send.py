@@ -150,7 +150,7 @@ class SendTest(unittest.TestCase):
 
     def test_an_unreadable_or_slow_answer_may_have_gone(self):
         self.plan(GOOD)
-        for exc in (self.c.Unsure("the service answered in a way Moe could not read"), TimeoutError()):
+        for exc in (self.c.Unsure("the service answered in a way Alfie could not read"), TimeoutError()):
             def boom(slug, tool, args, exc=exc):
                 raise exc
             rc, line = self.c.send_offer("{}", check=lambda _: (("composio/gmail|T1", "hi"), ""),

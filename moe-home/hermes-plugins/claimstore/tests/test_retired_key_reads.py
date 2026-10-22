@@ -1,4 +1,4 @@
-"""A Mac that ran Moe free before joining can still read what it wrote then.
+"""A Mac that ran Alfie free before joining can still read what it wrote then.
 
 CLOUD-PLAN §15.1, the read half. Swift's courier adopts the tenant's
 `moe:memory` key and retires the one this Mac minted while it was free; these

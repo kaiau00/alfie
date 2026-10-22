@@ -101,7 +101,7 @@ struct BackgroundPane: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
             } else if activityAsked {
-                Text("Couldn't read the run history. Moe's thinking part keeps it; it may be starting up.")
+                Text("Couldn't read the run history. Alfie's thinking part keeps it; it may be starting up.")
                     .font(Theme.Typo.ui(12))
                     .foregroundStyle(Theme.warn)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -204,8 +204,8 @@ struct BackgroundPane: View {
     private var speakingUp: some View {
         VStack(alignment: .leading, spacing: 0) {
             Calm.header("Speaking up")
-            SettingRow(title: "Let Moe bring things up on its own",
-                       detail: "The notch glows when something is about to matter — a meeting, a missed call, a message from someone you know. Moe never speaks first; reminders you set arrive either way.") {
+            SettingRow(title: "Let Alfie bring things up on its own",
+                       detail: "The notch glows when something is about to matter — a meeting, a missed call, a message from someone you know. Alfie never speaks first; reminders you set arrive either way.") {
                 VoicePane.lever(Binding(get: { conductor.config.nudges },
                                         set: { conductor.setNudges($0) }))
             }
@@ -225,7 +225,7 @@ struct BackgroundPane: View {
                 }
             }
             SettingRow(title: "Quiet hours, 10 pm to 8 am",
-                       detail: "What Moe brings up waits for the morning before it reaches your phone. Reminders you set go when you said."
+                       detail: "What Alfie brings up waits for the morning before it reaches your phone. Reminders you set go when you said."
                         + (conductor.quietHoursArmed ? "" : " Waiting for a reading of your time zone.")) {
                 VoicePane.lever(Binding(get: { conductor.config.quietHours },
                                         set: { conductor.setQuietHours($0) }))
@@ -241,12 +241,12 @@ struct BackgroundPane: View {
                 VoicePane.lever(.constant(true), enabled: false)
             }
             if channels == nil, !channelsAsked {
-                checking("Looking at which chats Moe can send to…")
+                checking("Looking at which chats Alfie can send to…")
             }
             if let channels {
                 ForEach(channels) { ch in
                     SettingRow(title: ch.title,
-                               detail: ch.ready ? "" : "Message Moe there once, then come back.") {
+                               detail: ch.ready ? "" : "Message Alfie there once, then come back.") {
                         // A platform with no home chat cannot be sent to.
                         VoicePane.lever(Binding(
                             get: { ch.ready && conductor.config.reminderChannels.contains(ch.name) },
@@ -261,7 +261,7 @@ struct BackgroundPane: View {
                     }
                 }
             } else if channelsAsked {
-                Text("Couldn't find out which chats Moe can reach. Is Moe's thinking part running?")
+                Text("Couldn't find out which chats Alfie can reach. Is Alfie's thinking part running?")
                     .font(Theme.Typo.ui(12))
                     .foregroundStyle(Theme.warn)
             }
@@ -280,14 +280,14 @@ struct BackgroundPane: View {
             Calm.header(BackgroundLearning.Words.section)
             if sources == nil { checking("Looking at what's connected…") }
             if sources != nil, rows.isEmpty {
-                Text("Nothing is connected yet. Connect something and Moe asks about it right then.")
+                Text("Nothing is connected yet. Connect something and Alfie asks about it right then.")
                     .font(Theme.Typo.ui(12)).foregroundStyle(Theme.ink3)
                     .padding(.vertical, 6)
             }
             ForEach(rows) { r in
                 SettingRow(title: BackgroundLearning.Words.row(r.label),
                            detail: r.awaitingRecipe
-                            ? "Tell Moe what you want to know about from \(r.label) first."
+                            ? "Tell Alfie what you want to know about from \(r.label) first."
                             : r.detail,
                            note: r.on && r.profile.seed
                             ? (r.profile.seeded.map { "Last read back \($0)." } ?? "Not read back yet.")
@@ -305,7 +305,7 @@ struct BackgroundPane: View {
                 .padding(.bottom, Theme.Space.section)
             Calm.header("Keeping up")
             SettingRow(title: "Look at what's connected every 10 minutes",
-                       detail: "So Moe knows what is on today without going to look. Last looked: \(lastSync).") {
+                       detail: "So Alfie knows what is on today without going to look. Last looked: \(lastSync).") {
                 VoicePane.lever(Binding(get: { jobLoaded }, set: { on in toggleJob(on) }))
             }
         }
@@ -316,7 +316,7 @@ struct BackgroundPane: View {
             Calm.header("Learning about you")
             // Model spend, and only that: whether Moe may THINK unprompted
             // on the person's own plan.
-            SettingRow(title: "Let Moe think on its own, on my AI plan",
+            SettingRow(title: "Let Alfie think on its own, on my AI plan",
                        detail: "For the half-hourly look over your mail, calendar and follow-ups, and the daily read-back below. Off, none of your plan is spent on it.") {
                 VoicePane.lever(Binding(get: { conductor.config.backgroundThinking },
                                         set: { conductor.setBackgroundThinking($0) }))
@@ -330,7 +330,7 @@ struct BackgroundPane: View {
             }
             if learning == .granted {
                 Calm.Reveal {
-                    SettingRow(title: "Keep what it learns as Moe's memory") {
+                    SettingRow(title: "Keep what it learns as Alfie's memory") {
                         VoicePane.lever(Binding(get: { seedingState == .granted },
                                                 set: { set([BackgroundLearning.seeding], on: $0) }),
                                         enabled: learning != .unavailable)
@@ -338,11 +338,11 @@ struct BackgroundPane: View {
                 }
             }
             if learning == .unavailable {
-                Text("Moe can't find the file it records this in. Run the installer again.")
+                Text("Alfie can't find the file it records this in. Run the installer again.")
                     .font(Theme.Typo.ui(12))
                     .foregroundStyle(Theme.warn)
             }
-            PaneLink(title: "See what Moe knows") {
+            PaneLink(title: "See what Alfie knows") {
                 NotificationCenter.default.post(
                     name: .moeShowSection, object: nil,
                     userInfo: ["section": MainWindow.Section.memory.rawValue])
@@ -356,7 +356,7 @@ struct BackgroundPane: View {
     private var more: some View {
         VStack(alignment: .leading, spacing: 0) {
             Rectangle().fill(Theme.rule).frame(height: 1).padding(.bottom, 4)
-            Calm.MoreToggle(open: $moreOpen, hint: "what has been running, and what Moe noticed")
+            Calm.MoreToggle(open: $moreOpen, hint: "what has been running, and what Alfie noticed")
             if moreOpen {
                 VStack(alignment: .leading, spacing: 26) {
                     activityTab

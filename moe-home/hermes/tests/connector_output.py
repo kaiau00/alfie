@@ -1,4 +1,4 @@
-"""What Moe's connectors really print, made by running them on synthetic data.
+"""What Alfie's connectors really print, made by running them on synthetic data.
 
 The send gate grounds a recipient from the fields of a lookup's output that
 name who a message is from or to (tools/recipients.py `lookup_text`). A test

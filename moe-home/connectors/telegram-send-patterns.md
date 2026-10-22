@@ -24,7 +24,7 @@ So the gate is the feature. Everything below is about it.
 and `whatsapp.sh send` do. Four properties make this the load-bearing gate:
 
 - It is **not a field in the request**. The model writes the JSON on stdin,
-  and text Moe reads *in your own Telegram chats* can talk a model into
+  and text Alfie reads *in your own Telegram chats* can talk a model into
   writing anything — `"confirmed": true` included. An unknown key is an
   error, so a request carrying one is refused rather than honoured.
 - The path to `confirm.sh` is derived from `telegram.py`'s own **real** path
@@ -56,7 +56,7 @@ send` contains both words, so the hook raises its own dialog too.
 | Hermes-native `send_message` | confirm | the `to` argument |
 
 The third row is the comparison that matters: the Gmail row was deliberately
-narrowed to `r"gmail(?!\.py)"` so Moe's own connector, which confirms itself
+narrowed to `r"gmail(?!\.py)"` so Alfie's own connector, which confirms itself
 with the resolved recipients, stops raising a **second** dialog. The Telegram
 row has not been narrowed, so `telegram.py send` currently raises two:
 
@@ -105,7 +105,7 @@ for the card, an expiry. The connector is handed only a nonce and the address
 of a socket into that process, redeems the ticket there once, and refuses
 without one. A connector's send run from a shell or from code is refused by
 the send hook outright ("use the gmail_send tool"), readable or not — which
-also stops the rest of a compound command riding along. The Memoe app's
+also stops the rest of a compound command riding along. The Alfie app's
 offers go by `whatsapp.sh send-offer`, the chat and words on stdin from the
 app's memory, accepted only when the connector's parent process is the signed
 app.

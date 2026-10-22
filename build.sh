@@ -8,7 +8,7 @@ set -euo pipefail
 unset CDPATH
 
 cd "$(dirname "$0")"
-APP="dist/Memoe.app"
+APP="dist/Alfie.app"
 # The commit this build came from, stamped into the bundle below.
 COMMIT="$(git rev-parse --short HEAD 2>/dev/null || echo unknown)"
 if [ -n "$(git status --porcelain 2>/dev/null)" ]; then COMMIT="$COMMIT+dirty"; fi
@@ -55,17 +55,15 @@ if [ -z "${MOE_EDITION:-}" ]; then
 fi
 # Community values. release.env overrides every one of them.
 #
-# The community edition is named "Memoe OSS": the shape of Code - OSS (what
-# Microsoft's vscode repo builds before its own branding goes on) and of
-# Chromium beside Chrome. One word says what it is, and it never answers to
-# the official name, id, scheme or home. TRADEMARK.md lets an unmodified build
-# keep this name; a modified one takes its own. The id is under memoe.app,
-# reversed, because that is a domain the project holds.
-MOE_ID_BUNDLE="app.memoe.oss"
-MOE_ID_URL_SCHEME="memoe-oss"
-MOE_ID_APP_NAME="Memoe OSS"
-MOE_ID_HOME="~/Library/Application Support/Memoe OSS"   # "" = the official default home
-MOE_ID_DEV_HOME_NAME="Memoe OSS Dev"
+# This fork's community edition is Alfie. TRADEMARK.md requires a modified
+# build to take its own name, icon, bundle id and home, and never to answer
+# to the official name, id, scheme or home. The id is under the fork owner's
+# GitHub Pages domain, reversed.
+MOE_ID_BUNDLE="io.github.kaiau00.alfie"
+MOE_ID_URL_SCHEME="alfie"
+MOE_ID_APP_NAME="Alfie"
+MOE_ID_HOME="~/Library/Application Support/Alfie"   # "" = the official default home
+MOE_ID_DEV_HOME_NAME="Alfie Dev"
 MOE_ID_SPARKLE_FEED_URL=""
 MOE_ID_SPARKLE_PUBLIC_KEY=""
 MOE_ID_CLOUD_EDGE=""          # "" = no cloud: Away, sign-in and cloud voice stay hidden
@@ -89,7 +87,7 @@ if [ "$MOE_DEV" = 1 ]; then
   # real Moe's checkout page opens (see CFBundleURLTypes below).
   URL_SCHEME="$MOE_ID_URL_SCHEME-dev"
   APP_NAME="$MOE_ID_APP_NAME Dev"
-  APP="dist/Memoe Dev.app"
+  APP="dist/Alfie Dev.app"
   # Its own home, so a development build can never write the notes,
   # memory, consent answers or connector tokens of the Moe in daily use.
   # `Paths` reads this at launch; nothing else needs to know.
@@ -902,25 +900,25 @@ cat > "$APP/Contents/Info.plist" <<PLIST
   <!-- All of these must be present BEFORE first launch, or macOS denies
        silently with no prompt at all. -->
   <key>NSMicrophoneUsageDescription</key>
-  <string>Moe listens when you press the hotkey, or when you say “Hey Moe”, so you can talk to it.</string>
+  <string>Alfie listens when you press the hotkey, or when you say “Hey Alfie”, so you can talk to it.</string>
   <key>NSAudioCaptureUsageDescription</key>
-  <string>Moe records the call’s audio during a meeting you start, so it can write the transcript and notes. Nothing leaves this Mac.</string>
+  <string>Alfie records the call’s audio during a meeting you start, so it can write the transcript and notes. Nothing leaves this Mac.</string>
   <key>NSSpeechRecognitionUsageDescription</key>
-  <string>Moe turns your speech into text on this Mac. Nothing is sent to a speech service.</string>
+  <string>Alfie turns your speech into text on this Mac. Nothing is sent to a speech service.</string>
   <key>NSAppleEventsUsageDescription</key>
-  <string>Moe reads your Notes, Reminders, Calendar and Contacts to answer questions about your day, and uses System Events to click and type for you when you ask it to drive the Mac.</string>
+  <string>Alfie reads your Notes, Reminders, Calendar and Contacts to answer questions about your day, and uses System Events to click and type for you when you ask it to drive the Mac.</string>
   <key>NSCalendarsUsageDescription</key>
-  <string>Moe reads your calendar so it knows what you have on.</string>
+  <string>Alfie reads your calendar so it knows what you have on.</string>
   <key>NSRemindersUsageDescription</key>
-  <string>Moe reads your reminders so it knows what you still owe people.</string>
+  <string>Alfie reads your reminders so it knows what you still owe people.</string>
   <!-- macOS 14+ EventKit asks for these when requesting full access; the
        two above are what older systems (and write-only access) read. -->
   <key>NSCalendarsFullAccessUsageDescription</key>
-  <string>Moe reads your calendar so it knows what you have on, and adds events when you ask. Nothing leaves this Mac.</string>
+  <string>Alfie reads your calendar so it knows what you have on, and adds events when you ask. Nothing leaves this Mac.</string>
   <key>NSRemindersFullAccessUsageDescription</key>
-  <string>Moe reads your reminders so it knows what you still owe people, and adds reminders when you ask. Nothing leaves this Mac.</string>
+  <string>Alfie reads your reminders so it knows what you still owe people, and adds reminders when you ask. Nothing leaves this Mac.</string>
   <key>NSContactsUsageDescription</key>
-  <string>Moe looks up the people you mention, and — if you switch it on in Settings › Voice — spells their names right when you dictate.</string>
+  <string>Alfie looks up the people you mention, and — if you switch it on in Settings › Voice — spells their names right when you dictate.</string>
 $SPARKLE_PLIST$LICENCE_PLIST$TELEGRAM_PLIST
 </dict>
 </plist>
@@ -959,10 +957,17 @@ fi
 # returns YES on `passedDSACheck || passedCodeSigning`, deliberately, "because
 # this allows key rotation without breaking chain of trust". The EdDSA key is
 # what may never change; the certificate may.
+# A checkout in an iCloud-synced folder (Desktop or Documents with iCloud
+# Drive on) copies its Finder info and file-provider tags into the bundle,
+# and codesign refuses them as "resource fork, Finder information, or similar
+# detritus". Some bundled resources are read-only, and xattr needs write
+# access to clear them.
+chmod -R u+w "$APP"
+xattr -cr "$APP"
 ./scripts/sign-build.sh "$APP"
 
 echo
 echo "✓ built $APP"
 echo
 echo "  run it:      open $APP"
-echo "  install it:  ./scripts/install.sh"
+echo "  install it:  drag it into /Applications"

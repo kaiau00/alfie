@@ -44,7 +44,7 @@ struct MeetingCapturePane: View {
         return SettingGroup(title: "Noticing calls") {
             SettingRow(
                 title: "When a call starts",
-                detail: "Zoom, Teams, FaceTime, Slack or Meet. Moe never listens to decide — it asks which app has the microphone."
+                detail: "Zoom, Teams, FaceTime, Slack or Meet. Alfie never listens to decide — it asks which app has the microphone."
             ) {
                 SettingMenu(value: conductor.config.meetingAutoDetect.label) {
                     Picker("", selection: Binding(
@@ -62,7 +62,7 @@ struct MeetingCapturePane: View {
             // silence and the panel sat there wanting an answer.
             SettingRow(
                 title: "When the call ends",
-                detail: "Stop, save, and write the notes without asking. Off, Moe offers to stop and waits.",
+                detail: "Stop, save, and write the notes without asking. Off, Alfie offers to stop and waits.",
                 last: ignored.isEmpty
             ) {
                 VoicePane.lever(Binding(
@@ -124,7 +124,7 @@ struct MeetingCapturePane: View {
 
             if !ScreenPermission.granted, policy.isEnabled {
                 HStack(alignment: .firstTextBaseline, spacing: Theme.Space.small) {
-                    Text("Screen Recording isn't allowed for Moe yet.")
+                    Text("Screen Recording isn't allowed for Alfie yet.")
                         .font(Theme.Typo.ui(11))
                         .foregroundStyle(Theme.warn)
                     Spacer(minLength: Theme.Space.small)
@@ -173,7 +173,7 @@ struct CaptureCuesSheet: View {
             Text("What counts as something being shown")
                 .font(Theme.Typo.heading(20))
                 .foregroundStyle(Theme.ink)
-            Text("These are moments in the conversation — “let me share my screen”, “as you can see”, “we agreed” — that make Moe take a picture by itself. At most one every \(Int(policy.minGapSeconds)) seconds and \(policy.maxAutoShots) per meeting. A clip that starts this way ends after \(Int(policy.clipMaxSeconds / 60)) minutes, \(Int(policy.clipIdleSeconds)) seconds after the last cue, or when someone says “stop sharing”.")
+            Text("These are moments in the conversation — “let me share my screen”, “as you can see”, “we agreed” — that make Alfie take a picture by itself. At most one every \(Int(policy.minGapSeconds)) seconds and \(policy.maxAutoShots) per meeting. A clip that starts this way ends after \(Int(policy.clipMaxSeconds / 60)) minutes, \(Int(policy.clipIdleSeconds)) seconds after the last cue, or when someone says “stop sharing”.")
                 .font(Theme.Typo.prose(13))
                 .foregroundStyle(Theme.ink2)
                 .fixedSize(horizontal: false, vertical: true)

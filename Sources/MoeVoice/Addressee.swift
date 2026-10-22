@@ -66,8 +66,8 @@ public enum Addressee {
 
     // MARK: - Lexical cues
 
-    /// How Moe's name comes out of a recogniser.
-    public static let names: Set<String> = ["moe", "mo", "mow", "moh"]
+    /// How Alfie's name comes out of a recogniser.
+    public static let names: Set<String> = ["alfie", "alfy", "alfee", "alfi", "alphie"]
 
     /// A request's first word: a question word or an imperative.
     static let requestOpeners: Set<String> = [

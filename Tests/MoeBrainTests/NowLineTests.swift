@@ -69,7 +69,7 @@ extension NowLineTests {
     /// note. The model must see one clock, the current one.
     @Test func anOldNowLineInsideTheTextIsDropped() {
         let first = NowLine.stamp("book the table", at: Self.at("2026-09-23T22:08:00Z"), zone: Self.ny)
-        let wrapped = "(Moe restarted while you were working on this.)\n\n" + first
+        let wrapped = "(Alfie restarted while you were working on this.)\n\n" + first
         let restamped = NowLine.stamp(wrapped, at: Self.at("2026-09-23T22:15:00Z"), zone: Self.ny)
         #expect(restamped.components(separatedBy: "Now: ").count == 2)
         #expect(restamped.hasPrefix("Now: Wednesday 23 September 2026, 6:15 PM"))

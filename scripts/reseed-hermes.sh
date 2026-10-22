@@ -98,7 +98,7 @@ NEW="$(sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' "$BUNDLE/hermes-agent/.
 case "$NEW" in ""|*[!0-9a-f]*) die "the bundled seed has no readable .moe-seed-commit; nothing was changed" ;; esac
 [ ${#NEW} -eq 40 ] || die "the bundled seed's stamp is not a full sha; nothing was changed"
 if [ -n "$TO" ] && [ "$TO" != "$NEW" ]; then
-  die "the bundled seed is ${NEW:0:10}, not the pin ${TO:0:10} — this Memoe carries a different Hermes than it pins.
+  die "the bundled seed is ${NEW:0:10}, not the pin ${TO:0:10} — this Alfie carries a different Hermes than it pins.
   Nothing was changed. (build.sh's check-hermes-seed-commit.sh is the gate that should have refused this build.)"
 fi
 

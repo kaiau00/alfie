@@ -27,7 +27,7 @@ struct AddMCPServerSheet: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 14) {
                 Text("Add a server by address").font(.title3.weight(.semibold))
-                Text("Moe will be able to use everything this server offers, the same as anything else in this list.")
+                Text("Alfie will be able to use everything this server offers, the same as anything else in this list.")
                     .font(.caption).foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
 
@@ -53,7 +53,7 @@ struct AddMCPServerSheet: View {
                 Toggle("This server needs me to sign in", isOn: $needsSignIn)
                     .font(.callout)
                 if needsSignIn {
-                    Text("Your browser will open once, and Moe keeps the sign-in from then on.")
+                    Text("Your browser will open once, and Alfie keeps the sign-in from then on.")
                         .font(.caption).foregroundStyle(.secondary)
                         .fixedSize(horizontal: false, vertical: true)
                 }
@@ -63,7 +63,7 @@ struct AddMCPServerSheet: View {
                 // person. Nobody should add one of these without knowing
                 // what it can see.
                 Label {
-                    Text("Nobody has reviewed this server. It sees whatever Moe hands it, and the words it uses to describe its own tools land in Moe's thinking. Moe still asks before sending anything to another person; nothing else about it is checked.")
+                    Text("Nobody has reviewed this server. It sees whatever Alfie hands it, and the words it uses to describe its own tools land in Alfie's thinking. Alfie still asks before sending anything to another person; nothing else about it is checked.")
                         .font(.caption).fixedSize(horizontal: false, vertical: true)
                 } icon: {
                     Image(systemName: "exclamationmark.triangle.fill").foregroundStyle(Theme.warn)

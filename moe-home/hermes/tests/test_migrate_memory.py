@@ -238,7 +238,7 @@ class MigrateMemoryTest(unittest.TestCase):
                          % self.read(self.user))
         for label in ("Name:", "What I do:", "Where I am / timezone:",
                       "Family and the people I talk about most:",
-                      "What I'm working on right now:", "What I want Moe to handle for me:"):
+                      "What I'm working on right now:", "What I want Alfie to handle for me:"):
             self.assertNotIn(label, self.read(self.memory))
         # The two shipped preferences are real defaults and still travel.
         self.assertIn("Answers: short and spoken", self.read(self.memory))

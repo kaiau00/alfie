@@ -46,7 +46,7 @@ public struct WakeTeachFlow: Equatable, Sendable {
 
         public var title: String {
             switch self {
-            case .nothingHeard: return "Moe didn't hear anything"
+            case .nothingHeard: return "Alfie didn't hear anything"
             case .tooQuiet: return "Got it — that one was quiet"
             case .tooShort: return "That was too short to be the phrase"
             case .clipped: return "That was too loud — the sound broke up"
@@ -202,8 +202,8 @@ public struct WakeTeachFlow: Equatable, Sendable {
 
         public var text: String {
             switch self {
-            case .busy: return "Moe is using the microphone for something else. Try again in a moment."
-            case .heardNothing: return "Moe didn't hear a “Hey Moe” it could use. Try again, a little closer to the Mac."
+            case .busy: return "Alfie is using the microphone for something else. Try again in a moment."
+            case .heardNothing: return "Alfie didn't hear a “Hey Alfie” it could use. Try again, a little closer to the Mac."
             case .unavailable(let why): return why
             }
         }
@@ -224,14 +224,14 @@ public struct WakeTeachFlow: Equatable, Sendable {
 
         /// The card's title.
         public var title: String {
-            changed ? "Moe hears you better now" : "Moe already hears you well"
+            changed ? "Alfie hears you better now" : "Alfie already hears you well"
         }
 
         /// One line, the numbers only: "Catches 11 of your 12 “Hey Moe”s
         /// (was 8) · lets through 1 of 8 sound-alikes (was 2)". A "was"
         /// only where the number moved — "(was 8)" beside an 8 is noise.
         public var headline: String {
-            var line = "Catches \(caughtNow) of your \(names) “Hey Moe”\(names == 1 ? "" : "s")"
+            var line = "Catches \(caughtNow) of your \(names) “Hey Alfie”\(names == 1 ? "" : "s")"
             if caughtBefore != caughtNow { line += " (was \(caughtBefore))" }
             guard soundAlikes > 0 else { return line }
             line += " · lets through \(letThroughNow) of \(soundAlikes) sound-alike\(soundAlikes == 1 ? "" : "s")"
@@ -415,7 +415,7 @@ public struct WakeTeachFlow: Equatable, Sendable {
             return lastKeptQuiet ? "\(Problem.tooQuiet.title). \(Problem.tooQuiet.advice)" : "Got it"
         case .retake(_, let problem): return "\(problem.title). \(problem.advice)"
         case .paused: return "Paused"
-        case .measuring(0, 0): return "Measuring how Moe hears you"
+        case .measuring(0, 0): return "Measuring how Alfie hears you"
         case .result(let o): return "\(o.title). \(o.headline)"
         case .failed(let why): return why.text
         default: return nil

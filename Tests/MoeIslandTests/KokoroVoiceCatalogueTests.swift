@@ -85,7 +85,7 @@ struct KokoroVoiceCatalogueTests {
         for id in Self.catalogueVoices(swift) {
             let prefix = String(id.prefix(3))
             #expect(["af_", "am_", "bf_", "bm_"].contains(prefix), """
-                "\(id)" is not an English Kokoro pack. Moe loads only the \
+                "\(id)" is not an English Kokoro pack. Alfie loads only the \
                 English variant, so a pack from another language cannot be \
                 selected even if it converts.
                 """)

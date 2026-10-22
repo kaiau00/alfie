@@ -303,7 +303,7 @@ COMPOSE_SYSTEM = (
     "You prepare help for a person before they ask, from one open situation "
     "in their life and what a web search found. Write for them, plainly.\n\n"
     "Answer JSON only:\n"
-    "{\"offer\": \"one sentence Moe would say to offer this — what is at "
+    "{\"offer\": \"one sentence Alfie would say to offer this — what is at "
     "stake and what is ready\", \"research\": [{\"point\": \"one line\", "
     "\"source\": \"<a url from the search results, exactly>\"}], \"options\": "
     "[\"up to 3 ways forward, each one line, with the numbers worked out where "

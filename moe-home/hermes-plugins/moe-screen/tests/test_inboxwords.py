@@ -42,7 +42,7 @@ class WordsTest(unittest.TestCase):
         return call
 
     def test_a_long_message_gets_a_title_and_a_summary(self):
-        out = self.w.words(BRIEF, "Moe marketing standing brief",
+        out = self.w.words(BRIEF, "Alfie marketing standing brief",
                            call=self.answer('{"title": "Marketing brief", "summary": "One Reddit reply to post; two launch tasks overdue."}'))
         self.assertEqual(out, {"title": "Marketing brief",
                                "summary": "One Reddit reply to post; two launch tasks overdue."})
@@ -97,7 +97,7 @@ class DeliverCarriesTheWordsTest(unittest.TestCase):
             return json.load(f)
 
     def test_the_words_land_in_the_inbox_file(self):
-        ok, err = self.d.deliver(BRIEF, job="Moe marketing standing brief",
+        ok, err = self.d.deliver(BRIEF, job="Alfie marketing standing brief",
                                  words=lambda text, job: {"title": "Marketing brief", "summary": "One reply to post."})
         self.assertTrue(ok, err)
         body = self.inbox()

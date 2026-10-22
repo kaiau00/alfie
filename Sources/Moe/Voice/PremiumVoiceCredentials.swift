@@ -141,13 +141,13 @@ extension CloudVoiceUnavailable {
     /// their wifi over a missing server route.
     static func reason(for error: Error) -> String {
         guard let unavailable = error as? CloudVoiceUnavailable else {
-            return "Moe's cloud could not be reached just now"
+            return "Alfie's cloud could not be reached just now"
         }
         switch unavailable {
         case .notEntitled:      return "it is not part of your plan"
         case .allowanceSpent:   return "this month's cloud-voice allowance is used up"
-        case .notConfigured:    return "Moe's cloud is not set up for it yet"
-        case .offline:          return "Moe's cloud could not be reached just now"
+        case .notConfigured:    return "Alfie's cloud is not set up for it yet"
+        case .offline:          return "Alfie's cloud could not be reached just now"
         case .disabled:         return "the cloud voice is switched off in Settings"
         }
     }

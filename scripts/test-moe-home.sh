@@ -123,10 +123,10 @@ echo "2b. a stray ~/.moe that holds nothing of yours is folded, not refused"
 # home into the empty ~/.moe. Driven through `Moe --migrate-home`, because
 # the real call reads homeDirectoryForCurrentUser and ignores $HOME.
 MB="${MOE_BIN:-}"
-[ -z "$MB" ] && [ -x "$ROOT/dist/Memoe.app/Contents/MacOS/Moe" ] && MB="$ROOT/dist/Memoe.app/Contents/MacOS/Moe"
+[ -z "$MB" ] && [ -x "$ROOT/dist/Alfie.app/Contents/MacOS/Moe" ] && MB="$ROOT/dist/Alfie.app/Contents/MacOS/Moe"
 [ -z "$MB" ] && MB="$ROOT/.build/debug/Moe"
 if [ ! -x "$MB" ]; then
-  echo "  – skipped: no built Moe at $MB (swift build)"
+  echo "  – skipped: no built Alfie at $MB (swift build)"
 else
   H=$(newhome twob)
   mkdir -p "$H/$LEGACY/bin" "$H/$LEGACY/logs" "$H/$LEGACY/context" "$H/$TARGET/memory" "$H/$TARGET/logs"
@@ -195,14 +195,14 @@ echo "4. a home whose path contains a space really works"
 # output is the fallback for a checkout that has not assembled a bundle yet.
 MOE_BIN="${MOE_BIN:-}"
 if [ -z "$MOE_BIN" ]; then
-  if [ -x "$ROOT/dist/Memoe.app/Contents/MacOS/Moe" ]; then
-    MOE_BIN="$ROOT/dist/Memoe.app/Contents/MacOS/Moe"
+  if [ -x "$ROOT/dist/Alfie.app/Contents/MacOS/Moe" ]; then
+    MOE_BIN="$ROOT/dist/Alfie.app/Contents/MacOS/Moe"
   else
     MOE_BIN="$ROOT/.build/debug/Moe"
   fi
 fi
 if [ ! -x "$MOE_BIN" ]; then
-  echo "  – skipped: no built Moe at $MOE_BIN (swift build)"
+  echo "  – skipped: no built Alfie at $MOE_BIN (swift build)"
 else
   SPACED="$SCRATCH/Application Support/Moe"
   rm -rf "$SCRATCH/Application Support"
@@ -233,7 +233,7 @@ fi
 echo "5. the real binary honours MOE_HOME, so nothing here touched your home"
 
 if [ ! -x "$MOE_BIN" ]; then
-  echo "  – skipped: no built Moe at $MOE_BIN (swift build)"
+  echo "  – skipped: no built Alfie at $MOE_BIN (swift build)"
 else
   H=$(newhome five)
   out=$(MOE_HOME="$H/scratch-home" "$MOE_BIN" --install-payload "$H/scratch-home" 2>&1 | tail -1)

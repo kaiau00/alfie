@@ -27,10 +27,10 @@ enum TurnError {
     ]
 
     /// Moe could not say what went wrong, so it says that.
-    static let generic = "Moe couldn't finish that thought. Ask again."
+    static let generic = "Alfie couldn't finish that thought. Ask again."
 
     /// Someone waiting on Moe, told in words they can act on.
-    static let busy = "Moe was still finishing the last thing — ask again in a moment."
+    static let busy = "Alfie was still finishing the last thing — ask again in a moment."
 
     /// The person's words for `message`, which is always safe to show.
     ///

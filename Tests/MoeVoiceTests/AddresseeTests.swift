@@ -38,7 +38,7 @@ struct AddresseeTests {
     // MARK: Certain, on the words alone
 
     @Test func theNameIsEnoughOnItsOwn() {
-        #expect(Addressee.verdict(signals("I think so, moe, but check", since: 9)) == .directed)
+        #expect(Addressee.verdict(signals("I think so, alfie, but check", since: 9)) == .directed)
         // Stripped off the front by the host, which says so instead.
         #expect(Addressee.verdict(signals("the second one", named: true, since: 9)) == .directed)
         // Even against a voice that does not match the enrolment.
@@ -144,7 +144,7 @@ struct AddresseeTests {
     }
 
     @Test func aDismissalIsNeverAQuestion() {
-        for said in ["I'm not talking to you", "not talking to you, Moe", "stop",
+        for said in ["I'm not talking to you", "not talking to you, Alfie", "stop",
                      "never mind", "sorry, not you", "that's enough", "I wasn't talking to you"] {
             #expect(Addressee.isDismissal(said), "\(said)")
         }
@@ -167,18 +167,18 @@ struct AddresseeTests {
     // MARK: Closing and resolving
 
     @Test func closePhrases() {
-        for goodbye in ["Thanks, Moe.", "okay thanks moe", "that's all, Moe", "thanks a lot Moe",
-                        "That’s all for now, Moe", "moe, that's all", "bye moe", "cheers mo"] {
+        for goodbye in ["Thanks, Alfie.", "okay thanks alfie", "that's all, Alfie", "thanks a lot Alfie",
+                        "That’s all for now, Alfie", "alfie, that's all", "bye alfie", "cheers alfy"] {
             #expect(Addressee.isClosePhrase(goodbye), "\(goodbye)")
         }
-        for keep in ["thanks moe what about friday", "thanks", "no thanks", "moe", "thank you"] {
+        for keep in ["thanks alfie what about friday", "thanks", "no thanks", "alfie", "thank you"] {
             #expect(!Addressee.isClosePhrase(keep), "\(keep)")
         }
     }
 
     @Test func theNameAloneResolvesAnUnsureTurn() {
-        #expect(Addressee.isNameOnly("Moe?"))
-        #expect(Addressee.isNameOnly("hey moe"))
+        #expect(Addressee.isNameOnly("Alfie?"))
+        #expect(Addressee.isNameOnly("hey alfie"))
         #expect(Addressee.isNameOnly("Mo?"))
         #expect(!Addressee.isNameOnly("moe what time is it"))
         #expect(!Addressee.isNameOnly("hey"))

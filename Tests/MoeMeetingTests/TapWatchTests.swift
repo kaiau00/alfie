@@ -143,7 +143,7 @@ struct OutputActivityTests {
         CallSignal(bundleID: id, input: false, output: out)
     }
 
-    @Test("Moe's own playback does not count — the tap excludes it")
+    @Test("Alfie's own playback does not count — the tap excludes it")
     func ignoresSelf() {
         let signals = [sig("com.memoe.app", out: true), sig("com.apple.Music", out: false)]
         #expect(!OutputActivity.othersPlaying(signals, mine: "com.memoe.app"))
@@ -163,7 +163,7 @@ struct OutputActivityTests {
         #expect(OutputActivity.othersPlaying(signals, mine: "com.memoe.app"))
     }
 
-    @Test("Moe Dev excludes itself, not the real Moe")
+    @Test("Alfie Dev excludes itself, not the real Alfie")
     func devIsItsOwnApp() {
         let signals = [sig("com.memoe.app.dev", out: true)]
         #expect(!OutputActivity.othersPlaying(signals, mine: "com.memoe.app.dev"))

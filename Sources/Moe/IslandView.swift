@@ -374,7 +374,7 @@ struct IslandView: View {
                 Text("Open in app").font(.system(size: 11)).foregroundStyle(Theme.Island.ink3)
             }
             .buttonStyle(.plain)
-            .help("The Inbox page in Memoe, with everything done this week")
+            .help("The Inbox page in Alfie, with everything done this week")
         }
         .padding(.top, chromeInBand ? 0 : Self.chromeDrop)
         .padding(.horizontal, 2)
@@ -876,7 +876,7 @@ struct IslandView: View {
         case .queued(let text):
             VStack(alignment: .trailing, spacing: 2) {
                 youBubble(text, live: false).opacity(0.55)
-                Text("Sends when Moe finishes")
+                Text("Sends when Alfie finishes")
                     .font(.system(size: 11))
                     .foregroundStyle(.white.opacity(0.4))
                     .frame(height: IslandChat.more - 2)
@@ -1051,12 +1051,12 @@ struct IslandView: View {
             TrayButton(icon: quiet ? "speaker.slash.fill" : "speaker.wave.2.fill", style: quiet ? .lit : .plain) {
                 conductor.toggleWorkSilently()
             }
-            .help(quiet ? "Working quietly: Moe will only say the answer. Click to hear progress again."
-                        : "Moe says what it's doing as it goes. Click to keep it quiet until the answer.")
+            .help(quiet ? "Working quietly: Alfie will only say the answer. Click to hear progress again."
+                        : "Alfie says what it's doing as it goes. Click to keep it quiet until the answer.")
         case .captions(let on):
             TrayButton(icon: "captions.bubble.fill", style: on ? .lit : .plain) { conductor.toggleTranscript() }
-                .help(on ? "Live transcript on: the panel opens as you talk and as Moe answers. Click to turn it off."
-                         : "Turn on the live transcript: the panel opens as you talk and as Moe answers.")
+                .help(on ? "Live transcript on: the panel opens as you talk and as Alfie answers. Click to turn it off."
+                         : "Turn on the live transcript: the panel opens as you talk and as Alfie answers.")
         case .startOver:
             TrayButton(icon: "arrow.counterclockwise", style: .plain) { conductor.restartReply() }
                 .help("Say it again from the top")
@@ -1072,7 +1072,7 @@ struct IslandView: View {
             .help("Read this aloud")
         case .openChat:
             TrayButton(icon: "macwindow", style: .plain) { onOpenChat() }
-                .help("Open the whole conversation in the Memoe window")
+                .help("Open the whole conversation in the Alfie window")
         case .copy:
             TrayButton(icon: "doc.on.doc", style: .plain) {
                 guard let a = lastAnswer else { return }
@@ -1083,7 +1083,7 @@ struct IslandView: View {
         case .stop(let driving):
             TrayButton(icon: "stop.fill", style: driving ? .driving : .plain) { conductor.stopEverything() }
                 .help(driving ? IslandOverride.stopLabel(screen: conductor.drivingApp != nil)
-                              : "Stop: Moe drops this job")
+                              : "Stop: Alfie drops this job")
         }
     }
 
@@ -1130,8 +1130,8 @@ struct IslandView: View {
     }
 
     private var askPlaceholder: String {
-        if conductor.replyingTo != nil { return "Type your answer to Moe" }
-        return conductor.turns.isEmpty ? "Ask Moe, or hold \(conductor.config.talkKey.inSentence) and talk" : "Ask Moe"
+        if conductor.replyingTo != nil { return "Type your answer to Alfie" }
+        return conductor.turns.isEmpty ? "Ask Alfie, or hold \(conductor.config.talkKey.inSentence) and talk" : "Ask Alfie"
     }
 
     // MARK: - Meeting
@@ -1403,7 +1403,7 @@ struct IslandView: View {
             HStack(spacing: 6) {
                 Spacer(minLength: 0)
                 meetingPageTab(.transcript, "Transcript", icon: "text.alignleft")
-                meetingPageTab(.chat, "Ask Moe", icon: "bubble.left.fill")
+                meetingPageTab(.chat, "Ask Alfie", icon: "bubble.left.fill")
                 if !conductor.meetingLiveActions.isEmpty {
                     meetingPageTab(.todo, "To do · \(conductor.meetingLiveActions.count)", icon: "checklist")
                 }
@@ -1472,7 +1472,7 @@ struct IslandView: View {
                         case .chat:
                             if conductor.turns.isEmpty && conductor.partial.isEmpty {
                                 ledgerRow(gutter: "", tint: .clear) {
-                                    Text("Ask Moe anything about the call. The room can't hear it, and Moe has the transcript so far.")
+                                    Text("Ask Alfie anything about the call. The room can't hear it, and Alfie has the transcript so far.")
                                         .font(.system(size: 12))
                                         .foregroundStyle(.white.opacity(0.40))
                                 }
@@ -1532,11 +1532,11 @@ struct IslandView: View {
                         .font(.system(size: 10, weight: .medium, design: .monospaced))
                         .foregroundStyle(.white.opacity(0.32))
                         .lineLimit(1)
-                        .help("How many lines, and how many voices Moe has told apart")
+                        .help("How many lines, and how many voices Alfie has told apart")
                 }
                 if !meetingTray.isEmpty { meetingTrayRow }
             }
-            askField(placeholder: "Ask Moe about the call, quietly", attach: false)
+            askField(placeholder: "Ask Alfie about the call, quietly", attach: false)
         }
         .padding(.top, 12)
         .padding(.bottom, 14)
@@ -2046,7 +2046,7 @@ struct IslandView: View {
     private static func gutterLabel(_ role: Turn.Role) -> String {
         switch role {
         case .you: return "YOU"
-        case .moe: return "MOE"
+        case .moe: return "ALFIE"
         // A system note has no speaker. A dash holds the spine without
         // pretending somebody said it.
         case .system: return "—"

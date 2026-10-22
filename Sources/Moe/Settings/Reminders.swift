@@ -240,7 +240,7 @@ enum Reminders {
             if !runnable { return "Paused. It will not run until you switch it back on." }
             if !drifted.isEmpty {
                 return "Skipped every time. It was set up for a different brain to the one "
-                    + "Moe is on now and is not tied to one, so Moe will not spend on it. "
+                    + "Alfie is on now and is not tied to one, so Alfie will not spend on it. "
                     + "Remove it and make it again."
             }
             guard let next = nextRun, let at = Self.date(next) else {
@@ -265,7 +265,7 @@ enum Reminders {
         var caution: String? {
             // `when` has already said this one, in stronger words.
             guard drifted.isEmpty, unguarded, !terminal else { return nil }
-            return "Not tied to a brain, so it will follow whatever brain Moe is set to."
+            return "Not tied to a brain, so it will follow whatever brain Alfie is set to."
         }
 
         /// How often, in the person's words — and **empty rather than a
@@ -618,7 +618,7 @@ enum Reminders {
     static func create(key: String, values: [String: String], name: String) -> Outcome {
         guard let json = try? JSONSerialization.data(withJSONObject: values),
               let text = String(data: json, encoding: .utf8) else {
-            return Outcome(ok: false, error: "Moe couldn't read that form.")
+            return Outcome(ok: false, error: "Alfie couldn't read that form.")
         }
         // `--name=` with the equals sign, because the name is the one
         // argument here a person types. `--name -daily` is argparse's
@@ -654,7 +654,7 @@ enum Reminders {
     /// report success: the pane reloads after every one of these, so what
     /// the person sees next is the store rather than this guess.
     private static let unreachable =
-        "Moe couldn't reach the part of itself that keeps the clock. Nothing was changed."
+        "Alfie couldn't reach the part of itself that keeps the clock. Nothing was changed."
 }
 
 /// One key, or the fallback — never a thrown `keyNotFound` that takes the

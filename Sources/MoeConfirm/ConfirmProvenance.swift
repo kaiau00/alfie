@@ -64,23 +64,23 @@ struct ConfirmProvenance: Equatable {
             return "You named this person."
         case .partial:
             let who = recipient.isEmpty ? "the rest" : recipient
-            return said.isEmpty ? "Moe filled in part of this name itself — it picked \(who)."
-                : "You said \u{201C}\(said)\u{201D} — Moe picked \(who)."
+            return said.isEmpty ? "Alfie filled in part of this name itself — it picked \(who)."
+                : "You said \u{201C}\(said)\u{201D} — Alfie picked \(who)."
         case .found:
-            return source.isEmpty ? "Moe chose this person — found by looking them up."
-                : "Moe chose this person — found in \(source)."
+            return source.isEmpty ? "Alfie chose this person — found by looking them up."
+                : "Alfie chose this person — found in \(source)."
         case .shown:
             // Ticket #22: an address Moe read off a page or the screen, named
             // in its own message, and the person said yes to. Their yes was to
             // Moe's message, not to this card — so the card says both.
             let where_ = source.isEmpty ? "a page" : source
             return said.isEmpty
-                ? "Moe found this address on \(where_) and showed it to you."
-                : "Moe found this address on \(where_) and showed it to you — you said \u{201C}\(said)\u{201D}."
+                ? "Alfie found this address on \(where_) and showed it to you."
+                : "Alfie found this address on \(where_) and showed it to you — you said \u{201C}\(said)\u{201D}."
         case .owner:
             return "This is you — you asked for it to come to you."
         case .legacy:
-            return "This job was made before Moe checked recipients — make sure it should message this person."
+            return "This job was made before Alfie checked recipients — make sure it should message this person."
         }
     }
 
@@ -96,8 +96,8 @@ struct ConfirmProvenance: Equatable {
         }
         if queryUnasked {
             out.append(query.isEmpty
-                ? "Moe picked them from a list it pulled up on its own — you did not name them."
-                : "Moe searched for \u{201C}\(query)\u{201D} on its own — you did not name them.")
+                ? "Alfie picked them from a list it pulled up on its own — you did not name them."
+                : "Alfie searched for \u{201C}\(query)\u{201D} on its own — you did not name them.")
         }
         return out
     }

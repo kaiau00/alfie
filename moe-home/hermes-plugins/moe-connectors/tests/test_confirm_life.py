@@ -30,7 +30,7 @@ class FakeContext:
 
 
 class Home:
-    """A scratch Moe home with one connector in it."""
+    """A scratch Alfie home with one connector in it."""
 
     def __init__(self, name, verbs, body, manifest=""):
         self.dir = tempfile.mkdtemp()

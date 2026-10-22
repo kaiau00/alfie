@@ -88,7 +88,7 @@ PY="$ROOT/hermes-agent/.venv/bin/python"
 out="$("$PY" -c 'import encodings, json, ssl, sys, yaml; print(sys.base_prefix)' 2>&1)"
 rc=$?
 if [ "$rc" -ne 0 ]; then
-  echo "✗ the seed's Python cannot start — this seed is a Moe that cannot think" >&2
+  echo "✗ the seed's Python cannot start — this seed is an Alfie that cannot think" >&2
   printf '%s\n' "$out" | sed 's/^/    /' >&2
   echo "  The venv's bin/python3.x has to be a relative symlink into the seed's" >&2
   echo "  own runtime (tools/python-…), not a copy of it. See scripts/stage-hermes-seed.sh." >&2

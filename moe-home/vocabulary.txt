@@ -18,7 +18,7 @@
 #     my project name => MyProjectName
 #
 # Names of colleagues and clients belong here too. Two more files sit under
-# this one: vocabulary-learned.txt (spellings Moe learned from your
+# this one: vocabulary-learned.txt (spellings Alfie learned from your
 # corrections) and vocabulary-contacts.txt (names from Contacts, if you
 # switched that on in Settings). This file wins whenever they disagree.
 #

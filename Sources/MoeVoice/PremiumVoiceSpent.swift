@@ -28,5 +28,5 @@ public enum PremiumVoiceSpent {
     /// What the person is told, once. Plain words: which voice, why, and
     /// that Moe carries on.
     public static let notice =
-        "The premium voice has run out of credits, so Moe is using its built-in voice for now."
+        "The premium voice has run out of credits, so Alfie is using its built-in voice for now."
 }

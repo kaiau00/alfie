@@ -17,10 +17,10 @@ struct DrivingEdgeWiringTests {
 
     @Test func theEdgeNeverTakesAClickAndIsNotCaptured() throws {
         let edge = try #require(Self.read("Sources/Moe/DrivingEdge.swift"))
-        #expect(edge.contains("w.ignoresMouseEvents = true"), "the edge would swallow the clicks Moe makes under it")
-        #expect(edge.contains("w.sharingType = .none"), "the edge would appear in the screenshots Moe reads")
+        #expect(edge.contains("w.ignoresMouseEvents = true"), "the edge would swallow the clicks Alfie makes under it")
+        #expect(edge.contains("w.sharingType = .none"), "the edge would appear in the screenshots Alfie reads")
         #expect(edge.contains("conductor.$drivingApp") && edge.contains("conductor.$browsing"),
-                "the edge does not follow both an app and Moe's own browser")
+                "the edge does not follow both an app and Alfie's own browser")
     }
 
     @Test func theAppStartsIt() throws {

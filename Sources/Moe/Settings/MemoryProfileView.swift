@@ -73,7 +73,7 @@ enum MemoryWording {
     static func heading(_ group: String) -> String {
         switch group {
         case "you":    return "You"
-        case "memory": return "What Moe remembers"
+        case "memory": return "What Alfie remembers"
         default:       return group
         }
     }

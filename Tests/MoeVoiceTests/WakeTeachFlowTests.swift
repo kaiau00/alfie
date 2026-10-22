@@ -12,8 +12,8 @@ struct WakeTeachFlowTests {
     /// Two names and one sound-alike: enough for every path, small enough
     /// to read.
     func flow() -> F {
-        F(lines: [.init(say: "Hey Moe", note: "normally", isName: true),
-                  .init(say: "Hey Moe", note: "quietly", isName: true),
+        F(lines: [.init(say: "Hey Alfie", note: "normally", isName: true),
+                  .init(say: "Hey Alfie", note: "quietly", isName: true),
                   .init(say: "Hey Joe", note: "a near miss", isName: false)])
     }
 
@@ -329,8 +329,8 @@ struct WakeTeachFlowTests {
         keep(&f); keep(&f); keep(&f)
         #expect(f.send(.measured(pick, changed: true)) == [])
         guard case .result(let o) = f.step else { Issue.record("not a result: \(f.step)"); return }
-        #expect(o.headline == "Catches 11 of your 12 “Hey Moe”s (was 8) · lets through 1 of 8 sound-alikes (was 2)")
-        #expect(o.title == "Moe hears you better now")
+        #expect(o.headline == "Catches 11 of your 12 “Hey Alfie”s (was 8) · lets through 1 of 8 sound-alikes (was 2)")
+        #expect(o.title == "Alfie hears you better now")
         #expect(o.summary == WakeCalibration.summary(pick, changed: true))
         #expect(f.primary?.title == "Done")
         #expect(f.send(.cancel) == [.dismiss])
@@ -341,12 +341,12 @@ struct WakeTeachFlowTests {
                                         after: .init(positives: 12, caught: 12, confusables: 8, falseAccepts: 0),
                                         before: .init(positives: 12, caught: 12, confusables: 8, falseAccepts: 0))
         let o = F.Outcome(pick: same, changed: false)
-        #expect(o.headline == "Catches 12 of your 12 “Hey Moe”s · lets through 0 of 8 sound-alikes")
-        #expect(o.title == "Moe already hears you well")
+        #expect(o.headline == "Catches 12 of your 12 “Hey Alfie”s · lets through 0 of 8 sound-alikes")
+        #expect(o.title == "Alfie already hears you well")
         let one = F.Outcome(pick: .init(threshold: 0.3, after: .init(positives: 1, caught: 1, confusables: 0, falseAccepts: 0),
                                         before: .init(positives: 1, caught: 0, confusables: 0, falseAccepts: 0)),
                             changed: true)
-        #expect(one.headline == "Catches 1 of your 1 “Hey Moe” (was 0)")
+        #expect(one.headline == "Catches 1 of your 1 “Hey Alfie” (was 0)")
     }
 
     @Test func teachAgainStartsFreshFromTheResult() {
@@ -367,7 +367,7 @@ struct WakeTeachFlowTests {
 
     @Test func voiceOverHearsEachPrompt() {
         var f = started()
-        #expect(f.announcement == "1 of 3. Say: Hey Moe")
+        #expect(f.announcement == "1 of 3. Say: Hey Alfie")
         f.send(.clip(take: f.take, .rejected(.clipped)))
         #expect(f.announcement?.hasPrefix(F.Problem.clipped.title) == true)
     }

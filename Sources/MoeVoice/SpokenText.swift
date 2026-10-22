@@ -30,6 +30,7 @@ public enum SpokenText {
         var s = dropFencedCode(text)
         s = stripLines(s)
         s = stripInline(s)
+        s = speakIdentifiers(s)
         s = dropSymbols(s)
         return tidy(s)
     }
@@ -149,6 +150,36 @@ public enum SpokenText {
     /// grammatical — "you can find it at the link" — where deleting it
     /// outright leaves "you can find it at".
     private static let linkWord = "the link"
+
+    // MARK: - Identifiers
+
+    /// Machine names read as the words they are made of.
+    ///
+    /// A reply that lists the person's own jobs or files says
+    /// "weekly-digest-job" or "weekly_digest_job", and Kokoro garbles the
+    /// joins into something that is no word at all (Alfie, 2026-10-22). Read
+    /// as "weekly digest job" it is clear. Two rules, each narrow:
+    ///
+    ///  - **Any underscore between letters or digits** is a name's joint:
+    ///    prose never writes one.
+    ///  - **Hyphens only in a run of three or more parts.** "follow-up",
+    ///    "well-known" and "e-mail" are words and stay as written; a date
+    ///    ("2026-10-21") has no letters and is left alone too.
+    static func speakIdentifiers(_ text: String) -> String {
+        var s = text
+        s = replace(s, #"(?<=[A-Za-z0-9])_+(?=[A-Za-z0-9])"#, " ")
+        guard let re = cache.expression(#"\b[A-Za-z][A-Za-z0-9]*(?:-[A-Za-z0-9]+){2,}\b"#) else { return s }
+        let ns = s as NSString
+        var out = ""
+        var last = 0
+        for m in re.matches(in: s, range: NSRange(location: 0, length: ns.length)) {
+            out += ns.substring(with: NSRange(location: last, length: m.range.location - last))
+            out += ns.substring(with: m.range).replacingOccurrences(of: "-", with: " ")
+            last = m.range.location + m.range.length
+        }
+        out += ns.substring(from: last)
+        return out
+    }
 
     // MARK: - Symbols
 

@@ -402,7 +402,7 @@ enum Usage {
         switch source {
         case "api_server": return "The app on this Mac"
         case "cron": return "Things on a clock"
-        case "subagent": return "Work Moe handed to itself"
+        case "subagent": return "Work Alfie handed to itself"
         case "cli": return "The command line"
         case "": return "Somewhere unrecorded"
         default: return ReminderChannels.title(for: source)

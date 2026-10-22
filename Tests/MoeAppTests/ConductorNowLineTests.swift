@@ -102,7 +102,7 @@ struct ConductorNowLineTests {
         #expect(FirstRun.briefBullet.contains("the **Now** line at the top of each message is the only clock"))
         let url = FileManager.default.temporaryDirectory
             .appendingPathComponent("moe-agents-\(UUID().uuidString).md")
-        try ("# Moe\n\n## Before you answer\n\n" + FirstRun.legacyBriefBullet + "\nMine.\n")
+        try ("# Alfie\n\n## Before you answer\n\n" + FirstRun.legacyBriefBullet + "\nMine.\n")
             .write(to: url, atomically: true, encoding: .utf8)
         FirstRun.refreshManagedSections(at: url)
         let after = try String(contentsOf: url, encoding: .utf8)

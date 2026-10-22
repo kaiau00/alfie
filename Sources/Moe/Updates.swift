@@ -163,7 +163,7 @@ enum UpdateReadyPolicy {
     /// update, and a dismissal lives only in memory.
     static let askAgainAfter: TimeInterval = 24 * 60 * 60
 
-    static let sentence = "A new version of Memoe is ready."
+    static let sentence = "A new version of Alfie is ready."
     static let restartLabel = "Restart to update"
     static let laterLabel = "Later"
 

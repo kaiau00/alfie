@@ -226,7 +226,7 @@ public enum CalendarNameOffer {
     }
 
     public static func text(unnamedVoices n: Int) -> String {
-        "Moe heard \(n) other \(n == 1 ? "voice" : "voices") and could not put "
+        "Alfie heard \(n) other \(n == 1 ? "voice" : "voices") and could not put "
             + "\(n == 1 ? "a name" : "names") to \(n == 1 ? "it" : "them"). Reading who was "
             + "invited would fix that — for this meeting and the next."
     }
@@ -451,7 +451,7 @@ public enum SpeakerNaming {
         let unnamed = book.names.filter { $0.name == nil }
         guard !unnamed.isEmpty else { return "" }
         if unnamed.contains(where: { !$0.candidates.isEmpty }) {
-            return "Moe knows who was invited but not which voice is which — pick a name and it is used everywhere in this meeting."
+            return "Alfie knows who was invited but not which voice is which — pick a name and it is used everywhere in this meeting."
         }
         return "Name a voice and it is used everywhere in this meeting."
     }

@@ -164,7 +164,7 @@ struct MeetingFolderScanTests {
         let f = dir.folder("2026-08-30-1415")
         var r = aRecord(folder: f.path)
         r.incomplete = true
-        r.summaryFailure = "Moe quit while the meeting was being recorded"
+        r.summaryFailure = "Alfie quit while the meeting was being recorded"
         dir.record(r, in: f)
         let out = MeetingListing.load(directory: dir.url)
         #expect(out.count == 1)

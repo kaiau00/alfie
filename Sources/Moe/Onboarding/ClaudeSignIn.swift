@@ -851,13 +851,13 @@ struct ClaudeSignInSheet: View {
     /// hands in its own, because on that path nothing on this Mac changed and
     /// "Moe is getting ready to think" would be the sheet claiming a place
     /// the token never went.
-    var finishingLine = "Saving your sign-in and getting Moe ready…"
-    var doneLine = "Signed in. Moe is getting ready to think."
+    var finishingLine = "Saving your sign-in and getting Alfie ready…"
+    var doneLine = "Signed in. Alfie is getting ready to think."
 
     /// Said whenever a token was minted and then not delivered. It names the
     /// thing the person cannot otherwise know: a credential exists, Moe has
     /// already destroyed its only copy, and no Remove anywhere reaches it.
-    static let orphanNote = "A sign-in was created at Anthropic before this failed. Moe no longer has it and can't take it back — it stays valid until it expires or you sign out of Claude Code on this Mac. Signing in again makes another one."
+    static let orphanNote = "A sign-in was created at Anthropic before this failed. Alfie no longer has it and can't take it back — it stays valid until it expires or you sign out of Claude Code on this Mac. Signing in again makes another one."
 
     @State private var code = ""
 
@@ -937,7 +937,7 @@ struct ClaudeSignInSheet: View {
 
     private var subtitle: String {
         switch flow.phase {
-        case .idle:        return "Moe will open a page in your browser."
+        case .idle:        return "Alfie will open a page in your browser."
         case .approving:   return "Approve in your browser, then come back here."
         case .code(let rejected):
             return rejected

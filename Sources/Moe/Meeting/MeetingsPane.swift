@@ -109,7 +109,7 @@ struct MeetingsPane: View {
             }
 
             Text("""
-            Moe records your microphone and the call's audio, writes the transcript \
+            Alfie records your microphone and the call's audio, writes the transcript \
             and the notes, and answers you in text while it listens — hold \(conductor.config.talkKey.inSentence) and \
             whisper, or click the notch and type. Everyone in the meeting should \
             know: it is \(MeetingOwner.assistantLabel(userName: MeetingSession.ownerName())) \
@@ -844,7 +844,7 @@ private struct MeetingAdvanced: View {
                 Toggle("⌃⌥S takes a screenshot and ⌃⌥R records the screen, while a meeting is on", isOn: Binding(
                     get: { conductor.config.meetingCaptureHotkeys },
                     set: { conductor.setMeetingCaptureHotkeys($0) }))
-                Text("The two shortcuts exist only while Moe is recording a meeting; the rest of the time they are nobody's.")
+                Text("The two shortcuts exist only while Alfie is recording a meeting; the rest of the time they are nobody's.")
                     .font(.caption).foregroundStyle(.secondary)
 
                 LabeledContent("Folder") {

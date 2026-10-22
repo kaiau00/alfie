@@ -33,7 +33,7 @@ struct FollowThroughPersonaTests {
     @Test("an install carrying the old bullets gets the new ones once, and nothing else moves")
     func legacyIsReplaced() throws {
         let before = """
-        # Moe
+        # Alfie
 
         Mine: I like short answers.
 
@@ -65,7 +65,7 @@ struct FollowThroughPersonaTests {
         let mine = "- Say the answer first. Never announce anything, ever.\n"
             + "- Never say \"I'll go check\" — mine, keep it."
         let before = """
-        # Moe
+        # Alfie
 
         - Be brief.
         \(mine)

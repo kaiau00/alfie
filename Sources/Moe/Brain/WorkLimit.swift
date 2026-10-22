@@ -58,7 +58,7 @@ enum WorkLimit {
     /// error is something else.
     static func personWords(forTurnError message: String) -> String? {
         guard message.contains(exceededMarker) else { return nil }
-        return "That was taking longer than Moe may work on one thing, so Moe stopped it. "
+        return "That was taking longer than Alfie may work on one thing, so Alfie stopped it. "
             + "You can give it longer in Settings › Brain."
     }
 }

@@ -13,7 +13,7 @@ struct VoiceFallbackTests {
     /// The exact case that was reported.
     private let cloudToKokoro = VoiceFallback(
         asked: "Cloud", used: "Kokoro", voice: "Heart — American female",
-        why: "Moe's cloud could not be reached just now")
+        why: "Alfie's cloud could not be reached just now")
 
     @Test func theSentenceNamesTheEngineThatWasChosen() {
         #expect(cloudToKokoro.sentence.contains("Cloud"),
@@ -31,7 +31,7 @@ struct VoiceFallbackTests {
     }
 
     @Test func theSentenceGivesTheReason() {
-        #expect(cloudToKokoro.sentence.contains("Moe's cloud could not be reached just now"))
+        #expect(cloudToKokoro.sentence.contains("Alfie's cloud could not be reached just now"))
     }
 
     /// It has to read as one plain sentence, not a label. Whatever else

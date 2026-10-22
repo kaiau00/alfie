@@ -68,7 +68,7 @@ struct PersonaFileTests {
     /// a renamed file keeps its version stamp and is not re-appended.
     @Test func aRenamedFileKeepsItsManagedSection() {
         let doc = """
-        # Moe
+        # Alfie
 
         Someone's own notes.
 

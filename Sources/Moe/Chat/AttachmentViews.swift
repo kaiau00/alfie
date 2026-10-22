@@ -80,7 +80,7 @@ struct AttachmentSourceMenu: View {
                 run { await AttachmentIntake.chooseFiles() }
             }
             SourceRow(icon: "camera.viewfinder", title: "Take a Screenshot",
-                      detail: "Drag across what Moe should see") {
+                      detail: "Drag across what Alfie should see") {
                 run { await AttachmentIntake.screenshot() }
             }
             SourceRow(icon: "doc.on.clipboard", title: "Paste from Clipboard", detail: nil) {

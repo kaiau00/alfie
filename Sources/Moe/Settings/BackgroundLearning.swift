@@ -145,7 +145,7 @@ enum BackgroundLearning {
         var provenance: String? {
             switch origin {
             case "user": return "You set this."
-            case "inferred": return "Moe worked this out from what the connection offers."
+            case "inferred": return "Alfie worked this out from what the connection offers."
             default: return nil
             }
         }
@@ -252,7 +252,7 @@ enum BackgroundLearning {
             let watch = group.first { $0.name.hasPrefix("watch:") }
             var detail = "Reads " + (plain?.reads ?? watch?.reads ?? key) + "."
             if plain == nil, let watch, !watch.configured {
-                detail += " Nothing runs until you tell Moe what to look for here — it writes the recipe."
+                detail += " Nothing runs until you tell Alfie what to look for here — it writes the recipe."
             }
             return Row(id: key,
                        label: plain?.label ?? watch?.label ?? key,
@@ -655,7 +655,7 @@ enum BackgroundLearning {
                 Notice.show(
                     over: (window?.isVisible == true) ? window : nil,
                     title: "Learn about you in the background?",
-                    body: "Once a day, Moe can go back over the things you've already said yes to and keep a short list of what it works out — who matters to you, what you're working on, how you like things done.",
+                    body: "Once a day, Alfie can go back over the things you've already said yes to and keep a short list of what it works out — who matters to you, what you're working on, how you like things done.",
                     detail: "Only what you've already allowed, never anything new. It all stays on this Mac, in plain writing you can read and change in the Memory tab. Stop it any time in Settings › Background.",
                     confirm: "Yes, learn about me") { cont.resume(returning: $0) }
             }

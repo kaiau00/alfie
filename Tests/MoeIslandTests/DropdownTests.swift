@@ -22,7 +22,7 @@ import Testing
         #expect(status(.speaking).word == "Speaking")
         #expect(status(.speaking, paused: true).word == "Paused")
         #expect(status(.listening).word == "Your turn")
-        #expect(status(.idle).word == "Moe")
+        #expect(status(.idle).word == "Alfie")
     }
 
     @Test func theClockRunsOnlyWhileMoeWorks() {

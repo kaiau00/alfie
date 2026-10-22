@@ -59,7 +59,7 @@ public final class ThreadKeyring: @unchecked Sendable {
     /// records the decision that there is no escrow and no reset, and that
     /// losing every enrolled device means these conversations are gone.
     static let warning = "Deleting this file permanently destroys the conversations it unlocks. "
-        + "Each key belongs to one thread in ../ledger; deleting a conversation in Moe deletes "
+        + "Each key belongs to one thread in ../ledger; deleting a conversation in Alfie deletes "
         + "its key from here, which is what makes that deletion real. "
         + "Nobody else has a copy — not us, not the cloud, which only ever holds these keys "
         + "sealed to a device you enrolled yourself. There is no reset and no support path: if "

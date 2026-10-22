@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Mix the rendered turn corpus into scenarios `Moe --turn-bench --corpus` reads.
+"""Mix the rendered turn corpus into scenarios `Alfie --turn-bench --corpus` reads.
 
     python3 mix.py <raw-dir> <noise-dir> <out-dir> [--split test|dev] [--snrs clean,20,10,5,0]
 
@@ -9,13 +9,13 @@ with Inworld's word timings per line); <noise-dir> is fetch_noise.py's output
 
 Two kinds of scenario (research-eval-harness.md §3.5–3.6, §4.1):
 
-  turn   Moe is listening and the person says one line (single, pause,
+  turn   Alfie is listening and the person says one line (single, pause,
          filler, and, correction, short). Truth: every word's time, the
          pauses they went on after (`holds`, gaps ≥ 0.2 s between words) and
          the true end (`end`, last word's end to the end of the file).
          0.6 s lead-in, 8 s tail, both carrying the noise.
 
-  reply  Moe is talking (one of its own replies, in its own Inworld voice) and
+  reply  Alfie is talking (one of its own replies, in its own Inworld voice) and
          the person says a stop word, a real interruption, a backchannel —
          or nothing at all (`none`), for the false barge-in rate. The reply
          is the timeline a barge-in lands on; played back into the
@@ -161,7 +161,7 @@ def main():
     lines = sorted((m for m in metas.values() if m["split"] == a.split), key=lambda m: m["id"])
     replies = sorted(m["id"] for m in metas.values() if m["category"] == "reply")
     if not replies:
-        raise SystemExit("no Moe replies rendered")
+        raise SystemExit("no Alfie replies rendered")
 
     bases = []   # (id, kind, category, line-id or None, voice)
     for m in lines:

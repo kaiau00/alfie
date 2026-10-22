@@ -309,11 +309,11 @@ def test_the_provider_applies_a_document_sealed_before_this_mac_joined(
     from moeledger import documents
 
     free = ClaimStore(ledger_dir, device="mac-JOINER0001", key=RETIRED)
-    free.append("document", documents.document_body("who", "You are Moe.", RETIRED))
+    free.append("document", documents.document_body("who", "You are Alfie.", RETIRED))
     _joined_ledger_dir(ledger_dir)
     monkeypatch.setattr(claimstore, "_config", lambda: {"ledger_dir": str(ledger_dir)})
 
     p = claimstore.ClaimStoreProvider()
     p.initialize("s1", hermes_home=str(hermes_home), agent_context="primary")
 
-    assert (moe_home / "AGENTS.md").read_text(encoding="utf-8") == "You are Moe."
+    assert (moe_home / "AGENTS.md").read_text(encoding="utf-8") == "You are Alfie."

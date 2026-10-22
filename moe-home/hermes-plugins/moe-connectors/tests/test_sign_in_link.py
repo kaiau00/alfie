@@ -167,7 +167,7 @@ class MakeLink(unittest.TestCase):
     def test_no_edge_credential_says_so(self):
         out = signin.make_link("x.com", None, None)
         self.assertFalse(out["success"])
-        self.assertIn("not signed in to Memoe", out["error"])
+        self.assertIn("not signed in to Alfie", out["error"])
 
     def test_the_link_comes_back_and_the_relay_dials_the_machine_end(self):
         posted = []

@@ -1,4 +1,4 @@
-# Hermes jobs Moe installs
+# Hermes jobs Alfie installs
 
 Job specs for Hermes's cron (`~/.hermes/cron/jobs.json`), kept here as data
 so nothing in this directory touches the live Hermes. `configure-hermes.py`
@@ -20,7 +20,7 @@ already exists rather than making a second one.
 
 Since 2026-09-10 (docs/LOOPS.md) a loop has a `kind` — `waiting` (a person
 is waiting on the user; the only kind before), `said` (the user said they
-would do something), `started` (Moe began something with an outcome still to
+would do something), `started` (Alfie began something with an outcome still to
 come), `deadline`, `watch` (a thing that can change, with a `check`) — and a
 `source`: `pass` when the background pass wrote it by trailer, `conversation`
 when the brain opened it in the person's own turn through `moe_followups
@@ -33,7 +33,7 @@ sets `changed`, which the monitor prints as `<slug> changed | … | changed:
 was "$412" now "$488"` and treats as due. The digest in the block's heading
 is over the ledger minus `seen`, so a check that found the same thing wakes
 nothing. Every loop carries a `history` (at most eight lines, newest last:
-opened and why, what the check saw, "Moe said: …", "they said not now"),
+opened and why, what the check saw, "Alfie said: …", "they said not now"),
 written by `deliver.py` and printed on every due line — the pass speaks
 with the context and never repeats last time's sentence. And the pass now
 holds Hermes's read-only `web` toolset, so a `changed` watch is re-read by
@@ -76,7 +76,7 @@ this pass is; the checks are free and keep running.
 
 The brief changing was the only clock the proactive pass had, and it is the
 wrong one for someone waiting on a reply. A mail asks for a call: the brief
-changes, the agent runs, Moe says it once. Two hours later nobody has
+changes, the agent runs, Alfie says it once. Two hours later nobody has
 replied — the brief has not moved, the bytes are identical, the agent is not
 run, and it is never mentioned again. Three things were missing: nothing
 re-raised on time passing rather than content changing; nothing remembered
@@ -133,7 +133,7 @@ Four things the block has to get right, each of which it got wrong once:
 - **It ends.** A loop that has had four mentions or seven days is not
   printed at all, and `deliver.py` enforces the same ceiling when it writes.
 
-**The ledger** is `~/.moe/proactive/open.json` — a file Moe owns, 0600,
+**The ledger** is `~/.moe/proactive/open.json` — a file Alfie owns, 0600,
 written atomically (tmp, fsync, rename, and the tmp removed if any of that
 fails: a zero-length `open.json` reads as "no open loops", which is every
 follow-up silently gone) under an `flock`:
@@ -183,7 +183,7 @@ different thing with a different trust story, and it has its own way in:
 `mute` and `unmute`.
 
 It exists because "ok dont remind me anymore about that" used to reach
-nothing. Moe would say the right words back — "which reminder do you mean?"
+nothing. Alfie would say the right words back — "which reminder do you mean?"
 — because it had never been told what it had just sent, and could not have
 changed it if it had. `deliver()` now spools every proactive message it
 sends to `~/.moe/proactive/said.json` with the slugs the same reply opened,
@@ -192,10 +192,10 @@ slugs in front of the next message on the surface it went to. The Mac's
 island does the same from the inbox file (`Conductor.playNudge`).
 
 Why this is not the thing the trailer design refuses: the tool cannot make
-Moe *say* anything. Its whole reach is closing, deferring or silencing a
+Alfie *say* anything. Its whole reach is closing, deferring or silencing a
 follow-up inside `~/.moe/proactive/` — the same power the × button on the
 island has always had — where a writable ledger would let an injected
-instruction schedule Moe's own voice at a time the sender chose.
+instruction schedule Alfie's own voice at a time the sender chose.
 
 `mute` is the one that changes `closed.json`: it writes a tombstone with
 `"until": "never"`, so the next pass over the same unanswered mail cannot
@@ -314,7 +314,7 @@ starts" is a promise about a **clock**, and the proactive pass cannot keep
 it. That job runs every 30 minutes and is hash-suppressed: it wakes when the
 brief's bytes move, which for a meeting is when the meeting first *appears*
 — hours before, or never, if it was already there when the person switched
-Moe on. "Ten minutes before" out of a half-hourly, content-triggered pass is
+Alfie on. "Ten minutes before" out of a half-hourly, content-triggered pass is
 a coincidence dressed as a feature.
 
 So `moe-calendar-heads-up` is its own job, and everything about it is the
@@ -326,7 +326,7 @@ lands anywhere between five and ten, which is not.
 
 What it reads is `~/.moe/context/calendar.md` — the copy `sync.sh` already
 refreshes every ten minutes, the same lines the brief is built from. Not
-EventKit, not `Moe --calendar`: a job that ticks every two minutes must not
+EventKit, not `Alfie --calendar`: a job that ticks every two minutes must not
 be a second reader of the person's Calendar, and everything it needs is
 already on disk. The other end of that: an event added five minutes before
 it starts may not be in the copy yet, and a copy the sync stopped refreshing
@@ -383,7 +383,7 @@ day is accepted only if its day-of-month and its year appear as whole
 numbers in what is left, and, when there is an English month name to read,
 its month agrees. A line that confirms neither day — or both — says nothing.
 Silence on a line nobody can read is the only safe answer; a wrong guess is
-Moe interrupting somebody about a meeting that is not happening.
+Alfie interrupting somebody about a meeting that is not happening.
 
 Two consequences, both deliberate. **An all-day event is one whose start is
 exactly midnight**, and it is skipped — EventKit gives an all-day event a
@@ -418,7 +418,7 @@ whose monitor script is a three-line shim it writes into
 `$HERMES_HOME/scripts/` (cron passes no arguments, so the shim names the
 connection and hands over to `moe-watch-reader.py` beside it, which is
 the shipped part).
-The reader gates on Settings › Background › "Let Moe get your attention"
+The reader gates on Settings › Background › "Let Alfie get your attention"
 and on `consent.sh check watch:<connection>` — printing the one word
 `disabled` when either says no, the same bytes every tick, so an
 installed-but-unasked watch never runs the agent and costs nothing —
@@ -471,7 +471,7 @@ Rules a recipe should keep, whatever the connection: metadata reads only
 shared or scheduled surfaces" and is never listed); `attention` says what
 kind of change is worth a word and what must never be quoted. Until an
 in-app "watch this connection" flow writes these, the file is written by
-hand or by asking Moe.
+hand or by asking Alfie.
 
 ## Gathers: every connection, on the learn clock and the sync clock
 
@@ -521,7 +521,7 @@ two (labels, drafts), with `GMAIL_FETCH_EMAILS`, `GMAIL_GET_CONTACTS` and
 GitHub instead resolves it to **zero**, because all three of its catalog
 reads are spelled `…FOR_THE_AUTHENTICATED_USER` and "user" is a content
 word — and an offer that leads to an empty crawl is worse than no offer. The daily pass reads it on its profile's cadence, and — if the
-person switches `sync` on for it (every MCP row ships with sync off, and a connection Moe only guessed at ships that way too) —
+person switches `sync` on for it (every MCP row ships with sync off, and a connection Alfie only guessed at ships that way too) —
 `sync.sh` keeps today's slice in `~/.moe/context/hermes-<connection>.md`
 for the brief, **at most once an hour**, never every ten-minute tick: each
 read is a fresh Hermes process connecting to the server, and for a remote
@@ -549,7 +549,7 @@ its hand recipe carries a placeholder.
 
 Consent names: `watch:<connection>` per connection, off by default;
 `nudges` in config.json is the one autonomy switch for every watch (the
-same "Let Moe get your attention" that governs the brief pass). `consent.sh
+same "Let Alfie get your attention" that governs the brief pass). `consent.sh
 list` reports each watch as a row (`watch:pulse`, state, connected, label,
 what it reads) for Settings.
 
@@ -564,7 +564,7 @@ touching any job.
 
 It replaces two things that did not work:
 
-- **`origin`** for a job made from a Moe conversation. Moe drives Hermes
+- **`origin`** for a job made from an Alfie conversation. Alfie drives Hermes
   over the api_server, whose adapter cannot send: the job ran on time, the
   model answered, and Hermes logged *"API server uses HTTP request/response,
   not send()"* three times. The plugin's `pre_tool_call` hook rewrites
@@ -588,7 +588,7 @@ actually changed.
 `moe-learn-deep.sh` exits 0 without doing anything unless
 `learn/consent.sh check background-learning` says yes. That is a second,
 separate answer from the per-source ones: connecting Gmail is agreement to
-Moe reading mail when asked, not to a daily pass over a year of it.
+Alfie reading mail when asked, not to a daily pass over a year of it.
 The app asks for it once (`BackgroundLearning` in
 `Sources/Moe/Settings/BackgroundLearning.swift`) and Settings › Background
 withdraws it; withdrawing really stops the job, because the check is the
@@ -604,18 +604,18 @@ so once in `logs/learn.log`.
 
 ## Off switches
 
-- `moe-proactive`: Settings › Background › "Let Moe get your attention"
+- `moe-proactive`: Settings › Background › "Let Alfie get your attention"
   (`"nudges": false` in `~/.moe/config.json`). The monitor script then
   prints the one word `disabled` every tick, so the agent never runs.
 - `moe-learn-deep`: Settings › Background › "Read back over my things once a
   day".
 - `moe-calendar-heads-up`: `calendarHeadsUpMinutes` in `~/.moe/config.json`
-  — absent or 0 is off; a fresh install starts at 10, written by the app. "Let Moe get your attention" and
+  — absent or 0 is off; a fresh install starts at 10, written by the app. "Let Alfie get your attention" and
   the calendar's own "Learn from Calendar and watch it" switch silence it too,
   and any of the three is a tick that prints nothing.
 - `moe-drain-intents`: none, and deliberately. It only ever acts on work the
   person themselves queued from the away machine, and a queue that is drained by
   nobody is worse than no queue: the thing they asked for silently never happens.
-  Pausing the job is the switch, and stopping Moe Away is the real one.
-- Any job: `hermes cron pause <name>`; Moe does not re-enable a job the
+  Pausing the job is the switch, and stopping Alfie Away is the real one.
+- Any job: `hermes cron pause <name>`; Alfie does not re-enable a job the
   user paused or disabled.

@@ -1,10 +1,10 @@
 """The cheapest model the person's own provider serves, for work nobody is
-waiting on — one helper for every background reader Moe runs on its own:
+waiting on — one helper for every background reader Alfie runs on its own:
 per-turn memory learning and its check (claimstore/learn_turn.py), the loop
 sweep (moe-screen/sweep.py), the situations sensor (situations.py) and the
 Composio planner (composio_items.py).
 
-Why this exists (CLAUDE.md, "Moe is not Claude-specific"): Hermes's
+Why this exists (CLAUDE.md, "Alfie is not Claude-specific"): Hermes's
 ``call_llm(task="classify")`` with nothing pinned is served, on a Claude
 plan, by the Claude Code CLI lane at its default small model — and on every
 other brain by the auxiliary auto chain, whose first step is the MAIN

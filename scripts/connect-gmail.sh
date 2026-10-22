@@ -27,16 +27,16 @@ cat <<'EOF'
 Connect a Gmail account
 ───────────────────────
 An app password is a 16-letter key Google makes for one app and one app only.
-It is safer than giving Moe your real password: it reaches your mail and
+It is safer than giving Alfie your real password: it reaches your mail and
 nothing else, it cannot get into your Google account, you can delete it from
-Google at any moment, and Moe never sees your actual password.
+Google at any moment, and Alfie never sees your actual password.
 
   1. Switch on 2-Step Verification for this account, if it isn't on already.
      Google only offers app passwords to accounts that have it — without it
      the page in step 2 does not exist.
      https://myaccount.google.com/signinoptions/twosv
   2. Open  https://myaccount.google.com/apppasswords
-  3. Give it any name ("Moe" is fine) and press Create
+  3. Give it any name ("Alfie" is fine) and press Create
   4. Copy the 16 letters it shows you, and paste them below
 
 No app passwords page at all? Two kinds of account cannot have one: a work or
@@ -93,7 +93,7 @@ if security add-generic-password -U -s "$SERVICE" -a "$EMAIL" -w "$PASSWORD" \
   echo "✓ password saved to Keychain"
 else
   PASSWORD=""
-  echo "✗ Moe couldn't save the password on this Mac. If your Mac asked you to allow it, say yes and try again."
+  echo "✗ Alfie couldn't save the password on this Mac. If your Mac asked you to allow it, say yes and try again."
   exit 1
 fi
 
@@ -121,10 +121,10 @@ if "$GMAIL_PY" status; then
     "$GMAIL_PY" pull | head -8 || true
   fi
   echo
-  echo "✓ Gmail connected. Moe will pick it up on the next sync."
+  echo "✓ Gmail connected. Alfie will pick it up on the next sync."
 else
   # The address stays listed (a re-run with the right password fixes it);
   # this last line is what the app shows.
-  echo "✗ Google wouldn't let Moe in to $EMAIL with that password. Check all 16 letters came across; if they did, delete that app password at https://myaccount.google.com/apppasswords, create a fresh one, and paste that."
+  echo "✗ Google wouldn't let Alfie in to $EMAIL with that password. Check all 16 letters came across; if they did, delete that app password at https://myaccount.google.com/apppasswords, create a fresh one, and paste that."
   exit 1
 fi

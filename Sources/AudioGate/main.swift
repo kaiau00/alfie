@@ -108,7 +108,7 @@ do {
 
     ✗ setVoiceProcessingEnabled failed: \(error.localizedDescription)
 
-      This is the gate failing. Moe would hear its own voice.
+      This is the gate failing. Alfie would hear its own voice.
     """)
     exit(1)
 }
@@ -235,7 +235,7 @@ if baseline.peak < -80 {
       arriving at all. This is the silent-mic trap: voice processing
       reconfigured the I/O unit and the graph came up wrong.
 
-      Moe cannot use this audio path.
+      Alfie cannot use this audio path.
     """)
     engine.stop()
     exit(1)
@@ -264,16 +264,16 @@ if leak < 6 {
     print("""
     ✓ GATE PASSED — echo cancellation is working.
 
-      Moe's own voice is being removed from the microphone before it
+      Alfie's own voice is being removed from the microphone before it
       reaches speech recognition. Always-on listening is viable, and
-      "Hey Moe" won't be triggered by Moe.
+      "Hey Alfie" won't be triggered by Alfie.
     """)
     exit(0)
 } else if leak < 15 {
     print("""
     ~ PARTIAL — cancellation is engaging but leaving \(String(format: "%.0f", leak)) dB through.
 
-      Workable, but the wake word must also be gated while Moe is
+      Workable, but the wake word must also be gated while Alfie is
       speaking rather than relying on cancellation alone.
     """)
     exit(0)
@@ -282,7 +282,7 @@ if leak < 6 {
     ✗ GATE FAILED — the microphone is hearing the speakers at
       \(String(format: "%.0f", leak)) dB above room level.
 
-      Echo cancellation is not doing its job on this machine. Moe would
+      Echo cancellation is not doing its job on this machine. Alfie would
       hear itself and interrupt itself. Fall back to the Pipecat +
       LiveKit APM path before building on this.
     """)

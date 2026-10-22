@@ -425,8 +425,8 @@ struct Pairing: Identifiable, Equatable {
     var isSlackInstall: Bool { platform == "slack_link" }
     /// The one line the banner asks.
     var question: String {
-        isSlackInstall ? "\(name) wants to connect to Moe — confirm?"
-                       : "Someone messaged Moe on \(platformLabel) — let them in?"
+        isSlackInstall ? "\(name) wants to connect to Alfie — confirm?"
+                       : "Someone messaged Alfie on \(platformLabel) — let them in?"
     }
 }
 
@@ -622,7 +622,7 @@ enum ConnectionsCatalog {
     static func sanitiseBlurb(_ text: String) -> String {
         var s = text
         s = s.replacingOccurrences(of: #"https?://[^\s)]+"#, with: "", options: .regularExpression)
-        s = s.replacingOccurrences(of: "Hermes", with: "Moe")
+        s = s.replacingOccurrences(of: "Hermes", with: "Alfie")
         // "via Stripe's hosted remote", "over its local MCP" — how, not what.
         s = s.replacingOccurrences(of: #"(?i)\s*\bvia [A-Za-z0-9.'’]+ hosted( remote)?"#, with: "", options: .regularExpression)
         // "… via the official remote MCP.", "… via curl + jq." — the whole
@@ -958,18 +958,18 @@ enum ConnectionsCatalog {
     /// route, because that is the only reason to choose it.
     static let foldWords: [String: (String, String)] = [
         "gmail": ("Use an app password instead",
-                  "Moe reads this mailbox straight from your Mac, with a "
+                  "Alfie reads this mailbox straight from your Mac, with a "
                   + "Google app password rather than your real one. Nothing passes "
                   + "through anyone else's servers — a little more to set up, and the "
                   + "most private way to do it."),
         "drive": ("Read the folder on this Mac instead",
-                  "Moe reads the files Google Drive has already synced to this Mac. "
+                  "Alfie reads the files Google Drive has already synced to this Mac. "
                   + "No sign-in at all, and nothing leaves the machine — but only "
                   + "what Drive for Desktop has actually downloaded, and only while "
                   + "this Mac is awake."),
         "drive-docs": ("Read documents you pick, on this Mac",
                        "The contents of the Google Docs, Sheets and Slides you choose "
-                       + "by hand, and nothing else. The narrowest way to let Moe read "
+                       + "by hand, and nothing else. The narrowest way to let Alfie read "
                        + "a document, and it never sees the rest of your Drive."),
     ]
 
@@ -1198,12 +1198,12 @@ enum ConnectionsCatalog {
             // which would be true of the reply and false of the arrival.
             let text: String
             switch name {
-            case "telegram": text = "Text Moe from your phone. It replies while this Mac is awake."
-            case "line": text = "Message Moe on LINE. LINE only delivers through Moe's cloud, so this needs you signed in to Moe."
+            case "telegram": text = "Text Alfie from your phone. It replies while this Mac is awake."
+            case "line": text = "Message Alfie on LINE. LINE only delivers through Alfie's cloud, so this needs you signed in to Alfie."
             // The trust ask, said before Connect is clicked: a linked device
             // receives the whole account, and the answers land in Note to Self.
-            case "signal": text = "Talk to Moe in Note to Self. Linking gives this Mac your whole Signal account; Moe answers only there."
-            default: text = "Message Moe on \(label). It replies while this Mac is awake."
+            case "signal": text = "Talk to Alfie in Note to Self. Linking gives this Mac your whole Signal account; Alfie answers only there."
+            default: text = "Message Alfie on \(label). It replies while this Mac is awake."
             }
             rows.append(Connection(
                 id: id, kind: .platform, name: name, label: label,
@@ -1220,8 +1220,8 @@ enum ConnectionsCatalog {
         // listed, like Spotify below: it needs nothing on this Mac but a name.
         let (emState, emDetail) = states["platform/moemail"] ?? (.notConnected, "")
         var emailRow = Connection(
-            id: "platform/moemail", kind: .platform, name: "moemail", label: "Email Moe",
-            blurb: "Your own address for writing to Moe, like you@in.moebot.app.",
+            id: "platform/moemail", kind: .platform, name: "moemail", label: "Email Alfie",
+            blurb: "Your own address for writing to Alfie, like you@in.moebot.app.",
             authKind: .oneClick, state: emState, detail: emDetail, envKeys: [],
             allowedUsersKey: "", prompts: [:], docs: "", connectName: "platform/moemail",
             setupScript: "")
@@ -1261,8 +1261,8 @@ enum ConnectionsCatalog {
     /// script line whose whole job is to say what is happening.
     static func renameEngine(_ raw: String) -> String {
         var s = raw
-        s = s.replacingOccurrences(of: "Hermes's", with: "Moe's")
-        s = s.replacingOccurrences(of: "Hermes", with: "Moe")
+        s = s.replacingOccurrences(of: "Hermes's", with: "Alfie's")
+        s = s.replacingOccurrences(of: "Hermes", with: "Alfie")
         return s
     }
 
@@ -1277,14 +1277,14 @@ enum ConnectionsCatalog {
         // "… Run connect.sh telegram." / "run connect-gmail.sh to add an
         // account" — the button is the command.
         s = s.replacingOccurrences(of: #"(?i)\.?\s*\(?run (scripts/)?connect[^.)]*\)?\.?"#, with: "", options: .regularExpression)
-        s = s.replacingOccurrences(of: "Hermes answers nobody", with: "Moe answers nobody")
-        s = s.replacingOccurrences(of: "restart Hermes", with: "restart Moe")
-        s = s.replacingOccurrences(of: "Restart Hermes", with: "Restart Memoe")
-        s = s.replacingOccurrences(of: "Moe starts Hermes", with: "Moe starts it")
+        s = s.replacingOccurrences(of: "Hermes answers nobody", with: "Alfie answers nobody")
+        s = s.replacingOccurrences(of: "restart Hermes", with: "restart Alfie")
+        s = s.replacingOccurrences(of: "Restart Hermes", with: "Restart Alfie")
+        s = s.replacingOccurrences(of: "Alfie starts Hermes", with: "Alfie starts it")
         // "token present" (a platform's key is in .env) — the pill already
         // says Connected; the line says what that rests on.
         s = s.replacingOccurrences(of: "token present", with: "key saved")
-        s = s.replacingOccurrences(of: "Hermes", with: "Moe")
+        s = s.replacingOccurrences(of: "Hermes", with: "Alfie")
         s = s.replacingOccurrences(of: "hermes ", with: "")
         s = s.replacingOccurrences(of: "MCP ", with: "")
         s = s.replacingOccurrences(of: "OAuth", with: "sign-in")
@@ -1335,22 +1335,22 @@ enum MacSources {
         // Calendar?" — nowhere, it is already here, because Calendar.app
         // holds it. Said in the row so nobody goes hunting for a Google row
         // that no longer exists.
-        Spec(key: "calendar", label: "Calendar", blurb: "Moe knows what you have on — every calendar in Calendar.app, Google ones included. Nothing to connect.", setupScript: "", connectName: ""),
-        Spec(key: "reminders", label: "Reminders", blurb: "Moe knows what you still owe people, and can add a reminder when you ask.", setupScript: ""),
-        Spec(key: "notes", label: "Apple Notes", blurb: "Moe reads your notes, and re-reads them every ten minutes — not only when you ask.", setupScript: ""),
+        Spec(key: "calendar", label: "Calendar", blurb: "Alfie knows what you have on — every calendar in Calendar.app, Google ones included. Nothing to connect.", setupScript: "", connectName: ""),
+        Spec(key: "reminders", label: "Reminders", blurb: "Alfie knows what you still owe people, and can add a reminder when you ask.", setupScript: ""),
+        Spec(key: "notes", label: "Apple Notes", blurb: "Alfie reads your notes, and re-reads them every ten minutes — not only when you ask.", setupScript: ""),
         // A permission, not a credential, like Calendar: contacts.sh asks
         // the app (Moe --contacts --status) whether the Contacts grant is
         // Moe's. Looked up when a name comes up, never pulled into context.
-        Spec(key: "contacts", label: "Contacts", blurb: "Moe knows who you mean when you say a name, and can find their number or email.", setupScript: ""),
-        Spec(key: "call-recordings", label: "Recorded calls", blurb: "Moe can tell you what was said on calls your iPhone recorded, from their transcripts.", setupScript: ""),
-        Spec(key: "imessage", label: "Messages", blurb: "Moe knows what people have said to you in iMessage and SMS.", setupScript: ""),
+        Spec(key: "contacts", label: "Contacts", blurb: "Alfie knows who you mean when you say a name, and can find their number or email.", setupScript: ""),
+        Spec(key: "call-recordings", label: "Recorded calls", blurb: "Alfie can tell you what was said on calls your iPhone recorded, from their transcripts.", setupScript: ""),
+        Spec(key: "imessage", label: "Messages", blurb: "Alfie knows what people have said to you in iMessage and SMS.", setupScript: ""),
         // Every account in Mail.app, not only Gmail: the index and message
         // files Mail keeps on this disk (connectors/mail-items.py). A
         // permission like Messages, not a credential.
-        Spec(key: "mail", label: "Mail", blurb: "Moe reads the mail in the Mail app on this Mac \u{2014} every account set up there. Nothing to connect.", setupScript: ""),
-        Spec(key: "calls", label: "Phone call history", blurb: "Moe can tell you who called and when, so you know who you missed.", setupScript: ""),
-        Spec(key: "drive", label: "Google Drive", blurb: "Moe finds and reads the files Google's Drive app has synced here. No Google password.", setupScript: ""),
-        Spec(key: "chrome", label: "Chrome browsing", blurb: "Moe can find the page you were reading. Off until you turn it on; never your searches.", setupScript: "", consentSource: "chrome"),
+        Spec(key: "mail", label: "Mail", blurb: "Alfie reads the mail in the Mail app on this Mac \u{2014} every account set up there. Nothing to connect.", setupScript: ""),
+        Spec(key: "calls", label: "Phone call history", blurb: "Alfie can tell you who called and when, so you know who you missed.", setupScript: ""),
+        Spec(key: "drive", label: "Google Drive", blurb: "Alfie finds and reads the files Google's Drive app has synced here. No Google password.", setupScript: ""),
+        Spec(key: "chrome", label: "Chrome browsing", blurb: "Alfie can find the page you were reading. Off until you turn it on; never your searches.", setupScript: "", consentSource: "chrome"),
         // The companion to the Google Drive row, not an alternative to it.
         // Drive for Desktop syncs a Doc as a link, so that row can show the
         // name and never the text; this one reads the text of the documents
@@ -1358,16 +1358,16 @@ enum MacSources {
         // permission this asks Google for is the only one of its kind that
         // may not be combined with any other.
         Spec(key: "drive-docs", label: "Google Docs and Sheets",
-             blurb: "Moe reads the documents you pick yourself \u{2014} those, and nothing else in your Drive.",
+             blurb: "Alfie reads the documents you pick yourself \u{2014} those, and nothing else in your Drive.",
              setupScript: "connect-drive-docs.sh", connectName: "drive-docs", browserSignIn: true),
-        Spec(key: "gmail", label: "Gmail", blurb: "Moe reads your mail and drafts replies. Needs an app password, never your Google password.", setupScript: "connect-gmail.sh", connectName: "gmail"),
+        Spec(key: "gmail", label: "Gmail", blurb: "Alfie reads your mail and drafts replies. Needs an app password, never your Google password.", setupScript: "connect-gmail.sh", connectName: "gmail"),
         // connectName, not the default "": this row IS a credential — a
         // delegated login on this disk — so Disconnect has something to do.
         // Without it the button ran `connect.sh --remove ""` and told the
         // user there was nothing to disconnect while they were looking at a
         // row that said connected.
-        Spec(key: "telegram", label: "My own Telegram", blurb: "Moe signs in to your Telegram as a linked device, so it can follow your conversations and write a message when you ask. Every message it sends asks you first.", setupScript: "connect-telegram.sh", connectName: "telegram"),
-        Spec(key: "whatsapp", label: "WhatsApp on this Mac", blurb: "Moe reads your own WhatsApp conversations, once your phone links this Mac.", setupScript: "connect-whatsapp.sh"),
+        Spec(key: "telegram", label: "My own Telegram", blurb: "Alfie signs in to your Telegram as a linked device, so it can follow your conversations and write a message when you ask. Every message it sends asks you first.", setupScript: "connect-telegram.sh", connectName: "telegram"),
+        Spec(key: "whatsapp", label: "WhatsApp on this Mac", blurb: "Alfie reads your own WhatsApp conversations, once your phone links this Mac.", setupScript: "connect-whatsapp.sh"),
     ]
 
     /// Row from one status line ("ok: …" / "needs-setup: …" / "unavailable: …").
@@ -1406,7 +1406,7 @@ enum MacSources {
         if spec.key == "drive-docs", state == .connected {
             extras.append(Connection(
                 id: "mac/drive-docs-pick", kind: .mac, name: "drive-docs-pick",
-                label: "Pick more files…", blurb: "Add more Google documents to the ones Moe may read.",
+                label: "Pick more files…", blurb: "Add more Google documents to the ones Alfie may read.",
                 authKind: .oauth, state: .notConnected, detail: "",
                 envKeys: [], allowedUsersKey: "", prompts: [:], docs: "", connectName: "",
                 setupScript: spec.setupScript))

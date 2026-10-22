@@ -110,7 +110,7 @@ struct WakeCalibrationTests {
         #expect(pick.after == .init(positives: 12, caught: 8, confusables: 8, falseAccepts: 1))
         #expect(pick.threshold == 0.98)
         #expect(WakeCalibration.summary(pick, changed: true)
-                == "Moe now catches 8 of 12 of your “Hey Moe”s and 1 of the 8 near misses. Before: 8 of 12 and 4.")
+                == "Alfie now catches 8 of 12 of your “Hey Alfie”s and 1 of the 8 near misses. Before: 8 of 12 and 4.")
         // The answer the floor exists to refuse: nothing reaches 0.99 but
         // one near miss.
         let degenerate = WakeCalibration.tally(positives: positives, confusables: confusables,
@@ -176,16 +176,16 @@ struct WakeCalibrationTests {
                                         after: .init(positives: 12, caught: 11, confusables: 8, falseAccepts: 0),
                                         before: .init(positives: 12, caught: 8, confusables: 8, falseAccepts: 2))
         #expect(WakeCalibration.summary(pick, changed: true)
-                == "Moe now catches 11 of 12 of your “Hey Moe”s and none of the 8 near misses. Before: 8 of 12 and 2.")
+                == "Alfie now catches 11 of 12 of your “Hey Alfie”s and none of the 8 near misses. Before: 8 of 12 and 2.")
         let same = WakeCalibration.Pick(threshold: 0.95,
                                         after: .init(positives: 12, caught: 12, confusables: 8, falseAccepts: 1),
                                         before: .init(positives: 12, caught: 12, confusables: 8, falseAccepts: 1))
         #expect(WakeCalibration.summary(same, changed: false)
-                == "Moe already catches all 12 of your “Hey Moe”s and 1 of the 8 near misses — the setting it had is the best one for this Mac, so nothing changed.")
+                == "Alfie already catches all 12 of your “Hey Alfie”s and 1 of the 8 near misses — the setting it had is the best one for this Mac, so nothing changed.")
         let one = WakeCalibration.Pick(threshold: 0.8,
                                        after: .init(positives: 1, caught: 1, confusables: 1, falseAccepts: 0),
                                        before: .init(positives: 1, caught: 0, confusables: 1, falseAccepts: 0))
         #expect(WakeCalibration.summary(one, changed: true)
-                == "Moe now catches 1 of 1 of your “Hey Moe” and none of the 1 near miss. Before: 0 of 1 and none.")
+                == "Alfie now catches 1 of 1 of your “Hey Alfie” and none of the 1 near miss. Before: 0 of 1 and none.")
     }
 }

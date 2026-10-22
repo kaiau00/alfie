@@ -11,7 +11,7 @@ import Testing
 struct ConversationPanelMetricsTests {
 
     static let reminder = "The deck you promised Sam was due today. Want me to check whether it went out, or help you finish and send it?"
-    static let talkKey = "Right ⌥ can't start me yet. If Memoe is already switched on in Accessibility, macOS is holding on to an older copy — Fix clears it, then switch Memoe on again."
+    static let talkKey = "Right ⌥ can't start me yet. If Alfie is already switched on in Accessibility, macOS is holding on to an older copy — Fix clears it, then switch Alfie on again."
 
     /// What was on the screen: two lines of reminder at the hover width, and
     /// the talk-key row at three.

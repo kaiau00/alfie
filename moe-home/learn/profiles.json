@@ -2,7 +2,7 @@
  "_about": "Learning profile defaults, one per source, keyed kind/name. Read by learn/source_profile.py; a person's own choices (consent.sh mode) win over these, and a source missing here falls back to a per-kind built-in. Unknown keys are ignored.",
  "_composio": "A source spelled composio/<slug> \u2014 one of the services Composio brokers \u2014 falls back to this table's mcp/<slug> row when it has no composio/<slug> row of its own. The row answers a question about the SERVICE (how often does your GitHub change), not about the transport, and two copies of 77 rows would drift. learn/source_profile.py's table_entry is where that is done and why. Add a composio/<slug> key only when a brokered service genuinely differs from a dedicated server for it.",
  "_mcp": "Every mcp/* row ships with sync=false: a gather is the connection read through a fresh Hermes process on its own copy of the OAuth token, which is what cost this Mac its Cloudflare sign-in twice in a day, so nothing is polled until the person switches it on \u2014 and even then sync.sh gathers hourly at most, never every tick. dated=false because an auto-resolved read-set has no window in it; a hand recipe at ~/.moe/gather/<name>.json that puts {since_days} or {since_date} in an arg IS dated, and lib/mcp_autoread substitutes the window there.",
- "_speak": "Whether Moe may speak up about a source on its own: the proactive pass (hermes-jobs/moe-brief-monitor.sh drops the brief sections of a source whose speak is false) and a watch job. It follows the rest of the row rather than being an answer of its own \u2014 a source Moe keeps up with (sync), reads back (seed) or may watch is one it may mention; a reference service it never reads cannot surprise anyone, so it is false there. A person's own answer (consent.sh mode <source> speak no) wins over this, as over every other field.",
+ "_speak": "Whether Alfie may speak up about a source on its own: the proactive pass (hermes-jobs/moe-brief-monitor.sh drops the brief sections of a source whose speak is false) and a watch job. It follows the rest of the row rather than being an answer of its own \u2014 a source Alfie keeps up with (sync), reads back (seed) or may watch is one it may mention; a reference service it never reads cannot surprise anyone, so it is false there. A person's own answer (consent.sh mode <source> speak no) wins over this, as over every other field.",
  "mcp/airtable": {
   "dated": false,
   "seed": true,
@@ -71,7 +71,7 @@
   "sync": false,
   "update": "never",
   "watch": true,
-  "why": "A CRM holds your customers' records, not yours: nothing here is written into what Moe knows about you; watch it with a recipe if you want to hear when something changes."
+  "why": "A CRM holds your customers' records, not yours: nothing here is written into what Alfie knows about you; watch it with a recipe if you want to hear when something changes."
  },
  "mcp/aws-knowledge": {
   "dated": false,
@@ -151,7 +151,7 @@
   "sync": false,
   "update": "never",
   "watch": true,
-  "why": "A sales CRM holds your customers' records, not yours: nothing here is written into what Moe knows about you; watch it with a recipe if you want to hear when something changes."
+  "why": "A sales CRM holds your customers' records, not yours: nothing here is written into what Alfie knows about you; watch it with a recipe if you want to hear when something changes."
  },
  "mcp/cloudflare": {
   "dated": false,
@@ -301,7 +301,7 @@
   "sync": false,
   "update": "daily",
   "watch": true,
-  "why": "Mail arrives all day, so the gather recipe is re-read daily (Moe's own Gmail connector is the one kept ready every ten minutes)."
+  "why": "Mail arrives all day, so the gather recipe is re-read daily (Alfie's own Gmail connector is the one kept ready every ten minutes)."
  },
  "mcp/google-calendar": {
   "dated": false,
@@ -311,7 +311,7 @@
   "sync": false,
   "update": "daily",
   "watch": true,
-  "why": "Events change all day, so the gather recipe is re-read daily (Moe's own Calendar connector is the one kept ready every ten minutes)."
+  "why": "Events change all day, so the gather recipe is re-read daily (Alfie's own Calendar connector is the one kept ready every ten minutes)."
  },
  "mcp/google-drive": {
   "dated": false,
@@ -331,7 +331,7 @@
   "sync": false,
   "update": "daily",
   "watch": true,
-  "why": "Events change all day, so the gather recipe is re-read daily (Moe's own Calendar connector is the one kept ready every ten minutes)."
+  "why": "Events change all day, so the gather recipe is re-read daily (Alfie's own Calendar connector is the one kept ready every ten minutes)."
  },
  "mcp/google_drive": {
   "dated": false,
@@ -361,7 +361,7 @@
   "sync": false,
   "update": "never",
   "watch": true,
-  "why": "A CRM holds your customers' records, not yours: nothing here is written into what Moe knows about you; watch it with a recipe if you want to hear when something changes."
+  "why": "A CRM holds your customers' records, not yours: nothing here is written into what Alfie knows about you; watch it with a recipe if you want to hear when something changes."
  },
  "mcp/hugging_face": {
   "dated": false,
@@ -391,7 +391,7 @@
   "sync": false,
   "update": "never",
   "watch": true,
-  "why": "A support inbox holds your customers' records, not yours: nothing here is written into what Moe knows about you; watch it with a recipe if you want to hear when something changes."
+  "why": "A support inbox holds your customers' records, not yours: nothing here is written into what Alfie knows about you; watch it with a recipe if you want to hear when something changes."
  },
  "mcp/kiwi": {
   "dated": false,
@@ -411,7 +411,7 @@
   "sync": false,
   "update": "never",
   "watch": true,
-  "why": "Holds your customers' records \u2014 profiles, lists, segments \u2014 not yours, so nothing here is read into what Moe knows about you."
+  "why": "Holds your customers' records \u2014 profiles, lists, segments \u2014 not yours, so nothing here is read into what Alfie knows about you."
  },
  "mcp/linear": {
   "dated": false,
@@ -461,7 +461,7 @@
   "sync": false,
   "update": "never",
   "watch": false,
-  "why": "Moe's own tools: the same Mac sources Moe already reads directly, so there is nothing to learn from them twice."
+  "why": "Alfie's own tools: the same Mac sources Alfie already reads directly, so there is nothing to learn from them twice."
  },
  "mcp/monday": {
   "dated": false,
@@ -541,7 +541,7 @@
   "sync": false,
   "update": "never",
   "watch": true,
-  "why": "A payments account holds your customers' records, not yours: nothing here is written into what Moe knows about you; watch it with a recipe if you want to hear when something changes."
+  "why": "A payments account holds your customers' records, not yours: nothing here is written into what Alfie knows about you; watch it with a recipe if you want to hear when something changes."
  },
  "mcp/plaid": {
   "dated": false,
@@ -651,7 +651,7 @@
   "sync": false,
   "update": "never",
   "watch": true,
-  "why": "A point-of-sale account holds your customers' records, not yours: nothing here is written into what Moe knows about you; watch it with a recipe if you want to hear when something changes."
+  "why": "A point-of-sale account holds your customers' records, not yours: nothing here is written into what Alfie knows about you; watch it with a recipe if you want to hear when something changes."
  },
  "mcp/strava": {
   "dated": false,
@@ -671,7 +671,7 @@
   "sync": false,
   "update": "never",
   "watch": true,
-  "why": "A payments account holds your customers' records, not yours: nothing here is written into what Moe knows about you; watch it with a recipe if you want to hear when something changes."
+  "why": "A payments account holds your customers' records, not yours: nothing here is written into what Alfie knows about you; watch it with a recipe if you want to hear when something changes."
  },
  "mcp/supabase": {
   "dated": false,
@@ -781,7 +781,7 @@
   "sync": true,
   "update": "daily",
   "watch": false,
-  "why": "Your Calendar.app events (including subscribed Google calendars) change all day, so Moe keeps today's schedule current and catches up daily."
+  "why": "Your Calendar.app events (including subscribed Google calendars) change all day, so Alfie keeps today's schedule current and catches up daily."
  },
  "native/call-recordings": {
   "dated": true,
@@ -791,7 +791,7 @@
   "sync": true,
   "update": "weekly",
   "watch": false,
-  "why": "Recorded-call transcripts are long and expensive to walk through AppleScript, so Moe reads them back weekly instead of daily."
+  "why": "Recorded-call transcripts are long and expensive to walk through AppleScript, so Alfie reads them back weekly instead of daily."
  },
  "native/calls": {
   "dated": true,
@@ -801,7 +801,7 @@
   "sync": true,
   "update": "daily",
   "watch": false,
-  "why": "Your iPhone call history arrives all day, so Moe keeps it current and catches up daily."
+  "why": "Your iPhone call history arrives all day, so Alfie keeps it current and catches up daily."
  },
  "native/chrome": {
   "dated": true,
@@ -821,7 +821,7 @@
   "sync": true,
   "update": "daily",
   "watch": false,
-  "why": "Google Drive for Desktop already syncs the files; Moe walks the tree every ten minutes like any other Mac source and catches up daily."
+  "why": "Google Drive for Desktop already syncs the files; Alfie walks the tree every ten minutes like any other Mac source and catches up daily."
  },
  "native/drive-docs": {
   "dated": true,
@@ -841,7 +841,7 @@
   "sync": true,
   "update": "daily",
   "watch": false,
-  "why": "Mail arrives all day, so Moe keeps today's inbox current and catches up daily."
+  "why": "Mail arrives all day, so Alfie keeps today's inbox current and catches up daily."
  },
  "native/imessage": {
   "dated": true,
@@ -851,7 +851,7 @@
   "sync": true,
   "update": "daily",
   "watch": false,
-  "why": "iMessage and SMS arrive all day, so Moe keeps today's threads current and catches up daily."
+  "why": "iMessage and SMS arrive all day, so Alfie keeps today's threads current and catches up daily."
  },
  "native/mail": {
   "dated": true,
@@ -861,7 +861,7 @@
   "sync": true,
   "update": "daily",
   "watch": false,
-  "why": "Mail in the Mail app arrives all day; Moe reads what is new every ten minutes and keeps today's inbox current. There is no deep read back yet."
+  "why": "Mail in the Mail app arrives all day; Alfie reads what is new every ten minutes and keeps today's inbox current. There is no deep read back yet."
  },
  "native/notes": {
   "dated": true,
@@ -871,7 +871,7 @@
   "sync": true,
   "update": "daily",
   "watch": false,
-  "why": "Apple Notes change throughout the day as you jot things down, so Moe keeps them current and catches up daily."
+  "why": "Apple Notes change throughout the day as you jot things down, so Alfie keeps them current and catches up daily."
  },
  "native/reminders": {
   "dated": true,
@@ -881,7 +881,7 @@
   "sync": true,
   "update": "daily",
   "watch": false,
-  "why": "Open tasks change throughout the day, so Moe keeps today's list current and catches up daily."
+  "why": "Open tasks change throughout the day, so Alfie keeps today's list current and catches up daily."
  },
  "native/telegram": {
   "dated": true,
@@ -891,7 +891,7 @@
   "sync": true,
   "update": "daily",
   "watch": false,
-  "why": "Your own Telegram chats arrive all day, so Moe keeps them current and catches up daily."
+  "why": "Your own Telegram chats arrive all day, so Alfie keeps them current and catches up daily."
  },
  "native/whatsapp": {
   "dated": true,
@@ -901,7 +901,7 @@
   "sync": true,
   "update": "daily",
   "watch": false,
-  "why": "Your WhatsApp chats arrive all day, so Moe keeps them current and catches up daily."
+  "why": "Your WhatsApp chats arrive all day, so Alfie keeps them current and catches up daily."
  },
  "platform/bluebubbles": {
   "dated": false,
@@ -911,7 +911,7 @@
   "sync": false,
   "update": "never",
   "watch": false,
-  "why": "a channel Moe talks through, not something it reads."
+  "why": "a channel Alfie talks through, not something it reads."
  },
  "platform/buzz": {
   "dated": false,
@@ -921,7 +921,7 @@
   "sync": false,
   "update": "never",
   "watch": false,
-  "why": "a channel Moe talks through, not something it reads."
+  "why": "a channel Alfie talks through, not something it reads."
  },
  "platform/dingtalk": {
   "dated": false,
@@ -931,7 +931,7 @@
   "sync": false,
   "update": "never",
   "watch": false,
-  "why": "a channel Moe talks through, not something it reads."
+  "why": "a channel Alfie talks through, not something it reads."
  },
  "platform/discord": {
   "dated": false,
@@ -941,7 +941,7 @@
   "sync": false,
   "update": "never",
   "watch": false,
-  "why": "a channel Moe talks through, not something it reads."
+  "why": "a channel Alfie talks through, not something it reads."
  },
  "platform/email": {
   "dated": false,
@@ -951,7 +951,7 @@
   "sync": false,
   "update": "never",
   "watch": false,
-  "why": "a channel Moe talks through, not something it reads."
+  "why": "a channel Alfie talks through, not something it reads."
  },
  "platform/feishu": {
   "dated": false,
@@ -961,7 +961,7 @@
   "sync": false,
   "update": "never",
   "watch": false,
-  "why": "a channel Moe talks through, not something it reads."
+  "why": "a channel Alfie talks through, not something it reads."
  },
  "platform/google_chat": {
   "dated": false,
@@ -971,7 +971,7 @@
   "sync": false,
   "update": "never",
   "watch": false,
-  "why": "a channel Moe talks through, not something it reads."
+  "why": "a channel Alfie talks through, not something it reads."
  },
  "platform/homeassistant": {
   "dated": false,
@@ -981,7 +981,7 @@
   "sync": false,
   "update": "never",
   "watch": false,
-  "why": "a channel Moe talks through, not something it reads."
+  "why": "a channel Alfie talks through, not something it reads."
  },
  "platform/irc": {
   "dated": false,
@@ -991,7 +991,7 @@
   "sync": false,
   "update": "never",
   "watch": false,
-  "why": "a channel Moe talks through, not something it reads."
+  "why": "a channel Alfie talks through, not something it reads."
  },
  "platform/line": {
   "dated": false,
@@ -1001,7 +1001,7 @@
   "sync": false,
   "update": "never",
   "watch": false,
-  "why": "a channel Moe talks through, not something it reads."
+  "why": "a channel Alfie talks through, not something it reads."
  },
  "platform/matrix": {
   "dated": false,
@@ -1011,7 +1011,7 @@
   "sync": false,
   "update": "never",
   "watch": false,
-  "why": "a channel Moe talks through, not something it reads."
+  "why": "a channel Alfie talks through, not something it reads."
  },
  "platform/mattermost": {
   "dated": false,
@@ -1021,7 +1021,7 @@
   "sync": false,
   "update": "never",
   "watch": false,
-  "why": "a channel Moe talks through, not something it reads."
+  "why": "a channel Alfie talks through, not something it reads."
  },
  "platform/ntfy": {
   "dated": false,
@@ -1031,7 +1031,7 @@
   "sync": false,
   "update": "never",
   "watch": false,
-  "why": "a channel Moe talks through, not something it reads."
+  "why": "a channel Alfie talks through, not something it reads."
  },
  "platform/photon": {
   "dated": false,
@@ -1041,7 +1041,7 @@
   "sync": false,
   "update": "never",
   "watch": false,
-  "why": "a channel Moe talks through, not something it reads."
+  "why": "a channel Alfie talks through, not something it reads."
  },
  "platform/qqbot": {
   "dated": false,
@@ -1051,7 +1051,7 @@
   "sync": false,
   "update": "never",
   "watch": false,
-  "why": "a channel Moe talks through, not something it reads."
+  "why": "a channel Alfie talks through, not something it reads."
  },
  "platform/signal": {
   "dated": false,
@@ -1061,7 +1061,7 @@
   "sync": false,
   "update": "never",
   "watch": false,
-  "why": "a channel Moe talks through, not something it reads."
+  "why": "a channel Alfie talks through, not something it reads."
  },
  "platform/simplex": {
   "dated": false,
@@ -1071,7 +1071,7 @@
   "sync": false,
   "update": "never",
   "watch": false,
-  "why": "a channel Moe talks through, not something it reads."
+  "why": "a channel Alfie talks through, not something it reads."
  },
  "platform/slack": {
   "dated": false,
@@ -1081,7 +1081,7 @@
   "sync": false,
   "update": "never",
   "watch": false,
-  "why": "a channel Moe talks through, not something it reads."
+  "why": "a channel Alfie talks through, not something it reads."
  },
  "platform/sms": {
   "dated": false,
@@ -1091,7 +1091,7 @@
   "sync": false,
   "update": "never",
   "watch": false,
-  "why": "a channel Moe talks through, not something it reads."
+  "why": "a channel Alfie talks through, not something it reads."
  },
  "platform/teams": {
   "dated": false,
@@ -1101,7 +1101,7 @@
   "sync": false,
   "update": "never",
   "watch": false,
-  "why": "a channel Moe talks through, not something it reads."
+  "why": "a channel Alfie talks through, not something it reads."
  },
  "platform/telegram": {
   "dated": false,
@@ -1111,7 +1111,7 @@
   "sync": false,
   "update": "never",
   "watch": false,
-  "why": "a channel Moe talks through, not something it reads."
+  "why": "a channel Alfie talks through, not something it reads."
  },
  "platform/webhook": {
   "dated": false,
@@ -1121,7 +1121,7 @@
   "sync": false,
   "update": "never",
   "watch": false,
-  "why": "a channel Moe talks through, not something it reads."
+  "why": "a channel Alfie talks through, not something it reads."
  },
  "platform/wecom": {
   "dated": false,
@@ -1131,7 +1131,7 @@
   "sync": false,
   "update": "never",
   "watch": false,
-  "why": "a channel Moe talks through, not something it reads."
+  "why": "a channel Alfie talks through, not something it reads."
  },
  "platform/weixin": {
   "dated": false,
@@ -1141,7 +1141,7 @@
   "sync": false,
   "update": "never",
   "watch": false,
-  "why": "a channel Moe talks through, not something it reads."
+  "why": "a channel Alfie talks through, not something it reads."
  },
  "platform/whatsapp": {
   "dated": false,
@@ -1151,7 +1151,7 @@
   "sync": false,
   "update": "never",
   "watch": false,
-  "why": "a channel Moe talks through, not something it reads."
+  "why": "a channel Alfie talks through, not something it reads."
  },
  "platform/whatsapp_cloud": {
   "dated": false,
@@ -1161,7 +1161,7 @@
   "sync": false,
   "update": "never",
   "watch": false,
-  "why": "a channel Moe talks through, not something it reads."
+  "why": "a channel Alfie talks through, not something it reads."
  },
  "platform/yuanbao": {
   "dated": false,
@@ -1171,7 +1171,7 @@
   "sync": false,
   "update": "never",
   "watch": false,
-  "why": "a channel Moe talks through, not something it reads."
+  "why": "a channel Alfie talks through, not something it reads."
  },
  "skill/1password": {
   "dated": false,
@@ -1191,7 +1191,7 @@
   "sync": false,
   "update": "never",
   "watch": false,
-  "why": "reached through the connection, not read on a clock; mcp/airtable is the one Moe learns from."
+  "why": "reached through the connection, not read on a clock; mcp/airtable is the one Alfie learns from."
  },
  "skill/canvas": {
   "dated": false,
@@ -1221,7 +1221,7 @@
   "sync": false,
   "update": "never",
   "watch": false,
-  "why": "reached through the connection, not read on a clock; mcp/notion is the one Moe learns from."
+  "why": "reached through the connection, not read on a clock; mcp/notion is the one Alfie learns from."
  },
  "skill/shopify": {
   "dated": false,

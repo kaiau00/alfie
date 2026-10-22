@@ -1,4 +1,4 @@
-# Merged into ~/.hermes/config.yaml by the Moe installer. Keys here win over
+# Merged into ~/.hermes/config.yaml by the Alfie installer. Keys here win over
 # whatever Hermes had; nothing else in that file is touched.
 #
 # One hook, matching every tool. The script does its own filtering (tool name,
@@ -37,10 +37,10 @@ hooks:
 
 # Hermes asks for consent at a TTY the first time each hook script runs. The
 # gateway has no TTY, so the hook would be silently skipped — which is the one
-# thing a confirm-before-send hook must never be. Moe installed the script
+# thing a confirm-before-send hook must never be. Alfie installed the script
 # and the user ran the installer; that is the consent.
 #
 # This setting is GLOBAL: it also auto-accepts any other shell hook that
-# appears in this file later. Only Moe's installer writes hooks here today;
+# appears in this file later. Only Alfie's installer writes hooks here today;
 # if that changes, revisit this.
 hooks_auto_accept: true

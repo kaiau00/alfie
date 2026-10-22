@@ -307,7 +307,7 @@ enum Activity {
             // there are none, and a banner that promises a list under it
             // is worse than one that says what it could not read. Found by
             // rendering the pane against a scratch home.
-            feed.error = "Moe couldn't read Hermes's record of what ran and what failed. Anything below is from Moe's own record."
+            feed.error = "Alfie couldn't read Hermes's record of what ran and what failed. Anything below is from Alfie's own record."
             feed.events.sort { $0.at > $1.at }
             trim(&feed)
             return feed
@@ -353,8 +353,8 @@ enum Activity {
                          at: last,
                          kind: .talked,
                          title: convo.title,
-                         detail: mine == 1 ? "You asked Moe one thing."
-                                           : "You and Moe went back and forth \(turns.count) times.",
+                         detail: mine == 1 ? "You asked Alfie one thing."
+                                           : "You and Alfie went back and forth \(turns.count) times.",
                          note: "",
                          thread: convo.id)
         }
@@ -382,7 +382,7 @@ enum Activity {
                      at: at,
                      kind: .elsewhere,
                      title: "Replied on \(where_)\(kind)",
-                     detail: "This happened away from this Mac, so Moe only knows that it did — not what was said.",
+                     detail: "This happened away from this Mac, so Alfie only knows that it did — not what was said.",
                      note: note)
     }
 
@@ -401,7 +401,7 @@ enum Activity {
                                       : "\(raw) characters"
         }
         guard let mine = say(row.inChars), let theirs = say(row.outChars) else { return nil }
-        return "You wrote \(mine), Moe wrote \(theirs)."
+        return "You wrote \(mine), Alfie wrote \(theirs)."
     }
 
     /// A job's day. `runs == 1` reads as the single event it was.
@@ -442,8 +442,8 @@ enum Activity {
         switch incident.state {
         case "closed": return nil          // it recovered; the run rows say so
         case "acked": state = "You have seen this one."
-        case "alerted": state = "Moe told you about this one."
-        default: state = "Moe noticed this one."
+        case "alerted": state = "Alfie told you about this one."
+        default: state = "Alfie noticed this one."
         }
         return Event(id: "bad:\(incident.id)",
                      at: at,

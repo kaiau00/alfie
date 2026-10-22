@@ -2,7 +2,7 @@
 
 Hermes could reach two MCP servers, `vercel` and `pulse`, and nothing in
 ~/.moe/connectors. sync.sh ran the connectors on a timer, wrote
-context/_brief.md, and Moe pasted that file into the system prompt; that
+context/_brief.md, and Alfie pasted that file into the system prompt; that
 snapshot was the entire bridge between a person's mail and the thing answering
 questions about it. Asked to summarise today's email with the brief absent, the
 model reached for the only tool it could see with "messages" in the name,
@@ -20,15 +20,15 @@ Through Hermes's own proxy the model ended up reading:
     mcp__hermes-tools__mcp__moe__gmail_pull
 
 Three namespaces and two product names in front of the verb, and one of those
-product names is the model itself. Moe is not a service the agent calls to ask
-about email; Moe is the agent. A tool list that says otherwise is telling it
+product names is the model itself. Alfie is not a service the agent calls to ask
+about email; Alfie is the agent. A tool list that says otherwise is telling it
 something false about its own shape.
 
 Registered here instead, the model sees `gmail_pull` beside `terminal` and
 `web_search`, with no prefix and no seam. Three things follow for free: it runs
 in the gateway rather than behind a pipe, so there is no subprocess per
 connector; `toolset` puts it in Hermes's own enable/disable machinery; and
-`emoji` is the one Hermes shows for the step, which is what Moe speaks aloud
+`emoji` is the one Hermes shows for the step, which is what Alfie speaks aloud
 while the work runs.
 
 What it exposes
@@ -311,7 +311,7 @@ DETACHED_NOTE = (" Runs on %s, not here: calling it from here queues the work ra
 DETACHED_INSTEAD = {
     ("reminders", "create"): (
         " Not for \"remind me\": a reminder at a time is a cronjob, made with "
-        "the cronjob tool, which fires wherever Moe is running then and reaches "
+        "the cronjob tool, which fires wherever Alfie is running then and reaches "
         "the person on their phone. Use this only when they ask for it to go "
         "into Apple Reminders."),
 }
@@ -649,7 +649,7 @@ def _mint_send_ticket(name, args, stdin_text, key, env):
         return ""
     except Exception as exc:  # noqa: BLE001 — a gate that cannot run refuses
         logger.warning("moe-connectors: the send gate could not judge %s send: %s", name, exc)
-        return "Not sent: Moe's send gate could not check who this goes to."
+        return "Not sent: Alfie's send gate could not check who this goes to."
 
 
 def grounding_key_for_call():
@@ -1175,13 +1175,13 @@ def away_send_gate(**kwargs):
     module = _awaygate()
     if module is None:
         return {"action": "block",
-                "message": "Moe's send gate could not load on this machine, so no tool may "
+                "message": "Alfie's send gate could not load on this machine, so no tool may "
                            "run until it does; nothing was done."}
     try:
         return module.gate_tool_call(send_gate_hook_path(), kwargs)
     except Exception:
         logger.warning("moe-connectors: the send gate raised; the call was refused", exc_info=True)
-        return {"action": "block", "message": "Moe's send gate failed; nothing was done."}
+        return {"action": "block", "message": "Alfie's send gate failed; nothing was done."}
 
 
 # The bound Hermes gives this callback, declared rather than left to its 30 s
@@ -1492,7 +1492,7 @@ def _held_parts(label, source):
     """(service, recipient, words), each one clean line. The recipient and the
     words are whatever the job wrote — possibly copied out of somebody
     else's message — so they are quoted wherever they are shown or spoken,
-    never read as Moe's own sentence."""
+    never read as Alfie's own sentence."""
     to = source.get("to") or source.get("chat") or source.get("recipient") or ""
     if isinstance(to, list):
         to = ", ".join(str(t) for t in to)
@@ -1884,7 +1884,7 @@ def away_text(name, label, verb, text, failed, detached=False):
       telegram.py  status → "needs-setup: you have not signed in …" (1);
                    pull/crawl → exit 1, silent; send → "Your Telegram is not
                    connected. Connect it in Settings › Connections." (1)
-      drive-docs.py status → "needs-setup: this build of Moe has no Google
+      drive-docs.py status → "needs-setup: this build of Alfie has no Google
                    sign-in client …" (1); pull/crawl → exit 1, silent
       whatsapp.sh  status → "needs-setup: your phone has not linked this
                    Mac yet — run …" (1); pull/crawl/chats/find → exit 1,
@@ -2051,8 +2051,8 @@ BOT_CHANNELS = ("telegram", "whatsapp")
 BOT_NAMES = {"telegram": "Telegram", "whatsapp": "WhatsApp"}
 
 BOT_CONNECTED = (
-    "Moe's own %(app)s bot IS connected: the person can message Moe on %(app)s "
-    "and Moe answers there. Those chats are a SEPARATE conversation from this "
+    "Alfie's own %(app)s bot IS connected: the person can message Alfie on %(app)s "
+    "and Alfie answers there. Those chats are a SEPARATE conversation from this "
     "one — to see what was said there, use session_search (it covers the "
     "%(app)s chats too). What is not set up is the other %(app)s route: "
     "reading and sending from the person's OWN %(app)s account (%(tool)s_*). "
@@ -2061,7 +2061,7 @@ BOT_CONNECTED = (
 
 
 def bot_channel_state(name):
-    """"ok", "broken: <sentence>", or "" when Moe has no bot on `name`."""
+    """"ok", "broken: <sentence>", or "" when Alfie has no bot on `name`."""
     if name not in BOT_CHANNELS:
         return ""
     cloud = os.path.join(moe_home(), "cloud")
@@ -2087,7 +2087,7 @@ def bot_text(name, verb, text):
         return None
     app = BOT_NAMES[name]
     if state != "ok":
-        sentence = ("Moe's own %s bot is set up but not receiving right now: %s "
+        sentence = ("Alfie's own %s bot is set up but not receiving right now: %s "
                     "Separately, the person's OWN %s account is not connected (%s_*)."
                     % (app, state[len("broken: "):], app, name))
         return ("needs-setup: " + sentence) if verb == "status" else sentence
@@ -2913,7 +2913,7 @@ CONNECTIONS_DESCRIPTION = (
     "What the person is connected to, and how each thing is reached: the "
     "services connected through Composio (any of about 500 — reached with "
     "COMPOSIO_SEARCH_TOOLS, never by a tool of the service's own name), other "
-    "servers, the Mac's own apps and the chats the person can reach Moe from. "
+    "servers, the Mac's own apps and the chats the person can reach Alfie from. "
     "Call this before saying anything is not connected. Reads what is on "
     "record; it starts no sign-in."
 )
@@ -3010,10 +3010,10 @@ REPORT_TIMEOUT = 90
 REPORT_EXIT_OFF = 3
 REPORT_EXIT_ANON_LIMIT = 4
 REPORT_DESCRIPTION = (
-    "Report a problem to the Memoe team: files a support ticket (a bug report or "
-    "feedback) about Moe or Memoe itself. Use it when the person says \"report this\", "
-    "\"tell the Memoe team\", \"file a bug\", \"send feedback\" or \"send this to "
-    "support\", or when something about Moe itself is broken (a feature that stopped "
+    "Report a problem to the Alfie team: files a support ticket (a bug report or "
+    "feedback) about Alfie or Alfie itself. Use it when the person says \"report this\", "
+    "\"tell the Alfie team\", \"file a bug\", \"send feedback\" or \"send this to "
+    "support\", or when something about Alfie itself is broken (a feature that stopped "
     "working, a crash, a connector that will not connect, a wrong answer that keeps "
     "happening). This is the ticket tool: never say there is no way to report a problem, "
     "and never keep the report in notes instead. The team reads every ticket and the "
@@ -3050,7 +3050,7 @@ REPORT_SCHEMA = {
     },
 }
 REPORT_NO_SCRIPT = (
-    "The report was not sent: Moe's ticket script is not installed here (looked for %s). "
+    "The report was not sent: Alfie's ticket script is not installed here (looked for %s). "
     "Tell the person it could not be filed from here, and that nothing was kept.")
 
 
@@ -3140,7 +3140,7 @@ def _report_allowed(title, now=None):
     key = " ".join(str(title or "").lower().split())
     if any(r.get("title") == key and now - float(r.get("at") or 0) < REPORT_SAME_S for r in rows):
         return False, ("That same report was filed a few minutes ago; it is not filed twice. "
-                       "Tell the person it is already with the Memoe team.")
+                       "Tell the person it is already with the Alfie team.")
     if len(rows) >= REPORT_DAILY_CAP:
         return False, ("%d problems have been reported from here today, the most one day takes. "
                        "Tell the person, and offer to report this one tomorrow." % REPORT_DAILY_CAP)
@@ -3175,7 +3175,7 @@ def _report(params):
         # It may have gone: the script can be stopped after the server took
         # it, and a retry would be a second ticket and a second email.
         return json.dumps({"success": False, "maybe_sent": True,
-                           "error": "The Memoe team's server did not answer within %d seconds, so "
+                           "error": "The Alfie team's server did not answer within %d seconds, so "
                                     "the report may or may not have gone. Do not file it again "
                                     "now; tell the person, and that they will get an email if it "
                                     "arrived." % REPORT_TIMEOUT})

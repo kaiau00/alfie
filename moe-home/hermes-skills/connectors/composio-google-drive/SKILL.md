@@ -2,7 +2,7 @@
 name: composio-google-drive
 description: "Read before any GOOGLEDRIVE_* call through Composio. Finding a file versus reading one, why a `fields` value Drive does not recognise costs FOUR TIMES more than omitting it, and the nine of GOOGLEDRIVE_FIND_FILE's twenty-two 'inputs' that are not inputs at all."
 version: 1.0.0
-author: Moe
+author: Alfie
 license: MIT
 metadata:
   hermes:

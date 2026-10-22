@@ -249,7 +249,7 @@ final class HermesSupervisor {
             switch self.state {
             case .ready:            callback(.success(()))
             case .failed(let m):    callback(.failure(Failure(message: m)))
-            case .stopped:          callback(.failure(Failure(message: "Moe is shutting down.")))
+            case .stopped:          callback(.failure(Failure(message: "Alfie is shutting down.")))
             case .idle, .starting, .restarting:
                 self.waiters.append(callback)
             }
@@ -272,7 +272,7 @@ final class HermesSupervisor {
             switch result {
             case .success:
                 if case .ready(let owned) = self.state {
-                    done(owned, owned ? "Moe's own gateway is up" : "another Moe holds the gateway (adopted)")
+                    done(owned, owned ? "Alfie's own gateway is up" : "another Alfie holds the gateway (adopted)")
                 } else {
                     done(false, "the gateway is no longer ready")
                 }
@@ -310,7 +310,7 @@ final class HermesSupervisor {
             case .stopped:
                 return
             case .ready(owned: false):
-                Log.write("hermes gateway: \(reason), but this gateway was not started by Moe "
+                Log.write("hermes gateway: \(reason), but this gateway was not started by Alfie "
                           + "— restart it yourself for that to take effect")
             case .idle, .failed:
                 Log.write("hermes gateway: \(reason); nothing is running, so the next start "
@@ -326,7 +326,7 @@ final class HermesSupervisor {
                 // the OLD file — the same stale gateway as `.ready`, just not
                 // answering yet.
                 Log.write("hermes gateway: \(reason) — restarting so it re-reads .env")
-                DispatchQueue.main.async { self.onStatus?("Restarting the part of Moe that thinks") }
+                DispatchQueue.main.async { self.onStatus?("Restarting the part of Alfie that thinks") }
                 let leaving = process
                 retireCurrentLocked()
                 // `.restarting` for the duration of the wait, so `stop()`,
@@ -402,7 +402,7 @@ final class HermesSupervisor {
             gatewayPID = 0
             state = .stopped
             let pending = waiters; waiters = []
-            for w in pending { w(.failure(Failure(message: "Moe is shutting down."))) }
+            for w in pending { w(.failure(Failure(message: "Alfie is shutting down."))) }
         }
         // A retiring child is already on its way out (TERM sent, KILL
         // scheduled); make sure of it before the app is gone.
@@ -494,7 +494,7 @@ final class HermesSupervisor {
                 // Its port may still be held for a moment. Spawning loses the
                 // bind, the health check fails, and the ordinary crash path
                 // retries with backoff — which heals. Adopting never does.
-                Log.write("hermes gateway: the gateway on port \(port) is the one Moe just "
+                Log.write("hermes gateway: the gateway on port \(port) is the one Alfie just "
                           + "retired; starting a replacement rather than adopting it")
                 spawnLocked()
                 return
@@ -502,13 +502,13 @@ final class HermesSupervisor {
             switch verdict {
             case .hermes(let status):
                 Log.write("hermes gateway: adopted an existing gateway on port \(port) "
-                          + "(HTTP \(status); not started by Moe, so Moe won't restart or stop it)")
+                          + "(HTTP \(status); not started by Alfie, so Alfie won't restart or stop it)")
                 becomeReadyLocked(owned: false)
             case .foreign(let status):
                 // A person cannot act on a port number, but they can quit the
                 // other app; the log has the detail for whoever wants it.
                 Log.write("hermes gateway: port \(port) answered HTTP \(status) to /v1/models — not a gateway")
-                failLocked("Another program on this Mac is using the door Moe needs. Quit it and open Memoe again.")
+                failLocked("Another program on this Mac is using the door Alfie needs. Quit it and open Alfie again.")
             case .down:
                 spawnLocked()
             }
@@ -671,7 +671,7 @@ final class HermesSupervisor {
         if spawnReplaces { argv.append("--replace") }
         childReplaced = spawnReplaces
         spawnReplaces = false
-        p.arguments = ["-c", Self.wrapperScript, "Moe Helper"] + argv
+        p.arguments = ["-c", Self.wrapperScript, "Alfie Helper"] + argv
         p.currentDirectoryURL = FileManager.default.homeDirectoryForCurrentUser
         p.environment = Self.childEnvironment(token: token)
 
@@ -721,9 +721,9 @@ final class HermesSupervisor {
             // reinstalled everything except the missing thing. Bootstrap can
             // tell the two apart, and Settings › Brain has the button.
             if !Bootstrap.hermesInstalled() {
-                failLocked("Moe's thinking part isn't installed on this Mac yet. Open Settings › Brain and choose Set it up — it takes a minute or two.")
+                failLocked("Alfie's thinking part isn't installed on this Mac yet. Open Settings › Brain and choose Set it up — it takes a minute or two.")
             } else {
-                failLocked("Moe couldn't start the part of itself that thinks. Quit Memoe and open it again; if it keeps happening, open Settings › Brain and choose Set it up.")
+                failLocked("Alfie couldn't start the part of itself that thinks. Quit Alfie and open it again; if it keeps happening, open Settings › Brain and choose Set it up.")
             }
             return
         }
@@ -780,9 +780,9 @@ final class HermesSupervisor {
                     self.watchAdoptedLocked(delay: 1)
                     return
                 }
-                Log.write("hermes gateway: the gateway on port \(self.port) that Moe didn't start has "
-                          + "stopped answering — starting Moe's own")
-                DispatchQueue.main.async { self.onStatus?("Restarting the part of Moe that thinks") }
+                Log.write("hermes gateway: the gateway on port \(self.port) that Alfie didn't start has "
+                          + "stopped answering — starting Alfie's own")
+                DispatchQueue.main.async { self.onStatus?("Restarting the part of Alfie that thinks") }
                 self.bringUpLocked()
             }
         }
@@ -946,7 +946,7 @@ final class HermesSupervisor {
         crashes = crashes.filter { now.timeIntervalSince($0) < Self.crashWindow }
         crashes.append(now)
         guard crashes.count <= Self.maxCrashes else {
-            failLocked("The part of Moe that thinks kept stopping. Moe will keep trying "
+            failLocked("The part of Alfie that thinks kept stopping. Alfie will keep trying "
                        + "quietly; New Conversation tries again right now.")
             scheduleQuietRetryLocked()
             return
@@ -1040,7 +1040,7 @@ final class HermesSupervisor {
         logSize = (try? h.seekToEnd()) ?? 0
         logHandle = h
         let stamp = ISO8601DateFormatter().string(from: Date())
-        appendLogLocked(Data("---- \(stamp) launched by Moe ----\n".utf8))
+        appendLogLocked(Data("---- \(stamp) launched by Alfie ----\n".utf8))
     }
 
     private func appendLogLocked(_ data: Data) {
@@ -1238,7 +1238,7 @@ final class HermesSupervisor {
     }
     leave() { reap & }
     trap leave TERM INT HUP
-    # fd 3 is Moe's pipe. With job control off, bash gives a background job
+    # fd 3 is Alfie's pipe. With job control off, bash gives a background job
     # /dev/null for stdin, so the watcher must read the pipe through fd 3.
     { cat <&3 >/dev/null; reap; } &
     watcher=$!
@@ -1293,7 +1293,7 @@ enum HermesKey {
     /// The Conductor recognises a sign-in problem by this prefix and turns
     /// it into a "Sign in" call to action. scripts/test-hermes-supervisor.sh
     /// greps for it too.
-    static let needSignInPrefix = "Moe needs an AI to think with"
+    static let needSignInPrefix = "Alfie needs an AI to think with"
     static let signInHint = "Connect one in Settings → Brain: your Claude or ChatGPT plan, or an API key."
 
     /// Is there a stored sign-in at all? Metadata only (no `-w`), so the
@@ -1344,7 +1344,7 @@ enum HermesKey {
         default:
             // Typically: the item exists but its access list doesn't admit
             // the security tool, or a keychain dialog was dismissed/timed out.
-            return .failure(.init(message: "Moe couldn't get at your saved Claude sign-in. Your Mac may be "
+            return .failure(.init(message: "Alfie couldn't get at your saved Claude sign-in. Your Mac may be "
                 + "waiting for you to allow it — look for a box asking for your password. \(signInHint)"))
         }
     }

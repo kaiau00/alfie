@@ -30,6 +30,13 @@ public final class Vocabulary: @unchecked Sendable {
         if let env = ProcessInfo.processInfo.environment["MOE_HOME"], !env.isEmpty {
             return URL(fileURLWithPath: env, isDirectory: true)
         }
+        // The home build.sh stamps into the bundle (MoeHome), as Config.homeDir
+        // reads it, so a community build such as Alfie keeps its vocabulary in
+        // its own folder rather than the official app's.
+        if let stamped = Bundle.main.object(forInfoDictionaryKey: "MoeHome") as? String,
+           !stamped.trimmingCharacters(in: .whitespaces).isEmpty {
+            return URL(fileURLWithPath: (stamped as NSString).expandingTildeInPath, isDirectory: true)
+        }
         // ~/Library/Application Support/Moe, matching Config.homeDir. Kept in
         // step by scripts/test-moe-home.sh rather than by a shared constant:
         // this module is below Moe in the dependency graph and cannot see it.

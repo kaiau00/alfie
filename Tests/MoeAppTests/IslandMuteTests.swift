@@ -233,7 +233,7 @@ struct IslandMuteTests {
             #expect(text == "and also this")
         } else { Issue.record("the held message is not in the chat") }
         conductor.stopEverything()
-        #expect(conductor.queuedTyped == nil, "stopping Moe left a held message to send itself")
+        #expect(conductor.queuedTyped == nil, "stopping Alfie left a held message to send itself")
     }
 
 }

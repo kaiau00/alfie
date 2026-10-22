@@ -335,7 +335,7 @@ def digest_of(loops):
 def fence(what):
     """A loop's description, made safe to print back to the model.
 
-    This is the one field in the whole block that is not Moe's own words: it
+    This is the one field in the whole block that is not Alfie's own words: it
     is copied from the mail or the message that opened the loop, so it is
     exactly where an instruction would be planted. Quoted, one line, control
     characters gone, and every bracket turned into a parenthesis so that
@@ -543,7 +543,7 @@ def muted_set():
 
 
 def speaks(sp, consent, source):
-    """May Moe say something about this source on its own? Only with the
+    """May Alfie say something about this source on its own? Only with the
     person's yes to it ("Learn and watch", consent.json's bare name, the
     one answer every reader keys on since 2026-09-29) and its `speak` on."""
     kind, _, bare = source.partition("/")

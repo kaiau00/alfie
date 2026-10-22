@@ -34,7 +34,7 @@ struct MainWindow: View {
         case memory = "Memory"
         // Reach
         case connections = "Connections"
-        case reachMoe = "Message Moe"
+        case reachMoe = "Message Alfie"
         // Configuration — the Settings window, never the sidebar.
         case brain = "Brain"
         case replies = "Replies"
@@ -367,13 +367,13 @@ struct FirstOpenNotice: View {
     @State private var open = false
 
     var body: some View {
-        Section("The first time you open Memoe") {
-            DisclosureGroup("Opening Memoe for the first time", isExpanded: $open) {
+        Section("The first time you open Alfie") {
+            DisclosureGroup("Opening Alfie for the first time", isExpanded: $open) {
                 VStack(alignment: .leading, spacing: 10) {
-                    Text("Memoe is signed and notarized by Apple. The first time you "
+                    Text("Alfie is signed and notarized by Apple. The first time you "
                          + "open a copy you downloaded, macOS checks it and asks "
                          + "once:")
-                    Text("“Memoe” is an app downloaded from the Internet. Are you sure "
+                    Text("“Alfie” is an app downloaded from the Internet. Are you sure "
                          + "you want to open it?")
                         .italic()
                         .padding(.leading, 10)
@@ -383,11 +383,11 @@ struct FirstOpenNotice: View {
                         .padding(.leading, 10)
                     Text("Click Open. That is all of it — there is no trip to System "
                          + "Settings and no Privacy & Security step.")
-                    Text("After that, Memoe asks for the things it needs as it first "
+                    Text("After that, Alfie asks for the things it needs as it first "
                          + "needs them: the microphone the first time you talk to it, "
                          + "and permission to control your Mac the first time you ask "
                          + "it to do something there. Those are macOS asking on your "
-                         + "behalf, not warnings about Memoe — it cannot hear you or act "
+                         + "behalf, not warnings about Alfie — it cannot hear you or act "
                          + "for you until you say yes.")
                 }
                 .font(.callout)

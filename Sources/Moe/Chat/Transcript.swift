@@ -23,7 +23,7 @@ enum Transcript {
             guard !text.isEmpty else { return nil }
             switch t.role {
             case .you: return "You: \(text)"
-            case .moe: return "Moe: \(text)"
+            case .moe: return "Alfie: \(text)"
             case .system: return nil
             }
         }.joined(separator: "\n\n")
@@ -38,7 +38,7 @@ enum Transcript {
             guard !text.isEmpty else { continue }
             if !first { out += AttributedString("\n\n") }
             first = false
-            var name = AttributedString(t.role == .you ? "You\n" : "Moe\n")
+            var name = AttributedString(t.role == .you ? "You\n" : "Alfie\n")
             name.font = .system(size: 12, weight: .semibold)
             name.foregroundColor = t.role == .you ? Theme.you : Theme.accent
             out += name

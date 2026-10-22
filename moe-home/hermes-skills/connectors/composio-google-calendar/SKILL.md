@@ -2,7 +2,7 @@
 name: composio-google-calendar
 description: "Read before any GOOGLECALENDAR_* call through Composio. Which of the five read tools answers which question, why the all-calendars view is the cheap one and its own event cap is inert, and the tool to call FIRST when the person said 'tomorrow' or 'next Monday'."
 version: 1.0.0
-author: Moe
+author: Alfie
 license: MIT
 metadata:
   hermes:

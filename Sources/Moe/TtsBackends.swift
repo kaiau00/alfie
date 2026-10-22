@@ -88,11 +88,11 @@ enum TtsEngineKind: String, CaseIterable, Identifiable {
     var blurb: String {
         switch self {
         case .kokoro:
-            return "Moe's voice. Twenty-eight to choose from, male and female, British and American."
+            return "Alfie's voice. Twenty-eight to choose from, male and female, British and American."
         case .pocket:
             return "Twenty-six voices, and the only one that starts speaking before it has finished thinking. A 939 MB download, kept after the first time."
         case .inworld:
-            return "The best voice Moe has, rendered in the cloud and streamed back as it is spoken — the quickest to the first word. Part of the Away plans; when it is out of reach Moe speaks with Kokoro instead."
+            return "The best voice Alfie has, rendered in the cloud and streamed back as it is spoken — the quickest to the first word. Part of the Away plans; when it is out of reach Alfie speaks with Kokoro instead."
         }
     }
 
@@ -686,7 +686,7 @@ enum Pronunciations {
     static let fileURL = Config.homeDir.appendingPathComponent("pronunciations.json")
 
     static let builtIn: [String: String] = [
-        "Moe":        "mˈO",
+        "Alfie":      "ˈælfi",
         "nginx":      "ˈɛnʤɪnˌɛks",
         "Nguyen":     "wˈɪn",
         "Kubernetes": "kˌubɚnˈɛɾiz",

@@ -6,7 +6,7 @@ A message on Telegram, WhatsApp, Slack — or anything the away machine answers
 while the Mac sleeps — never passes through the Conductor: it arrives at
 Hermes's gateway and goes straight to the agent. Without this, the only clock
 those turns have is ``Conversation started: <date>`` in the system prompt,
-which is what let Moe call a 2 PM meeting "upcoming" at 6 PM.
+which is what let Alfie call a 2 PM meeting "upcoming" at 6 PM.
 
 ``pre_gateway_dispatch`` fires once per inbound message on every chat
 platform, before the agent, and ``event.channel_context`` is folded into the

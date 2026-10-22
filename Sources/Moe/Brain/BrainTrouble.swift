@@ -281,29 +281,29 @@ enum BrainTrouble {
             // yet.") instead of this. See `BrainPane.outstanding`.
             switch provider.access {
             case .claudeSignIn, .codexSignIn:
-                return "\(who) wouldn't let Moe in — the sign-in has run out, been cancelled, "
-                    + "or isn't there. Moe can't think until you sign in again: Settings › Brain."
+                return "\(who) wouldn't let Alfie in — the sign-in has run out, been cancelled, "
+                    + "or isn't there. Alfie can't think until you sign in again: Settings › Brain."
             case .apiKey:
-                return "\(who) wouldn't let Moe in — the key is missing, wrong, or no longer "
-                    + "good. Moe can't think until that's sorted: Settings › Brain."
+                return "\(who) wouldn't let Alfie in — the key is missing, wrong, or no longer "
+                    + "good. Alfie can't think until that's sorted: Settings › Brain."
             case .localServer:
-                return "\(who) wouldn't let Moe in. "
-                    + "Moe can't think until that's sorted: Settings › Brain."
+                return "\(who) wouldn't let Alfie in. "
+                    + "Alfie can't think until that's sorted: Settings › Brain."
             }
         case .outOfCredit:
             switch provider.access {
             case .claudeSignIn, .codexSignIn:
                 return "Your \(who) plan has nothing left to spend. "
-                    + "Moe can't think on it until that changes: Settings › Brain."
+                    + "Alfie can't think on it until that changes: Settings › Brain."
             default:
                 return "\(who) says the account has no credit left. "
-                    + "Moe can't think until it's topped up: Settings › Brain."
+                    + "Alfie can't think until it's topped up: Settings › Brain."
             }
         case .modelRefused:
-            return "\(who) won't serve the model Moe is set to. "
+            return "\(who) won't serve the model Alfie is set to. "
                 + "Pick a different one in Settings › Brain."
         case .endpointUnreachable:
-            return "Nothing answered at the address Moe has for \(who). "
+            return "Nothing answered at the address Alfie has for \(who). "
                 + "Check it's running, or change it in Settings › Brain."
         }
     }
@@ -326,8 +326,8 @@ enum BrainTrouble {
                 ? "\(who) turned down the key."
                 : "\(who) turned down the sign-in.")
         case .outOfCredit:         return opening("\(who) says there's no credit left.")
-        case .modelRefused:        return opening("\(who) won't serve the model Moe is set to.")
-        case .endpointUnreachable: return "Nothing is answering at the address Moe has for \(who)."
+        case .modelRefused:        return opening("\(who) won't serve the model Alfie is set to.")
+        case .endpointUnreachable: return "Nothing is answering at the address Alfie has for \(who)."
         }
     }
 

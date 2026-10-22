@@ -1,16 +1,16 @@
-"""claimstore — Hermes's memory, stored in Moe's ledger.
+"""claimstore — Hermes's memory, stored in Alfie's ledger.
 
 What it changes
 ---------------
 Normally ``MEMORY.md`` and ``USER.md`` *are* the memory. With this provider
 active they become a **projection**: the store is ``~/.moe/ledger/*.jsonl`` —
-the same append-only, causally ordered log Moe's Swift side writes
+the same append-only, causally ordered log Alfie's Swift side writes
 conversations into (``docs/ONE-AGENT.md`` §1.5) — and the two markdown files
 are the slice of it that fits in the prompt. Three properties follow, and they
 are the reason to want this at all:
 
 1. **Another writer is the normal case.** Any process that can append a record
-   — Moe itself, a sync daemon, a second device, another agent, a person in an
+   — Alfie itself, a sync daemon, a second device, another agent, a person in an
    editor — contributes memory. The provider reconciles at every session
    boundary.
 2. **Nothing is lost to a rewrite.** Claims are content-addressed and
@@ -33,7 +33,7 @@ are the reason to want this at all:
 
 Install
 -------
-Moe's installer does this: ``scripts/install.sh`` lays the directory down in
+Alfie's installer does this: ``scripts/install.sh`` lays the directory down in
 ``~/.moe/hermes-plugins/`` and ``~/.moe/hermes/configure-hermes.py`` copies it
 to ``$HERMES_HOME/plugins/claimstore/``, adds ``claimstore`` to
 ``plugins.enabled`` and writes::
@@ -111,7 +111,7 @@ def _config() -> Dict[str, Any]:
 def _default_ledger_dir() -> Path:
     """``$MOE_HOME/ledger``, or ``~/.moe/ledger``.
 
-    Not under ``$HERMES_HOME``: the ledger is Moe's, it holds conversations as
+    Not under ``$HERMES_HOME``: the ledger is Alfie's, it holds conversations as
     well as memory, and Hermes is one of several writers to it.
     """
     import os
@@ -598,8 +598,8 @@ class ClaimStoreProvider(MemoryProvider):
             "WHERE YOU ARE\n"
             "You run on the person's own Mac and may use all of it: files, apps, "
             "browser, mail, calendar, messages, a shell and the screen. If they also "
-            "have Moe in the cloud, that copy answers while the Mac sleeps and hands "
-            "you what only the Mac can do. To them you are one Moe."
+            "have Alfie in the cloud, that copy answers while the Mac sleeps and hands "
+            "you what only the Mac can do. To them you are one Alfie."
         )
 
     def prefetch(self, query: str, *, session_id: str = "") -> str:
@@ -686,7 +686,7 @@ class ClaimStoreProvider(MemoryProvider):
         being quietly restored because the assistant noticed it again is the
         worst thing this design could do. Such a write becomes a
         ``PendingRevival`` instead: the record is kept, the claim stays out of
-        the digest, and Moe can ask.
+        the digest, and Alfie can ask.
 
         Removals retract what the tool *addressed* — the one digest entry its
         ``old_text`` matched — not every live claim containing that substring.
@@ -798,7 +798,7 @@ class ClaimStoreProvider(MemoryProvider):
         return [
             {
                 "key": "ledger_dir",
-                "description": "Moe's append-only ledger directory (one JSONL file per device)",
+                "description": "Alfie's append-only ledger directory (one JSONL file per device)",
                 "default": "~/.moe/ledger",
             },
             {

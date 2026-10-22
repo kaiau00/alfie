@@ -97,14 +97,14 @@ def test_unknown_id_and_empty_text_are_refused(store, capsys):
 def test_neutral_names_moe_in_user_lines_only_and_is_a_dry_run_by_default(store, hermes_home,
                                                                           capsys):
     assert cli.neutral("Prefers I take action over explaining: wants me to say what I'm doing") \
-        == "Prefers Moe take action over explaining: wants Moe to say what Moe is doing"
+        == "Prefers Alfie take action over explaining: wants Alfie to say what Alfie is doing"
     assert cli.neutral('Said "I quit" once') == 'Said "I quit" once'
     rc, obj = run(store, "neutral", "--json", capsys=capsys)
     assert rc == 0 and not obj["applied"] and len(obj["changes"]) == 1
     assert "Prefers I take action" in user_md(hermes_home)
     rc, obj = run(store, "neutral", "--apply", "--json", capsys=capsys)
     assert obj["applied"]
-    assert "Prefers Moe take action over explaining" in user_md(hermes_home)
+    assert "Prefers Alfie take action over explaining" in user_md(hermes_home)
     assert "Prefers I take" not in user_md(hermes_home)
 
 

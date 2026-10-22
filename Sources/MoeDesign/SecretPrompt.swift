@@ -205,14 +205,14 @@ public struct SecretRequest: Equatable {
     public var explanation: String {
         switch kind {
         case .login:
-            return "Type it here and Moe stores it without seeing it. It is only ever filled in on \(site)."
+            return "Type it here and Alfie stores it without seeing it. It is only ever filled in on \(site)."
         case .code:
             if isPasscode {
-                return "Type the passcode or PIN you use on \(site). Moe enters it for you without seeing it."
+                return "Type the passcode or PIN you use on \(site). Alfie enters it for you without seeing it."
             }
-            return "Type the code \(site) sent you. Moe enters it on \(site) for you."
+            return "Type the code \(site) sent you. Alfie enters it on \(site) for you."
         case .unlock:
-            return "The password for your password manager. Moe uses it to open your saved logins and never sees it."
+            return "The password for your password manager. Alfie uses it to open your saved logins and never sees it."
         }
     }
 

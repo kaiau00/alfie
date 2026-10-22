@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Everything Hermes can connect to — read from files, no network, no gateway.
 
-Moe's connections ARE Hermes's connections (CONNECTORS.md). This script is
+Alfie's connections ARE Hermes's connections (CONNECTORS.md). This script is
 the discovery half of that: it enumerates, from the Hermes checkout alone,
 
   * the MCP catalog      optional-mcps/<name>/manifest.yaml  (65+ servers)
@@ -285,8 +285,8 @@ def plain_blurb(text, limit=90):
         s = re.sub(pat, " ", s)
     # The engine's name is not one the person chose ("workflows from Hermes").
     # After the drops: the adapter boilerplate above names Hermes too.
-    s = re.sub(r"\bHermes Agent\b", "Moe", s)
-    s = re.sub(r"\bHermes\b", "Moe", s)
+    s = re.sub(r"\bHermes Agent\b", "Alfie", s)
+    s = re.sub(r"\bHermes\b", "Alfie", s)
     s = re.sub(r"\s+([,.;:])(?=\s|$)", r"\1", s)   # "Notion , pages" → "Notion, pages" (not ".NET")
     s = re.sub(r"([,;:])\s*([,;:.])", r"\2", s)    # ", ." → "."
     s = re.sub(r",?\s+(?:and|or)\s*([.;:])(?=\s|$)", r"\1", s)   # "environments, and." → "environments."
@@ -550,7 +550,7 @@ def platform_entries():
 # ── Output ────────────────────────────────────────────────────────────────
 
 def mac_entries():
-    """Moe's own rows. Nothing here is read from the Hermes checkout, so this
+    """Alfie's own rows. Nothing here is read from the Hermes checkout, so this
     is the one list that still answers when Hermes is not installed."""
     return [dict(e, blurb=plain_blurb(e["description"])) for e in MAC_NATIVE]
 
@@ -562,7 +562,7 @@ def composio_entries():
     other list here comes from the Hermes checkout, which is why this script
     can promise "no network, no gateway" — and that promise still holds for
     those, because this returns nothing at all unless a composio server is
-    configured, and Moe does not configure one unless the owner connected it.
+    configured, and Alfie does not configure one unless the owner connected it.
 
     The services are Composio's to name, never ours. A hard-coded list would
     freeze the catalogue at whatever we happened to type, which is exactly
@@ -745,7 +745,7 @@ def _composio_entry(slug, label, source, featured=True, auth_schemes=None, liste
     # paste", which is how you CONNECT — true, useful, and not what the
     # heading asked. Seen in a screenshot; no amount of reading JSON would
     # have shown it.
-    desc = "Moe can read and work with your %s, and change things when you ask." % label
+    desc = "Alfie can read and work with your %s, and change things when you ask." % label
     # "One sign-in, nothing to paste" is only true where Composio holds the
     # sign-in — 119 of the 1,378 (`featured`). For the rest the sign-in wants
     # a client id and secret the person would have to register themselves,
@@ -753,16 +753,16 @@ def _composio_entry(slug, label, source, featured=True, auth_schemes=None, liste
     # construction. So the sentence is dropped rather than repeated falsely
     # 1,259 times. Those services are still here and still searchable; the
     # pane just does not lead with them.
-    blurb = "Moe can read and work with your %s, and change things when you ask." % label
+    blurb = "Alfie can read and work with your %s, and change things when you ask." % label
     auth = composio_auth(featured, auth_schemes)
     if featured:
         blurb += " One sign-in, nothing to paste."
     elif auth == "none":
-        blurb = "Always on: Moe uses %s whenever you ask. Nothing to sign in to." % label
+        blurb = "Always on: Alfie uses %s whenever you ask. Nothing to sign in to." % label
     elif auth == "api-key":
         # Kept under 120 characters with the longest label the catalogue
         # carries; scripts/test-connections-ui.sh holds that line.
-        blurb = "Moe can work with your %s once you paste a key from its settings." % label
+        blurb = "Alfie can work with your %s once you paste a key from its settings." % label
     return {
         "kind": "composio",
         "name": slug,
@@ -817,10 +817,10 @@ def print_table(cat):
         print("  %-18s %-16s %s  [%s]" % (e["name"], e["auth"], e["description"], ", ".join(e["credentials"])))
     print()
     shown = [e for e in cat["platforms"] if e.get("shown")]
-    print("Chat apps Moe offers (%d)  — a token in ~/.hermes/.env" % len(shown))
+    print("Chat apps Alfie offers (%d)  — a token in ~/.hermes/.env" % len(shown))
     for e in shown:
         print("  %-18s %-28s %s" % (e["name"], e["label"], ", ".join(e["credentials"])))
-    print("Chat apps Hermes speaks but Moe does not list (%d)  — run by hand only"
+    print("Chat apps Hermes speaks but Alfie does not list (%d)  — run by hand only"
           % (len(cat["platforms"]) - len(shown)))
     for e in cat["platforms"]:
         if not e.get("shown"):

@@ -160,12 +160,12 @@ enum MemoryTab: String, CaseIterable {
     /// The one line under the heading.
     var subtitle: String {
         switch self {
-        case .you: return "What Moe believes about you. Click a line to change it."
-        case .people: return "The people in your life, as Moe knows them. Click a line to change it."
+        case .you: return "What Alfie believes about you. Click a line to change it."
+        case .people: return "The people in your life, as Alfie knows them. Click a line to change it."
         case .now: return "What is going on for you at the moment. Click a line to change it."
-        case .check: return "Moe isn't sure about these. Your answers set it straight."
-        case .chats: return "Notes Moe kept from your conversations. Click a line to change it."
-        case .past: return "Lines Moe no longer uses. Restore one to bring it back."
+        case .check: return "Alfie isn't sure about these. Your answers set it straight."
+        case .chats: return "Notes Alfie kept from your conversations. Click a line to change it."
+        case .past: return "Lines Alfie no longer uses. Restore one to bring it back."
         }
     }
 
@@ -197,7 +197,7 @@ enum MemoryTab: String, CaseIterable {
         switch self {
         case .people: return "Name — who they are to you"
         case .now: return "Something going on, e.g. Moving house in November"
-        default: return "Something Moe should know about you"
+        default: return "Something Alfie should know about you"
         }
     }
 }
@@ -299,7 +299,7 @@ enum MemoryReader {
             let byPerson = row["by_person"] as? Bool ?? false
             return MemoryLine(id: "revive:" + id, section: group == "you" ? .you : .things, text: text,
                               origin: .hermes(group: group),
-                              source: byPerson ? "You deleted this before" : "Moe had let this go",
+                              source: byPerson ? "You deleted this before" : "Alfie had let this go",
                               sureness: nil, ledgerID: id, revival: true)
         }
     }
@@ -415,7 +415,7 @@ enum MemoryReader {
             "messages": "Messages", "contacts": "Contacts", "reminders": "Reminders",
             "linkedin": "LinkedIn", "notion": "Notion", "discord": "Discord",
         ]
-        let name = names[source.lowercased()] ?? (source.isEmpty ? "Something you let Moe read"
+        let name = names[source.lowercased()] ?? (source.isEmpty ? "Something you let Alfie read"
                                                                   : source.prefix(1).uppercased() + source.dropFirst())
         let f = DateFormatter()
         f.dateFormat = "yyyy-MM-dd"
@@ -727,7 +727,7 @@ enum MemoryReader {
             return run(argv, python: py)
         }
         guard let script = profileScript(), let argv = command(edit, script: script)
-        else { return "Moe can't find the file it keeps this in." }
+        else { return "Alfie can't find the file it keeps this in." }
         return run(argv)
     }
 
@@ -875,10 +875,10 @@ extension MemoryReader {
                                      label: "These disagree"))
             case .contradicts, .question:
                 out.append(CheckCard(id: "q:" + c.text, kind: .question(c.text, about: about.first),
-                                     label: "Moe isn't sure"))
+                                     label: "Alfie isn't sure"))
             case .unsure, .new:
                 guard let l = about.first else { continue }
-                out.append(CheckCard(id: l.id, kind: .line(l), label: c.kind == .new ? "New" : "Moe isn't sure"))
+                out.append(CheckCard(id: l.id, kind: .line(l), label: c.kind == .new ? "New" : "Alfie isn't sure"))
             }
             about.forEach { seen.insert($0.id) }
         }
@@ -1029,7 +1029,7 @@ enum MemoryTalk {
 /// anything but its own links: a real file in the folder — an editor that
 /// saved over a link — is left for the person.
 enum MemoryFolder {
-    static let name = "What Moe knows"
+    static let name = "What Alfie knows"
 
     /// (name in the folder, where the real file lives relative to its home).
     /// Hermes's first, then the profile in the order the page reads.

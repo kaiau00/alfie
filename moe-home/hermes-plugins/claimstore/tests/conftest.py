@@ -60,7 +60,7 @@ def hermes_home(tmp_path, monkeypatch):
 @pytest.fixture
 def ledger_dir(tmp_path):
     """A ledger outside HERMES_HOME — which is the normal case, because the
-    ledger belongs to Moe and Hermes is one of several writers to it."""
+    ledger belongs to Alfie and Hermes is one of several writers to it."""
     return tmp_path / "moe" / "ledger"
 
 

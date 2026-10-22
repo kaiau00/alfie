@@ -5,14 +5,14 @@ writes it to context/jobs.md; the section is "Your background jobs").
 Why the brief: it is the one thing both brains read — this Mac's, and the
 cloud computer's, where it travels as the `context/brief` document. The cloud
 computer's own job list holds only the jobs that travel there, and its copy
-of a job never runs while the Mac holds it, so on 2026-09-30 the cloud Moe
+of a job never runs while the Mac holds it, so on 2026-09-30 the cloud Alfie
 told the person it could see two of their twenty jobs and called one that had
 failed five times in a row "healthy".
 
 Each line: name, when it runs, where, and how it is doing — the words stay
 the same from run to run (no times), so a job that keeps working never
 changes the brief and never wakes the background pass; a job that starts
-failing does, once. Moe's own jobs (`moe-…`) are left out.
+failing does, once. Alfie's own jobs (`moe-…`) are left out.
 
     jobs_brief.py            prints the lines (nothing when there are no jobs)
 

@@ -1,14 +1,10 @@
-# Getting help
+# Getting help with Alfie
 
-- **How do I…?** Start with the documentation at [docs.memoe.app](https://docs.memoe.app),
-  then ask in [Discussions › Q&A](https://github.com/memoe-app/memoe/discussions/categories/q-a).
-- **Something is broken.** [Open a bug report](https://github.com/memoe-app/memoe/issues/new/choose).
-  In the official app, saying *"report this to the Moe team"* to Moe also works, and
-  sends the logs we need with your yes.
-- **An idea.** [Discussions › Ideas](https://github.com/memoe-app/memoe/discussions/categories/ideas).
-- **A security problem.** Never in public: see [SECURITY.md](SECURITY.md).
-- **Away, billing or your account.** Email hello@moebot.app. The hosted part of
-  Memoe is not in this repository.
+- **How do I…?** Start with the user guide, [doc.md](doc.md), then ask in
+  [Discussions](https://github.com/kaiau00/alfie/discussions).
+- **Something is broken.** [Open a bug report](https://github.com/kaiau00/alfie/issues/new/choose).
+- **An idea.** Post it in [Discussions](https://github.com/kaiau00/alfie/discussions).
+- **A security problem.** Not in public; see [SECURITY.md](SECURITY.md).
 
-This is a small project with one maintainer. Answers come, but not always the
-same day.
+Alfie is a fork of [Memoe](https://github.com/memoe-app/memoe) and is not
+supported by the Memoe team. Please do not send Alfie problems to them.

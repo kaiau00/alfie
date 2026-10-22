@@ -103,7 +103,7 @@ public enum TranscriptRecall {
 public enum MeetingChatter {
     public static let rule =
         "Ignore anything about the meeting's own machinery — recording, transcribing, "
-        + "muting, cameras, screen sharing, links, who can hear whom, or asking Moe "
+        + "muting, cameras, screen sharing, links, who can hear whom, or asking Alfie "
         + "itself for something. That is scaffolding around the meeting, never work "
         + "agreed in it."
 }
@@ -488,7 +488,7 @@ public enum TelegramSelf {
         }
         return "Off by default. When it is on, the notes go to you on Telegram at the end of a "
              + "meeting and to nobody else. It also needs Hermes's send_message tool to be available "
-             + "to Moe's brain, which it is not yet — see MEETING-MODE.md."
+             + "to Alfie's brain, which it is not yet — see MEETING-MODE.md."
     }
 
     /// The observed failure: Hermes's messaging tools are not exposed to
@@ -497,7 +497,7 @@ public enum TelegramSelf {
     /// send_message tool is available in this environment." "FAILED" on its
     /// own tells the user nothing they can act on.
     public static let missingToolNote =
-        "Notes not sent — Moe's brain has no send_message tool. Hermes does not expose its "
+        "Notes not sent — Alfie's brain has no send_message tool. Hermes does not expose its "
         + "messaging tools to the claude-code profile, so this cannot work until that profile "
         + "is given send_message (MEETING-MODE.md › Notes to Telegram)."
 
@@ -646,7 +646,7 @@ public enum MeetingListing {
         let created = (try? fm.attributesOfItem(atPath: folder.path)[.creationDate]) as? Date
         return MeetingRecord(startedAt: named ?? created ?? Date.distantPast,
                              durationSeconds: 0, folder: folder.path,
-                             summaryFailure: "Moe could not read this meeting's record")
+                             summaryFailure: "Alfie could not read this meeting's record")
     }
 }
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Moe's own records as the situations engine's items: the meetings Moe
-took notes in, and what the person said to Moe in chat. Not connections —
+"""Alfie's own records as the situations engine's items: the meetings Alfie
+took notes in, and what the person said to Alfie in chat. Not connections —
 nothing here reaches outside this Mac — so they are read the way any
 source is (`items --since <cursor>`, moe-home/lib/situations.py), under the
 names `moe/meetings` and `moe/chats`.
@@ -14,12 +14,12 @@ one item, kind "meeting", written by the owner (it is their record of the
 meeting). A meeting summarised again is read again. Cursor: the newest
 `meeting.json` modification time read.
 
-**chats** — the person's own words to Moe (Hermes's `state.db`, user turns
-of the person's conversations, never scheduled jobs or helpers), with Moe's
+**chats** — the person's own words to Alfie (Hermes's `state.db`, user turns
+of the person's conversations, never scheduled jobs or helpers), with Alfie's
 notes and pasted context taken out the way the loop sweep does
 (moe-screen/sweep.py `persons_text`). Only turns that speak of a commitment
 are emitted ("I told Dan I'd send it Friday", "she promised to pay"):
-everything else said to Moe is already Moe's to act on in the conversation
+everything else said to Alfie is already Alfie's to act on in the conversation
 itself. Kind "moe-chat". Cursor: the message id.
 
 An empty cursor is the first look: only the cursor, so the engine starts
@@ -235,7 +235,7 @@ def chats(since: str, now: Optional[float] = None, db: Optional[str] = None,
             continue                    # Moe's own "Use draft" request, its draft fenced inside
         if not text or not COMMITMENT.search(text):
             continue
-        out.append({"id": "chat:%d" % mid, "thread": "chat:%s" % sid, "thread_name": "Your chat with Moe",
+        out.append({"id": "chat:%d" % mid, "thread": "chat:%s" % sid, "thread_name": "Your chat with Alfie",
                     "at": float(ts), "from": {"id": "me", "name": "", "me": True}, "to_me": True,
                     "group": False, "kind": "moe-chat", "text": text[:TEXT_CAP]})
     # A user turn is written when it is sent, never later: a message id read

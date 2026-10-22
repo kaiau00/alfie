@@ -306,7 +306,7 @@ public enum PanelReveal: String, Sendable, Codable, CaseIterable {
     public var label: String {
         switch self {
         case .always: return "Always"
-        case .silent: return "Only when Moe stays quiet"
+        case .silent: return "Only when Alfie stays quiet"
         case .never:  return "Never"
         }
     }

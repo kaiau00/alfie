@@ -57,8 +57,8 @@ if [ -z "$BIN" ]; then   # BARE_CHECK
 fi
 # The name Hermes is pointed at, in a directory with a space in it, as the
 # app's own is ("Memoe Dev.app").
-mkdir -p "$S/Memoe Dev.app/Contents/MacOS"
-LINK="$S/Memoe Dev.app/Contents/MacOS/moe-secret"
+mkdir -p "$S/Alfie Dev.app/Contents/MacOS"
+LINK="$S/Alfie Dev.app/Contents/MacOS/moe-secret"
 ln -s "$BIN" "$LINK"   # BARE_CHECK: a link, not a launch
 
 LOGIN='{"kind":"login","origin":"https://www.fazier.com/login","label":"Fazier","username":"izzy.private@example.com","fields":["username","password"]}'
@@ -91,7 +91,7 @@ out="$(printf '%s' "$LOGIN" | MOE_SECRET_TIMEOUT_FOR_TESTS=1 secret --wait-test 
 # process is still there after a second.
 ( printf '%s' "$LOGIN" | MOE_SECRET_TIMEOUT_FOR_TESTS=99999 secret --wait-test >"$S/out4" 2>/dev/null ) & W=$!; PIDS+=("$W")
 sleep 1.5
-W_PID="$(pgrep -f "$S/Memoe Dev.app/Contents/MacOS/moe-secret --wait-test" | head -1)"
+W_PID="$(pgrep -f "$S/Alfie Dev.app/Contents/MacOS/moe-secret --wait-test" | head -1)"
 [ -n "$W_PID" ] && ok "a longer test timeout is ignored — still waiting" || fail "the window left early"
 
 # 4. SIGTERM is a cancel.

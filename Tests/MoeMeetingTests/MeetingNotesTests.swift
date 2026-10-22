@@ -125,7 +125,7 @@ struct MeetingIntentTests {
     @Test func exactStartPhrases() {
         #expect(MeetingIntent.match("start a meeting") == .start)
         #expect(MeetingIntent.match("Start recording the meeting.") == .start)
-        #expect(MeetingIntent.match("Hey Moe, start a meeting") == .start)
+        #expect(MeetingIntent.match("Hey Alfie, start a meeting") == .start)
         #expect(MeetingIntent.match("moe please start the meeting now") == .start)
     }
 
@@ -152,7 +152,7 @@ struct MeetingIntentTests {
                   "remind me to start the meeting at three",
                   "did you start the meeting",
                   "start a meeting, actually no",
-                  "hey moe, what time does the meeting start",
+                  "hey alfie, what time does the meeting start",
                   "let's not stop the meeting yet",
                   "stop recording my screen",
                   "the meeting can start",
@@ -175,7 +175,7 @@ struct MeetingIntentTests {
                   "capture this meeting",
                   "kick off the meeting",
                   "could you please start taking notes now",
-                  "hey moe, take notes for this meeting",
+                  "hey alfie, take notes for this meeting",
                   "I want to record this session"] {
             #expect(MeetingIntent.match(s) == .start, "\(s)")
         }

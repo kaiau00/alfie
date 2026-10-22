@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Unpack LiveKit's eot-bench (English) into files `Moe --turn-bench` reads.
+"""Unpack LiveKit's eot-bench (English) into files `Alfie --turn-bench` reads.
 
 The data: https://huggingface.co/datasets/livekit/eot-bench-data — 400 real
 English user turns, 16 kHz mono, with word timings and the silence spans

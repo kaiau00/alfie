@@ -1,8 +1,8 @@
 ---
 name: humanizer
-description: "Rewrite AI-sounding text so it reads like the person, without changing what it says. Use when the person asks for a draft to sound like them, less like a chatbot, more natural or more human; when reviewing prose for AI tells (not-X-but-Y contrasts, one-line closers, staged openers, forced triads, dashes everywhere, inflated claims, sales language, stock AI words, bold labels, filler); or when they say a message Moe wrote reads as AI-written. Based on Wikipedia's 'Signs of AI writing'. Needs no command and no connection."
+description: "Rewrite AI-sounding text so it reads like the person, without changing what it says. Use when the person asks for a draft to sound like them, less like a chatbot, more natural or more human; when reviewing prose for AI tells (not-X-but-Y contrasts, one-line closers, staged openers, forced triads, dashes everywhere, inflated claims, sales language, stock AI words, bold labels, filler); or when they say a message Alfie wrote reads as AI-written. Based on Wikipedia's 'Signs of AI writing'. Needs no command and no connection."
 version: 3.0.0
-author: blader (github.com/blader), vendored by Moe
+author: blader (github.com/blader), vendored by Alfie
 license: MIT
 metadata:
   hermes:
@@ -18,7 +18,7 @@ metadata:
 Vendored from https://github.com/blader/humanizer (MIT), SKILL.md at commit
 9862685f575c65a8247f90369951df1b3416e3d6. Everything below this comment is the
 upstream body, verbatim, so that a later refresh is a diff against upstream
-and not a merge. Moe-specific wording lives in the frontmatter only.
+and not a merge. Alfie-specific wording lives in the frontmatter only.
 To refresh: replace the body, bump `version` and `metadata.source.commit`.
 -->
 

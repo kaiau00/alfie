@@ -1,6 +1,6 @@
 """`moe`: the Mac's screen as a Hermes gateway platform.
 
-Outbound only. Nothing ever arrives FROM this platform — Moe talks to Hermes
+Outbound only. Nothing ever arrives FROM this platform — Alfie talks to Hermes
 over the api_server — so there is no stream to subscribe to, no message
 handler, no user identity. What the adapter has is a `send()`, and that is
 what makes `deliver: moe` a real cron target: the scheduler resolves the
@@ -16,7 +16,7 @@ reaches it, the dashboard lists it, and a job's `last_delivery_error` says
 so if it failed.
 
 The second thing registered here is a `pre_tool_call` hook on the `cronjob`
-tool. A job created from a Moe conversation records an origin of
+tool. A job created from an Alfie conversation records an origin of
 `api_server:<session id>`, and the api_server adapter's `send()` is a stub
 that returns "API server uses HTTP request/response, not send()". Measured
 2026-09-02 on a one-shot reminder: ran on time, reply produced, three
@@ -417,7 +417,7 @@ def owner_routed(tokens, no_send_path, words=None, origin_app=None):
       reminders made from Telegram on 2026-10-06 ran on the Mac and failed
       "platform 'telegram' not configured/enabled", reaching the person only
       because the cloud computer won the same occurrence;
-    * a BARE chat-app name Memoe's cloud carries — ``telegram``, ``whatsapp``,
+    * a BARE chat-app name Alfie's cloud carries — ``telegram``, ``whatsapp``,
       ``slack``, ``discord``, ``line`` — is ``moe``: the owner, routed where
       they are when it fires (`deliver.reach_owner`'s rule). Left bare, Hermes
       resolves it to whatever that platform's home channel happens to be, and
@@ -452,7 +452,7 @@ def owner_routed(tokens, no_send_path, words=None, origin_app=None):
 
 
 def rewrite_cron_deliver(tool_name=None, args=None, **kwargs):
-    """pre_tool_call: point a Moe-made job somewhere that can be reached.
+    """pre_tool_call: point an Alfie-made job somewhere that can be reached.
 
     Only the `cronjob` tool, only `create` (an `update` with no `deliver`
     means "leave it", and must), and only when the target is the origin —
@@ -468,7 +468,7 @@ def rewrite_cron_deliver(tool_name=None, args=None, **kwargs):
 
     The second thing it does, on `create` only: a job the person asked for in
     a conversation runs on the conversation's model. Hermes's `cron.model` is
-    the fleet's cheap default, and Moe sets it to the provider's cheapest
+    the fleet's cheap default, and Alfie sets it to the provider's cheapest
     model so its own nudges never cost the plan (docs/DEFAULTS.md row 43).
     A job like "sign in to my X and follow two dozen accounts" is not a
     nudge; it acts in the person's name, and on 2026-09-18 it ran on haiku
@@ -522,7 +522,7 @@ def rewrite_cron_deliver(tool_name=None, args=None, **kwargs):
 def register(ctx) -> None:
     ctx.register_platform(
         name=_deliver.PLATFORM,
-        label="Moe on this Mac",
+        label="Alfie on this Mac",
         adapter_factory=lambda cfg: MoeScreenAdapter(cfg),
         check_fn=check_requirements,
         validate_config=validate_config,

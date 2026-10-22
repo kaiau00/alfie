@@ -106,7 +106,7 @@ class CheckListTest(Base):
 class SeedIsNotNewTest(Base):
     def test_first_seed_flags_nothing_and_the_next_run_flags_only_its_additions(self):
         self.merge_claims([{"file": "identity", "text": "Lives in Monroe", "date": "2026-08-20", "confidence": "high"},
-                           {"file": "identity", "text": "Builds Moe, a Mac assistant", "date": "2026-08-25",
+                           {"file": "identity", "text": "Builds Alfie, a Mac assistant", "date": "2026-08-25",
                             "confidence": "high"}])
         stats = cons.consolidate(Store(self.profile), use_llm=False)
         self.assertTrue(stats.get("seed"))
@@ -125,7 +125,7 @@ class SeedIsNotNewTest(Base):
         self.merge_claims([{"file": "identity", "text": "Lives in Monroe", "date": "2026-08-20",
                             "confidence": "high"}])
         os.environ["MOE_TODAY"] = "2026-08-31"   # the same learn run, after midnight
-        self.merge_claims([{"file": "identity", "text": "Builds Moe, a Mac assistant", "date": "2026-08-25",
+        self.merge_claims([{"file": "identity", "text": "Builds Alfie, a Mac assistant", "date": "2026-08-25",
                             "confidence": "high"}], source="gmail")
         cons.consolidate(Store(self.profile), use_llm=False)
         self.assertEqual(self.flags(), {})
@@ -157,11 +157,11 @@ class SeedIsNotNewTest(Base):
 class SummaryTest(Base):
     def profile_with_events(self):
         store = Store(self.profile)
-        store.write("identity", [C("identity", "Builds Moe, a Mac assistant"), C("identity", "Lives in Monroe"),
+        store.write("identity", [C("identity", "Builds Alfie, a Mac assistant"), C("identity", "Lives in Monroe"),
                                  C("identity", "Was testing a Telegram bot named Otto")])
         store.write("threads", [
             C("threads", "Trip to Thailand", kind="event", occurred_start="2026-10-20", occurred_end="2026-12-20"),
-            C("threads", "Moe launch", kind="event", occurred_start="2026-09-15"),
+            C("threads", "Alfie launch", kind="event", occurred_start="2026-09-15"),
             C("threads", "Wedding in Brooklyn", kind="event", occurred_start="2026-09-05"),
             C("threads", "Conference in Austin", kind="event", occurred_start="2026-11-02"),
             C("threads", "Handling a costly mistake by Modche", kind="event", date="2026-08-28"),
@@ -175,11 +175,11 @@ class SummaryTest(Base):
         store = self.profile_with_events()
         cons.consolidate(store, use_llm=False)
         s = store.summary()
-        self.assertIn("Builds Moe", s)
+        self.assertIn("Builds Alfie", s)
         self.assertIn("Runs Project Atlas", s)
         for gone in ("Was testing", "costly mistake", "Wrapped up", "Just finished"):
             self.assertNotIn(gone, s)
-        events = [e for e in ("Thailand", "Moe launch", "Wedding", "Austin") if e in s]
+        events = [e for e in ("Thailand", "Alfie launch", "Wedding", "Austin") if e in s]
         self.assertEqual(len(events), 3, s)
         self.assertNotIn("Austin", s, "the latest-starting of four upcoming events is left out")
 
@@ -189,7 +189,7 @@ class SummaryTest(Base):
 
         def chat(system, user, key, **kw):
             seen["user"], seen["system"] = user, system
-            return json.dumps({"summary": ["Builds Moe, a Mac assistant", "Lives in Monroe",
+            return json.dumps({"summary": ["Builds Alfie, a Mac assistant", "Lives in Monroe",
                                            "Was testing a Telegram bot named Otto",
                                            "Recently returned from a trip"], "check": []})
         cons.consolidate(store, use_llm=True, chat=chat)
@@ -234,7 +234,7 @@ class CardLinesTest(Base):
         for t in ("Was testing a bot", "Recently moved offices", "Just wrapped up the season",
                   "returned from seminary", "friend, as of September 2026", "was shopping for a car"):
             self.assertTrue(profile.eventish(t), t)
-        for t in ("Builds Moe, a Mac assistant", "Moved to Jerusalem in 2026-03", "**Dani** — sister; talks daily",
+        for t in ("Builds Alfie, a Mac assistant", "Moved to Jerusalem in 2026-03", "**Dani** — sister; talks daily",
                   "Lives in Monroe", "Prefers the terminal"):
             self.assertFalse(profile.eventish(t), t)
 

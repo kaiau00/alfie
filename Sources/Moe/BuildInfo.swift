@@ -26,7 +26,7 @@ enum BuildInfo {
     static func run() -> Int32 {
         var problems: [String] = []
 
-        print("Moe " + version() + "  (build " + build() + ")")
+        print("Alfie " + version() + "  (build " + build() + ")")
         print("  binary   \(Bundle.main.executablePath ?? CommandLine.arguments[0])")
         print("  built    \(binaryDate())")
         print("  bundle   \(Bundle.main.bundleURL.path)")
@@ -295,7 +295,7 @@ enum BuildInfo {
     /// on its row in System Settings › Privacy & Security. Hermes words its
     /// fixable errors with it (`HERMES_HOST_APP_NAME`), and the Fix card
     /// names it, so both say the row the person is about to look for.
-    static var hostAppName: String { isDev ? "Memoe Dev" : "Memoe" }
+    static var hostAppName: String { isDev ? "Alfie Dev" : "Alfie" }
 
     /// The checkout to compare against: this machine's copy of the project,
     /// if it has one. A worktree is fine — they share the same history.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""seed-memory.py: reading distil digests, the Moe-side scrub, the confidence
+"""seed-memory.py: reading distil digests, the Alfie-side scrub, the confidence
 floor, source-aware topic dedup, field sanitisation + fencing, the idempotence
 ledger, memory-headroom awareness, and batched hand-off with per-batch error
 isolation. Hermes is never called — the chat function is injected.

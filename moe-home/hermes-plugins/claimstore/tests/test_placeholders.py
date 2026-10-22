@@ -29,10 +29,10 @@ SHIPPED_LABELS = (
     "Where I am / timezone:",
     "Family and the people I talk about most:",
     "What I'm working on right now:",
-    "What I want Moe to handle for me:",
+    "What I want Alfie to handle for me:",
 )
 REAL = (
-    "Launching Moe: personal assistant for Mac that you speak to instead of typing.",
+    "Launching Alfie: personal assistant for Mac that you speak to instead of typing.",
     "Prefers I take action over explaining: wants me to say what I'm doing once, then get to work.",
 )
 

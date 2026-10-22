@@ -66,8 +66,8 @@ public struct BrainCapabilities: Equatable, Codable, Sendable {
     /// A caption for whatever is definitely missing; nil when nothing is.
     public var missingCaption: String? {
         var lines: [String] = []
-        if vision == .no { lines.append("This model can't see images, so Moe won't attach your screen.") }
-        if tools == .no { lines.append("No tool calling: Moe can talk but not act.") }
+        if vision == .no { lines.append("This model can't see images, so Alfie won't attach your screen.") }
+        if tools == .no { lines.append("No tool calling: Alfie can talk but not act.") }
         return lines.isEmpty ? nil : lines.joined(separator: " ")
     }
 }

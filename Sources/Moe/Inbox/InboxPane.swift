@@ -142,7 +142,7 @@ struct InboxPane: View {
                 LazyVStack(alignment: .leading, spacing: 2) {
                     tickBar
                     if waiting.isEmpty {
-                        Text(filter == .all ? "Nothing waiting. When Moe brings something up, it lands here."
+                        Text(filter == .all ? "Nothing waiting. When Alfie brings something up, it lands here."
                                             : "Nothing waiting here.")
                             .font(Theme.Typo.ui(12.5))
                             .foregroundStyle(Theme.ink3)

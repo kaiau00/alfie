@@ -21,7 +21,7 @@ talks to a model:
 
 Why the fan-out lives in the delivery target and not in each job's
 ``deliver`` string: a job's target is fixed when the job is made, and the
-user changes their mind in Settings. Every Moe-made job says ``deliver:
+user changes their mind in Settings. Every Alfie-made job says ``deliver:
 moe``; what ``moe`` means is read at delivery time, so flipping a switch in
 Settings takes effect on the next reminder without touching any job.
 
@@ -268,10 +268,10 @@ def _reads_as_a_sentence(head):
 
 
 def not_moes_words(text):
-    """The shape that fails, or None when this reads as something Moe said.
+    """The shape that fails, or None when this reads as something Alfie said.
 
-    The rule a channel adapter is held to: whatever reaches a person is Moe's
-    answer, and at most a short line in Moe's own voice. A tool id, a plug-in
+    The rule a channel adapter is held to: whatever reaches a person is Alfie's
+    answer, and at most a short line in Alfie's own voice. A tool id, a plug-in
     directory, a slash command or a loop counter is none of those, whoever
     generated it and whichever release adds the next one.
 
@@ -349,9 +349,9 @@ def _narrates_itself(head):
 
 
 def is_machinery(text):
-    """True when this is Moe's plumbing talking, not a message for a person.
+    """True when this is Alfie's plumbing talking, not a message for a person.
 
-    Not "any failure except the real ones" — every one of them. Moe is not a
+    Not "any failure except the real ones" — every one of them. Alfie is not a
     technical product, and there is no such thing as one of these written in
     a form a person can act on. Every one is an exit code, a traceback, a
     stderr tail, a slash command, a config key, or advice to run `hermes`:
@@ -374,7 +374,7 @@ def is_machinery(text):
     place someone chooses to go, not an amber light in the middle of their
     morning, and `note_machinery` writes the raw text to the log.
 
-    A failure a person really should hear about has to be said in Moe's own
+    A failure a person really should hear about has to be said in Alfie's own
     voice by whatever knows what it means. It cannot be Hermes's sentence
     with the emoji taken off."""
     if not isinstance(text, str):
@@ -477,7 +477,7 @@ def clean(text):
 
     Hermes wraps cron output in a "Cronjob Response: <name>" header and a
     "To stop or manage this job" footer unless ``cron.wrap_response`` is
-    off. Moe turns that off, but a job created before it was, or on a
+    off. Alfie turns that off, but a job created before it was, or on a
     machine where someone turned it back on, would otherwise be read aloud
     header first. The truncation footer names a file path; nobody wants
     that spoken either."""
@@ -1063,7 +1063,7 @@ def _write_closed(kept):
 def _tombstone(slug, now, until=""):
     """Remember that this loop is over, and for how long it stays over.
 
-    Expiry writes here with no `until` — Moe has said this four times and
+    Expiry writes here with no `until` — Alfie has said this four times and
     is letting go, and MAX_AGE_DAYS later the same mail may legitimately
     start it again. A deliberate `moe-close` never writes here at all:
     closing is "the person dealt with it", and something genuinely dealt
@@ -1531,7 +1531,7 @@ _MOE_JOB_PREFIX = "moe-"
 
 
 def is_moe_job(job):
-    """True when this is one of Moe's own background jobs rather than a
+    """True when this is one of Alfie's own background jobs rather than a
     reminder the person asked for. See `_MOE_JOB_PREFIX`."""
     return str(job or "").strip().lower().startswith(_MOE_JOB_PREFIX)
 
@@ -1647,7 +1647,7 @@ def _prune_said(rows, now):
 
 
 def note_said(text, job="", job_id="", loops=(), to=(), now=None, rec_id="", note=""):
-    """Write down that Moe said this unprompted. Returns the record id, or
+    """Write down that Alfie said this unprompted. Returns the record id, or
     "" when nothing was written.
 
     Called from `deliver()` AFTER the delivery, with the surfaces that
@@ -1655,7 +1655,7 @@ def note_said(text, job="", job_id="", loops=(), to=(), now=None, rec_id="", not
     scrubbed and trailer-free. Both halves of that are load-bearing: a
     record spooled before the sending would offer "you sent them this and
     they have not answered it" about a sentence a failed `hermes send`
-    meant they never saw, which is the "Moe brings something up out of
+    meant they never saw, which is the "Alfie brings something up out of
     nowhere" failure this file exists to prevent.
 
     `to` is therefore never assumed. A record with an empty one is offered
@@ -1695,7 +1695,7 @@ def note_said(text, job="", job_id="", loops=(), to=(), now=None, rec_id="", not
 
 
 def unanswered(surface="", now=None):
-    """The newest thing Moe said unprompted on `surface` that nobody has
+    """The newest thing Alfie said unprompted on `surface` that nobody has
     answered yet, or None.
 
     `surface` is a platform name (`telegram`) or `screen` for this Mac's
@@ -1733,7 +1733,7 @@ def mark_answered(rec_id, surface="", now=None):
 
     ONCE, and on the first message after it, whichever surface that is.
     Attaching the same sentence to every message for twelve hours is how a
-    helpful note becomes Moe bringing up Eli's laptop in the middle of
+    helpful note becomes Alfie bringing up Eli's laptop in the middle of
     something else. Never raises."""
     if not rec_id:
         return False
@@ -2462,7 +2462,7 @@ def _drop_loop(slug, now=None, mute=False):
 
 def snooze_loop(slug, when, now=None):
     """"Not now — tomorrow." Moves the raise time and does NOT count a
-    mention: the person deferring something is not Moe nagging them, and
+    mention: the person deferring something is not Alfie nagging them, and
     charging them a mention for it would use the loop up in four asks.
 
     `when` is anything `parse_raise` reads, and its floor and ceiling
@@ -2680,7 +2680,7 @@ def has_screen():
 
     `moe` does not mean "the island". It means "reach the person, wherever
     they are", and on this Mac that is the island plus whatever chats they
-    ticked. The same Moe runs on a cloud machine with no screen, where an
+    ticked. The same Alfie runs on a cloud machine with no screen, where an
     inbox file is a message nobody will ever read — and, worse, a delivery
     that counts as having succeeded.
 
@@ -2739,7 +2739,7 @@ def write_inbox(text, source="", job="", chat_id=SCREEN, said="",
 
     `kind` says what the app should do with it. Unset (every reminder) is a
     nudge on the island. "turn" is a finished helper's result — the app runs
-    a turn on it so Moe can say the outcome in its own words, rather than
+    a turn on it so Alfie can say the outcome in its own words, rather than
     reading the raw result aloud (see completions.py).
 
     Atomic (tmp + rename) so the poller never reads half a file, and 0600
@@ -3117,7 +3117,7 @@ def owner_edge():
     Read off disk, because a tool runs in a process whose environment has the
     gateway's own secrets stripped (the claude-code child's MCP server gets no
     GATEWAY_RELAY_SECRET). The Mac's vault is ``$MOE_HOME/cloud`` and its edge
-    is ``cloudEdge`` in Moe's config; the away machine's are
+    is ``cloudEdge`` in Alfie's config; the away machine's are
     ``$HERMES_HOME/moe`` and ``MOE_EDGE_URL`` / ``edge.json`` — the same places
     `ran.machine_credential` and `channels.py` read."""
     hermes = os.environ.get("HERMES_HOME") or os.path.expanduser("~/.hermes")
@@ -3183,7 +3183,7 @@ def notify_edge(text, urgency="normal", channel="", strict=False, key="", channe
     base, bearer = edge if edge is not None else owner_edge()
     if not base or not bearer:
         return {"delivered": False, "unconfigured": True,
-                "error": "this Mac is not signed in to Memoe's cloud"}
+                "error": "this Mac is not signed in to Alfie's cloud"}
     body = {"text": str(text)[:MAX_CHARS], "urgency": urgency if urgency in URGENCIES else "normal",
             "idempotency_key": key or uuid.uuid4().hex}
     if channels:
@@ -3204,8 +3204,8 @@ def notify_edge(text, urgency="normal", channel="", strict=False, key="", channe
         except (ValueError, OSError, AttributeError):
             detail = None
         if e.code == 404:
-            detail = "this Memoe cloud does not have owner notify yet (404)"
-        out = {"delivered": False, "error": "Memoe's cloud refused (%d): %s"
+            detail = "this Alfie cloud does not have owner notify yet (404)"
+        out = {"delivered": False, "error": "Alfie's cloud refused (%d): %s"
                % (e.code, detail or e.reason)}
         if e.code == 429:
             out["limited"] = True
@@ -3213,18 +3213,18 @@ def notify_edge(text, urgency="normal", channel="", strict=False, key="", channe
     except (urllib.error.URLError, OSError, ValueError) as e:
         if _timed_out(e):
             return {"delivered": None, "maybe": True,
-                    "error": "Memoe's cloud did not answer within %ds, so it may have been "
+                    "error": "Alfie's cloud did not answer within %ds, so it may have been "
                              "delivered — not sending it again" % timeout}
-        return {"delivered": False, "error": "could not reach Memoe's cloud: %s"
+        return {"delivered": False, "error": "could not reach Alfie's cloud: %s"
                 % (getattr(e, "reason", None) or type(e).__name__)}
     if not isinstance(doc, dict):
-        return {"delivered": False, "error": "Memoe's cloud answered something that is not a result"}
+        return {"delivered": False, "error": "Alfie's cloud answered something that is not a result"}
     if doc.get("delivered") is None and doc.get("duplicate"):
         doc["maybe"] = True
         doc.setdefault("error", "it is still being sent — not sending it again")
     doc.setdefault("delivered", False)
     if doc["delivered"] is False and not doc.get("error"):
-        doc["error"] = "Memoe's cloud reached none of the owner's chats"
+        doc["error"] = "Alfie's cloud reached none of the owner's chats"
     return doc
 
 
@@ -3384,7 +3384,7 @@ OWNER_STATUS_PATH = "/v1/owner/status"
 
 
 def owner_channels(now_s=None, edge=None):
-    """The chat apps Memoe's cloud can reach the owner on, or None when that
+    """The chat apps Alfie's cloud can reach the owner on, or None when that
     cannot be known (not signed in, never asked, cloud unreachable). A
     positive answer is cached for `OWNER_REACH_FRESH_S` (the app writes it
     too, the moment it sees a chat confirmed); "none" never is. So a forward
@@ -3501,7 +3501,7 @@ def fan_out(text, channels, run=None, skip=(), notify=None, direct=None, key=Non
             outcome=None, known=None):
     """Forward `text` to the owner on each named chat app.
 
-    Each name is a CHANNEL, never an address. The ones Memoe's cloud can reach
+    Each name is a CHANNEL, never an address. The ones Alfie's cloud can reach
     the owner on (`owner_channels`, cached; `known` for a caller that already
     asked) go in ONE request, under ONE key for this message, to the owner's
     own chat on each; the rest go through this Mac's own `hermes send`
@@ -3560,7 +3560,7 @@ def fan_out(text, channels, run=None, skip=(), notify=None, direct=None, key=Non
         if name not in on_cloud or cloud.get("unconfigured"):
             errors[name] = err
         else:
-            errors[name] = "%s (and Memoe's cloud: %s)" % (err, cloud.get("error"))
+            errors[name] = "%s (and Alfie's cloud: %s)" % (err, cloud.get("error"))
     if not cloud.get("maybe"):
         _remember_result(key, {"done": True, "errors": errors})
     return errors
@@ -3628,7 +3628,7 @@ def reach_owner(text, urgency="normal", channel="", now=None, cfg=None, run=None
                     write_inbox(body, source=source)
                 return {"ok": False, "channel": "inbox" if has_screen() else "",
                         "via": "limited", "tried": {},
-                        "detail": "Not sent to their phone: Moe has already messaged them %s "
+                        "detail": "Not sent to their phone: Alfie has already messaged them %s "
                                   "(this Mac's limit). It is in their inbox instead — say so."
                                   % why_not}
         tried = {}
@@ -3638,7 +3638,7 @@ def reach_owner(text, urgency="normal", channel="", now=None, cfg=None, run=None
             # The cloud has no owner chat for them: asking it would cost the
             # account's allowance and reach nobody. Straight to this Mac's own.
             cloud = {"delivered": False, "error": "their own chat is not confirmed with "
-                     "Memoe (Connections › Telegram › Confirm it's you)"}
+                     "Alfie (Connections › Telegram › Confirm it's you)"}
         else:
             cloud = notify(body, urgency=urgency, channel=name, strict=False, key=key)
             if not cloud.get("unconfigured"):
@@ -3650,7 +3650,7 @@ def reach_owner(text, urgency="normal", channel="", now=None, cfg=None, run=None
             note_said(body, to=tuple(cloud.get("channels") or [went]), now=now)
             also = [c for c in (cloud.get("channels") or []) if c != went]
             out = {"ok": True, "channel": went, "via": "memoe", "tried": tried,
-                   "detail": "Sent to them on %s%s, through Memoe's own bot.%s"
+                   "detail": "Sent to them on %s%s, through Alfie's own bot.%s"
                              % (went, (" and " + ", ".join(also)) if also else "", note)}
             _remember_result(key, out)
             return out
@@ -3670,8 +3670,8 @@ def reach_owner(text, urgency="normal", channel="", now=None, cfg=None, run=None
             ticked = extra_channels(cfg)
             for c in ([name] if name else ticked):
                 if c not in ticked:
-                    tried[c] = ("not set up for Moe to reach them (confirm their chat through "
-                                "Memoe, or tick it in Settings › Background)")
+                    tried[c] = ("not set up for Alfie to reach them (confirm their chat through "
+                                "Alfie, or tick it in Settings › Background)")
                     continue
                 if not counted:
                     _count_send(urgency)
@@ -3961,7 +3961,7 @@ def deliver(text, source="", job="", job_id="", chat_id=SCREEN, cfg=None,
     if loops and reached:
         # The sentence itself goes into each loop's history, so the next
         # raise knows what was said last time and can say something else.
-        note_history(loops, "Moe said: %s" % text, now=now)
+        note_history(loops, "Alfie said: %s" % text, now=now)
     if maybe and not reached:
         # Possibly in front of them already; holding it too would say it twice.
         return True, maybe

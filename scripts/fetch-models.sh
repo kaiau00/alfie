@@ -23,7 +23,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 ROOT=$PWD
 DEST="$ROOT/Models"
-APP_BIN="$ROOT/dist/Memoe.app/Contents/MacOS/Moe"
+APP_BIN="$ROOT/dist/Alfie.app/Contents/MacOS/Moe"
 
 # The two cache roots FluidAudio uses, and which models land in each. Measured,
 # not assumed: the recognisers go to Application Support and the voices to
@@ -68,7 +68,7 @@ for m in $CACHE_MODELS;       do [ -d "$CACHE/$m" ]       || need_fetch=1; done
 
 if [ "$need_fetch" = 1 ]; then
   if [ ! -x "$APP_BIN" ]; then
-    echo "✗ need dist/Memoe.app to fetch the models — run ./build.sh first" >&2
+    echo "✗ need dist/Alfie.app to fetch the models — run ./build.sh first" >&2
     exit 1
   fi
   echo "› fetching what is missing (this is the ~800 MB, once)…"
@@ -83,7 +83,7 @@ fi
 # app has run, Models.linkIfNeeded has replaced each cache directory with a
 # **symlink into Memoe.app**. `-d` follows a symlink so the check passes, but
 # BSD `cp -R` copies the link itself — so Models/ would fill up with links
-# into dist/Memoe.app, build.sh would `rm -rf` that app, and the next release
+# into dist/Alfie.app, build.sh would `rm -rf` that app, and the next release
 # would ship a Models tree of dangling links. It would report a few kilobytes
 # and say nothing, and the user would get the 806 MB first-run download the
 # whole exercise exists to remove.

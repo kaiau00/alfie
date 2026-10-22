@@ -121,7 +121,7 @@ public enum MeetingIntent: Equatable, Sendable {
         }
         var words = String(letters).split(separator: " ").map(String.init)
         let prefixes: [[String]] = [
-            ["hey", "moe"], ["hey", "mo"], ["moe"], ["mo"], ["please"],
+            ["hey", "alfie"], ["hey", "alfy"], ["alfie"], ["alfy"], ["please"],
             ["can", "you"], ["could", "you"], ["would", "you"], ["will", "you"],
             ["i", "want", "to"], ["i", "d", "like", "to"], ["i", "would", "like", "to"],
             ["go", "ahead", "and"], ["just"], ["ok"], ["okay"], ["alright"],

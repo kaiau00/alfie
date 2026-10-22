@@ -26,7 +26,7 @@ struct ReReviewTests {
     }
 
     @Test func moesOwnNameComingBackIsEchoTooButNotAnotherWord() {
-        #expect(BargeInJudge.echoesThePlayhead(heard: "moe", playing: "I'm Moe, and I can help with that."))
+        #expect(BargeInJudge.echoesThePlayhead(heard: "moe", playing: "I'm Alfie, and I can help with that."))
         #expect(!BargeInJudge.echoesThePlayhead(heard: "no", playing: "I don't know if that's on."))   // whole words
         #expect(!BargeInJudge.echoesThePlayhead(heard: "wait stop", playing: "wait for it"))           // "stop" is new
     }

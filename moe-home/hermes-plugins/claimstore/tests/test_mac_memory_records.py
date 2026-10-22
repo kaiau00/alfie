@@ -287,7 +287,7 @@ def _document_records(store):
 def test_the_writer_seals_each_changed_source_at_initialize_and_session_end(
         hermes_home, ledger_dir, moe_home, monkeypatch):
     (hermes_home / "SOUL.md").write_text("Be brief.", encoding="utf-8")
-    (moe_home / "CLAUDE.md").write_text("You are Moe.", encoding="utf-8")
+    (moe_home / "CLAUDE.md").write_text("You are Alfie.", encoding="utf-8")
     profile = moe_home / "memory" / "profile"
     profile.mkdir(parents=True)
     (profile / "people.md").write_text("# People\nDana — sister\n", encoding="utf-8")
@@ -316,7 +316,7 @@ def test_the_writer_seals_each_changed_source_at_initialize_and_session_end(
         == '["weather","zeta"]', "sorted, deduplicated, compact"
     assert "Dana" not in (ledger_dir / (p.store.device + ".jsonl")).read_text(encoding="utf-8")
     state = json.loads((hermes_home / "claimstore-documents.json").read_text(encoding="utf-8"))
-    assert state["documents"]["who"] == documents.sha256_hex("You are Moe.")
+    assert state["documents"]["who"] == documents.sha256_hex("You are Alfie.")
 
     # Session end: the two capability tables arrive, off the critical path.
     # An empty tree honestly produces empty ones — this fixture has no
@@ -338,7 +338,7 @@ def test_the_writer_seals_each_changed_source_at_initialize_and_session_end(
     # stable.
     p.on_session_end([])
     assert len(_document_records(p.store)) == 7
-    (moe_home / "CLAUDE.md").write_text("You are Moe, and terse.", encoding="utf-8")
+    (moe_home / "CLAUDE.md").write_text("You are Alfie, and terse.", encoding="utf-8")
     p.on_session_end([])
     records = _document_records(p.store)
     assert len(records) == 8 and records[-1]["body"]["name"] == "who"
@@ -391,7 +391,7 @@ def test_the_reader_applies_what_the_app_pulled_including_removal_and_skills(
     later = time.time() + 1
     other = ClaimStore(ledger_dir, device="hermes-EXAMPLE01", state_dir=hermes_home / "o",
                        key=memory_key)
-    other.append("document", documents.document_body("who", "You are Moe, from afar.", memory_key),
+    other.append("document", documents.document_body("who", "You are Alfie, from afar.", memory_key),
                  at=later)
     other.append("document", documents.document_body("profile/people.md", "# People\nRemote\n",
                                                      memory_key), at=later)
@@ -400,7 +400,7 @@ def test_the_reader_applies_what_the_app_pulled_including_removal_and_skills(
     other.append("document", documents.document_body("hermes/skills-disabled",
                                                      '["weather","zeta"]', memory_key), at=later)
     p.prefetch("what is on the calendar for the review")     # refresh sees the new records
-    assert (moe_home / "AGENTS.md").read_text(encoding="utf-8") == "You are Moe, from afar."
+    assert (moe_home / "AGENTS.md").read_text(encoding="utf-8") == "You are Alfie, from afar."
     assert os.stat(str(moe_home / "AGENTS.md")).st_mode & 0o777 == 0o600
     assert (moe_home / "memory" / "profile" / "people.md").read_text(encoding="utf-8") \
         == "# People\nRemote\n"
@@ -410,7 +410,7 @@ def test_the_reader_applies_what_the_app_pulled_including_removal_and_skills(
     config = yaml.safe_load((hermes_home / "config.yaml").read_text(encoding="utf-8"))
     assert config["skills"]["disabled"] == ["weather", "zeta"] and config["other"] == 1
     state = json.loads((hermes_home / "claimstore-documents.json").read_text(encoding="utf-8"))
-    assert state["documents"]["who"] == documents.sha256_hex("You are Moe, from afar.")
+    assert state["documents"]["who"] == documents.sha256_hex("You are Alfie, from afar.")
     assert state["documents"]["profile/threads.md"] == documents.sha256_hex("")
 
     # Applied, so not re-written by the writer at session end. Counted
@@ -426,12 +426,12 @@ def test_the_reader_applies_what_the_app_pulled_including_removal_and_skills(
     p.on_session_end([])
     assert len(files_written()) == before
     # ...and a local edit after that is carried, not clobbered.
-    (moe_home / "AGENTS.md").write_text("You are Moe, edited here.", encoding="utf-8")
+    (moe_home / "AGENTS.md").write_text("You are Alfie, edited here.", encoding="utf-8")
     p.on_session_end([])
     last = _document_records(p.store)[-1]["body"]
     assert last["name"] == "who"
-    assert threadcrypto.open_sealed(last["text_enc"], memory_key) == "You are Moe, edited here."
-    assert (moe_home / "AGENTS.md").read_text(encoding="utf-8") == "You are Moe, edited here."
+    assert threadcrypto.open_sealed(last["text_enc"], memory_key) == "You are Alfie, edited here."
+    assert (moe_home / "AGENTS.md").read_text(encoding="utf-8") == "You are Alfie, edited here."
 
 
 def test_a_document_without_the_key_is_not_applied_until_the_key_arrives(

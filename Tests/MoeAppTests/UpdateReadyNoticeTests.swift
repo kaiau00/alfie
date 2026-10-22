@@ -70,7 +70,7 @@ struct UpdateReadyNoticeTests {
     }
 
     @Test func theWordsAreTheDecidedOnes() {
-        #expect(UpdateReadyPolicy.sentence == "A new version of Memoe is ready.")
+        #expect(UpdateReadyPolicy.sentence == "A new version of Alfie is ready.")
         #expect(UpdateReadyPolicy.restartLabel == "Restart to update")
     }
 

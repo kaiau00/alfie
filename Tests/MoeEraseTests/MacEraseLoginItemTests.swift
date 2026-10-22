@@ -42,7 +42,7 @@ struct MacEraseLoginItemTests {
         plan.remove.firstIndex(where: match)
     }
 
-    @Test("the plan stops every job Uninstall stopped and takes Moe out of Login Items, before the home goes")
+    @Test("the plan stops every job Uninstall stopped and takes Alfie out of Login Items, before the home goes")
     func planHasJobsAndLoginItem() throws {
         let fake = try FakeHome()
         try fake.populate()
@@ -60,7 +60,7 @@ struct MacEraseLoginItemTests {
             }, "the erase plan does not boot out \(label)")
         }
         #expect(plan.remove.contains(.loginItem(bundleID: MacEraseIdentity.releaseBundleID)),
-                "the erase plan does not take Moe out of Login Items")
+                "the erase plan does not take Alfie out of Login Items")
 
         // Both before Moe's home is removed: a job firing, or a login opening
         // the app, mid-erase would write the home again.

@@ -8,7 +8,7 @@
 **The incident.** The owner said "message me on Telegram". The brief's "Not
 connected" section said `telegram — needs-setup: you have not signed in to
 Telegram yet`, which is the *personal-account reader* (connectors/telegram.py,
-Telethon) — while Memoe's own bot on his phone, which the cloud holds, was
+Telethon) — while Alfie's own bot on his phone, which the cloud holds, was
 working and invisible. The brain read "Telegram not connected", had no way to
 reach him, and a job it wrote messaged a contact instead.
 
@@ -19,7 +19,7 @@ reader's status stays, second, labelled as what it is — optional, for reading
 his own chats. And a standing section says which channels reach him right
 now, so nothing has to be inferred.
 
-"Connected through Memoe" needs the CLOUD's word that the owner's own chat
+"Connected through Alfie" needs the CLOUD's word that the owner's own chat
 is confirmed there (``$MOE_HOME/cloud/owner-reach.json``, from
 ``channels.py owner-status``), not only that it holds the bot. What the cloud
 holds is ``$MOE_HOME/cloud/channel-holder.json``'s ``holder: edge`` rows — written by channel-holder.py after it asked the
@@ -49,7 +49,7 @@ def _json(path):
 
 
 def held():
-    """Chat apps Memoe's cloud carries for them, sorted."""
+    """Chat apps Alfie's cloud carries for them, sorted."""
     rows = _json(os.path.join(MOE, "cloud", "channel-holder.json")).get("channels")
     if not isinstance(rows, dict):
         return []
@@ -60,7 +60,7 @@ def held():
 def reaches():
     """Chat apps the CLOUD says reach the owner — their own chat confirmed and
     still let in — as `channels.py owner-status` last wrote it. Holding a
-    channel is not enough: the bot can be connected while Moe does not know
+    channel is not enough: the bot can be connected while Alfie does not know
     which chat is theirs."""
     rows = _json(os.path.join(MOE, "cloud", "owner-reach.json")).get("channels")
     return sorted(str(c) for c in rows or [] if isinstance(c, str)) if isinstance(rows, list) else []
@@ -79,12 +79,12 @@ def section():
     forwards = [c for c in ticked() if c not in carried]
     out = ["## Reaching them", ""]
     if carried:
-        out.append("- Connected through Memoe (Moe's own bot, their own chat): %s."
+        out.append("- Connected through Alfie (Alfie's own bot, their own chat): %s."
                    % ", ".join(carried))
     if waiting:
-        out.append("- Memoe's bot is connected on %s, but their own chat there is not "
-                   "confirmed, so Moe cannot message them on it. Connections › Telegram › "
-                   "Confirm it's you is where they confirm it, when Memoe knows which chat "
+        out.append("- Alfie's bot is connected on %s, but their own chat there is not "
+                   "confirmed, so Alfie cannot message them on it. Connections › Telegram › "
+                   "Confirm it's you is where they confirm it, when Alfie knows which chat "
                    "is theirs; until then messages stay on the Mac." % ", ".join(waiting))
     if forwards:
         out.append("- Forwarded from this Mac (they ticked these): %s." % ", ".join(forwards))
@@ -104,12 +104,12 @@ def line(text):
     name = text.split(" ", 1)[0].strip().lower()
     rest = text.split(" — ", 1)[1] if " — " in text else text[len(name):].strip()
     if name in reaches():
-        return ("- %s: CONNECTED through Memoe — their own chat with Moe's bot. Reach them "
+        return ("- %s: CONNECTED through Alfie — their own chat with Alfie's bot. Reach them "
                 "there with %s.\n  (Only reading their personal %s account is not set up, "
                 "which is optional: %s)" % (name, TOOL, name, rest))
     if name in held():
-        return ("- %s: Memoe's bot is connected for talking to Moe, but their own chat "
-                "there is not confirmed, so Moe cannot message them on it yet (ask them to "
+        return ("- %s: Alfie's bot is connected for talking to Alfie, but their own chat "
+                "there is not confirmed, so Alfie cannot message them on it yet (ask them to "
                 "open Connections › Telegram › Confirm it's you).\n  (Only "
                 "reading their personal %s account is not set up, which is optional: %s)"
                 % (name, name, rest))

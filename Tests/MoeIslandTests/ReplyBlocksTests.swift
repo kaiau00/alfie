@@ -8,8 +8,8 @@ import MoeChat
 struct ReplyBlocksTests {
 
     @Test func aQuotedDraftIsOneBlockWithoutItsMarkers() {
-        let blocks = ReplyBlocks.parse("Here it is:\n\n> Hi,\n>\n> I built Memoe.\n\nSend it?")
-        #expect(blocks == [.prose("Here it is:"), .quote("Hi,\n\nI built Memoe."), .prose("Send it?")])
+        let blocks = ReplyBlocks.parse("Here it is:\n\n> Hi,\n>\n> I built Alfie.\n\nSend it?")
+        #expect(blocks == [.prose("Here it is:"), .quote("Hi,\n\nI built Alfie."), .prose("Send it?")])
     }
 
     @Test func headingsLoseTheirHashesButHashtagsStay() {
@@ -34,8 +34,8 @@ struct ReplyBlocksTests {
     /// The island measures a quote as the card it draws: taller than the
     /// same words as plain text.
     @Test func theIslandMeasuresAQuoteAsACard() {
-        let plain = IslandChat.height(.moe(id: "1", text: "Hi, I built Memoe."))
-        let quoted = IslandChat.height(.moe(id: "1", text: "> Hi, I built Memoe."))
+        let plain = IslandChat.height(.moe(id: "1", text: "Hi, I built Alfie."))
+        let quoted = IslandChat.height(.moe(id: "1", text: "> Hi, I built Alfie."))
         #expect(quoted == plain + IslandChat.boxPad * 2)
     }
 }

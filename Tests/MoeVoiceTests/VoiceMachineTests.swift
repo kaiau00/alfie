@@ -480,7 +480,7 @@ struct VoiceMachineTests {
     @Test func nameAloneWaitsForTheRequest() {
         var m = machine(wake: true)
         _ = m.handle(.woke)
-        _ = m.handle(.endOfUtterance("hey moe"))
+        _ = m.handle(.endOfUtterance("hey alfie"))
         let out = m.handle(.transcribed(turn: 1, ""))
         #expect(m.state == .attending(.wake))
         #expect(out.contains(.armTimer(.attend, seconds: 8)))
@@ -599,7 +599,7 @@ struct VoiceMachineTests {
         m.tuning.turnModel = true
         _ = m.handle(.woke)
         _ = m.handle(.speechStarted); _ = m.handle(.speechEnded)
-        _ = m.handle(.endOfUtterance("hey moe"))
+        _ = m.handle(.endOfUtterance("hey alfie"))
         _ = m.handle(.turnVerdict(complete: true))
         guard case .deciding(_, let turn) = m.state else { Issue.record("not deciding: \(m.state)"); return }
         _ = m.handle(.transcribed(turn: turn, ""))

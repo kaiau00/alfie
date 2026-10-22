@@ -27,8 +27,8 @@ struct ContactTermsTests {
 
     @Test func organisationsKeepTheirWords() {
         // "Ltd" and "Inc" are everyday words and go.
-        #expect(ContactTerms.filter(["Acme Widgets Ltd.", "AT&T", "Moe, Inc."])
-                == ["Acme", "Widgets", "AT&T", "Moe"])
+        #expect(ContactTerms.filter(["Acme Widgets Ltd.", "AT&T", "Alfie, Inc."])
+                == ["Acme", "Widgets", "AT&T", "Alfie"])
     }
 
     @Test func everydayWordsNeverBecomeTerms() {

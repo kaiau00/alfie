@@ -13,7 +13,7 @@ private func seg(_ start: Double, _ who: Speaker, _ text: String, len: Double = 
 struct RepeatIntentTests {
     @Test(arguments: [
         "What did they just say?", "what did he say", "What did she just say",
-        "repeat that", "Say that again.", "Hey Moe, what did they say?",
+        "repeat that", "Say that again.", "Hey Alfie, what did they say?",
         "sorry, what was that", "what did I miss",
     ])
     func repeatPhrasesMatch(_ s: String) {

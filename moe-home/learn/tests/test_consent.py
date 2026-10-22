@@ -101,7 +101,7 @@ class ConsentTest(ScratchCase):
 
 
 class NativesListedTest(unittest.TestCase):
-    """Every Mac source Moe reads by itself has a row, since each needs its
+    """Every Mac source Alfie reads by itself has a row, since each needs its
     own "Learn and watch" yes (2026-09-29): one it only keeps ready (Apple
     Mail: pull and items, no read-back) as well as one it reads back."""
 

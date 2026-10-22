@@ -110,7 +110,7 @@ enum CorrectionWatcher {
             var lines = ""
             if !FileManager.default.fileExists(atPath: learnedURL.path) {
                 lines += """
-                # Spellings Moe learned from your corrections (heard => what you typed).
+                # Spellings Alfie learned from your corrections (heard => what you typed).
                 # Edit or delete lines freely; vocabulary.txt wins over this file.
 
                 """

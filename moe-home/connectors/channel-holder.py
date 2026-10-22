@@ -342,8 +342,8 @@ def waiting_to_be_let_in():
 
     **Nothing told anybody this was happening.** A knock is a real safety
     feature — a bot anybody can message must not answer anybody — but when one
-    exists Moe simply stops replying, and on 2026-09-14 the owner met exactly
-    that and concluded their Moe was broken. The edge has had the data all
+    exists Alfie simply stops replying, and on 2026-09-14 the owner met exactly
+    that and concluded their Alfie was broken. The edge has had the data all
     along (`GET /v1/channels/knocks`); nothing carried it to a screen.
 
     Read here, on the fifteen-minute job that already talks to the edge, and
@@ -385,7 +385,7 @@ def waiting_to_be_let_in():
 def waiting_sentence(rows, channel=None):
     """One sentence about people waiting, for a person. ``""`` when nobody is.
 
-    **It explains rather than apologises.** A knock is Moe doing its job: the
+    **It explains rather than apologises.** A knock is Alfie doing its job: the
     bot is reachable by anybody and it does not answer anybody. What was
     missing was not a fix but a sentence, and the action next to it.
 
@@ -398,14 +398,14 @@ def waiting_sentence(rows, channel=None):
         return ""
     if len(rows) == 1:
         who = rows[0]["sender"] or rows[0]["chat_id"]
-        return ("%s messaged Moe on %s and is waiting to be let in. Moe does "
+        return ("%s messaged Alfie on %s and is waiting to be let in. Alfie does "
                 "not answer anybody who has not been let in, so nothing has "
                 "been sent to them. Let them in in Connections, or run: "
                 "channels.py approve %s %s"
                 % (who, rows[0]["channel"].capitalize(),
                    rows[0]["channel"], rows[0]["chat_id"]))
     names = ", ".join(sorted({r["channel"].capitalize() for r in rows}))
-    return ("%d chats are waiting to be let in (%s). Moe does not answer "
+    return ("%d chats are waiting to be let in (%s). Alfie does not answer "
             "anybody who has not been let in, so nothing has been sent to "
             "them. Let them in in Connections, or run: channels.py knocks"
             % (len(rows), names))
@@ -438,8 +438,8 @@ def verdict(channel, expected, state, endpoint):
         # it can be in. Either the platform has the edge's connection or it
         # does not.
         return "nowhere", (
-            "%s is connected to Moe's cloud, but the cloud's connection to %s is "
-            "not open%s — so nothing reaches Moe while this Mac is asleep."
+            "%s is connected to Alfie's cloud, but the cloud's connection to %s is "
+            "not open%s — so nothing reaches Alfie while this Mac is asleep."
             % (channel.capitalize(), channel.capitalize(),
                " (%s)" % endpoint if endpoint else ""))
     if endpoint == expected:
@@ -451,8 +451,8 @@ def verdict(channel, expected, state, endpoint):
             # is NOT one of the states `heal` repairs — it is said, and the
             # Connections row turns amber on the sentence.
             return "failing", (
-                "%s is sending your messages to Moe's cloud and the cloud is "
-                "refusing them (%s), so nothing is reaching Moe. %d %s waiting."
+                "%s is sending your messages to Alfie's cloud and the cloud is "
+                "refusing them (%s), so nothing is reaching Alfie. %d %s waiting."
                 % (channel.capitalize(),
                    " ".join(str(fault.get("error") or "").split())[:120],
                    int(fault.get("pending") or 0),
@@ -460,13 +460,13 @@ def verdict(channel, expected, state, endpoint):
         return "ours", ""
     if not endpoint:
         return "nowhere", (
-            "%s is not sending your messages anywhere. Moe's cloud was set up to "
+            "%s is not sending your messages anywhere. Alfie's cloud was set up to "
             "receive them, and the bot has since been pointed away from it — so "
-            "nothing reaches Moe while this Mac is asleep." % channel.capitalize())
+            "nothing reaches Alfie while this Mac is asleep." % channel.capitalize())
     where = _origin(endpoint)
     return "elsewhere", (
-        "%s is sending your messages to %s, which is not Moe's cloud. Moe cannot "
-        "answer them from there, and nothing reaches Moe while this Mac is asleep."
+        "%s is sending your messages to %s, which is not Alfie's cloud. Alfie cannot "
+        "answer them from there, and nothing reaches Alfie while this Mac is asleep."
         % (channel.capitalize(), where or "somewhere else"))
 
 
@@ -496,7 +496,7 @@ def repair(channel):
         # `register` prints no secret; its refusals are safe to carry, capped.
         text = (done.stdout or b"").decode("utf-8", "replace").strip().splitlines()
         return False, (text[-1][:160] if text else "the repair did not complete")
-    return True, "re-pointed at Moe's cloud"
+    return True, "re-pointed at Alfie's cloud"
 
 
 def run(heal=False, quiet=False):
@@ -523,7 +523,7 @@ def run(heal=False, quiet=False):
             repairs = 0
         elif heal and outcome in ("nowhere", "elsewhere"):
             if repairs >= MAX_REPAIRS:
-                sentence += (" Moe has put it back %d times and it keeps moving, so "
+                sentence += (" Alfie has put it back %d times and it keeps moving, so "
                              "it has stopped trying. Open Settings › Away and connect "
                              "%s again." % (MAX_REPAIRS, channel.capitalize()))
             # **How long to wait depends on what is wrong, and that is the
@@ -563,14 +563,14 @@ def run(heal=False, quiet=False):
             if sentence:
                 print("✗ %s" % sentence)
             elif outcome == "ours":
-                print("✓ %s reaches Moe's cloud, which hands it to whichever Moe "
+                print("✓ %s reaches Alfie's cloud, which hands it to whichever Alfie "
                       "is awake." % channel.capitalize())
             elif outcome == "unreachable":
                 print("… %s could not be asked where it sends right now."
                       % channel.capitalize())
             else:
                 print("… %s is pointed by hand in its own dashboard; there is "
-                      "nothing to read back, so Moe does not guess."
+                      "nothing to read back, so Alfie does not guess."
                       % channel.capitalize())
             if did:
                 print("  %s" % did)
@@ -586,7 +586,7 @@ def run(heal=False, quiet=False):
     if waiting and not quiet:
         print("• %s" % waiting_sentence(waiting))
     if not expected_by_channel and not quiet:
-        print("Moe's cloud carries no chat app for this account — "
+        print("Alfie's cloud carries no chat app for this account — "
               "this Mac holds them all.")
     return 2 if faults else 0
 

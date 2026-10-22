@@ -165,7 +165,7 @@ class PlanTest(unittest.TestCase):
 
 
 class CloudTest(unittest.TestCase):
-    """One Moe in two places: the machine reads with the Mac's plan."""
+    """One Alfie in two places: the machine reads with the Mac's plan."""
 
     def setUp(self):
         self.tmp = tempfile.mkdtemp(prefix="moe-composio-items-")

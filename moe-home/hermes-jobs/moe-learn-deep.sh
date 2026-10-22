@@ -64,7 +64,7 @@ except (OSError, ValueError):
 sys.exit(0 if (isinstance(cfg, dict) and cfg.get("backgroundThinking", True) is False) else 1)
 PY
 then
-  note paused "didn't run — “Let Moe think on its own” is off."
+  note paused "didn't run — “Let Alfie think on its own” is off."
   exit 0
 fi
 if [ -x "$MOE/learn/consent.sh" ]; then

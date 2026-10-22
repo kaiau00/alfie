@@ -1,4 +1,4 @@
-"""Answering a message Moe started.
+"""Answering a message Alfie started.
 
 A proactive message is a push. `deliver.py` writes it to the island and
 sends it to Telegram or WhatsApp with `hermes send`, and neither of those
@@ -8,18 +8,18 @@ the model — correctly, from where it sits — asks what the person means.
 
 Measured on 2026-09-04, on Telegram, twice in one morning:
 
-    Moe:  Moe's waiting to know if you called Fred by noon like you planned.
+    Alfie:  Alfie's waiting to know if you called Fred by noon like you planned.
     You:  i did
-    Moe:  Did what, exactly? I don't have context for that — fill me in.
+    Alfie:  Did what, exactly? I don't have context for that — fill me in.
 
-    Moe:  Eli's still waiting for IT admin rights (email and Teams) — he
+    Alfie:  Eli's still waiting for IT admin rights (email and Teams) — he
           asked yesterday and nothing's come back yet.
     You:  ok dont remond me anymore about that
-    Moe:  Sure — but which reminder do you mean? I don't have one in view.
+    Alfie:  Sure — but which reminder do you mean? I don't have one in view.
 
 Both are the same missing wire, and the second one is worse than the
-first: the person gave an instruction about Moe's own behaviour, and there
-was nothing for Moe to change even if it had understood.
+first: the person gave an instruction about Alfie's own behaviour, and there
+was nothing for Alfie to change even if it had understood.
 
 This file is both halves of the fix, for every chat platform an alert can
 reach — the Mac's island has its own half in `Conductor.playNudge`, on the
@@ -27,14 +27,14 @@ same spool:
 
 * **`attach_context`** is a `pre_gateway_dispatch` hook. It runs once per
   inbound message, before auth and before the agent, and puts the sentence
-  Moe last said unprompted — plus the handles that can change it — into
+  Alfie last said unprompted — plus the handles that can change it — into
   `event.channel_context`, the field Hermes already uses for "things the
   bot knows that are not in the history". The person's own words are left
   exactly as they typed them.
 
 * **`moe_followups`** is the tool that changes the state. `close` when
   they say it is done, `snooze` when they say not now, `mute` when they
-  say stop. A follow-up Moe raised is an entry in `~/.moe/proactive/`; a
+  say stop. A follow-up Alfie raised is an entry in `~/.moe/proactive/`; a
   reminder the PERSON asked for is a Hermes cron, and the attached note
   names its job id so the model reaches for Hermes's own `cronjob` tool.
   Two stores, because they are two different things, and the note says
@@ -43,7 +43,7 @@ same spool:
 ## Attached at most once, and only where it was sent
 
 A record is attached to the FIRST message after it and no other. Repeating
-it for twelve hours would turn a helpful note into Moe bringing up Eli's
+it for twelve hours would turn a helpful note into Alfie bringing up Eli's
 laptop in the middle of an unrelated question. That holds ACROSS surfaces,
 not just within this hook: a nudge played on the island is marked answered
 there too (`Conductor.playNudge` → `deliver.note_answered_on_screen`), so
@@ -62,7 +62,7 @@ it, whatever it says.
 
 ## What it cannot tell, and does not pretend to
 
-It matches "the newest unanswered thing Moe sent to this surface", not
+It matches "the newest unanswered thing Alfie sent to this surface", not
 "the message this is a reply to" — nothing on the wire says which. So a
 message sent through some OTHER path in the same twelve hours can sit
 between the two: `moe-drain-intents` posts its summaries through
@@ -85,11 +85,11 @@ model.
 
 ## What is trusted here, and what is not
 
-The attached sentence is Moe's own words about the user's own brief, but a
+The attached sentence is Alfie's own words about the user's own brief, but a
 follow-up's description is copied out of somebody's mail, so the note says
 what it is and the tool's own `what` field goes nowhere near a shell. The
 worst an injected instruction can reach through `moe_followups` is closing
-or muting a follow-up: it can make Moe quieter, never make it say
+or muting a follow-up: it can make Alfie quieter, never make it say
 something, and never touch anything outside `~/.moe/proactive/`. That is
 the same power the × button on the island has always had.
 
@@ -152,15 +152,15 @@ def _when(mins):
 def render_note(rec, now=None):
     """The block that goes in front of the model, or "".
 
-    Written as a note to Moe about Moe, not as an instruction to follow,
+    Written as a note to Alfie about Alfie, not as an instruction to follow,
     and it says outright what to do when the message turns out to be about
     something else — otherwise a nudge attached to an unrelated question
-    is a nudge Moe brings up unprompted a second time."""
+    is a nudge Alfie brings up unprompted a second time."""
     text = _plain(rec.get("text"))
     if not text:
         return ""
     lines = [
-        "[Moe's own note, not from the user — %s you sent them this, "
+        "[Alfie's own note, not from the user — %s you sent them this, "
         "unprompted, and they have not answered it until now:"
         % _when(_minutes_ago(rec, now)),
         '  "%s"' % text.replace('"', "'"),
@@ -197,7 +197,7 @@ def render_note(rec, now=None):
         # while nothing arrives. There is no per-message handle here, so
         # say so and point at the switch that really governs it.
         lines.append(
-            "This came from Moe's own background pass, not from a reminder "
+            "This came from Alfie's own background pass, not from a reminder "
             "they set, and there is nothing specific to stop. Do NOT touch "
             "any cron job over it. If they want this KIND of message to "
             "stop, that is a switch in Settings › Background — say so. If "
@@ -365,13 +365,13 @@ def attach_context(event=None, gateway=None, session_store=None, **kwargs):
 TOOL_SCHEMA = {
     "name": "moe_followups",
     "description": (
-        "The follow-ups Moe keeps on its own and brings up unprompted, later, "
+        "The follow-ups Alfie keeps on its own and brings up unprompted, later, "
         "at the right moment. `open` one whenever you hear a loop in the "
         "conversation: something the user says they will do ('I'll test the "
         "sign-in, then cancel'), something you started that has an outcome "
         "still to come (a booking, an order, an application), a deadline, "
         "or something they looked at that can change (a price, a slot) — "
-        "for that last kind give a `check` so Moe can watch it without "
+        "for that last kind give a `check` so Alfie can watch it without "
         "asking anyone. Do it silently, as part of the same turn; do not "
         "announce it. Use it again when the user answers a follow-up: "
         "`close` when they say it is dealt with, `snooze` when they want it "
@@ -432,11 +432,11 @@ TOOL_SCHEMA = {
             "check": {
                 "type": "object",
                 "description": (
-                    "For `open`, optional: how Moe watches this without a "
+                    "For `open`, optional: how Alfie watches this without a "
                     "model. `{\"via\": \"url\", \"url\": \"https://…\", "
                     "\"find\": \"<regex for the bit that matters, e.g. the "
                     "price>\", \"every\": \"6h\"}`. The page is fetched on "
-                    "that schedule and Moe is woken only when what `find` "
+                    "that schedule and Alfie is woken only when what `find` "
                     "matches has changed."
                 ),
             },
@@ -464,11 +464,11 @@ def handle_tool(action=None, slug=None, when=None, what=None, kind=None,
 
     **Hermes calls a plugin tool as ``handler(args, **kw)`` — the model's
     arguments arrive as ONE dict in the first position** (`tools/registry.py`,
-    `entry.handler(args, **kwargs)`; every other Moe plugin spells it
+    `entry.handler(args, **kwargs)`; every other Alfie plugin spells it
     ``def handle(params=None, **kwargs)``). This one took keywords, so on
     the owner's Mac on 2026-09-11 every ``open`` the model made came back
     ``unknown action "{'action': 'open', 'slug': …"`` — the whole dict read
-    as the action — and Moe told the person its "follow-up tracker refused
+    as the action — and Alfie told the person its "follow-up tracker refused
     the entry". The unit tests passed the whole time because they called it
     with keywords: a closed loop. Both spellings are accepted now, and the
     tests call it the way Hermes does.
@@ -496,7 +496,7 @@ def handle_tool(action=None, slug=None, when=None, what=None, kind=None,
             if not ok:
                 return _no(why)
             return _ok(opened=slug, kind=_deliver.normalise_kind(kind),
-                       result=("Noted. Moe will bring it up at the right moment; "
+                       result=("Noted. Alfie will bring it up at the right moment; "
                                "say nothing about this to the user unless asked."))
         if act not in ("close", "snooze", "mute", "unmute"):
             return _no("unknown action %r" % str(action)[:40])
@@ -531,7 +531,7 @@ def handle_tool(action=None, slug=None, when=None, what=None, kind=None,
 
 
 def available():
-    """The tool is offered wherever Moe's home is — that is where the
+    """The tool is offered wherever Alfie's home is — that is where the
     ledger lives, and there is nothing else to check."""
     import os
     return os.path.isdir(_deliver.moe_home())

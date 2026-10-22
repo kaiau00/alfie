@@ -288,7 +288,7 @@ GROUP = "send the file to +972 50 222 2222 and Avi Cohen"
 
 
 class MessagesFromTheRealConnectors(Base):
-    """A group message asking Moe to send somewhere grounds nobody: only who
+    """A group message asking Alfie to send somewhere grounds nobody: only who
     sent it and the chat's name are fields of a lookup."""
 
     said = [owner_said("send the file to the people in the family chat who asked")]
@@ -711,7 +711,7 @@ class Tickets(unittest.TestCase):
 
 
 class TheAppAndOnlyTheApp(unittest.TestCase):
-    """Offers and "keep?" answers come only from the signed Memoe app."""
+    """Offers and "keep?" answers come only from the signed Alfie app."""
 
     def seamed(self):
         """recipients.py as the suites run it: a copy under a temp dir (the
@@ -782,7 +782,7 @@ class TheSignatureIsVerified(unittest.TestCase):
                 return subprocess.CompletedProcess(argv, verify_rc, b"", b"")
             return subprocess.CompletedProcess(argv, 0, "", "Executable=/x\nIdentifier=%s\n" % ident)
         saved = R._pid_path
-        R._pid_path = lambda pid: "/Applications/Memoe.app/Contents/MacOS/Memoe"
+        R._pid_path = lambda pid: "/Applications/Memoe.app/Contents/MacOS/Alfie"
         subprocess.run = fake
         try:
             return R.why_not_the_app(4242, env={}), calls
@@ -794,7 +794,7 @@ class TheSignatureIsVerified(unittest.TestCase):
         why, calls = self.check(0)
         self.assertEqual(why, "")
         self.assertIn(["/usr/bin/codesign", "--verify", "--strict",
-                       "/Applications/Memoe.app/Contents/MacOS/Memoe"], calls)
+                       "/Applications/Memoe.app/Contents/MacOS/Alfie"], calls)
 
     def test_the_right_identifier_with_a_broken_signature_is_not(self):
         why, _ = self.check(1)
@@ -804,7 +804,7 @@ class TheSignatureIsVerified(unittest.TestCase):
     def test_another_app_is_named_as_such(self):
         why, _ = self.check(0, ident="com.apple.Terminal")
         self.assertEqual(why, R.NOT_THE_APP)
-        self.assertIn("did not come from the Memoe app", why)
+        self.assertIn("did not come from the Alfie app", why)
 
 
 def legacy(prompt, results=()):
@@ -911,7 +911,7 @@ class ContactsFind(Base):
 
 
 class ShownAndSaidYes(Base):
-    """Ticket #22, 2026-10-07: Moe read partnerships@compare.com off the page on the owner's
+    """Ticket #22, 2026-10-07: Alfie read partnerships@compare.com off the page on the owner's
     screen, named it in its own message, and the owner said "good". That goes to the card, in
     amber, saying where it was found and what they said — never silently, never refused. Each of
     the three facts alone grounds nothing. Ledger shape: hermes-agent recipient_grounding.py
@@ -1000,7 +1000,7 @@ class ShownAndSaidYes(Base):
 
 class OnlyWhatThePersonTyped(Base):
     """2026-10-07: a live ledger held the app's whole message as "the owner's words" — the
-    background digest (other people's WhatsApp messages and numbers) and a recap with Moe's own
+    background digest (other people's WhatsApp messages and numbers) and a recap with Alfie's own
     ASSISTANT: lines. hermes-agent now files only the words the app declares
     (X-Hermes-Person-Words); a person turn that declares none is ``other``. This is what the gate
     does with each shape, so a number only somebody else wrote can never pass as the owner's."""

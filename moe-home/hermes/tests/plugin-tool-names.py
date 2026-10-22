@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Every tool name Moe's own Hermes plugins register, read out of their source.
+"""Every tool name Alfie's own Hermes plugins register, read out of their source.
 
 The gate's `BUILTIN` table in `hooks/confirm-send.sh` is a hand-written list,
-and a Moe plugin tool missing from it is classified `unknown`, which puts a
-"This is not a tool Moe recognises" dialog in front of the person — over one
-of Moe's own tools. That has now happened three times, each time found by the
+and an Alfie plugin tool missing from it is classified `unknown`, which puts a
+"This is not a tool Alfie recognises" dialog in front of the person — over one
+of Alfie's own tools. That has now happened three times, each time found by the
 owner rather than by a test:
 
     moe_followups      2026-09-06   "stop reminding me about that"

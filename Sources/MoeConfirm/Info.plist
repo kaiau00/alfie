@@ -8,8 +8,8 @@
        the open confirmation dialog as well as to the app. That is answered
        properly now (main.swift refuses to call a quit an answer), but a
        dialog that cannot be mistaken for the app is the better shape. -->
-  <key>CFBundleIdentifier</key>        <string>com.memoe.app.confirm</string>
-  <key>CFBundleName</key>              <string>Moe</string>
+  <key>CFBundleIdentifier</key>        <string>io.github.kaiau00.alfie.confirm</string>
+  <key>CFBundleName</key>              <string>Alfie</string>
   <key>CFBundlePackageType</key>       <string>APPL</string>
   <key>CFBundleShortVersionString</key><string>1.0</string>
   <key>CFBundleVersion</key>           <string>1</string>

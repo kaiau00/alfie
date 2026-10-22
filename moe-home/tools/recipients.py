@@ -2,7 +2,7 @@
 """Who a message is going to, and who asked for them.
 
 One question every send path asks before a message leaves, answered in one
-place: the send hook (hermes/hooks/confirm-send.sh), and each of Moe's own
+place: the send hook (hermes/hooks/confirm-send.sh), and each of Alfie's own
 connectors (whatsapp.sh, telegram.py, gmail.py) after it has resolved a name
 to an address.
 
@@ -28,18 +28,18 @@ Nothing here knows about grandfathers, WhatsApp or any one tool.
    `agent/recipient_grounding.py` states the format). A recipient is:
 
    - `named`   — the owner's own words say it, in full;
-   - `partial` — the owner said only part of it ("Walter") and Moe picked the
+   - `partial` — the owner said only part of it ("Walter") and Alfie picked the
                  rest ("Walter Brennan"): allowed, the card says so in amber;
    - `found`   — a real LOOKUP returned it (contacts, chats, mail search — an
                  allowlist; never a web page, a shell, a file read or memory):
                  allowed, amber, with the source;
-   - `shown`   — an ADDRESS Moe read off a page or the screen in this
+   - `shown`   — an ADDRESS Alfie read off a page or the screen in this
                  conversation (a browser, web or screen tool's result — never
                  one the call itself was handed), then named in its own message
                  immediately before the owner's latest one, which says yes
                  ("good", "send it"). Never silent: always the card, in amber,
                  saying where it was found and what the owner said; no session
-                 grant covers it. Moe's own words never ground anyone — an
+                 grant covers it. Alfie's own words never ground anyone — an
                  address it invented is in no page, and one on a page it never
                  showed was never agreed to;
    - otherwise refused: look the person up or ask.
@@ -484,7 +484,7 @@ def write_owner(moe=None, hermes=None, env=None, grounding=None, composio=None,
     path = os.path.join(moe, OWNER_FILE)
     old = _load_json(path)
     record = {"version": 1,
-              "README": "Who owns this Moe, as addresses. Written on every sync from the "
+              "README": "Who owns this Alfie, as addresses. Written on every sync from the "
                         "accounts this Mac has linked; add your own (and \"nicknames\") under "
                         "\"pinned\". A contact tool never messages these unasked.",
               "written": datetime.datetime.now().isoformat(timespec="seconds"),
@@ -647,7 +647,7 @@ def read_ledger(key, hermes=None, moe=None):
     if data is None:
         return "broken", "there is no record of this conversation"
     if not isinstance(data, dict) or data.get("version") != LEDGER_VERSION:
-        return "broken", "the record of this conversation is in a format this Moe cannot read"
+        return "broken", "the record of this conversation is in a format this Alfie cannot read"
     words = [w for w in data.get("words") or []
              if isinstance(w, dict) and isinstance(w.get("text"), str)]
     results = [r for r in data.get("results") or []
@@ -1188,7 +1188,7 @@ def _shown_source(bare, row, text, hit):
 
 def shown(fc, ledger, owner):
     """{"state": "shown", …} when this address was found on a page or the
-    screen, then named in Moe's message just before the owner's latest one,
+    screen, then named in Alfie's message just before the owner's latest one,
     and that one says yes — else None."""
     cur = ledger.get("current")
     if not (isinstance(cur, dict) and cur.get("origin") == "person"
@@ -1364,7 +1364,7 @@ def refusal_address(raw):
 
 
 def refusal_broken(why):
-    return ("Not sent: Moe could not check who asked for this recipient — %s. Nothing was sent; "
+    return ("Not sent: Alfie could not check who asked for this recipient — %s. Nothing was sent; "
             "ask the person to confirm who to send it to." % why)
 
 
@@ -1749,7 +1749,7 @@ def redeem_ticket(socket_path, nonce, recipients, body, timeout=10):
         return {"ok": False, "error": "could not reach the send gate (%s)" % type(exc).__name__}
 
 
-NO_TICKET = ("not sent — Moe's send gate has not checked who this goes to. Send it through Moe's "
+NO_TICKET = ("not sent — Alfie's send gate has not checked who this goes to. Send it through Alfie's "
              "own send tool (whatsapp_send, gmail_send, telegram_send) in a conversation, never by "
              "running the connector yourself.")
 
@@ -1765,7 +1765,7 @@ def connector_check(recipients, body, resolved=(), env=None):
     answer = redeem_ticket(sock, nonce, recipients, body)
     if not answer.get("ok"):
         return {"verdict": "refuse", "provenance": None,
-                "message": "not sent — %s; send it through Moe's own send tool in a conversation."
+                "message": "not sent — %s; send it through Alfie's own send tool in a conversation."
                            % (answer.get("error") or "no ticket")}
     prov = answer.get("provenance") if isinstance(answer.get("provenance"), dict) else None
     owner = load_owner(env=env)
@@ -1808,12 +1808,12 @@ def _test_seam(env):
                                                                    "/var/folders/", "/private/var/folders/"))
 
 
-NOT_THE_APP = "that request did not come from the Memoe app, and only the app can send an offer's draft"
-UNVERIFIED = "Moe could not verify the Memoe app's signature, so it sent nothing"
+NOT_THE_APP = "that request did not come from the Alfie app, and only the app can send an offer's draft"
+UNVERIFIED = "Alfie could not verify the Alfie app's signature, so it sent nothing"
 
 
 def why_not_the_app(pid, env=None):
-    """"" when process `pid` is the Memoe app — its executable passes
+    """"" when process `pid` is the Alfie app — its executable passes
     `codesign --verify --strict` and its signing identifier is the app's —
     else the reason, in words a person can read."""
     env = os.environ if env is None else env
@@ -1841,7 +1841,7 @@ def why_not_the_app(pid, env=None):
 
 
 def parent_is_the_app(pid, env=None):
-    """True when process `pid` is the Memoe app (why_not_the_app says why not)."""
+    """True when process `pid` is the Alfie app (why_not_the_app says why not)."""
     return why_not_the_app(pid, env) == ""
 
 

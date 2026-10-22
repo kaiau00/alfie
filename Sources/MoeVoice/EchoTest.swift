@@ -58,11 +58,11 @@ public enum EchoTest {
     public static func summary(_ v: Verdict) -> (good: Bool, text: String) {
         switch v {
         case .clean:
-            return (true, "Moe can hear you while it speaks. Interrupting works on this microphone and these speakers.")
+            return (true, "Alfie can hear you while it speaks. Interrupting works on this microphone and these speakers.")
         case .workable:
-            return (true, "Moe can hear you while it speaks, with some of its own voice coming back. Interrupting works; in a loud passage it may stop for itself.")
+            return (true, "Alfie can hear you while it speaks, with some of its own voice coming back. Interrupting works; in a loud passage it may stop for itself.")
         case .leaky:
-            return (false, "Moe hears itself through this microphone, so interrupting would stop it constantly. Headphones, or the built-in microphone and speakers together, fix this.")
+            return (false, "Alfie hears itself through this microphone, so interrupting would stop it constantly. Headphones, or the built-in microphone and speakers together, fix this.")
         case .silent:
             return (false, "Nothing came out of the speakers, so there was nothing to measure. Check the output device and the volume.")
         case .unavailable(let why):

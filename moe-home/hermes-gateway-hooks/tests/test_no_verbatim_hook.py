@@ -199,7 +199,7 @@ def transcript_lines(sid, ask, reply, think):
     cid = str(uuid.uuid5(NS, "hermes:%s" % sid))
     return [
         _line("attachment", sid, cid, n=0, attachment={"type": "prompt_snapshot",
-                                                       "systemPrompt": ["You are Moe."]}),
+                                                       "systemPrompt": ["You are Alfie."]}),
         _line("queue-operation", sid, cid, n=1, operation="enqueue"),
         _line("user", sid, cid, n=2, promptId="p1", permissionMode="default", promptSource="cli",
               message={"role": "user", "content": [{"type": "text", "text": ask}]}),
@@ -339,7 +339,7 @@ class NoVerbatimHookTest(_Scratch):
     def test_the_two_full_text_indexes_forget_the_words_too(self):
         """Two more copies the review did not list. A MATCH is the falsifier —
         not the trigger's existence. 'Priya' is in the words and nowhere else;
-        'Berlin' is also in the claim Moe wrote (tool_calls is indexed too),
+        'Berlin' is also in the claim Alfie wrote (tool_calls is indexed too),
         and that is meant to stay findable."""
         self.assertEqual(self.q("SELECT count(*) FROM messages_fts WHERE messages_fts MATCH 'Priya'")[0][0], 2)
         self.assertGreater(self.q("SELECT count(*) FROM messages_fts_trigram WHERE messages_fts_trigram MATCH 'Priya'")[0][0], 0)
@@ -394,7 +394,7 @@ class NoVerbatimHookTest(_Scratch):
         self.assertEqual(self.q("SELECT count(*) FROM sessions")[0][0], 2)
 
     def test_what_moe_did_stays(self):
-        """The tool row and the assistant's tool_calls are the claim Moe wrote —
+        """The tool row and the assistant's tool_calls are the claim Alfie wrote —
         what it learned, which the memory rule allows. An obligation not yet
         delivered keeps its content: it still has to be sent."""
         self.go(self.mod.handle("agent:end", SLACK_CTX))

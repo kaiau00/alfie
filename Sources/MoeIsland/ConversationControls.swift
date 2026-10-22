@@ -31,11 +31,11 @@ public enum ConversationControls {
     /// click aimed at the ⋯ cannot land on it.
     public static let unmuteButton = "Unmute"
     /// The same state as a sentence, for the chat's live bar.
-    public static let mutedLine = "Muted — Moe can't hear you until you unmute"
-    public static let muteHelp = "Mute yourself — Moe carries on, and stays deaf until you tap again"
-    public static let unmuteHelp = "Unmute — Moe hears you again. Holding the talk key talks through the mute."
+    public static let mutedLine = "Muted — Alfie can't hear you until you unmute"
+    public static let muteHelp = "Mute yourself — Alfie carries on, and stays deaf until you tap again"
+    public static let unmuteHelp = "Unmute — Alfie hears you again. Holding the talk key talks through the mute."
     /// The conversation row's words while muted.
-    public static let mutedRowLine = "Moe can't hear you"
+    public static let mutedRowLine = "Alfie can't hear you"
 
     /// Whether the collapsed island draws the red "Muted" tab under the
     /// notch. Muted is only ever true inside a conversation (it ends with

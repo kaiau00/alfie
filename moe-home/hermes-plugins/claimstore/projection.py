@@ -1,4 +1,4 @@
-"""Projection of the claim half of Moe's ledger onto Hermes's memory files.
+"""Projection of the claim half of Alfie's ledger onto Hermes's memory files.
 
 ``MEMORY.md`` and ``USER.md`` stop being a store and become a *digest*: the
 subset of the ledger's live claims that fits in the prompt, rendered in
@@ -45,7 +45,7 @@ deletion alone and still catches every genuinely new line a person types.
 What that costs is written down rather than hidden: a person who deletes a fact
 and later types *the same words* back into ``MEMORY.md`` by hand is not heard,
 because the file carries no metadata that could tell "the person put it back"
-apart from "this file is stale". Saying it to Moe works — a memory-tool write
+apart from "this file is stale". Saying it to Alfie works — a memory-tool write
 carries a source, and §3.1 lets a person's assert revive. See §14.3.
 """
 
@@ -278,7 +278,7 @@ def absorb(store, target: str, *, source: str = ABSORB_SOURCE) -> List[str]:
     * **already retracted** — the entry is a deleted fact sitting in the file.
       A record is appended anyway, and because ``file`` is not a person
       (``store.revives``) it does not restore the claim: it becomes a
-      ``PendingRevival``, a question Moe can ask. Exactly one record per claim
+      ``PendingRevival``, a question Alfie can ask. Exactly one record per claim
       per device, because the next call sees the question already standing and
       leaves it alone.
     * **never seen** — an ordinary new claim.

@@ -75,7 +75,7 @@ struct FixCardConductorTests {
         #expect(moe.fixOffers.count == 2)
         for card in moe.fixOffers {
             #expect(card.why.hasPrefix(FixOffer.driverName), "\(card.why)")
-            #expect(!card.why.contains("Memoe"), "\(card.why)")
+            #expect(!card.why.contains("Alfie"), "\(card.why)")
             guard case .grant(let guide) = card.remedy else {
                 Issue.record("\(card.fix.code) is a grant"); continue
             }
@@ -116,7 +116,7 @@ struct FixCardConductorTests {
             brain.emit(.toolFinished(id: UUID().uuidString, fix: ToolFix.parse(fields: fields)))
         }
         fail(["code": "window_other_space", "subject": "Keynote", "retry": true])
-        #expect(moe.fixOffers.isEmpty, "another Space is Moe's to handle: no card")
+        #expect(moe.fixOffers.isEmpty, "another Space is Alfie's to handle: no card")
 
         fail(["code": "driver_not_running", "subject": "CuaDriver", "retry": true])
         #expect(moe.fixOffers.isEmpty, "Hermes already reset the helper: nothing to press")
@@ -153,7 +153,7 @@ struct FixCardConductorTests {
         // What the fork's not_connected_error carries (fix_reasons GRANTS: owner app).
         brain.emit(.toolFinished(id: "toolu_chrome_x", fix: ToolFix.parse(fields: [
             "code": "browser_extension_missing", "owner": "app",
-            "subject": "Memoe extension for Google Chrome", "retry": true])))
+            "subject": "Alfie extension for Google Chrome", "retry": true])))
         let card = try #require(moe.fixOffers.first)
         #expect(card.actionTitle == FixOffer.setUpChrome)
         #expect(card.why.contains("Chrome"))
@@ -174,7 +174,7 @@ struct FixCardConductorTests {
         try StallGuardConductorTests.requireScratchHome()
         let env = HermesSupervisor.childEnvironment(token: "")
         #expect(env["HERMES_HOST_APP_NAME"] == BuildInfo.hostAppName)
-        #expect(["Memoe", "Memoe Dev"].contains(BuildInfo.hostAppName))
+        #expect(["Alfie", "Alfie Dev"].contains(BuildInfo.hostAppName))
     }
 
     /// Hermes's host-wide gateway singleton attaches a `gateway run` to any
@@ -212,7 +212,7 @@ struct FixCardConductorTests {
             (ToolFix(code: .profileLocked, subject: "x\nOpen Settings now"), "Your browser has", ["Open Settings now"]),
         ]
         for (fix, mustSay, mustNotSay) in cases {
-            let why = try #require(FixOffer(fix, app: "Memoe")).why
+            let why = try #require(FixOffer(fix, app: "Alfie")).why
             #expect(why.contains(mustSay), "\(fix.code): \(why)")
             for word in mustNotSay { #expect(!why.contains(word), "\(fix.code) showed tool text: \(why)") }
         }

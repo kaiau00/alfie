@@ -40,7 +40,7 @@ usage() {
   cat <<'EOF'
 LOOKING
   screenshot [display]     capture the screen to a PNG, print the path
-  meeting-shot [reason]    during a meeting Moe is recording: keep a screenshot
+  meeting-shot [reason]    during a meeting Alfie is recording: keep a screenshot
                            in the meeting's folder (listed in the notes)
   meeting-clip start|stop [reason]
                            during a meeting: record the screen to a clip
@@ -67,8 +67,8 @@ TAKING OVER
 
 Coordinates are in screen points, origin top-left, as reported by `window`.
 
-To stop Moe while it is driving the screen, click the stop on the notch —
-it goes a different colour while Moe has the screen. Looking is never
+To stop Alfie while it is driving the screen, click the stop on the notch —
+it goes a different colour while Alfie has the screen. Looking is never
 blocked and never needs stopping.
 EOF
 }

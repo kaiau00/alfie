@@ -15,7 +15,7 @@ shows it: "sync=yes;speak=yes;seed=yes;update=daily;dated=yes;
 seeded=2026-09-01;origin=default" (learn/source_profile.py resolves it
 from files only — the defaults table, the schema cache, consent.json, the
 stamp — so the quick list stays quick). `speak` is the third answer per
-source — may Moe say something about it on its own — and sits beside
+source — may Alfie say something about it on its own — and sits beside
 `sync` because that is the order the pane asks the questions in. The
 first six fields are unchanged (the app parses those positionally); the
 app ignores fields it does not know.
@@ -48,7 +48,7 @@ NAME_RE = re.compile(r"^[A-Za-z0-9_-]+$")
 
 DESCRIBE = {
     BACKGROUND: "the sources you have already said yes to, once a day, without asking again",
-    SEEDING: "what the crawl has learned about you, saved into Moe's long-term memory so it carries across chats",
+    SEEDING: "what the crawl has learned about you, saved into Alfie's long-term memory so it carries across chats",
     "imessage": "your iMessage and SMS conversations: who wrote, when, and the full text",
     "whatsapp": "your WhatsApp chats mirrored by the bridge: who wrote, when, and the full text",
     "telegram": "your own Telegram chats: who wrote, when, and the full text",
@@ -180,10 +180,10 @@ def manifest_fields(path):
 
 
 def natives():
-    """[(name, fields)] for every Mac source Moe reads by itself: one it
+    """[(name, fields)] for every Mac source Alfie reads by itself: one it
     reads back (deep_crawl + crawl), keeps ready (pull) or watches (items).
     Since 2026-09-29 every one of them needs its own "Learn and watch" yes,
-    so one Moe only keeps ready (Apple Mail) has a row too — without one it
+    so one Alfie only keeps ready (Apple Mail) has a row too — without one it
     could never be switched on (review 2026-09-29 #2)."""
     d = conn_dir()
     out = []
@@ -265,12 +265,12 @@ def describe(name, kind="mcp"):
         # never become one to message text (review 2026-09-29 #4).
         base = base.replace(" (metadata only, never rows, messages or writes)", "")
         base += ("; and, where it holds messages, what they say — everything in it, automated "
-                 "mail left out — from what Moe already reads to watch it (never writes)")
+                 "mail left out — from what Alfie already reads to watch it (never writes)")
     return base
 
 
 def reads_messages(slug):
-    """A Composio service Moe watches through a read plan (lib/composio_items.py)
+    """A Composio service Alfie watches through a read plan (lib/composio_items.py)
     has messages the daily pass learns from."""
     plan = read_json(os.path.join(moe_home(), "gather", "composio-%s.items.json" % slug))
     return isinstance(plan, dict) and bool(plan.get("tool"))
@@ -292,7 +292,7 @@ def _describe(name, kind="mcp"):
         return f["label"]
     # A bare MCP connection (no native manifest, no recipe): its gather row,
     # which auto-read reads on the daily pass.
-    return ("what Moe learns from your %s connection — the accounts, projects, "
+    return ("what Alfie learns from your %s connection — the accounts, projects, "
             "definitions and structure it holds, read to understand your world "
             "(metadata only, never rows, messages or writes)" % name)
 

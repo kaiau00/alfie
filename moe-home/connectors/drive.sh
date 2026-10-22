@@ -85,7 +85,7 @@ def one_line(text, limit=120):
 def block(text, max_lines=160, limit=400):
     """A file's text, line by line, each one neutralised. A code fence or a
     '### heading' inside someone's document must not become structure in the
-    file Moe reads."""
+    file Alfie reads."""
     out = []
     for raw in str(text or "").splitlines():
         line = one_line(raw, limit)
@@ -291,7 +291,7 @@ def cmd_status():
             print("needs-setup: Google Drive for Desktop is installed but has not synced a folder "
                   "yet — open it, sign in there, and let it finish")
         else:
-            print("needs-setup: install Google Drive for Desktop to let Moe read your Drive "
+            print("needs-setup: install Google Drive for Desktop to let Alfie read your Drive "
                   "(no sign-in needed)")
         return 1
     folders = 0
@@ -348,7 +348,7 @@ def cmd_pull():
         # Said before the list, because this is the sentence that stops Moe
         # claiming it read a Google Doc it has only ever seen the name of.
         print("Note: .gdoc, .gsheet and .gslides entries are links to documents that live on "
-              "Google's servers. Moe has the name and the link, never the contents.")
+              "Google's servers. Alfie has the name and the link, never the contents.")
     print("\n".join(lines))
     return 0
 

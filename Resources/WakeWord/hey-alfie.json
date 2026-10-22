@@ -1,0 +1,26 @@
+{
+  "phrases": [
+    "hey alfie",
+    "hey alfy",
+    "hey alfee"
+  ],
+  "threshold": 0.7,
+  "hits": 4,
+  "trained": "2026-10-21",
+  "training": {
+    "pipeline": "livekit-wakeword 0.2.1, --skip-acav, Piper TTS, LibriSpeech negatives, 8 GB lighter run",
+    "model": "conv_attention medium",
+    "validation": {
+      "threshold": 0.02,
+      "fpph": 59.13384990977603,
+      "recall": 0.9423333333333334
+    },
+    "final": {
+      "fpph": 7.54696953614266,
+      "recall": 0.768,
+      "accuracy": 0.8819036195732937
+    }
+  },
+  "strong": 1.01,
+  "bench": "0.70/hits4/strong off: macOS say voices recall=62/63, confusables=9/56, LibriSpeech dev-clean 5/5.39h (0.93/h)"
+}

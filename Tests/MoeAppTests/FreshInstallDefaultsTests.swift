@@ -81,7 +81,7 @@ struct FreshInstallDefaultsTests {
         #expect(fresh.calendarHeadsUpMinutes == 10)
     }
 
-    @Test("row 30 — Moe starts with the Mac")
+    @Test("row 30 — Alfie starts with the Mac")
     func launchAtLogin() {
         #expect(fresh.launchAtLogin)
     }
@@ -99,7 +99,7 @@ struct FreshInstallDefaultsTests {
         #expect(back.problemReportsAnonymous)
     }
 
-    @Test("row 38 — the Mac's language when Moe can hear it, else English")
+    @Test("row 38 — the Mac's language when Alfie can hear it, else English")
     func language() {
         #expect(SpeechLanguages.systemDefault(preferring: ["fr-FR", "en-US"]) == "fr-FR")
         #expect(SpeechLanguages.systemDefault(preferring: ["fr-CA"]) == "fr-FR")

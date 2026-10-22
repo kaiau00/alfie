@@ -1,6 +1,6 @@
 """Positives and neighbour negatives followed by more speech.
 
-"Hey Moe, what's the weather" is the normal case, and "hey mo-" followed by
+"Hey Alfie, what's the weather" is the normal case, and "hey mo-" followed by
 "-bile" is the false-accept case; the trainer's positives are the phrase
 alone, so a head that waits to hear what follows loses the request and one
 that does not wait fires on the neighbours. New originals: an existing

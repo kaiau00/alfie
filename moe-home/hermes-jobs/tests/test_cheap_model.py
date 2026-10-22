@@ -1,8 +1,8 @@
-"""lib/cheap_model.py: every background reader Moe runs on its own uses the
+"""lib/cheap_model.py: every background reader Alfie runs on its own uses the
 cheapest model the person's CURRENT provider serves (model-tiers.json), and a
 provider the table does not know keeps the person's chosen model.
 
-Why it exists (CLAUDE.md, "Moe is not Claude-specific"): Hermes's
+Why it exists (CLAUDE.md, "Alfie is not Claude-specific"): Hermes's
 ``call_llm(task="classify")`` with nothing pinned is served on a non-Claude
 brain by the auxiliary auto chain, whose first step is the main provider AND
 the main model — so the loop sweep, the situations sensor, the Composio

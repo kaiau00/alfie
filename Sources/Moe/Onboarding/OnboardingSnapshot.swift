@@ -153,7 +153,7 @@ enum OnboardingSnapshot {
             Shot(name: "05-dictate-no-accessibility", note: "clipboard instead, until allowed",
                  pose: pose(.dictate) { $0.accessibility = false }),
             Shot(name: "06-meetings", note: "notes, consent, the red ring", pose: pose(.meetings)),
-            Shot(name: "07-learn", note: "what Moe may read: three of the Mac's own sources and the daily pass, all recommended on",
+            Shot(name: "07-learn", note: "what Alfie may read: three of the Mac's own sources and the daily pass, all recommended on",
                  pose: pose(.learn) { $0.learnSources = OnboardingView.posedLearnSources }),
             Shot(name: "07-learn-nothing", note: "nothing connected yet: says where the list lives",
                  pose: pose(.learn) { $0.learnSources = [] }),

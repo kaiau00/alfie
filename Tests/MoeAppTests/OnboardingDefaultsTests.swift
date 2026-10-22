@@ -317,8 +317,8 @@ struct OnboardingDefaultsTests {
         #expect(Ask.pendingAll(sources: list, asked: ["notes"]).map(\.id) == ["calendar", "mail"])
         #expect(Ask.listed(["Calendar"]) == "Calendar")
         #expect(Ask.listed(["Calendar", "Notes", "Mail"]) == "Calendar, Notes and Mail")
-        #expect(LearnStepCopy.askTitleMany(3) == "Let Moe learn from these 3 and watch them for things you'd want help with?")
-        #expect(LearnStepCopy.askBodyMany("Calendar, Notes and Mail").hasPrefix("Calendar, Notes and Mail. Moe reads"))
+        #expect(LearnStepCopy.askTitleMany(3) == "Let Alfie learn from these 3 and watch them for things you'd want help with?")
+        #expect(LearnStepCopy.askBodyMany("Calendar, Notes and Mail").hasPrefix("Calendar, Notes and Mail. Alfie reads"))
     }
 
     @Test("asked twice in one day is one ask, so the week-later ask still comes")
@@ -336,7 +336,7 @@ struct OnboardingDefaultsTests {
 
     @Test("the question says learn and watch, and that nothing is sent")
     func askWords() {
-        #expect(LearnStepCopy.askTitle("Notes") == "Let Moe learn from Notes and watch it for things you'd want help with?")
+        #expect(LearnStepCopy.askTitle("Notes") == "Let Alfie learn from Notes and watch it for things you'd want help with?")
         #expect(LearnStepCopy.askBody("your notes").contains("Nothing is ever sent unless you say so"))
         #expect(LearnStepCopy.askDetail.contains("Not now asks again in a week"))
         #expect(BackgroundLearning.Words.row("Gmail") == "Learn from Gmail and watch it")
@@ -373,12 +373,12 @@ struct OnboardingDefaultsTests {
 
     // MARK: Rows 30 and 40
 
-    @Test("still seven screens, and the last one starts Moe with the Mac by default")
+    @Test("still seven screens, and the last one starts Alfie with the Mac by default")
     func stillSeven() {
         #expect(Onboarding.Screen.shown.count == (Features.dictation ? 8 : 7))
         #expect(Onboarding.Screen.shown.last == .connect)
         #expect(Config().launchAtLogin)
-        #expect(Onboarding.launchAtLoginTitle == "Start Moe when my Mac starts")
-        #expect(Onboarding.problemReportsTitle == "Let Moe send problem reports")
+        #expect(Onboarding.launchAtLoginTitle == "Start Alfie when my Mac starts")
+        #expect(Onboarding.problemReportsTitle == "Let Alfie send problem reports")
     }
 }

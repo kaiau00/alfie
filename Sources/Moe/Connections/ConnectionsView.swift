@@ -244,7 +244,7 @@ struct ConnectionsView: View {
             Button("Disconnect", role: .destructive) { if let c = removing { flow.remove(c) } }
             Button("Cancel", role: .cancel) {}
         } message: {
-            Text("Moe forgets the sign-in and stops reading it. Nothing at \(removing?.label ?? "the service") itself changes, and you can connect it again here whenever you like.")
+            Text("Alfie forgets the sign-in and stops reading it. Nothing at \(removing?.label ?? "the service") itself changes, and you can connect it again here whenever you like.")
         }
     }
 
@@ -283,7 +283,7 @@ struct ConnectionsView: View {
 
     private var list: some View {
         VStack(spacing: 0) {
-            PaneHeader(mode == .reach ? "Ways to reach Moe" : "Connections")
+            PaneHeader(mode == .reach ? "Ways to reach Alfie" : "Connections")
             // Counted, not remembered: the number was written when one list
             // held everything, and the platforms leaving made it wrong the
             // same day. A number on screen that nothing recomputes is a
@@ -354,7 +354,7 @@ struct ConnectionsView: View {
                         if !g.connected.isEmpty || search.isEmpty {
                             heading("Yours")
                             if g.connected.isEmpty {
-                                note("Nothing connected yet. Pick something below — Moe answers better the more of your world it can see.")
+                                note("Nothing connected yet. Pick something below — Alfie answers better the more of your world it can see.")
                             }
                             ForEach(g.connected) { row($0) }
                         }
@@ -426,15 +426,15 @@ struct ConnectionsView: View {
             ForEach(g.attention) { row($0) }
         }
         if !g.connected.isEmpty {
-            heading("You can reach Moe here")
+            heading("You can reach Alfie here")
             ForEach(g.connected) { row($0) }
         }
         if !g.available.isEmpty {
             heading(search.isEmpty
-                    ? (g.connected.isEmpty ? "Pick how you want to reach Moe" : "Also possible")
+                    ? (g.connected.isEmpty ? "Pick how you want to reach Alfie" : "Also possible")
                     : "Results")
             if g.connected.isEmpty, search.isEmpty {
-                note("Set one of these up and you can message Moe from your phone — a text, and Moe replies.")
+                note("Set one of these up and you can message Alfie from your phone — a text, and Alfie replies.")
             }
             ForEach(g.available) { row($0) }
         }
@@ -444,7 +444,7 @@ struct ConnectionsView: View {
         // is a contradiction the reader has to resolve.
         if g.isEmpty {
             note(search.isEmpty
-                 ? "Moe could not read the list of apps it can be messaged from. Press Check again."
+                 ? "Alfie could not read the list of apps it can be messaged from. Press Check again."
                  : "Nothing here is called “\(search)”. Try the name of the app itself.")
         }
     }
@@ -579,7 +579,7 @@ struct ConnectionsView: View {
                         .foregroundStyle(Theme.ink)
                         .fixedSize(horizontal: false, vertical: true)
                     Text(verbatim: p.isSlackInstall
-                         ? "Confirm only if that is you, or someone you're adding on purpose — until you do, nothing written there reaches Moe."
+                         ? "Confirm only if that is you, or someone you're adding on purpose — until you do, nothing written there reaches Alfie."
                          : (p.when.isEmpty ? p.name : "\(p.name) · \(p.when)"))
                         .font(Theme.Typo.ui(11)).foregroundStyle(Theme.ink3)
                         .fixedSize(horizontal: false, vertical: true)
@@ -704,10 +704,10 @@ struct ConnectionsView: View {
                              needsAccount: needsSignIn(c))
         } else if mode == .reach {
             PaneEmpty(title: "Pick a way in",
-                      detail: "Choose an app on the left to see how to message Moe there, who is allowed to, and how to stop it.")
+                      detail: "Choose an app on the left to see how to message Alfie there, who is allowed to, and how to stop it.")
         } else {
             PaneEmpty(title: "Pick a service",
-                      detail: "Choose anything on the left to see what Moe can do with it, which account it uses, and how to connect or disconnect it.")
+                      detail: "Choose anything on the left to see what Alfie can do with it, which account it uses, and how to connect or disconnect it.")
         }
     }
 
@@ -746,7 +746,7 @@ struct ConnectionsView: View {
             }
             VStack(alignment: .leading, spacing: Theme.Space.snug) {
                 settingsLabel("What it does")
-                Text("This is what lets Moe answer you. Moe doesn't charge for it and has no account of its own — it borrows yours. Which model it uses, and how hard it thinks, are in Settings.")
+                Text("This is what lets Alfie answer you. Alfie doesn't charge for it and has no account of its own — it borrows yours. Which model it uses, and how hard it thinks, are in Settings.")
                     .font(Theme.Typo.prose(13))
                     .foregroundStyle(Theme.ink2)
                     .fixedSize(horizontal: false, vertical: true)
@@ -822,7 +822,7 @@ struct ConnectionsView: View {
     @discardableResult
     private func runInTerminal(_ script: String, args: [String] = []) -> String {
         guard let target = ScriptRunner.scriptPath(script) else {
-            setupNote = "Moe couldn't find its own setup file for this. Reinstalling Memoe puts it back."
+            setupNote = "Alfie couldn't find its own setup file for this. Reinstalling Alfie puts it back."
             return setupNote
         }
         var err: NSDictionary?
@@ -832,7 +832,7 @@ struct ConnectionsView: View {
             // silently, hand over the command instead.
             NSPasteboard.general.clearContents()
             NSPasteboard.general.setString(([target] + args).joined(separator: " "), forType: .string)
-            setupNote = "Moe isn't allowed to open Terminal for you, so the command is copied — open Terminal yourself and press ⌘V, then Return."
+            setupNote = "Alfie isn't allowed to open Terminal for you, so the command is copied — open Terminal yourself and press ⌘V, then Return."
         } else {
             setupNote = "Opened in Terminal. Follow it there, then come back."
         }
@@ -896,7 +896,7 @@ struct ConnectionDetail: View {
     /// Why the first connect starts with a Google sign-in — said here,
     /// because the alternative is a second Google screen appearing with no
     /// warning and no reason.
-    static let signInFirst = "Your connections belong to your Memoe account, so they follow you to your other Macs and can be switched off in one place. Sign in with Google once, and this connects right after."
+    static let signInFirst = "Your connections belong to your Alfie account, so they follow you to your other Macs and can be switched off in one place. Sign in with Google once, and this connects right after."
 
     var body: some View {
         VStack(alignment: .leading, spacing: Theme.Space.roomy) {
@@ -979,7 +979,7 @@ struct ConnectionDetail: View {
     /// shown in full and in the warning colour.
     private var canDo: some View {
         VStack(alignment: .leading, spacing: Theme.Space.snug) {
-            settingsLabel("What Moe can do with it")
+            settingsLabel("What Alfie can do with it")
             // Catalog text: plain Text, never Markdown.
             Text(verbatim: c.blurb)
                 .font(Theme.Typo.prose(14))
@@ -1101,7 +1101,7 @@ struct ConnectionDetail: View {
                                                   .joined(separator: ", "))
                 }
                 if c.kind == .mac {
-                    kv("Where", "On this Mac, read directly. Nothing leaves it unless you ask Moe something about it.")
+                    kv("Where", "On this Mac, read directly. Nothing leaves it unless you ask Alfie something about it.")
                 }
                 if let checkedAt {
                     kv("Checked", checkedAt.formatted(date: .abbreviated, time: .shortened))
@@ -1232,7 +1232,7 @@ struct ConnectionDetail: View {
     private var renameSheet: some View {
         if let (conn, acct) = renamingAccount {
             VStack(alignment: .leading, spacing: Theme.Space.snug) {
-                Text("What should Moe call this \(conn.label) account?")
+                Text("What should Alfie call this \(conn.label) account?")
                     .font(Theme.Typo.heading(15))
                 Text("Composio does not record which account a sign-in belongs to, "
                      + "so this is the only way to tell two of them apart. The name "
@@ -1415,11 +1415,11 @@ struct FullDiskAccessSheet: View {
             // Permissions screen and onboarding cannot drift apart.
             PermissionExplainer(
                 guide: .fullDiskAccess,
-                lead: "\(row.label) is locked away by macOS until you let Moe read it.")
-            Text("If Memoe isn't in the list, drag it in from the Finder window “Reveal Memoe” opens.")
+                lead: "\(row.label) is locked away by macOS until you let Alfie read it.")
+            Text("If Alfie isn't in the list, drag it in from the Finder window “Reveal Alfie” opens.")
                 .font(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
             HStack {
-                Button("Reveal Memoe") { NSWorkspace.shared.activateFileViewerSelecting([Bundle.main.bundleURL]) }
+                Button("Reveal Alfie") { NSWorkspace.shared.activateFileViewerSelecting([Bundle.main.bundleURL]) }
                 Spacer()
                 Button("Close") { close() }.keyboardShortcut(.cancelAction)
             }
@@ -1723,7 +1723,7 @@ final class ConnectFlow: ObservableObject {
             // before the phone is even asked for a code.
             if c.name == "signal" {
                 phase = .confirming(
-                    "Linking gives this Mac your whole Signal account — every chat and group Signal shows you, not only what is sent to Moe. Moe answers only in Note to Self; it does not act on anything else. You can unlink from Signal › Settings › Linked devices at any time.")
+                    "Linking gives this Mac your whole Signal account — every chat and group Signal shows you, not only what is sent to Alfie. Alfie answers only in Note to Self; it does not act on anything else. You can unlink from Signal › Settings › Linked devices at any time.")
             } else {
                 scan(c)
             }
@@ -1893,7 +1893,7 @@ final class ConnectFlow: ObservableObject {
     var fieldLabel: String {
         guard case .field(let f) = phase else { return "" }
         if f == "moemail_name" {
-            return "A name for your address. Mail to it at @in.moebot.app reaches your Moe."
+            return "A name for your address. Mail to it at @in.moebot.app reaches your Alfie."
         }
         return Connection.promptLabel(field: f, brand: brand)
     }
@@ -1907,7 +1907,7 @@ final class ConnectFlow: ObservableObject {
         case .appPassword:
             return "Check the address is right, and that all 16 letters came across. If Google says the password is wrong, delete that one on Google's app passwords page, create a fresh one, and paste that instead."
         case .oauth:
-            return "Try again — the page can time out if it is left open. If \(c.label) says Moe isn't allowed, whoever runs your \(c.label) account may have to approve it."
+            return "Try again — the page can time out if it is left open. If \(c.label) says Alfie isn't allowed, whoever runs your \(c.label) account may have to approve it."
         case .apiKey:
             return "Check the key was copied whole, with no spaces at either end, and that it is a key for the right account. Then try again."
         case .oneClick where c.name == "moemail":
@@ -1929,7 +1929,7 @@ final class ConnectFlow: ObservableObject {
             }
             return "The code expires quickly — start it again and scan it as soon as it appears."
         case .consent:
-            return "Try again. If it still won't switch on, Moe may not be allowed to read that app's files yet — Settings › Permissions explains how to fix that."
+            return "Try again. If it still won't switch on, Alfie may not be allowed to read that app's files yet — Settings › Permissions explains how to fix that."
         case .macPermission, .none:
             return "Try again, or click “Check again” at the bottom of this screen."
         }
@@ -2019,7 +2019,7 @@ final class ConnectFlow: ObservableObject {
             case .working, .qr: settled = false
             default: settled = true
             }
-            if !settled { phase = .working("Restarting Moe's brain so it picks this up…") }
+            if !settled { phase = .working("Restarting Alfie's brain so it picks this up…") }
             restartGateway?()
             if settled { return }
             let name = connectName
@@ -2033,7 +2033,7 @@ final class ConnectFlow: ObservableObject {
                 return false
             }
             guard presented else { return }
-            if ok { succeed() } else { phase = .failed("Moe is taking a while to come back. Wait a minute, then click “Check again” at the bottom of this screen.") }
+            if ok { succeed() } else { phase = .failed("Alfie is taking a while to come back. Wait a minute, then click “Check again” at the bottom of this screen.") }
             return
         }
         if case .done = phase { return }
@@ -2144,7 +2144,7 @@ final class ConnectFlow: ObservableObject {
                     self.model?.forget(p)
                     self.waiting.removeAll { $0.id == p.id }
                     if case .working = self.phase {
-                        self.phase = .done(p.isSlackInstall ? "Moe is in Slack now." : "\(p.name) can talk to Moe on \(p.platformLabel) now.")
+                        self.phase = .done(p.isSlackInstall ? "Alfie is in Slack now." : "\(p.name) can talk to Alfie on \(p.platformLabel) now.")
                     }
                 } else if case .working = self.phase {
                     self.phase = .failed(r.lastHumanLine.isEmpty ? "Couldn't let them in." : r.lastHumanLine)
@@ -2473,7 +2473,7 @@ final class ConnectFlow: ObservableObject {
                 // Note to Self until the next launch. Same hook as a connect.
                 if Self.asksForGatewayRestart(r.output) {
                     self.restartGateway?()
-                    self.phase = .done("\(c.label) is disconnected. Moe's brain is restarting so it stops answering there.")
+                    self.phase = .done("\(c.label) is disconnected. Alfie's brain is restarting so it stops answering there.")
                 } else {
                     self.phase = .done("\(c.label) is disconnected.")
                 }
@@ -2509,8 +2509,8 @@ final class ConnectFlow: ObservableObject {
                     // the same as `succeed()`; switched off is not.
                     if on { self.justConnected = c }
                     self.phase = .done(on
-                        ? "\(c.label) is on. Moe picks it up on the next sync."
-                        : "\(c.label) is off. Moe stops reading it, and what it already read is dropped.")
+                        ? "\(c.label) is on. Alfie picks it up on the next sync."
+                        : "\(c.label) is off. Alfie stops reading it, and what it already read is dropped.")
                 } else {
                     self.phase = .failed(r.lastHumanLine.isEmpty ? "Couldn't change that." : r.lastHumanLine)
                 }
@@ -2803,7 +2803,7 @@ struct ConnectSheet: View {
     private func qr(_ payload: String) -> some View {
         VStack(alignment: .center, spacing: 10) {
             Text(flow.connection?.name == "signal"
-                 ? "On your phone: Signal › Settings › Linked devices › +, then point it at this. Afterwards, talk to Moe in Note to Self."
+                 ? "On your phone: Signal › Settings › Linked devices › +, then point it at this. Afterwards, talk to Alfie in Note to Self."
                  : "On your phone: WhatsApp › Settings › Linked devices › Link a device, then point it at this.")
                 .font(.caption).fixedSize(horizontal: false, vertical: true)
             if let img = QRImage.make(payload) {
@@ -2821,7 +2821,7 @@ struct ConnectSheet: View {
             Label(slack ? "Slack is added — one more step." : "Your Telegram bot is ready.",
                   systemImage: "checkmark.circle.fill").foregroundStyle(.green)
             Text(slack
-                 ? "Confirm it's you. Moe on this Mac has to say yes before anything written in that Slack reaches Moe. Say yes only to a workspace and name you recognise."
+                 ? "Confirm it's you. Alfie on this Mac has to say yes before anything written in that Slack reaches Alfie. Say yes only to a workspace and name you recognise."
                  : "Now pair your phone: open the bot Telegram just showed you and send it any message. It appears here — approve it and you are done.")
                 .font(.caption).fixedSize(horizontal: false, vertical: true)
             if flow.waiting.isEmpty {
@@ -2835,7 +2835,7 @@ struct ConnectSheet: View {
                 }
             }
             if !flow.approved.isEmpty {
-                Text(slack ? "Confirmed. Write to Moe under Apps in Slack." : "Approved. Say hello to Moe from your phone.").font(.caption).foregroundStyle(.green)
+                Text(slack ? "Confirmed. Write to Alfie under Apps in Slack." : "Approved. Say hello to Alfie from your phone.").font(.caption).foregroundStyle(.green)
             }
             alternates
             HStack {
@@ -2848,7 +2848,7 @@ struct ConnectSheet: View {
     /// Several mailboxes behind one Gmail row: which one is going.
     private func chooseMailbox(_ boxes: [String]) -> some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text(boxes.count == 1 ? "Forget this mailbox?" : "Which mailbox should Moe forget?")
+            Text(boxes.count == 1 ? "Forget this mailbox?" : "Which mailbox should Alfie forget?")
                 .font(.caption)
             ForEach(boxes, id: \.self) { box in
                 HStack {
@@ -2858,7 +2858,7 @@ struct ConnectSheet: View {
                 }
             }
             Text(boxes.count == 1
-                 ? "Moe forgets the app password and stops reading it. Nothing at Google changes."
+                 ? "Alfie forgets the app password and stops reading it. Nothing at Google changes."
                  : "The others stay connected.")
                 .font(.caption2).foregroundStyle(.secondary)
             HStack { Spacer(); Button("Cancel") { flow.cancel() }.keyboardShortcut(.cancelAction) }
@@ -2874,10 +2874,10 @@ struct ConnectSheet: View {
                      : "Finish signing in in your browser…")
             }
             Text(flow.connection?.authKind != .oneClick
-                 ? "Approve Moe on the page that opened. This closes on its own when it is done."
+                 ? "Approve Alfie on the page that opened. This closes on its own when it is done."
                  : flow.connection?.name == "slack"
-                 ? "Slack opened its own page. Pick the workspace you want Moe in and choose Allow; then find Moe under Apps and write to it there. This closes on its own."
-                 : "Telegram opened a Create bot screen for @MoeSetupBot, with the name Moe filled in. Tap Create; Moe collects the new bot and this closes on its own.")
+                 ? "Slack opened its own page. Pick the workspace you want Alfie in and choose Allow; then find Alfie under Apps and write to it there. This closes on its own."
+                 : "Telegram opened a Create bot screen for @MoeSetupBot, with the name Alfie filled in. Tap Create; Alfie collects the new bot and this closes on its own.")
                 .font(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
             if case .signingIn(let url) = flow.phase, let u = URL(string: url) {
                 Link("Page didn't open? Open it again", destination: u).font(.caption)

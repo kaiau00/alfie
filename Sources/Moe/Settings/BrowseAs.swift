@@ -76,16 +76,16 @@ struct BrowseAs: Equatable {
 
     /// One sentence for the row: who Moe is on the web, and why.
     var summary: String {
-        guard let browser else { return "Your default browser isn't Chrome, Edge or Brave, so Moe browses signed out." }
+        guard let browser else { return "Your default browser isn't Chrome, Edge or Brave, so Alfie browses signed out." }
         let name = browserName
         if profiles.count <= 1 {
-            return "Moe's browser carries your \(name) logins. \(name) has one profile, so there is nothing to choose."
+            return "Alfie's browser carries your \(name) logins. \(name) has one profile, so there is nothing to choose."
         }
-        if let p = profile(pinned) { return "Moe browses as \(p.label) — you chose this." }
+        if let p = profile(pinned) { return "Alfie browses as \(p.label) — you chose this." }
         if let p = profile(lastUsed) {
-            return "Moe browses as \(p.label) — whichever \(name) profile you used last. With \(profiles.count) profiles that changes as you switch windows; pick one to keep it fixed."
+            return "Alfie browses as \(p.label) — whichever \(name) profile you used last. With \(profiles.count) profiles that changes as you switch windows; pick one to keep it fixed."
         }
-        return "\(name) has \(profiles.count) profiles; pick the one whose logins Moe should use."
+        return "\(name) has \(profiles.count) profiles; pick the one whose logins Alfie should use."
     }
 
     var browserName: String {

@@ -208,7 +208,7 @@ class AnswerDismissTest(ScratchCase):
 
 
 class AddTest(ScratchCase):
-    """`add`: "+ Add something Moe should know" on the Memory page. The line
+    """`add`: "+ Add something Alfie should know" on the Memory page. The line
     is the person's own — source `user`, high, today — in the file they
     added it under, with that file's kind."""
 

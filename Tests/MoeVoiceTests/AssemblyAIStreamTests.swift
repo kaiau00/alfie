@@ -176,7 +176,7 @@ struct AssemblyAIKeytermsTests {
     }
 
     @Test func dedupedCaseInsensitivelyKeepingTheFirstSpelling() {
-        #expect(AssemblyAIKeyterms.prepare(["Moe", "moe", " MOE ", "Izzy"]) == ["Moe", "Izzy"])
+        #expect(AssemblyAIKeyterms.prepare(["Alfie", "alfie", " ALFIE ", "Izzy"]) == ["Alfie", "Izzy"])
     }
 
     @Test func overFiftyCharactersIsDroppedBecauseTheServerIgnoresIt() {
@@ -280,13 +280,13 @@ struct AssemblyAIStreamTests {
         let factory = FakeFactory()
         factory.make = {
             let s = FakeSocket()
-            s.onSend = { frame in frame == .text(forceEndpoint) ? [turn(0, "Hello Moe.", final: true, confidences: [0.8, 1.0])] : [] }
+            s.onSend = { frame in frame == .text(forceEndpoint) ? [turn(0, "Hello Alfie.", final: true, confidences: [0.8, 1.0])] : [] }
             return s
         }
         let stream = makeStream(factory: factory)
         let result = try await stream.transcribe(samples16k: samples(ms: 1230),
-                                                 context: .init(languageCodes: ["en"], keyterms: ["Moe"]))
-        #expect(result.text == "Hello Moe.")
+                                                 context: .init(languageCodes: ["en"], keyterms: ["Alfie"]))
+        #expect(result.text == "Hello Alfie.")
         #expect(result.turns == 1)
         #expect(result.confidence.map { abs($0 - 0.9) < 0.001 } == true)
         let socket = try #require(factory.last)
@@ -302,7 +302,7 @@ struct AssemblyAIStreamTests {
         #expect(factory.connects.count == 1)
         #expect(factory.connects[0].1 == nil)
         #expect(factory.connects[0].0.absoluteString.contains("token=T"))
-        #expect(factory.connects[0].0.absoluteString.contains("keyterms_prompt=%5B%22Moe%22%5D"))
+        #expect(factory.connects[0].0.absoluteString.contains("keyterms_prompt=%5B%22Alfie%22%5D"))
         #expect(await stream.isOpen)
     }
 
@@ -442,21 +442,21 @@ struct AssemblyAIStreamTests {
         }
         let clock = FakeClock()
         let stream = makeStream(factory: factory, clock: clock)
-        _ = try await stream.transcribe(samples16k: samples(ms: 500), context: .init(keyterms: ["Moe"]))
+        _ = try await stream.transcribe(samples16k: samples(ms: 500), context: .init(keyterms: ["Alfie"]))
         // Changed inside the window: waits.
         clock.advance(1)
-        _ = try await stream.transcribe(samples16k: samples(ms: 500), context: .init(keyterms: ["Moe", "Izzy"]))
+        _ = try await stream.transcribe(samples16k: samples(ms: 500), context: .init(keyterms: ["Alfie", "Izzy"]))
         #expect(factory.last?.texts.filter { $0.contains("UpdateConfiguration") }.isEmpty == true)
         // Past the window: one message, with the list and Moe's last reply.
         clock.advance(2)
         _ = try await stream.transcribe(samples16k: samples(ms: 500),
-                                        context: .init(keyterms: ["Moe", "Izzy"], agentContext: "What time?"))
+                                        context: .init(keyterms: ["Alfie", "Izzy"], agentContext: "What time?"))
         let updates = factory.last!.texts.filter { $0.contains("UpdateConfiguration") }
-        #expect(updates == [#"{"agent_context":"What time?","keyterms_prompt":["Moe","Izzy"],"type":"UpdateConfiguration"}"#])
+        #expect(updates == [#"{"agent_context":"What time?","keyterms_prompt":["Alfie","Izzy"],"type":"UpdateConfiguration"}"#])
         // Unchanged: nothing more.
         clock.advance(5)
         _ = try await stream.transcribe(samples16k: samples(ms: 500),
-                                        context: .init(keyterms: ["Moe", "Izzy"], agentContext: "What time?"))
+                                        context: .init(keyterms: ["Alfie", "Izzy"], agentContext: "What time?"))
         #expect(factory.last!.texts.filter { $0.contains("UpdateConfiguration") }.count == 1)
     }
 }

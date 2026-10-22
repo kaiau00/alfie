@@ -12,7 +12,7 @@ is "nearly used up":
     imports this file and prints the stable word `deferred`.
   * hermes-jobs/moe-learn-deep.sh — the daily learn pass, whose distil step
     runs on the person's MAIN brain, one call per ~12 000-character chunk:
-    the largest background bill Moe can run up (docs/DEFAULTS.md row 23,
+    the largest background bill Alfie can run up (docs/DEFAULTS.md row 23,
     finding B). It runs `check` and records `paused`.
 
 Exit 3, not 1, for "no headroom": a python that crashes exits 1, and a gate

@@ -1,6 +1,6 @@
-"""Moe's ledger, read and written from Python.
+"""Alfie's ledger, read and written from Python.
 
-The store is ``~/.moe/ledger/*.jsonl`` — the same append-only log Moe's Swift
+The store is ``~/.moe/ledger/*.jsonl`` — the same append-only log Alfie's Swift
 side writes conversations into (``docs/ONE-AGENT.md`` §1.5). One JSONL file
 per device, one immutable record per line::
 
@@ -358,7 +358,7 @@ class PendingRevival(object):
 
     So the third answer, which is this product's posture everywhere else:
     **ask**. The claim stays out of the digest, the record stays in the ledger,
-    and it surfaces here so Moe can say "you deleted that before, want me to
+    and it surfaces here so Alfie can say "you deleted that before, want me to
     remember it again?" Answering yes is a ``user``-sourced assert, which
     revives it by the ordinary rule. Nothing here restores anything, and
     nothing here drops anything.
@@ -414,7 +414,7 @@ def open_text(encoded: str, key: Optional[Union[bytes, Sequence[bytes]]]) -> Opt
     without a key, or when the tag does not verify.
 
     ``key`` may be **one key or several** (CLOUD-PLAN §15.1). A Mac that ran
-    Moe free before joining a tenant has a retired `moe:memory` key beside its
+    Alfie free before joining a tenant has a retired `moe:memory` key beside its
     current one, and the claims it wrote while free open only under the old
     one. Every key is tried, current first; the first that verifies wins.
 
@@ -725,7 +725,7 @@ def safe_device(device: str) -> str:
 
 
 class ClaimStore(object):
-    """Moe's ledger directory, read whole and appended to by this runtime.
+    """Alfie's ledger directory, read whole and appended to by this runtime.
 
     ``state_dir`` is where this projector's own state lives (the digest
     marker, the documents state): ``$HERMES_HOME`` on a Mac, the vault on a
@@ -1309,7 +1309,7 @@ class ClaimStore(object):
         """Re-assert, under the CURRENT key, every claim only a retired key opens.
 
         CLOUD-PLAN §15.1, the half that makes memory actually converge. A Mac
-        that ran Moe free sealed its claims under the key it honestly minted
+        that ran Alfie free sealed its claims under the key it honestly minted
         for itself; joining a tenant adopts the tenant's key and retires that
         one, so this Mac still reads its own past — and **nobody else ever
         will.** The record sits on the shared chain sealed under a key that

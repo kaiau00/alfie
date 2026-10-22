@@ -61,7 +61,7 @@ struct BargeInTurnsTests {
         #expect(TurnPolicy.hasStopWord(in: "wait a second"))
         #expect(TurnPolicy.hasStopWord(in: "no no no"))
         #expect(TurnPolicy.hasStopWord(in: "hold on"))
-        #expect(TurnPolicy.hasStopWord(in: "Moe"))
+        #expect(TurnPolicy.hasStopWord(in: "Alfie"))
         #expect(!TurnPolicy.hasStopWord(in: "tell me more"))
         // Only the words after the baseline: "stop" earlier in the turn is not new.
         #expect(!TurnPolicy.hasStopWord(in: "please stop the timer then", after: 3))

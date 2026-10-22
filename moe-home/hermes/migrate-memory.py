@@ -7,7 +7,7 @@ system prompt (tools/memory_tool.py in hermes-agent):
     $HERMES_HOME/memories/USER.md    who the user is        cap 1,375 chars
     $HERMES_HOME/memories/MEMORY.md  what the agent knows   cap 2,200 chars
 
-Moe's memory is ~37 KB of markdown, most of it a 24 KB soul.md. It cannot be
+Alfie's memory is ~37 KB of markdown, most of it a 24 KB soul.md. It cannot be
 copied; it has to be distilled. This script does that deterministically — no
 model call — because it runs at onboarding, offline, and has to finish in the
 time it takes to blink. The heuristics are deliberately dumb and transparent:

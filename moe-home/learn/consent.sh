@@ -338,7 +338,7 @@ PY
     if [ "$src" = "$BACKGROUND_SOURCE" ]; then
       cat <<EOF
 
-Once a day, Moe would go back over the sources you have already said yes to
+Once a day, Alfie would go back over the sources you have already said yes to
 and write down a short list of things about you. It reads nothing you have
 not already agreed to, and no new source is added by saying yes here.
 
@@ -350,9 +350,9 @@ EOF
     elif [ "$src" = "$SEED_SOURCE" ]; then
       cat <<EOF
 
-Moe would save what it has learned about you into its long-term memory, so it
+Alfie would save what it has learned about you into its long-term memory, so it
 remembers you from one chat to the next. Only a few durable, high-signal facts
-are kept, and Moe never overwrites or deletes what is already there.
+are kept, and Alfie never overwrites or deletes what is already there.
 
 It all stays on this Mac. The facts go to the local Hermes agent, which
 decides what to keep; the raw list, with a source and date on each, stays in
@@ -363,7 +363,7 @@ EOF
     else
     cat <<EOF
 
-To learn about you from ${src}, Moe would read
+To learn about you from ${src}, Alfie would read
   $(describe "$src")
 going back $(window_words "$src"), once — after that it only catches up.
 

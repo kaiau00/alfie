@@ -1,20 +1,20 @@
 #!/usr/bin/env python3
-"""Your chat apps, reaching Moe wherever Moe is awake.
+"""Your chat apps, reaching Alfie wherever Alfie is awake.
 
-A chat app can talk to the Moe on this Mac, or to the one in the cloud when
+A chat app can talk to the Alfie on this Mac, or to the one in the cloud when
 this Mac is asleep — one bot, one thread, whichever is awake. The edge decides
 that (`select_runtime`: your preference first, and always failing over to
 whatever is actually reachable). This script is how the Mac sets it up.
 
   channels.py status                 what is connected, and what is waiting
   channels.py slack-install          the one-click "Add to Slack" link
-  channels.py slack-status           which Slack workspaces Moe is in
+  channels.py slack-status           which Slack workspaces Alfie is in
   channels.py slack-confirm <id>     say yes to an Add to Slack waiting for this Mac
-  channels.py slack-unlink           disconnect Moe's own Slack app
-  channels.py email-status           your Moe email address, and whose mail is yours
-  channels.py email-name <name>      choose, or change, your Moe email address
-  channels.py email-release          let your Moe email address go
-  channels.py register <channel>     point your bot at Moe, both ways
+  channels.py slack-unlink           disconnect Alfie's own Slack app
+  channels.py email-status           your Alfie email address, and whose mail is yours
+  channels.py email-name <name>      choose, or change, your Alfie email address
+  channels.py email-release          let your Alfie email address go
+  channels.py register <channel>     point your bot at Alfie, both ways
   channels.py socket <channel>       hand the cloud a Slack/Discord socket key
   channels.py migrate                move every connected chat app over, asking nothing
   channels.py knocks                 who has messaged and is not let in
@@ -42,13 +42,13 @@ gateway receiving anything. That is the whole point — it is what makes the bot
 answer while the Mac is shut — but it is a real change to how a working thing
 works, so `register telegram` says so and refuses without `--yes`.
 
-**Upgrading uses the credential Moe already has.** `register` reads the
+**Upgrading uses the credential Alfie already has.** `register` reads the
 channel's token out of ~/.hermes/.env (`LOCAL_CREDS`) rather than asking a
 person to paste it. It had to: on the free tier the one-click Telegram bot
 puts its token straight into .env and never shows it — "the token never
 reaches this shell" — so somebody upgrading was being asked for a secret they
 had never seen, for a bot they never made by hand. That was the whole of the
-upgrade path and it was a dead end. What Moe does not hold is still asked
+upgrade path and it was a dead end. What Alfie does not hold is still asked
 for: **WhatsApp Business's app secret**, on the one channel still verified by
 signature. Slack's signing secret and Discord's public key are no longer asked
 for at all — they prove an HTTP body came from the platform, and on a socket
@@ -241,7 +241,7 @@ CARRY_ALLOWED = {
         "dm_users": (),
         "pairing": None,
         "gap": "the people you approved on Slack are member ids (U…) and a "
-               "Slack chat is a conversation id (D…/C…); Moe cannot turn one "
+               "Slack chat is a conversation id (D…/C…); Alfie cannot turn one "
                "into the other without asking Slack, so they knock once each",
     },
     "discord": {
@@ -249,7 +249,7 @@ CARRY_ALLOWED = {
         "dm_users": (),
         "pairing": None,
         "gap": "the people you approved on Discord are user ids and a Discord "
-               "chat is a channel id; Moe cannot turn one into the other "
+               "chat is a channel id; Alfie cannot turn one into the other "
                "without asking Discord, so they knock once each",
     },
     "whatsapp": {
@@ -410,7 +410,7 @@ def cmd_owner_claim(channel="telegram"):
 def cmd_owner_status(quiet=False):
     """Which chat apps reach the owner, as the cloud says — written to
     `cloud/owner-reach.json` for the brief, which says "connected through
-    Memoe" only for these. Names only; the edge never hands a chat back."""
+    Alfie" only for these. Names only; the edge never hands a chat back."""
     status, body = call("GET", "/v1/owner/status")
     if status >= 400:
         if not quiet:
@@ -431,8 +431,8 @@ def cmd_owner_status(quiet=False):
     except OSError as e:
         print("  (could not note it on this Mac: %s)" % e, file=sys.stderr)
     if not quiet:
-        print(("✓ Moe can reach you on: %s" % ", ".join(names)) if names else
-              "Moe cannot reach you on a chat app yet — confirm your own chat on your Mac: "
+        print(("✓ Alfie can reach you on: %s" % ", ".join(names)) if names else
+              "Alfie cannot reach you on a chat app yet — confirm your own chat on your Mac: "
               "Connections › Telegram › Confirm it's you")
     return 0
 
@@ -464,7 +464,7 @@ def socket_credential(channel):
 
 
 def local_credential(channel):
-    """(token, secret) that Moe already has for this channel; "" for absent."""
+    """(token, secret) that Alfie already has for this channel; "" for absent."""
     keys, secret_key = LOCAL_CREDS.get(channel, ([], None))
     parts = [env_value(k) for k in keys]
     token = ":".join(parts) if all(parts) else ""
@@ -574,7 +574,7 @@ def point_provider(channel, token, url, secret):
             return False, "could not reach Telegram: %s" % exc.reason
         if not said.get("ok"):
             return False, "Telegram refused: %s" % said.get("description", "")
-        return True, "Telegram is now sending to Moe. This bot no longer polls."
+        return True, "Telegram is now sending to Alfie. This bot no longer polls."
     if channel == "line":
         body = json.dumps({"endpoint": url}).encode()
         req = urllib.request.Request(
@@ -587,7 +587,7 @@ def point_provider(channel, token, url, secret):
             return False, "LINE refused: %s" % exc.read().decode("utf-8", "replace")[:160]
         except urllib.error.URLError as exc:
             return False, "could not reach LINE: %s" % exc.reason
-        return True, "LINE is now sending to Moe."
+        return True, "LINE is now sending to Alfie."
     return False, BY_HAND.get(channel, "your app's settings")
 
 
@@ -612,7 +612,7 @@ def cmd_status():
 
 def cmd_register(channel, yes=False, quiet=False):
     if channel not in CHANNELS:
-        die("Moe's cloud does not carry '%s'. It carries: %s"
+        die("Alfie's cloud does not carry '%s'. It carries: %s"
             % (channel, ", ".join(CHANNELS)))
     if channel in SOCKET_CHANNELS:
         # The docstring says Slack's signing secret and Discord's public key
@@ -621,7 +621,7 @@ def cmd_register(channel, yes=False, quiet=False):
         # walk somebody through fetching a signing secret and pasting a
         # Request URL — the webhook route, which neither platform offers for
         # a message. A refusal that names the verb that does work.
-        die("%s is not pointed at an address — Moe's cloud opens a connection "
+        die("%s is not pointed at an address — Alfie's cloud opens a connection "
             "to it and holds it. Run: channels.py socket %s" % (channel, channel))
     need = NEEDS[channel]
     if channel == "telegram" and not yes:
@@ -652,7 +652,7 @@ def cmd_register(channel, yes=False, quiet=False):
 
     if have_token:
         if not quiet:
-            print("Using the %s credential Moe already has." % channel)
+            print("Using the %s credential Alfie already has." % channel)
         token = have_token
     elif quiet:
         # Driven, not typed: there is nobody to ask. `migrate` decides what
@@ -713,7 +713,7 @@ def cmd_register(channel, yes=False, quiet=False):
     if done:
         print("✓ %s" % said)
         if carried:
-            print("  %d person(s) you already allowed here can keep talking to Moe."
+            print("  %d person(s) you already allowed here can keep talking to Alfie."
                   % len(carried))
         if refused and not quiet:
             for chat_id, why in refused:
@@ -728,8 +728,8 @@ def cmd_register(channel, yes=False, quiet=False):
             # answers through the cloud is the same lie as the dead Telegram
             # that hid for a day. Left in place rather than deleted so
             # `forget` can put the bot back on polling, but said out loud.
-            print("  Moe on this Mac no longer receives %s directly — the cloud does, "
-                  "and hands it to whichever Moe is awake." % channel)
+            print("  Alfie on this Mac no longer receives %s directly — the cloud does, "
+                  "and hands it to whichever Alfie is awake." % channel)
     elif channel in BY_HAND:
         # Deliberately not an error. The edge half is genuinely registered;
         # what is missing is a step only a person can take, and the URL is
@@ -742,7 +742,7 @@ def cmd_register(channel, yes=False, quiet=False):
         print()
         print("    %s" % url)
         print()
-        print("(Moe is ready for it either way — nothing arrives until you do, "
+        print("(Alfie is ready for it either way — nothing arrives until you do, "
               "and this Mac keeps receiving %s until then.)" % channel)
     else:
         # **A provider Moe CAN ask, that said no.** An error, and a loud one:
@@ -751,7 +751,7 @@ def cmd_register(channel, yes=False, quiet=False):
         # is this Mac letting go, and it has not — the marker above is
         # written only when the provider confirmed.
         print("✗ %s" % said)
-        print("  Nothing has changed: %s still reaches Moe on this Mac, because "
+        print("  Nothing has changed: %s still reaches Alfie on this Mac, because "
               "it was never pointed away from it." % channel.capitalize())
         print("  Try again, or connect %s again in Settings › Away." % channel)
         return 2
@@ -780,7 +780,7 @@ def cmd_knocks():
 
 def cmd_approve(channel, chat_id, thread=None):
     if channel not in CHANNELS:
-        die("Moe's cloud does not carry '%s'" % channel)
+        die("Alfie's cloud does not carry '%s'" % channel)
     # One thread per chat, named after the chat unless the caller says
     # otherwise: "message your agent and it knows this morning's conversation"
     # is only true if a channel lands in a thread that persists.
@@ -789,7 +789,7 @@ def cmd_approve(channel, chat_id, thread=None):
                         {"chat_id": chat_id, "thread_id": thread})
     if status >= 400:
         die("the cloud refused: %s" % body.get("detail", status))
-    print("✓ %s %s can now reach Moe, in thread %s"
+    print("✓ %s %s can now reach Alfie, in thread %s"
           % (channel, chat_id, body.get("thread_id", thread)))
     return 0
 
@@ -809,7 +809,7 @@ def _socket_keys(channel, quiet=False):
     app_token = socket_credential(channel)
     if SOCKET_CREDS.get(channel) and not app_token:
         if not quiet:
-            die("Moe has no %s for this Mac's Slack. Reconnect Slack and it will "
+            die("Alfie has no %s for this Mac's Slack. Reconnect Slack and it will "
                 "be saved with the bot key." % SOCKET_CREDS[channel])
         return None
     payload = {"outbound_token": token}
@@ -891,7 +891,7 @@ def cmd_register_socket(channel, quiet=False):
     **Nothing is typed and no dashboard is visited.** Slack and Discord are
     not *pointed* anywhere — there is no address to give them. The edge opens
     a connection outwards and holds it, with the credential this Mac has held
-    since the day the app was connected. Neither of the two secrets Moe has
+    since the day the app was connected. Neither of the two secrets Alfie has
     never held is needed: Slack's signing secret and Discord's public key
     prove that an HTTP body came from the platform, and on a socket the edge
     opened there is no body to prove.
@@ -924,7 +924,7 @@ SOCKET_POLL_S = 2
 def cmd_migrate(yes=False):
     """Move every chat app this Mac has onto the cloud, without asking.
 
-    **This is what "buy Moe Away and your bots keep working" actually means,
+    **This is what "buy Alfie Away and your bots keep working" actually means,
     and until 2026-09-09 nothing did it.** The pieces were all here — the edge
     holds the token, both Moes dial out, `select_runtime` fails over — and the
     join between them was a CLI verb a person had to know to run, that then
@@ -938,7 +938,7 @@ def cmd_migrate(yes=False):
     from here. Nothing is typed and nothing is asked.
 
     It is deliberately **not** all-or-nothing. WhatsApp Business can only be
-    pointed at Moe from Meta's own dashboard, and the one that needs a
+    pointed at Alfie from Meta's own dashboard, and the one that needs a
     person's hand must not stop the four that do not. Each channel's outcome is reported on its own line
     and the exit code is 0 when at least one moved — a partial migration is
     the normal case here, not a failure.
@@ -982,7 +982,7 @@ def cmd_migrate(yes=False):
         if need["secret"] is not None and not _secret:
             # A channel still on the webhook route whose secret Moe does not
             # hold. Named, not silently dropped.
-            pending.append((channel, "needs its %s, which Moe has never held"
+            pending.append((channel, "needs its %s, which Alfie has never held"
                             % need["secret"]))
             continue
         try:
@@ -1080,7 +1080,7 @@ def cmd_forget(channel):
     without an app registered receives nothing anyway.
     """
     if channel not in CHANNELS:
-        die("Moe's cloud does not carry '%s'" % channel)
+        die("Alfie's cloud does not carry '%s'" % channel)
     status, body = call("POST", "/v1/channels/%s/app" % channel,
                         {"webhook_secret": None, "outbound_token": None})
     if status >= 400:
@@ -1095,7 +1095,7 @@ def cmd_forget(channel):
 def cmd_slack_install():
     """The one-click "Add to Slack" link, for the browser to open.
 
-    Moe has its own Slack app (slice G1), so there are no keys to find: the
+    Alfie has its own Slack app (slice G1), so there are no keys to find: the
     edge mints a ONE-TIME link and this prints it as `SIGN_IN_URL=`, which is
     the line the Connections sheet already knows how to open (the Telegram
     bot maker prints the same). The device credential stays in the header of
@@ -1104,14 +1104,14 @@ def cmd_slack_install():
     503 means the cloud cannot offer Add to Slack yet: its Slack app, or the
     Google web client the install page proves the account with, is not set up
     (third review of slice G1 — without the Google sign-in there are no install
-    links at all). That is said as "not available yet", and noted in Moe's
+    links at all). That is said as "not available yet", and noted in Alfie's
     Slack marker so the Connections row reads the same; the paste-the-keys
     path is the right fallback and still works.
     """
     status, body = call("POST", "/v1/channels/slack/install-link", {})
     if status == 503:
         _note_moe_slack_available(False)
-        die("Add to Slack is not available yet — Moe's cloud isn't set up for it. "
+        die("Add to Slack is not available yet — Alfie's cloud isn't set up for it. "
             "A Slack app of your own still works: add its two keys instead.")
     if status >= 400:
         die("the cloud refused: %s" % body.get("detail", status))
@@ -1123,8 +1123,8 @@ def cmd_slack_install():
     # The page names this Moe account first (masked) and asks for a Google
     # sign-in as it: a link that reaches somebody else's browser shows them
     # whose account it is, and they cannot get past it.
-    print("Check the page names your Memoe account, sign in with Google as it, then pick the "
-          "workspace you want Moe in, choose Allow, and confirm it here in Connections.")
+    print("Check the page names your Alfie account, sign in with Google as it, then pick the "
+          "workspace you want Alfie in, choose Allow, and confirm it here in Connections.")
     return 0
 
 
@@ -1146,7 +1146,7 @@ def _moe_slack_path():
 
 
 def _mark_moe_slack(linked, receiving, pending=(), available=True, trouble=()):
-    """Write or remove Moe's own Slack app's marker.
+    """Write or remove Alfie's own Slack app's marker.
 
     Written when a workspace is linked, OR an install is waiting for this
     Mac's word, OR the cloud said Add to Slack is not available there yet;
@@ -1155,10 +1155,10 @@ def _mark_moe_slack(linked, receiving, pending=(), available=True, trouble=()):
     as something to confirm instead), and `available` false is what makes the
     Connections row read "not available yet" rather than offer a button the
     cloud can only refuse (third review of slice G1). `trouble` is what went
-    wrong per workspace, from the cloud (fourth review): a workspace Moe was
+    wrong per workspace, from the cloud (fourth review): a workspace Alfie was
     removed from because Slack refused its key, and the latest reason a reply
     there was given up on — kept even when nothing is linked any more, because
-    "Moe was removed from Acme" is exactly the case with nothing linked."""
+    "Alfie was removed from Acme" is exactly the case with nothing linked."""
     path = _moe_slack_path()
     try:
         if not linked and not pending and available and not trouble:
@@ -1175,7 +1175,7 @@ def _mark_moe_slack(linked, receiving, pending=(), available=True, trouble=()):
     except FileNotFoundError:
         pass
     except OSError as e:
-        print("  (could not note Moe's Slack app on this Mac: %s)" % e, file=sys.stderr)
+        print("  (could not note Alfie's Slack app on this Mac: %s)" % e, file=sys.stderr)
 
 
 def _note_moe_slack_available(available):
@@ -1197,7 +1197,7 @@ def _note_moe_slack_available(available):
 
 def cmd_slack_status(quiet=False):
     """Which Slack workspaces this account is linked in — and the Mac's own
-    record of Moe's Slack app kept in step with the answer.
+    record of Alfie's Slack app kept in step with the answer.
 
     The install finishes in a browser, so nothing on this Mac hears about it;
     this is what the Connections screen's polling reaches. It writes (or
@@ -1208,7 +1208,7 @@ def cmd_slack_status(quiet=False):
     status, body = call("GET", "/v1/channels/slack/link")
     if status == 503:
         if not quiet:
-            print("Moe's own Slack app is not set up on the cloud yet.")
+            print("Alfie's own Slack app is not set up on the cloud yet.")
         return 0
     if status >= 400:
         if quiet:
@@ -1242,24 +1242,24 @@ def cmd_slack_status(quiet=False):
         return 0
     for t in trouble:
         if t["removed"]:
-            print("✗ Moe was removed from Slack workspace %s: Slack stopped accepting its key "
-                  "(%s). Add Moe to Slack again to reconnect it."
+            print("✗ Alfie was removed from Slack workspace %s: Slack stopped accepting its key "
+                  "(%s). Add Alfie to Slack again to reconnect it."
                   % (t["workspace"] or "(unnamed)", t["removed"]))
         elif t["last_failure"]:
             print("… a reply in Slack workspace %s couldn't be sent: %s"
                   % (t["workspace"] or "(unnamed)", t["last_failure"]))
     for p in pending:
-        print("… Slack workspace %s%s wants to connect to this Memoe account — confirm it in "
+        print("… Slack workspace %s%s wants to connect to this Alfie account — confirm it in "
               "Connections, or: channels.py slack-confirm %s"
               % (p["workspace"] or "(unnamed)", (" as %s" % p["as"]) if p["as"] else "", p["id"]))
     if not spaces:
-        print("Moe is not in any Slack workspace yet."
-              + ("" if available else " Add to Slack is not available yet on Moe's cloud."))
+        print("Alfie is not in any Slack workspace yet."
+              + ("" if available else " Add to Slack is not available yet on Alfie's cloud."))
         return 0
     for space in spaces:
-        print("✓ Moe is in %s" % (space.get("name") or "your workspace"))
+        print("✓ Alfie is in %s" % (space.get("name") or "your workspace"))
     if not receiving:
-        print("  …but Moe's cloud is not connected to Slack right now. It keeps "
+        print("  …but Alfie's cloud is not connected to Slack right now. It keeps "
               "trying.")
     return 0
 
@@ -1270,7 +1270,7 @@ def cmd_slack_confirm(pending_id, accept=True):
     approve slack_link <id>`.
 
     Every install waiting here was already proved on the install page: the
-    browser signed in with Google as this Moe account before Slack was shown
+    browser signed in with Google as this Alfie account before Slack was shown
     (third review of slice G1 — the cloud keeps no unproved install, and would
     refuse to link one). The yes is the second layer: this Mac agreeing to a
     workspace and a Slack name it recognises."""
@@ -1284,18 +1284,18 @@ def cmd_slack_confirm(pending_id, accept=True):
     workspace = (body or {}).get("workspace") or "that workspace"
     cmd_slack_status(quiet=True)
     if outcome == "linked":
-        print("✓ Moe is in %s now" % workspace)
+        print("✓ Alfie is in %s now" % workspace)
         return 0
     if outcome == "declined":
         print("✓ not connected — %s was turned away" % workspace)
         return 0
     if outcome == "taken":
-        die("that Slack account already uses a different Memoe account, so nothing was changed")
+        die("that Slack account already uses a different Alfie account, so nothing was changed")
     die("that install has expired — choose Add to Slack again")
 
 
 def cmd_slack_unlink():
-    """Disconnect Moe's own Slack app from this account: every workspace link
+    """Disconnect Alfie's own Slack app from this account: every workspace link
     ends on the cloud, and so do the chats those links bound, and this Mac's
     `MOE_SLACK_MARKER` goes. What Connections' Disconnect runs for a Slack
     added in one click (`connect.sh --remove platform/slack`), and what the
@@ -1303,12 +1303,12 @@ def cmd_slack_unlink():
     `channel-slack.json`."""
     status, body = call("POST", "/v1/channels/slack/unlink", {})
     if status == 503:
-        print("Moe's own Slack app is not set up on the cloud.")
+        print("Alfie's own Slack app is not set up on the cloud.")
         return 0
     if status >= 400:
         die("the cloud refused: %s" % (body or {}).get("detail", status))
     _mark_moe_slack(False, False)
-    print("✓ Moe's Slack app is disconnected from this account (%d link(s) ended)."
+    print("✓ Alfie's Slack app is disconnected from this account (%d link(s) ended)."
           % int((body or {}).get("links_ended") or 0))
     return 0
 
@@ -1349,17 +1349,17 @@ def _mark_moe_email(available, address="", owners=(), suppressed=0, unverified=N
                        "replies": replies or {}, "at": int(time.time())}, fh)
         os.replace(tmp, path)
     except OSError as e:
-        print("  (could not note Moe's email on this Mac: %s)" % e, file=sys.stderr)
+        print("  (could not note Alfie's email on this Mac: %s)" % e, file=sys.stderr)
 
 
 def cmd_email_status(quiet=False):
-    """This account's Moe email address, from the cloud, and the marker kept in
+    """This account's Alfie email address, from the cloud, and the marker kept in
     step. An edge that cannot answer changes nothing."""
     status, body = call("GET", "/v1/channels/moemail")
     if status == 503:
         _mark_moe_email(False)
         if not quiet:
-            print("Moe's email isn't set up on the cloud yet.")
+            print("Alfie's email isn't set up on the cloud yet.")
         return 0
     if status >= 400:
         if quiet:
@@ -1385,19 +1385,19 @@ def cmd_email_status(quiet=False):
     if quiet:
         return 0
     if not address:
-        print("No Moe email address yet. Choose one: channels.py email-name <name>")
+        print("No Alfie email address yet. Choose one: channels.py email-name <name>")
         return 0
-    print("✓ Write to Moe at %s" % address)
+    print("✓ Write to Alfie at %s" % address)
     if unverified and unverified.get("sentence"):
         print("  %s" % unverified["sentence"])
     if owners:
-        print("  Mail from %s reaches Moe as you; anyone else has to be let in first."
+        print("  Mail from %s reaches Alfie as you; anyone else has to be let in first."
               % ", ".join(owners))
     return 0
 
 
 def _moe_email_replies(body):
-    """What became of Moe's email replies this week, as the cloud said it
+    """What became of Alfie's email replies this week, as the cloud said it
     (slice G3, docs/EMAIL-SETUP.md §10): parts dropped past their follow-ups,
     replies that came in a second email, parts kept out of the email as the
     engine's own status notes, approval requests never emailed, and replies
@@ -1430,14 +1430,14 @@ def _moe_email_replies(body):
 
 
 def cmd_email_name(name):
-    """Choose, or change, this account's Moe email address. The cloud decides
+    """Choose, or change, this account's Alfie email address. The cloud decides
     every rule; this says what it said."""
     name = (name or "").strip().lower()
     status, body = call("POST", "/v1/channels/moemail/name", {"name": name})
     detail = (body or {}).get("detail") or ""
     if status == 503:
         _mark_moe_email(False)
-        die("Moe's email isn't set up on the cloud yet.")
+        die("Alfie's email isn't set up on the cloud yet.")
     if status == 409:
         die("%s@… is taken, or was someone's in the last thirty days — try another name" % name)
     if status == 429:
@@ -1445,26 +1445,26 @@ def cmd_email_name(name):
     if status >= 400:
         die(detail or "the cloud refused that name")
     cmd_email_status(quiet=True)
-    print("✓ Your Moe email address is %s" % (body or {}).get("address", ""))
+    print("✓ Your Alfie email address is %s" % (body or {}).get("address", ""))
     return 0
 
 
 def cmd_email_release():
-    """Let this account's Moe email address go. Nobody else can take it for
+    """Let this account's Alfie email address go. Nobody else can take it for
     thirty days, so mail still on its way is not delivered to a stranger."""
     status, body = call("POST", "/v1/channels/moemail/release", {})
     if status == 503:
-        print("Moe's email isn't set up on the cloud.")
+        print("Alfie's email isn't set up on the cloud.")
         return 0
     if status >= 400:
         die("the cloud refused: %s" % (body or {}).get("detail", status))
     _mark_moe_email(True)
     released = (body or {}).get("released") or ""
     if released:
-        print("✓ %s is no longer your Moe address; nobody else can take it for thirty days."
+        print("✓ %s is no longer your Alfie address; nobody else can take it for thirty days."
               % released)
     else:
-        print("✓ this account had no Moe email address.")
+        print("✓ this account had no Alfie email address.")
     return 0
 
 

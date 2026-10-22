@@ -2,7 +2,7 @@
 name: composio-google-docs
 description: "Read before any GOOGLEDOCS_* call through Composio. There are two tools for 'read this document' and they answer different questions: one returns plain text, the other returns the document's whole structural JSON. The preloaded one is the structural one."
 version: 1.0.0
-author: Moe
+author: Alfie
 license: MIT
 metadata:
   hermes:

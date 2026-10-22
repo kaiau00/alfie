@@ -73,7 +73,7 @@ struct ImportMemorySheet: View {
                 .background(RoundedRectangle(cornerRadius: Theme.Radius.control, style: .continuous)
                     .fill(Theme.sunk))
 
-            Text("Each fact is kept marked as from \(from.name). Anything that disagrees with what Moe already knows is asked under To check, and nothing you told Moe yourself is changed.")
+            Text("Each fact is kept marked as from \(from.name). Anything that disagrees with what Alfie already knows is asked under To check, and nothing you told Alfie yourself is changed.")
                 .font(Theme.Typo.ui(12))
                 .foregroundStyle(Theme.ink3)
                 .fixedSize(horizontal: false, vertical: true)
@@ -103,7 +103,7 @@ struct ImportMemorySheet: View {
 
     private func run() {
         guard let script = Self.script() else {
-            problem = "Moe can't find its import step. Run the installer again."
+            problem = "Alfie can't find its import step. Run the installer again."
             return
         }
         working = true
@@ -118,13 +118,13 @@ struct ImportMemorySheet: View {
             let answer = Self.parse(r.output)
             if r.timedOut {
                 // Some of it may already be saved; never claim nothing was.
-                problem = "That took too long and was stopped. Anything Moe had saved is under Memory; try again with a shorter answer."
+                problem = "That took too long and was stopped. Anything Alfie had saved is under Memory; try again with a shorter answer."
             } else if let e = answer["error"] as? String {
                 problem = e
             } else if r.status == 0 {
                 result = Self.summary(answer)
             } else {
-                problem = "Moe couldn't read it just now. Nothing was changed."
+                problem = "Alfie couldn't read it just now. Nothing was changed."
             }
         }
     }
@@ -147,8 +147,8 @@ struct ImportMemorySheet: View {
         let check = max(n("questions"), n("conflicts")), skipped = n("skipped"), left = n("left_out")
         var parts: [String] = []
         if added > 0 { parts.append("\(added) new thing\(added == 1 ? "" : "s") kept.") }
-        if known > 0 { parts.append("\(known) Moe already knew.") }
-        if check > 0 { parts.append("\(check) disagree\(check == 1 ? "s" : "") with what Moe knows, under To check.") }
+        if known > 0 { parts.append("\(known) Alfie already knew.") }
+        if check > 0 { parts.append("\(check) disagree\(check == 1 ? "s" : "") with what Alfie knows, under To check.") }
         if skipped > 0 { parts.append("\(skipped) left alone because you'd already said otherwise.") }
         if left > 0 { parts.append("\(left) left out: private details or instructions to the other assistant.") }
         return parts.isEmpty ? "Nothing to keep in it." : parts.joined(separator: " ")

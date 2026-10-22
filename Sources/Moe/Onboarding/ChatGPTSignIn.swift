@@ -132,7 +132,7 @@ enum ChatGPTSignIn {
     static func run(handle: Handle, prompt: @escaping @Sendable (URL, String) -> Void) -> Outcome {
         let hermes = Paths.hermesBinary()
         guard Paths.isLaunchable(hermes) else {
-            return .failure("The part of Moe that thinks isn't set up on this Mac yet. Give it a moment after opening Moe, or use Settings › Brain › Set it up, then try again.")
+            return .failure("The part of Alfie that thinks isn't set up on this Mac yet. Give it a moment after opening Alfie, or use Settings › Brain › Set it up, then try again.")
         }
         let p = Process()
         p.executableURL = URL(fileURLWithPath: hermes)
@@ -165,7 +165,7 @@ enum ChatGPTSignIn {
             }
         }
         do { try p.run() } catch {
-            return .failure("Moe couldn't start the sign-in: \(error.localizedDescription)")
+            return .failure("Alfie couldn't start the sign-in: \(error.localizedDescription)")
         }
         guard handle.attach(p) else { p.waitUntilExit(); return .failure("Cancelled.") }
         let deadline = Date().addingTimeInterval(ChatGPTSignInFlow.timeout)
@@ -297,7 +297,7 @@ struct ChatGPTSignInSheet: View {
         case .idle, .starting: return "Getting a code from OpenAI…"
         case .approving:
             return "A ChatGPT page opened in your browser. Sign in there and enter this code — it's already copied, so just paste it."
-        case .done:            return "Signed in. Moe is getting ready to think."
+        case .done:            return "Signed in. Alfie is getting ready to think."
         case .failed(let m):   return m
         }
     }

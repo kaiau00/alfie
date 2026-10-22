@@ -48,7 +48,7 @@ struct TurnErrorTests {
         #expect(words != TurnError.generic)
     }
 
-    @Test("an ordinary failure Moe can act on passes through unchanged")
+    @Test("an ordinary failure Alfie can act on passes through unchanged")
     func humanErrorsPassThrough() {
         let raw = "OAuth access token is invalid"
         #expect(TurnError.personWords(raw) == raw)

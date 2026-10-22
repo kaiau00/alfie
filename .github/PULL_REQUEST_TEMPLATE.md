@@ -14,7 +14,7 @@ Fixes #
 
 ## What a person will notice
 
-<!-- In plain words, from the point of view of someone using Memoe. "Nothing" is a fine answer for internal changes. -->
+<!-- In plain words, from the point of view of someone using Alfie. "Nothing" is a fine answer for internal changes. -->
 
 ## How I know it works
 

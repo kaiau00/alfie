@@ -134,8 +134,8 @@ enum JobActivity {
             // This pane is the one place a job that needs a look says so,
             // so it has to say it in words: the raw text is in
             // ~/.moe/logs/job-failures.log for whoever is debugging it.
-            case "failed": return "The last run didn't finish. Moe will try again on its next turn."
-            case "interrupted": return "A run was cut short, usually because Moe restarted."
+            case "failed": return "The last run didn't finish. Alfie will try again on its next turn."
+            case "interrupted": return "A run was cut short, usually because Alfie restarted."
             case "paused": return "Switched off."
             default: return "Has not run yet."
             }
@@ -153,9 +153,9 @@ enum JobActivity {
         switch name {
         case "moe-proactive": return "Speaking up"
         case "moe-learn-deep": return "Learning about you"
-        case "moe-drain-intents": return "Work handed back from Moe Away"
+        case "moe-drain-intents": return "Work handed back from Alfie Away"
         case "moe-calendar-heads-up": return "Calendar heads-up"
-        case "moe-loop-check": return "Checking the pages you asked Moe to watch"
+        case "moe-loop-check": return "Checking the pages you asked Alfie to watch"
         case "moe-channel-holder": return "Keeping your chat apps connected"
         case "moe-situations": return "Noticing what you might want help with"
         case "moe-memory-tidy": return "Tidying your memory overnight"

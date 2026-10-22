@@ -22,7 +22,7 @@ class JobsBriefTest(unittest.TestCase):
              "last_error": "TimeoutError: Cron job 'X' idle for 905s (limit 600s)"},
             {"name": "Marketing: watchdog", "no_agent": True, "script": "marketing-watchdog.sh",
              "schedule": {"kind": "cron", "expr": "30 13 * * *", "display": "30 13 * * *"}},
-            {"name": "Memoe marketing push", "prompt": "Push.", "enabled": False,
+            {"name": "Alfie marketing push", "prompt": "Push.", "enabled": False,
              "schedule": {"kind": "once", "display": "once in 1m"}},
             {"name": "moe-proactive", "prompt": "internal"},
         ]
@@ -33,7 +33,7 @@ class JobsBriefTest(unittest.TestCase):
             "- X daily growth — follow & comment — every day at 9am, on your Mac, and in the cloud while it "
             "is off — not working — it stalled before finishing, several runs in a row",
             "- Marketing: watchdog — 30 13 * * *, on your Mac — not run yet",
-            "- Memoe marketing push — once in 1m, on your Mac, and in the cloud while it is off — paused",
+            "- Alfie marketing push — once in 1m, on your Mac, and in the cloud while it is off — paused",
         ])
 
     def test_a_working_job_reads_the_same_run_after_run(self):

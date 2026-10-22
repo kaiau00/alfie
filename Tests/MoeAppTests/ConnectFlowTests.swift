@@ -233,7 +233,7 @@ struct WhatsAppScanSettlesTests {
                                            setupScript: "connect-whatsapp.sh")
         let starting = MacSources.connection(
             for: spec,
-            statusLine: "unavailable: linked — Moe is starting your WhatsApp link now, which takes a few seconds")
+            statusLine: "unavailable: linked — Alfie is starting your WhatsApp link now, which takes a few seconds")
         #expect(starting.state == .unavailable)
         #expect(starting.unavailableWords?.contains("starting your WhatsApp link") == true,
                 "\(String(describing: starting.unavailableWords))")
@@ -304,7 +304,7 @@ struct MoeEmailRowTests {
     }
 
     @Test func theNameReachesConnectShAsOnePlainArgument() async {
-        let (flow, launches) = isolatedFlow(output: "✓ Your Moe email address is sam.smith@in.moebot.app\n")
+        let (flow, launches) = isolatedFlow(output: "✓ Your Alfie email address is sam.smith@in.moebot.app\n")
         flow.start(row("moemail", auth: .oneClick))
         flow.fieldValue = " Sam.Smith "
         flow.continueField()

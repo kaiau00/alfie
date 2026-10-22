@@ -293,7 +293,7 @@ else
   sed 's/^/      /' "$SCRATCH/out.log" | tail -5
 fi
 
-echo "7. Moe itself lays the seed down, and it runs from there"
+echo "7. Alfie itself lays the seed down, and it runs from there"
 # Through `Moe --install-hermes-seed`, i.e. the same HermesSeed.swift the app
 # runs on first launch — not a Python re-implementation of it.
 #
@@ -305,15 +305,15 @@ echo "7. Moe itself lays the seed down, and it runs from there"
 SEED="$ROOT/hermes-seed"   # the REAL staged seed, read-only from here on
 MOE_BIN="${MOE_BIN:-$ROOT/.build/debug/Moe}"
 if [ ! -x "$MOE_BIN" ]; then
-  skip "no built Moe at $MOE_BIN (swift build), so the install path was NOT checked"
+  skip "no built Alfie at $MOE_BIN (swift build), so the install path was NOT checked"
 elif [ ! -x "$SEED/hermes-agent/.venv/bin/hermes" ]; then
   skip "no seed staged, so \"runs elsewhere\" was NOT checked (./scripts/stage-hermes-seed.sh)"
 else
   DEST="$SCRATCH/live"
   out=$(MOE_HERMES_SEED="$SEED" "$MOE_BIN" --install-hermes-seed "$DEST" 2>&1)
   case "$out" in
-    *installed*) ok "Moe reports it installed the seed: $out" ;;
-    *)           bad "Moe did not install the seed: $out" ;;
+    *installed*) ok "Alfie reports it installed the seed: $out" ;;
+    *)           bad "Alfie did not install the seed: $out" ;;
   esac
 
   # The placeholder must be gone everywhere, not merely from the files the
@@ -568,7 +568,7 @@ else
   # import it, and upstream's 3.14 core no longer brings it.
   rm -rf "$G9/real-link/hermes-agent/.venv/lib/python3.14/site-packages/yaml"
   "$RUNS" "$G9/real-link" >/dev/null 2>&1 \
-    && bad "a seed whose venv cannot import yaml passed — Moe could not configure its brain" \
+    && bad "a seed whose venv cannot import yaml passed — Alfie could not configure its brain" \
     || ok "a seed whose venv cannot import yaml is refused"
   build_real "$G9/real-copy" copy; mv "$G9/real-copy/tools" "$G9/real-copy/rt-tools"
   sed -i '' 's|@HERMES_ROOT@/tools/rt|@HERMES_ROOT@/rt-tools/rt|' "$G9/real-copy/hermes-agent/.venv/pyvenv.cfg"

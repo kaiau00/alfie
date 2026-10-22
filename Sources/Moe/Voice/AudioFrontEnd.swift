@@ -210,7 +210,7 @@ final class AudioFrontEnd {
         // run and 7 on another, on the same machine.
         let micFormat = input.outputFormat(forBus: 0)
         guard micFormat.sampleRate > 0, micFormat.channelCount > 0 else {
-            throw NSError(domain: "Moe.Audio", code: 1,
+            throw NSError(domain: "Alfie.Audio", code: 1,
                           userInfo: [NSLocalizedDescriptionKey: "no microphone input (is one connected?)"])
         }
         let outHW = output.inputFormat(forBus: 0)

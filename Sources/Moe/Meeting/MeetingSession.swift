@@ -453,7 +453,7 @@ final class MeetingSession {
         recorder.stop()
         guard wasRecording else { return }
         var record = MeetingRecord(startedAt: recorder.epoch, durationSeconds: recorder.elapsed, folder: folder.path,
-                                   summaryFailure: "Moe quit while the meeting was being recorded",
+                                   summaryFailure: "Alfie quit while the meeting was being recorded",
                                    bookmarks: bookmarks, offTheRecord: recorder.pauses.spans)
         record.incomplete = true
         let url = folder.appendingPathComponent("meeting.json")

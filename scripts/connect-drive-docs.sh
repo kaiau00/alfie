@@ -94,7 +94,7 @@ CLIENT="$(find_client || true)"
 # live grant at Google and a list of file ids on disk with no way to clear
 # either. The revoke step below never reads the client file.
 if [ -z "$CLIENT" ] && [ "$MODE" != list ] && [ "$MODE" != revoke ]; then
-  echo "✗ Not configured: this copy of Memoe has no Google sign-in client, so Docs"
+  echo "✗ Not configured: this copy of Alfie has no Google sign-in client, so Docs"
   echo "  and Sheets contents are unavailable. Everything else Google keeps working."
   exit 1
 fi
@@ -121,7 +121,7 @@ for f in files:
     if not isinstance(f, dict):
         continue
     print("  %-14s %s" % (one_line(f.get("kind") or "file", 14), one_line(f.get("name"))))
-print("\n%d document(s). Moe can read these and nothing else in your Drive." % len(files))
+print("\n%d document(s). Alfie can read these and nothing else in your Drive." % len(files))
 PY
   exit $?
 fi
@@ -152,7 +152,7 @@ if token:
 PY
   security delete-generic-password -s "moe-google-docs" -a "refresh-token" >/dev/null 2>&1 || true
   rm -f "$FILES"
-  echo "✓ Disconnected. Moe can no longer read any Google document."
+  echo "✓ Disconnected. Alfie can no longer read any Google document."
   exit 0
 fi
 
@@ -162,18 +162,18 @@ cat <<'EOF'
 Pick more Google documents
 ──────────────────────────
 Google's picker opens in your browser. Whatever you choose is added to the
-list Moe may read; everything already on the list stays.
+list Alfie may read; everything already on the list stays.
 
 EOF
 else
 cat <<'EOF'
-Let Moe read Google Docs, Sheets and Slides
+Let Alfie read Google Docs, Sheets and Slides
 ───────────────────────────────────────────
-Google Drive syncs a Doc to this Mac as a link, not a document — so Moe can
+Google Drive syncs a Doc to this Mac as a link, not a document — so Alfie can
 see the name of every file in your Drive but not what any of them say.
 
 This fixes that for the documents YOU choose. You will see Google's own file
-picker; the ones you tick are the ones Moe can read, and Moe gets no access
+picker; the ones you tick are the ones Alfie can read, and Alfie gets no access
 of any kind to the rest of your Drive. You can take it back at any time with
   ~/.moe/scripts/connect-drive-docs.sh --revoke
 
@@ -203,14 +203,14 @@ try:
     with open(CLIENT_JSON, encoding="utf-8") as fh:
         cfg = json.load(fh)
 except (OSError, ValueError):
-    print("✗ The Google sign-in client that ships with Moe could not be read.")
+    print("✗ The Google sign-in client that ships with Alfie could not be read.")
     raise SystemExit(1)
 section = cfg.get("installed") or cfg.get("web") or {}
 CLIENT_ID = str(section.get("client_id") or "")
 CLIENT_SECRET = str(section.get("client_secret") or "")
 TOKEN_URI = TOKEN_OVERRIDE or str(section.get("token_uri") or "https://oauth2.googleapis.com/token")
 if not CLIENT_ID or CLIENT_ID.startswith("REPLACE-ME"):
-    print("✗ The Google sign-in client that ships with Moe is a placeholder, not a real client.")
+    print("✗ The Google sign-in client that ships with Alfie is a placeholder, not a real client.")
     raise SystemExit(1)
 
 # ── PKCE ──────────────────────────────────────────────────────────────────
@@ -238,9 +238,9 @@ class Handler(http.server.BaseHTTPRequestHandler):
             self.end_headers()
             return
         result.update({k: v[0] for k, v in q.items() if v})
-        body = (b"<!doctype html><meta charset=utf-8><title>Moe</title>"
+        body = (b"<!doctype html><meta charset=utf-8><title>Alfie</title>"
                 b"<body style='font:16px -apple-system;padding:3em'>"
-                b"<p>Done \xe2\x80\x94 you can close this tab and go back to Moe.</p>")
+                b"<p>Done \xe2\x80\x94 you can close this tab and go back to Alfie.</p>")
         self.send_response(200)
         self.send_header("Content-Type", "text/html; charset=utf-8")
         self.send_header("Content-Length", str(len(body)))
@@ -274,7 +274,7 @@ print("Open this in your browser (copy it — nothing is opened for you):")
 print()
 print("  " + auth_url)
 print()
-print("Sign in, then tick the documents Moe may read.")
+print("Sign in, then tick the documents Alfie may read.")
 print()
 # The machine line, exactly once, and only for a URL the app will actually
 # open (https, or a loopback for the tests) — the same rule as connect.sh.
@@ -311,7 +311,7 @@ if not result:
     # error page and nothing ever came back to this port. Named, because a
     # silent 180-second wait teaches the user nothing.
     print("  If the browser showed an error from Google rather than a file picker,")
-    print("  this copy of Memoe's sign-in needs updating — nothing you can fix here.")
+    print("  this copy of Alfie's sign-in needs updating — nothing you can fix here.")
     raise SystemExit(4)
 if result.get("error"):
     print("✗ Google returned no documents (you may have cancelled). Nothing was changed.")
@@ -461,16 +461,16 @@ os.replace(tmp, FILES)
 
 if not picked:
     print()
-    print("Signed in, but you did not pick a document — so Moe still cannot read any.")
+    print("Signed in, but you did not pick a document — so Alfie still cannot read any.")
     print("Run  connect-drive-docs.sh pick  and tick the ones you want.")
     raise SystemExit(1)
 
 print()
-print("✓ %d document(s) added; Moe may now read %d in total:" % (added, len(existing)))
+print("✓ %d document(s) added; Alfie may now read %d in total:" % (added, len(existing)))
 for f in existing[-10:]:
     print("    %s  %s" % (f.get("kind") or "file", f.get("name") or f["id"]))
 print()
-print("Moe can read these and nothing else in your Drive.")
+print("Alfie can read these and nothing else in your Drive.")
 raise SystemExit(0)
 PY
 rc=$?
@@ -483,7 +483,7 @@ CONNECTOR="$MOE/connectors/drive-docs.py"
 echo "Checking…"
 if [ -x "$CONNECTOR" ] && "$CONNECTOR" status; then
   echo
-  echo "✓ Connected. Moe will read them on the next sync, or run ~/.moe/sync.sh now."
+  echo "✓ Connected. Alfie will read them on the next sync, or run ~/.moe/sync.sh now."
 else
   echo "✗ The sign-in was saved but the check failed — see the message above."
   exit 1

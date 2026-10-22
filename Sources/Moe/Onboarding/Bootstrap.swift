@@ -70,7 +70,7 @@ enum Bootstrap {
     @discardableResult
     static func installClaudeCLI(progress: @escaping @Sendable (String) -> Void) -> Bool {
         guard let script = ScriptRunner.scriptPath("install-claude.sh") else {
-            progress("✗ Moe cannot find its own copy of the Claude Code installer.")
+            progress("✗ Alfie cannot find its own copy of the Claude Code installer.")
             return false
         }
         progress("Getting Claude Code. It is about 200 MB.")
@@ -115,10 +115,10 @@ enum Bootstrap {
             return false
         }
         if HermesSeed.bundleSeed != nil, !hermesInstalled() {
-            progress("Setting up the part of Moe that thinks. It is already in the app, so this is quick.")
+            progress("Setting up the part of Alfie that thinks. It is already in the app, so this is quick.")
             let line = HermesSeed.installIfNeeded()
             if hermesInstalled() {
-                progress("✓ Ready, with nothing downloaded. Now choose how Moe should think.")
+                progress("✓ Ready, with nothing downloaded. Now choose how Alfie should think.")
                 return true
             }
             // Not fatal, and worth saying: the fallback below is about to run
@@ -128,10 +128,10 @@ enum Bootstrap {
         }
 
         guard let script = installerPath() else {
-            progress("✗ Moe cannot find its own installer (install-hermes.sh).")
+            progress("✗ Alfie cannot find its own installer (install-hermes.sh).")
             return false
         }
-        progress("Setting up the part of Moe that thinks. This takes a minute or two.")
+        progress("Setting up the part of Alfie that thinks. This takes a minute or two.")
         // 20 minutes: the script itself is ~1.5 min on a normal connection,
         // and the cap is here to end a hung download rather than to bound a
         // slow one. It downloads ~1.3 GB.
@@ -147,7 +147,7 @@ enum Bootstrap {
             return false
         }
         if result {
-            progress("✓ Ready. Now choose how Moe should think.")
+            progress("✓ Ready. Now choose how Alfie should think.")
         } else {
             progress("✗ That did not finish. ~/.moe/logs/install-hermes.log says why, and running this again is safe.")
         }

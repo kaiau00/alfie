@@ -108,7 +108,7 @@ if check:
     print(f"› the browser is not in the store yet (pinned: Chrome for Testing {chrome}, sha256 {sha[:12]}…)")
     sys.exit(1)
 
-marker.write_text("Memoe's installer is putting the pinned Chromium here "
+marker.write_text("Alfie's installer is putting the pinned Chromium here "
                   "(scripts/fetch-hermes-browser.sh) and removes this file.\n")
 
 

@@ -118,7 +118,7 @@ actor TurnSemanticJudge {
     /// distribution and writes `{key: {reading, ms}}` for `--model-table`.
     static func measure(_ args: [String]) async -> Int32 {
         guard args.count >= 2, let input = try? String(contentsOfFile: args[0], encoding: .utf8) else {
-            print("usage: Moe --turn-semantics <texts.txt> <out.json> [--gap ms] [--limit n]")
+            print("usage: Alfie --turn-semantics <texts.txt> <out.json> [--gap ms] [--limit n]")
             return 2
         }
         func value(_ flag: String) -> Double? {

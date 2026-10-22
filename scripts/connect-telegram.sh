@@ -151,7 +151,7 @@ except Exception as e:  # noqa: BLE001 - AuthTokenExpiredError, AuthTokenInvalid
     close()
     kind = type(e).__name__
     if "Expired" in kind:
-        print("✗ The sign-in key ran out before this Mac could use it (%s). Moe asks for a fresh one." % kind)
+        print("✗ The sign-in key ran out before this Mac could use it (%s). Alfie asks for a fresh one." % kind)
     else:
         print("✗ Telegram would not let the cloud computer in (%s)." % kind)
     sys.exit(1)
@@ -261,7 +261,7 @@ else
   cat <<'EOF'
 Read your Telegram chats
 ────────────────────────
-This signs Moe in as a linked device on your account, the same as adding
+This signs Alfie in as a linked device on your account, the same as adding
 Telegram Desktop. You can revoke it any time from Telegram › Settings ›
 Devices.
 
@@ -412,7 +412,7 @@ def open_client():
     try:
         return TelegramClient(session, cfg["api_id"], cfg["api_hash"])
     except Exception as e:  # noqa: BLE001
-        print("✗ Moe could not open its Telegram sign-in file (%s). "
+        print("✗ Alfie could not open its Telegram sign-in file (%s). "
               "Try again; if it keeps happening, disconnect Telegram and connect it fresh."
               % type(e).__name__)
         sys.exit(1)
@@ -434,7 +434,7 @@ try:
     client.connect()
 except Exception as e:  # noqa: BLE001 — no network, a dead DC, a bad proxy
     shutdown()
-    print("✗ Moe could not reach Telegram (%s). Check the connection and try again."
+    print("✗ Alfie could not reach Telegram (%s). Check the connection and try again."
           % type(e).__name__)
     sys.exit(1)
 try:

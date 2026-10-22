@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""The learning profile of one source: how Moe reads it, and how often.
+"""The learning profile of one source: how Alfie reads it, and how often.
 
-Every source Moe can read — a native connector (gmail, calendar…) or a
+Every source Alfie can read — a native connector (gmail, calendar…) or a
 Hermes connection (mcp/notion, platform/telegram…) — has one profile:
 
     sync       every ten minutes, copy today's into the context cache
-    speak      may Moe SPEAK UP about it on its own — the proactive pass
+    speak      may Alfie SPEAK UP about it on its own — the proactive pass
                (hermes-jobs/moe-brief-monitor.sh drops the brief sections of
                a source whose speak is no) and a watch job
     seed       once, after consent, read back `seed_days` and learn
@@ -190,7 +190,7 @@ def private_dir(d):
 
 def write_json(path, data):
     """0600 and atomic: consent.json and the stamps say what a person
-    agreed to and when Moe last read them; a half-written file would say
+    agreed to and when Alfie last read them; a half-written file would say
     neither."""
     private_dir(os.path.dirname(path))
     tmp = path + ".tmp"
@@ -268,7 +268,7 @@ def builtin(kind, name):
     No `speak` here, and none in the table either unless someone wrote one:
     it follows the rest of the folded row (see resolve), so a layer that
     switches the ten-minute pull off switches speaking off with it rather
-    than leaving a source nobody reads that Moe may still bring up."""
+    than leaving a source nobody reads that Alfie may still bring up."""
     if kind == "native":
         path = manifest_path(name)
         if not os.path.isfile(path):
@@ -313,7 +313,7 @@ def builtin(kind, name):
         "update": "never",
         "dated": False,
         "watch": kind in GATHER_KINDS,
-        "why": "the built-in setting for a connection Moe knows nothing about: read nothing until you say so",
+        "why": "the built-in setting for a connection Alfie knows nothing about: read nothing until you say so",
     }
 
 
@@ -326,7 +326,7 @@ def table_entry(kind, name):
     is a deliberate choice rather than an accident of lookup order. The 77
     researched rows answer a question about the SERVICE — how often does
     your GitHub change, is there anything personal in a docs index — and the
-    answer does not depend on whether Moe reaches it through a dedicated MCP
+    answer does not depend on whether Alfie reaches it through a dedicated MCP
     server or through Composio's broker. Duplicating the table under
     `composio/` keys would be 77 rows that have to be kept in step with 77
     others, and the day they drift the two spellings of one service disagree
@@ -497,7 +497,7 @@ def resolve(source):
             g = inferred(kind, name)
         except GuessUnavailable as e:
             g = None
-            prof["why"] += " (Moe could not guess from its tool list: %s)" % short(str(e))
+            prof["why"] += " (Alfie could not guess from its tool list: %s)" % short(str(e))
         if g is not None:
             prof.update(g)
             origin = "inferred"
@@ -525,7 +525,7 @@ def resolve(source):
         prof["seed"] = True
         prof["update"] = "monthly"
         origin = "user"
-        prof["why"] = ("you said yes to this one, so Moe reads it back once and "
+        prof["why"] = ("you said yes to this one, so Alfie reads it back once and "
                        "then monthly; by default it would read nothing here")
     elif u:
         prof.update(u)
@@ -732,7 +732,7 @@ def cmd_set(args):
         return bad("%s takes yes or no" % k)
     kind, name = kn
     if not exists(kind, name):
-        return bad("'%s' is not a connector or connection Moe knows" % source)
+        return bad("'%s' is not a connector or connection Alfie knows" % source)
     path = consent_file()
     data = read_json(path)
     entry = data.get(consent_name(kind, name))

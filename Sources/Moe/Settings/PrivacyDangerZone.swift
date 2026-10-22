@@ -22,34 +22,34 @@ import SwiftUI
 enum DangerZoneCopy {
     // D9.11 — exact.
     static let deleteTitle = "Delete my account"
-    static let deleteExplain = "This cancels your plan and deletes your cloud computer, everything on it, your connected accounts, your problem reports and your Memoe account. Moe on this Mac keeps working, signed out."
+    static let deleteExplain = "This cancels your plan and deletes your cloud computer, everything on it, your connected accounts, your problem reports and your Alfie account. Alfie on this Mac keeps working, signed out."
     /// A free account has no plan and no cloud computer — signing in with
     /// Google made it, for connections — so it is not told they go
     /// (owner, 2026-09-11: "it shows me delete your cloud account even
     /// though I don't have one").
-    static let deleteExplainFree = "This deletes your Memoe account: your sign-in with us, the apps and accounts you connected through it, and your problem reports. Moe on this Mac keeps working, signed out."
+    static let deleteExplainFree = "This deletes your Alfie account: your sign-in with us, the apps and accounts you connected through it, and your problem reports. Alfie on this Mac keeps working, signed out."
     static func deleteExplain(paid: Bool) -> String { paid ? deleteExplain : deleteExplainFree }
     static let deleteConfirm = "This can't be undone. Type DELETE to confirm."
     static let deleteDoneTitle = "Your account is deleted"
-    static let deleteDoneBody = "Moe on this Mac keeps working, signed out."
+    static let deleteDoneBody = "Alfie on this Mac keeps working, signed out."
 
     // D9.12 — first warning: what goes and what stays. CuaDriver is named as
     // going only when the plan removes it (MacErasePlan.removesCuaDriver):
     // never for Moe Dev, which shares it, and never when it is absent or
     // refused.
-    static let eraseTitle = "Erase Memoe from this Mac"
-    static let eraseWhatGoes = "Moe will remove everything it has put on this Mac: what it remembers about you, your conversations, notes and meeting recordings, the apps and accounts you connected, the ways you message it, the voices and models it downloaded, its background jobs, the tool Moe uses to work your screen, and the permissions you gave it."
-    static let eraseWhatGoesDev = "Moe will remove everything it has put on this Mac: what it remembers about you, your conversations, notes and meeting recordings, the apps and accounts you connected, the ways you message it, the voices and models it downloaded, its background jobs, and the permissions you gave it."
-    static let eraseWhatStays = "What stays: the Memoe app itself, which opens again as if it were new, and Claude Code's and ChatGPT's own sign-ins, which belong to them. Your own files are not touched."
+    static let eraseTitle = "Erase Alfie from this Mac"
+    static let eraseWhatGoes = "Alfie will remove everything it has put on this Mac: what it remembers about you, your conversations, notes and meeting recordings, the apps and accounts you connected, the ways you message it, the voices and models it downloaded, its background jobs, the tool Alfie uses to work your screen, and the permissions you gave it."
+    static let eraseWhatGoesDev = "Alfie will remove everything it has put on this Mac: what it remembers about you, your conversations, notes and meeting recordings, the apps and accounts you connected, the ways you message it, the voices and models it downloaded, its background jobs, and the permissions you gave it."
+    static let eraseWhatStays = "What stays: the Alfie app itself, which opens again as if it were new, and Claude Code's and ChatGPT's own sign-ins, which belong to them. Your own files are not touched."
     static let alsoDelete = "Delete my account too"
-    static let alsoDeleteCaption = "Also cancels your plan and deletes your cloud computer, everything on it, and your Memoe account. Leave this off and your account stays as it is."
+    static let alsoDeleteCaption = "Also cancels your plan and deletes your cloud computer, everything on it, and your Alfie account. Leave this off and your account stays as it is."
 
     // D9.12 — second warning, in different words.
     static let noUndoTitle = "There's no undo"
-    static let noUndoBody = "Nothing goes to the Bin, and there's no copy anywhere to bring it back from. When you confirm, Moe quits, clears itself off this Mac, and starts again at the welcome screen."
-    static let noUndoGoesCuaDriver = "Goes too: CuaDriver, the tool Moe uses to work your screen, and the screen permissions you gave it. Any other program on this Mac that uses CuaDriver will stop working until it is installed again."
-    static let noUndoStays = "Stays on this Mac: the Memoe app, uv and the Python it downloaded (~/.local/share/uv), and Claude Code and ChatGPT — their apps, their commands and their own sign-ins, which belong to them."
-    static let noUndoStaysDev = "Stays on this Mac: the Memoe app, CuaDriver (the tool Moe uses to work your screen, which Memoe Dev shares with Memoe), uv and the Python it downloaded (~/.local/share/uv), and Claude Code and ChatGPT — their apps, their commands and their own sign-ins, which belong to them."
+    static let noUndoBody = "Nothing goes to the Bin, and there's no copy anywhere to bring it back from. When you confirm, Alfie quits, clears itself off this Mac, and starts again at the welcome screen."
+    static let noUndoGoesCuaDriver = "Goes too: CuaDriver, the tool Alfie uses to work your screen, and the screen permissions you gave it. Any other program on this Mac that uses CuaDriver will stop working until it is installed again."
+    static let noUndoStays = "Stays on this Mac: the Alfie app, uv and the Python it downloaded (~/.local/share/uv), and Claude Code and ChatGPT — their apps, their commands and their own sign-ins, which belong to them."
+    static let noUndoStaysDev = "Stays on this Mac: the Alfie app, CuaDriver (the tool Alfie uses to work your screen, which Alfie Dev shares with Alfie), uv and the Python it downloaded (~/.local/share/uv), and Claude Code and ChatGPT — their apps, their commands and their own sign-ins, which belong to them."
     /// What the plan will do, not what the build would like to: before the
     /// plan has loaded, CuaDriver is not mentioned as going.
     static func whatGoesText(_ plan: MacErasePlan?) -> String {
@@ -59,12 +59,12 @@ enum DangerZoneCopy {
         if plan?.removesCuaDriver == true { return noUndoGoesCuaDriver + " " + noUndoStays }
         return plan?.scope.identity.ownsSharedResources == false ? noUndoStaysDev : noUndoStays
     }
-    static let noUndoAccount = "Your Memoe account is deleted first: your plan is cancelled and your cloud computer is gone. Type DELETE to confirm."
-    static let proveGoogle = "Next, Google asks you to sign in — that's how Moe knows it's you."
+    static let noUndoAccount = "Your Alfie account is deleted first: your plan is cancelled and your cloud computer is gone. Type DELETE to confirm."
+    static let proveGoogle = "Next, Google asks you to sign in — that's how Alfie knows it's you."
     static let proveLocal = "Next, Touch ID or your Mac's login password confirms it's you."
     static let eraseButton = "Erase this Mac"
     static let showExactly = "Show exactly what will be removed"
-    static let localReason = "erase Memoe from this Mac"
+    static let localReason = "erase Alfie from this Mac"
 }
 
 /// Why this Mac could not ask its owner to prove it is them.
@@ -183,7 +183,7 @@ private struct MacEraseView: View {
                     .toggleStyle(.checkbox)
                 }
                 if let planError {
-                    DangerText(title: nil, body: "This copy of Memoe can't erase itself: \(planError)", small: true)
+                    DangerText(title: nil, body: "This copy of Alfie can't erase itself: \(planError)", small: true)
                 }
                 DangerButtons(cancel: close, confirm: "Continue", destructive: false,
                               enabled: planError == nil) { step = .noUndo }
@@ -203,11 +203,11 @@ private struct MacEraseView: View {
                               enabled: plan != nil && (!alsoDeleteAccount || typed == "DELETE")) { start() }
             case .proving:
                 DangerText(title: DangerZoneCopy.eraseTitle,
-                           body: signedIn ? "Sign in with Google in your browser to confirm it's you. Moe waits here."
+                           body: signedIn ? "Sign in with Google in your browser to confirm it's you. Alfie waits here."
                                           : "Confirm it's you.")
                 ProgressView().controlSize(.small)
             case .quitting:
-                DangerText(title: "Erasing", body: "Moe is quitting to clear itself off this Mac. It opens again at the welcome screen.")
+                DangerText(title: "Erasing", body: "Alfie is quitting to clear itself off this Mac. It opens again at the welcome screen.")
                 ProgressView().controlSize(.small)
             case .failed(let why):
                 DangerText(title: "Nothing was erased", body: why)
@@ -250,7 +250,7 @@ private struct MacEraseView: View {
                 step = .quitting
                 try await MacEraseRun.eraseAfterQuit()
             } catch {
-                step = .failed("Moe couldn't start the erase: \(error)")
+                step = .failed("Alfie couldn't start the erase: \(error)")
             }
         }
     }
@@ -335,10 +335,10 @@ private struct PlanList: View {
         case .launchd: return "Background job: \(target)"
         case .defaults: return "Preferences: \(target)"
         case .tcc: return "Permissions for \(target)"
-        case .loginItem: return "Login item: Moe opening when you log in"
+        case .loginItem: return "Login item: Alfie opening when you log in"
         case .process(_, let command):
             return "Stop: \((command as NSString).lastPathComponent), running from what is being erased"
-        case .cuaDriverApp: return "CuaDriver, the tool Moe uses to work your screen: \(target)"
+        case .cuaDriverApp: return "CuaDriver, the tool Alfie uses to work your screen: \(target)"
         case .path, .legacyLink, .cuaDriverLink: return target
         }
     }

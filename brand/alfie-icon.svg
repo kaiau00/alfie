@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Alfie">
+  <title>Alfie</title>
+  <!-- An approximation of scripts/make-icon.swift's mark, which tapers the
+       mustache continuously; this steps its width down in three strokes. -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#18223A"/>
+      <stop offset="1" stop-color="#070B16"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="114" fill="url(#bg)"/>
+  <g transform="translate(107 110) scale(1.27)" fill="none" stroke="#D9A84E"
+     stroke-linecap="round" stroke-linejoin="round">
+    <g stroke-width="38">
+      <path d="M 117 56 C 100 42 80 68 58 64"/>
+      <path d="M 117 56 C 134 42 154 68 176 64"/>
+    </g>
+    <g stroke-width="24">
+      <path d="M 58 64 C 36 60 22 46 28 32"/>
+      <path d="M 176 64 C 198 60 212 46 206 32"/>
+    </g>
+    <g stroke-width="11">
+      <path d="M 28 32 C 32 22 46 22 46 34"/>
+      <path d="M 206 32 C 202 22 188 22 188 34"/>
+    </g>
+    <g stroke-width="34">
+      <path d="M 98 150 L 40 115 L 40 215 L 98 180 Z"/>
+      <path d="M 136 150 L 194 115 L 194 215 L 136 180 Z"/>
+      <path d="M 117 146 L 117 184"/>
+    </g>
+  </g>
+</svg>

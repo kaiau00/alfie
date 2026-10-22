@@ -135,7 +135,7 @@ public enum PrimingTranscript {
         // emits is now marked; every line it did not is theirs.
         let mark = roleMarker.map { "\($0) " } ?? ""
         var lines: [String] = []
-        lines.append("\(mark)[Moe: this conversation is being continued. What follows is your own "
+        lines.append("\(mark)[Alfie: this conversation is being continued. What follows is your own "
                      + "memory of it — you and this person said these things, \(elapsed(from: threadStartedAt ?? said[0].at, to: now)). "
                      + "Pick it up where it left off. Do not summarise it, do not greet them again, "
                      + "and do not refer to it as a transcript or as something you were shown. "

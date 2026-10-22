@@ -40,7 +40,7 @@ enum WakeRecordings {
         let stamp = ISO8601DateFormatter()
         stamp.formatOptions = [.withYear, .withMonth, .withDay]
         let out = FileManager.default.temporaryDirectory
-            .appendingPathComponent("hey-moe-recordings-\(stamp.string(from: Date())).zip")
+            .appendingPathComponent("hey-alfie-recordings-\(stamp.string(from: Date())).zip")
         try? FileManager.default.removeItem(at: out)
         let p = Process()
         p.executableURL = URL(fileURLWithPath: "/usr/bin/ditto")
@@ -68,10 +68,10 @@ enum WakeRecordings {
     /// person presses Send, or closes the window.
     @MainActor
     static func hand(_ zip: URL) -> Handed {
-        let body = "Here are my “Hey Moe” recordings from Settings › Voice, for training the next wake word.\n\n"
+        let body = "Here are my “Hey Alfie” recordings from Settings › Voice, for training the next wake word.\n\n"
         if let mail = NSSharingService(named: .composeEmail) {
             mail.recipients = [teamAddress]
-            mail.subject = "Hey Moe recordings"
+            mail.subject = "Hey Alfie recordings"
             let items: [Any] = [body, zip]
             if mail.canPerform(withItems: items) {
                 mail.perform(withItems: items)
@@ -80,7 +80,7 @@ enum WakeRecordings {
         }
         NSWorkspace.shared.activateFileViewerSelecting([zip])
         var parts = URLComponents(string: "mailto:\(teamAddress)")!
-        parts.queryItems = [URLQueryItem(name: "subject", value: "Hey Moe recordings"),
+        parts.queryItems = [URLQueryItem(name: "subject", value: "Hey Alfie recordings"),
                             URLQueryItem(name: "body", value: body + "(The zip is beside this window in the Finder — drag it in.)")]
         if let url = parts.url { NSWorkspace.shared.open(url) }
         return .revealed(zip)

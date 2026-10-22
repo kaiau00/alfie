@@ -115,7 +115,7 @@ enum SettingsSnapshot {
                   WakeTeachCard(model: WakeTeachModel(flow: pose.flow, driver: InertWakeTeachDriver(), level: pose.level),
                                 clipsOnMac: intro || pose.name.hasSuffix("result") ? 20 : 0,
                                 previous: intro
-                                    ? "Last taught on 20 September: Moe caught 10 of your 12 “Hey Moe”s and 1 of the 8 near misses."
+                                    ? "Last taught on 20 September: Alfie caught 10 of your 12 “Hey Alfie”s and 1 of the 8 near misses."
                                     : nil))
         }
         // The chat thread: both sides, a note, what went with a message, and
@@ -311,7 +311,7 @@ enum SettingsSnapshot {
         // polls or runs a script.
         func chromeReport(host: Bool, on: Bool, connected: Bool, fileAccess: Bool = false,
                           stale: Bool = false) -> ChromeLaneReport {
-            let w = fileAccess ? #"[{"code": "file_access_on", "text": "Moe's Chrome extension is allowed to open files on this Mac. Moe never uses that; turn it off in Chrome › Extensions › Memoe › \"Allow access to file URLs\"."}]"# : "[]"
+            let w = fileAccess ? #"[{"code": "file_access_on", "text": "Alfie's Chrome extension is allowed to open files on this Mac. Alfie never uses that; turn it off in Chrome › Extensions › Alfie › \"Allow access to file URLs\"."}]"# : "[]"
             return ChromeLaneReport.parse(#"{"host_installed": \#(host), "enabled": \#(on), "connected": \#(connected), "warnings": \#(w), "error": null, "source": "\#(stale ? ChromeExtensionModel.demoStale : "demo")"}"#)!
         }
         for (name, r) in [("not-installed", chromeReport(host: false, on: false, connected: false)),
@@ -404,7 +404,7 @@ enum MemoryFixture {
         try? FileManager.default.createDirectory(at: hermes, withIntermediateDirectories: true)
         let files: [String: String] = [
             "summary.md": """
-            # What Moe knows about you
+            # What Alfie knows about you
 
             You run a small studio building websites for local businesses, mostly with Dana, and you are
             launching a second product this autumn. You work late, write short messages, and prefer a

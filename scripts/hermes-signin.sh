@@ -78,7 +78,7 @@ if security add-generic-password -a moe -s moe-child-oauth -T /usr/bin/security 
   unset token
   echo
   echo "stored"
-  echo "Moe will pick it up the next time it starts Hermes."
+  echo "Alfie will pick it up the next time it starts Hermes."
 else
   unset token
   echo "Couldn't store the token in the keychain (security add-generic-password failed)." >&2  # erase-allowlist: moe-child-oauth

@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """What the daily learning pass did last time, and why — the one record
-that makes "Moe hasn't learned about you" a sentence instead of a silence.
+that makes "Alfie hasn't learned about you" a sentence instead of a silence.
 
     last_pass.py record <outcome> "<reason>" [--read a,b] [--skipped "a(why),b(why)"]
     last_pass.py show                 the record as JSON; exit 1 when there is none
     last_pass.py explain              one sentence for a person: why the list
-                                      of what Moe knows is empty, or what the
+                                      of what Alfie knows is empty, or what the
                                       pass last did — from this record and the
                                       recorded consent, nothing live
 
@@ -225,7 +225,7 @@ def explain(rec=None, state=None):
     if plan_paused(rec) and int(rec.get("plan_paused_runs") or 1) >= PAUSED_TELL_RUNS:
         # Several days running: the quiet note. Here, where the person looks
         # at what Moe knows — never a card on the island (docs/INBOX-QUIET.md).
-        return ("%s has waited every day since %s because your plan was nearly used up, so Moe "
+        return ("%s has waited every day since %s because your plan was nearly used up, so Alfie "
                 "hasn't learned anything new about you since. It tries again on its next daily run."
                 % (PASS, day_words(rec.get("plan_paused_since"))))
     if outcome == "paused" and PLAN_NEARLY_USED in (rec.get("reason") or ""):
@@ -234,13 +234,13 @@ def explain(rec=None, state=None):
         # switch that is already on.
         return "%s waited %s because your plan was nearly used up. It tries again on its next daily run." % (PASS, when)
     if outcome == "paused":
-        return "%s is on, but “Let Moe think on its own” is off, so it doesn't run." % PASS
+        return "%s is on, but “Let Alfie think on its own” is off, so it doesn't run." % PASS
     if outcome in ("not-asked", "off"):
         # The switch has been turned on since that run: nothing to explain
         # but the wait.
         return "%s is on and hasn't run since you switched it on. It runs once a day." % PASS
     if outcome == "no-gate":
-        return "%s couldn't run %s: Moe can't find the file it records your answers in. Run the installer again." % (PASS, when)
+        return "%s couldn't run %s: Alfie can't find the file it records your answers in. Run the installer again." % (PASS, when)
     if outcome == "failed":
         return "%s ran %s and didn't finish. Settings › Background has the details." % (PASS, when)
     read, skipped = rec.get("read") or [], rec.get("skipped") or []

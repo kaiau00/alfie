@@ -69,7 +69,7 @@ struct MemoryCardTests {
         #expect(cards[2].prompt == "Still learning Spanish?" && cards[2].detail == nil)
         #expect(cards[3].prompt == "Is this right?")
         #expect(cards[3].detail == "Marco — landlord, your studio")
-        #expect(cards[3].label == "Moe isn't sure")
+        #expect(cards[3].label == "Alfie isn't sure")
     }
 
     @Test("Yes / No / Something else write through profile.py's verbs")
@@ -135,7 +135,7 @@ struct MemoryCardShapeTests {
     }
 }
 
-@Suite("Memory › talking it through with Moe")
+@Suite("Memory › talking it through with Alfie")
 struct MemoryTalkDraftTests {
     @Test("every section's draft names its files; Past has none")
     func drafts() {

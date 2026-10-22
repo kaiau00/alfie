@@ -117,13 +117,13 @@ public enum MacEraseKeychain {
     /// query anywhere in this module.
     public static let allowlist: [MacEraseKeychainEntry] = [
         .init(service: "moe-child-oauth", account: "moe",
-              source: "Sources/Moe/Onboarding/ClaudeSignIn.swift store(token:), scripts/hermes-signin.sh — Moe's own Claude setup-token"),
+              source: "Sources/Moe/Onboarding/ClaudeSignIn.swift store(token:), scripts/hermes-signin.sh — Alfie's own Claude setup-token"),
         .init(service: "moe-composio-scoped", account: "api-key",
               source: "ComposioKeychain (the cloud half) — the tenant's Composio project key"),
         .init(service: "moe-composio-scoped", account: "api-base",
               source: "ComposioKeychain (the cloud half) — the edge's Composio proxy address, beside the proxy token"),
         .init(service: "moe-composio", account: "api-key",
-              source: "moe-home/connectors/composio.py KEYCHAIN_SERVICES, scripts/composio-api.sh — the older Composio key Moe reads"),
+              source: "moe-home/connectors/composio.py KEYCHAIN_SERVICES, scripts/composio-api.sh — the older Composio key Alfie reads"),
         .init(service: "moe-telegram-bot", account: nil,
               source: "moe-home/hermes/configure-hermes.py TELEGRAM_KEYCHAIN_SERVICE — the Telegram channel token"),
         .init(service: "moe-gmail", account: nil,
@@ -131,11 +131,11 @@ public enum MacEraseKeychain {
         .init(service: "moe-google-docs", account: nil,
               source: "scripts/connect-drive-docs.sh, moe-home/connectors/drive-docs.py — the Drive/Docs refresh token"),
         .init(service: "assemblyai-api-key", account: "moe",
-              source: "Sources/Moe/Cloud/CloudVoice.swift DeveloperVoiceCredentials — an API key given to Moe"),
+              source: "Sources/Moe/Cloud/CloudVoice.swift DeveloperVoiceCredentials — an API key given to Alfie"),
         .init(service: "inworld-api-key", account: "moe",
-              source: "Sources/Moe/Cloud/CloudVoice.swift DeveloperVoiceCredentials — an API key given to Moe"),
+              source: "Sources/Moe/Cloud/CloudVoice.swift DeveloperVoiceCredentials — an API key given to Alfie"),
         .init(service: "com.memoe.app.consent-key", account: "consent-signing-key",
-              source: "ConsentKey.appStore (the cloud half) — this Mac's key for agreeing (D9.14); gone, it only means signing in with Google again. Moe Dev's is com.memoe.app.dev.consent-key, and Moe Dev's erase leaves the keychain alone"),
+              source: "ConsentKey.appStore (the cloud half) — this Mac's key for agreeing (D9.14); gone, it only means signing in with Google again. Alfie Dev's is com.memoe.app.dev.consent-key, and Alfie Dev's erase leaves the keychain alone"),
     ]
 
     /// Moe Dev's own items, and the only keychain items Moe Dev's erase may
@@ -144,7 +144,7 @@ public enum MacEraseKeychain {
     /// deletes one.
     public static let devAllowlist: [MacEraseKeychainEntry] = [
         .init(service: "com.memoe.app.dev.consent-key", account: "consent-signing-key",
-              source: "ConsentKey.appStore (the cloud half) under Moe Dev's bundle id — Moe Dev's own key for agreeing"),
+              source: "ConsentKey.appStore (the cloud half) under Alfie Dev's bundle id — Alfie Dev's own key for agreeing"),
     ]
 
     /// What an identity's erase may delete from the keychain: Moe's list for
@@ -311,7 +311,7 @@ public struct MacEraseScope: Equatable, Sendable {
 
         if debugBuild, let scratchHome = value("MOE_HOME") {
             guard let identity = MacEraseIdentity(bundleID: value("MOE_ERASE_BUNDLE_ID") ?? bundleID) else {
-                throw MacEraseScopeError("not Moe or Moe Dev (bundle id \(bundleID ?? "none")); nothing is erased")
+                throw MacEraseScopeError("not Alfie or Alfie Dev (bundle id \(bundleID ?? "none")); nothing is erased")
             }
             guard let fakeHome = value("MOE_ERASE_USER_HOME") else {
                 throw MacEraseScopeError("MOE_HOME is set but MOE_ERASE_USER_HOME is not; a scratch erase needs a scratch ~")
@@ -378,7 +378,7 @@ public struct MacEraseScope: Equatable, Sendable {
         }
 
         guard let identity = MacEraseIdentity(bundleID: bundleID) else {
-            throw MacEraseScopeError("not Moe or Moe Dev (bundle id \(bundleID ?? "none")); nothing is erased")
+            throw MacEraseScopeError("not Alfie or Alfie Dev (bundle id \(bundleID ?? "none")); nothing is erased")
         }
         let support = realHome.appendingPathComponent("Library/Application Support", isDirectory: true)
         let stamped = infoMoeHome?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
@@ -395,7 +395,7 @@ public struct MacEraseScope: Equatable, Sendable {
                 : URL(fileURLWithPath: stamped, isDirectory: true)
             let expected = support.appendingPathComponent("Moe Dev", isDirectory: true)
             guard !stamped.isEmpty, samePathStrict(expanded, expected) else {
-                throw MacEraseScopeError("Moe Dev's home is \(stamped.isEmpty ? "unset" : stamped), "
+                throw MacEraseScopeError("Alfie Dev's home is \(stamped.isEmpty ? "unset" : stamped), "
                                          + "not \(expected.path); refused rather than guess")
             }
             moeHome = expected
@@ -483,13 +483,13 @@ public enum MacEraseItem: Equatable, Sendable {
         switch self {
         case .path(_, let why): return why
         case .legacyLink(_, let to): return "the ~/.moe link to \(to.path)"
-        case .cuaDriverApp: return "CuaDriver, the tool Moe uses to work your screen — Moe installed it"
+        case .cuaDriverApp: return "CuaDriver, the tool Alfie uses to work your screen — Alfie installed it"
         case .cuaDriverLink: return "the cua-driver command, a link into CuaDriver"
         case .keychain(let e): return e.source
         case .launchd(_, _, let loaded): return loaded ? "background job (running)" : "background job"
-        case .defaults: return "Moe's preferences"
-        case .tcc: return "the macOS permissions you gave Moe"
-        case .loginItem: return "opening Moe when you log in (System Settings › Login Items)"
+        case .defaults: return "Alfie's preferences"
+        case .tcc: return "the macOS permissions you gave Alfie"
+        case .loginItem: return "opening Alfie when you log in (System Settings › Login Items)"
         case .process: return "running from what is being erased; stopped first"
         }
     }
@@ -898,7 +898,7 @@ public struct MacErase {
     ///     file anyone can write; the signature is not.
     public func cuaDriverRefusal(_ url: URL) -> String? {
         guard scope.identity.ownsSharedResources else {
-            return "CuaDriver is shared with Moe, and Moe Dev never removes it"
+            return "CuaDriver is shared with Alfie, and Alfie Dev never removes it"
         }
         guard let expected = cuaDriverAppURL, let apps = scope.applicationsDir else {
             return "this erase was not told where Applications is"
@@ -955,7 +955,7 @@ public struct MacErase {
     public func plan() -> MacErasePlan {
         var remove: [MacEraseItem] = []
         var left: [String] = [
-            "The Memoe app itself. It opens again at the welcome screen, like a new install.",
+            "The Alfie app itself. It opens again at the welcome screen, like a new install.",
             "Claude Code and ChatGPT: their sign-ins (~/.claude, ~/.codex and Claude Code's keychain item) and the claude command (~/.local/bin/claude). Those belong to them.",
             "uv and the Python it downloaded (~/.local/share/uv), and Node in ~/.local/bin, which other programs may use.",
         ]
@@ -1003,10 +1003,10 @@ public struct MacErase {
                 remove.append(.keychain(entry))
             }
             if !scope.identity.ownsSharedResources {
-                left.append("Moe's keychain items: their names are shared with Moe, and Moe Dev removes only its own key for agreeing.")
+                left.append("Alfie's keychain items: their names are shared with Alfie, and Alfie Dev removes only its own key for agreeing.")
             }
         } else if !scope.identity.ownsSharedResources {
-            left.append("Keychain items: their names are shared with Moe, and Moe Dev never touches Moe's.")
+            left.append("Keychain items: their names are shared with Alfie, and Alfie Dev never touches Alfie's.")
         }
 
         // ~/.moe: a link to THIS home goes first; anything else stays.
@@ -1018,16 +1018,16 @@ public struct MacErase {
                 left.append("~/.moe, which points at \(dest.path), not at the home being erased.")
             }
         } else if exists(legacyLink) {
-            left.append("~/.moe, which is a real folder rather than Moe's link — look through it yourself.")
+            left.append("~/.moe, which is a real folder rather than Alfie's link — look through it yourself.")
         }
 
-        add(scope.moeHome, "Moe's home: memories, conversations, notes, meetings, connectors, logs, models")
+        add(scope.moeHome, "Alfie's home: memories, conversations, notes, meetings, connectors, logs, models")
 
         if let hermes = scope.hermesHome {
-            add(hermes, "Moe's Hermes: its settings, channel sessions (Telegram, WhatsApp), skills and jobs")
+            add(hermes, "Alfie's Hermes: its settings, channel sessions (Telegram, WhatsApp), skills and jobs")
             for name in ["hermes", "hermes-acp"] {
                 let wrapper = scope.userHome.appendingPathComponent(".local/bin/\(name)")
-                if isHermesWrapper(wrapper, in: hermes) { add(wrapper, "the hermes command, which ran Moe's Hermes") }
+                if isHermesWrapper(wrapper, in: hermes) { add(wrapper, "the hermes command, which ran Alfie's Hermes") }
             }
             // Moe in your Chrome: the native-messaging host manifest Hermes's
             // install-host wrote beside Chrome's profiles. Its launcher lives in
@@ -1035,9 +1035,9 @@ public struct MacErase {
             // manifest would otherwise point Chrome at a file that is gone.
             // Only ours — one whose launcher is inside this Hermes home.
             let host = scope.userHome.appendingPathComponent(MacEraseChromeHost.manifest)
-            if isOurChromeHost(host, in: hermes) { add(host, "the Memoe extension's link from Chrome to Moe") }
+            if isOurChromeHost(host, in: hermes) { add(host, "the Alfie extension's link from Chrome to Alfie") }
         } else {
-            left.append("~/.hermes: it is shared with Moe, and Moe Dev never touches Moe's.")
+            left.append("~/.hermes: it is shared with Alfie, and Alfie Dev never touches Alfie's.")
         }
 
         // CuaDriver: Moe's to remove, Moe Dev's to leave. Its permissions go
@@ -1070,13 +1070,13 @@ public struct MacErase {
                 remove.append(.path(cuaPrefs, why: "CuaDriver's preferences"))
             }
         } else {
-            left.append("CuaDriver, the tool Moe uses to work your screen: it is shared with Moe, and Moe Dev never removes it.")
+            left.append("CuaDriver, the tool Alfie uses to work your screen: it is shared with Alfie, and Alfie Dev never removes it.")
         }
 
         if scope.identity.ownsSharedResources {
             for root in fluidAudioRoots { add(root, "downloaded voice and speech models") }
         } else {
-            left.append("Downloaded voice models in FluidAudio's folders: shared with Moe.")
+            left.append("Downloaded voice models in FluidAudio's folders: shared with Alfie.")
         }
 
         add(library.appendingPathComponent("Application Support/\(id)", isDirectory: true), "app support")
@@ -1382,7 +1382,7 @@ public struct MacEraseNote: Codable, Equatable, Sendable {
         func removal(_ what: String, _ reveal: String?) -> String {
             switch outcome {
             case .notAllowed: return "\(what) — macOS only lets you do that. Drag it to the Bin."
-            case .refused: return "\(what) — Moe left it, because \(detail)."
+            case .refused: return "\(what) — Alfie left it, because \(detail)."
             default: return "\(what) (\(detail))." + (reveal != nil ? " Drag it to the Bin." : "")
             }
         }
@@ -1403,7 +1403,7 @@ public struct MacEraseNote: Codable, Equatable, Sendable {
         case .defaults(let domain):
             sentence = "the preferences \(domain) (\(detail))."
         case .loginItem:
-            sentence = "Moe in System Settings › General › Login Items (\(detail)). Remove it there."
+            sentence = "Alfie in System Settings › General › Login Items (\(detail)). Remove it there."
         case .tcc(let id):
             sentence = "the permissions given to \(id) (\(detail))."
         case .process(_, let command):
@@ -1416,9 +1416,9 @@ public struct MacEraseNote: Codable, Equatable, Sendable {
     public var text: String {
         switch leftovers.count {
         case 0: return ""
-        case 1: return "One thing Moe couldn't remove: " + leftovers[0].sentence
+        case 1: return "One thing Alfie couldn't remove: " + leftovers[0].sentence
         default:
-            return "\(leftovers.count) things Moe couldn't remove:\n"
+            return "\(leftovers.count) things Alfie couldn't remove:\n"
                 + leftovers.map { "• " + $0.sentence }.joined(separator: "\n")
         }
     }
@@ -1729,7 +1729,7 @@ public struct MacEraseRequest: Codable, Equatable, Sendable {
         guard r.pid > 1, parentPID > 1 else { return "no parent to answer to (pid \(r.pid), parent \(parentPID))" }
         guard r.pid == parentPID else { return "the request names pid \(r.pid), but the parent is \(parentPID)" }
         guard r.nonce.count == 64, r.nonce.allSatisfy(\.isHexDigit) else { return "the request carries no nonce" }
-        guard parentIsThisApp else { return "the process that started this is not Moe" }
+        guard parentIsThisApp else { return "the process that started this is not Alfie" }
         guard r.bundleID == scope.identity.bundleID else { return "the request is for \(r.bundleID)" }
         guard MacErase.canonical(URL(fileURLWithPath: r.moeHome, isDirectory: true)).path
                 == MacErase.canonical(scope.moeHome).path else {

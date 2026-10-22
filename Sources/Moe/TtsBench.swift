@@ -188,10 +188,10 @@ enum TtsBench {
             announce(kind.displayName)
             play(file)
         }
-        print("\nDifferent words:  Moe --tts-say \"…\"")
-        print("One engine:       Moe --tts-say \"…\" kokoro")
-        print("Dial in a speed:  Moe --tts-say \"…\" kokoro 0.72")
-        print("One voice:        Moe --tts-say \"…\" kokoro am_michael")
+        print("\nDifferent words:  Alfie --tts-say \"…\"")
+        print("One engine:       Alfie --tts-say \"…\" kokoro")
+        print("Dial in a speed:  Alfie --tts-say \"…\" kokoro 0.72")
+        print("One voice:        Alfie --tts-say \"…\" kokoro am_michael")
         return 0
     }
 

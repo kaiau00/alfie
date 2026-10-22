@@ -12,7 +12,7 @@ feature.
 So this is its own job: **every two minutes, no model, no network, no
 Calendar**. It reads the copy of the calendar the ten-minute sync already
 keeps in ``~/.moe/context/calendar.md`` — the same lines the brief is built
-from, already on disk, already the thing Moe answers "what's on" from —
+from, already on disk, already the thing Alfie answers "what's on" from —
 finds the events starting inside the window the person asked for, and says
 one sentence about each. A tick with nothing to say costs a Python start
 and two file reads, and prints nothing at all.
@@ -36,7 +36,7 @@ delivery path, and it is the one that already exists.
 
 Nothing new starts speaking to somebody who did not ask for it, so:
 
-  1. ``nudges`` in ~/.moe/config.json — Settings › Background › "Let Moe get
+  1. ``nudges`` in ~/.moe/config.json — Settings › Background › "Let Alfie get
      your attention", the one autonomy switch, checked before anything at
      all is read;
   2. ``calendarHeadsUpMinutes`` in the same file — this feature's own
@@ -45,7 +45,7 @@ Nothing new starts speaking to somebody who did not ask for it, so:
   3. ``speak`` on the calendar's own learning profile — Settings ›
      Background › "Learn from Calendar and watch it" (its yes) for Calendar, the
      same answer that decides whether the proactive pass may see the
-     calendar section of the brief, so one switch silences both ways Moe
+     calendar section of the brief, so one switch silences both ways Alfie
      could bring the calendar up;
 
 and then the file itself: no ``context/calendar.md`` (Calendar permission
@@ -70,7 +70,7 @@ one, and it is the failure this job would have by default.
   ── Reading somebody else's date format ────────────────────────────────
 
 ``calendar.md`` is what ``connectors/calendar.sh pull`` printed, which is
-``Moe --calendar`` through ``MoeConnectors.ConnectorText`` — one line per
+``Alfie --calendar`` through ``MoeConnectors.ConnectorText`` — one line per
 event:
 
     Saturday, October 31, 2026 at 9:00:00 AM | Standup | Room 4
@@ -86,7 +86,7 @@ and a candidate day is accepted only if its day-of-month and its year appear
 as whole numbers in what is left, and — when an English month name is there
 to be read — its month matches too. A line that confirms neither day, or
 both, says nothing. Silence on a line nobody can read is the only safe
-answer; a wrong guess is Moe interrupting someone about a meeting that is
+answer; a wrong guess is Alfie interrupting someone about a meeting that is
 not happening.
 
 Two things follow from that, and they are on purpose:
@@ -99,7 +99,7 @@ Two things follow from that, and they are on purpose:
 * **Local time is real time.** Both instants go through ``time.mktime``,
   which asks the OS which offset was in force on that day. On the morning
   the clocks go back, 1:00 AM tomorrow is not "25 hours from midnight" and a
-  naive subtraction would have Moe speak an hour early.
+  naive subtraction would have Alfie speak an hour early.
 
   ── And the copy has to be fresh ───────────────────────────────────────
 
@@ -217,7 +217,7 @@ def read_config(moe):
 
 
 def nudges_on(cfg):
-    """Settings › Background › "Let Moe get your attention"."""
+    """Settings › Background › "Let Alfie get your attention"."""
     return cfg.get("nudges", True) is not False
 
 
@@ -399,7 +399,7 @@ def key_for(start, title):
 
 
 def sentence(title, location, gap):
-    """One line, as Moe would say it: plain prose, no markdown, no list."""
+    """One line, as Alfie would say it: plain prose, no markdown, no list."""
     minutes = int(round(gap / 60.0))
     if minutes <= 0:
         when = "is starting now"

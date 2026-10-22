@@ -152,7 +152,7 @@ def recent(db, mode, window):
         problem = layout_problem(con, RECENT_NEEDS)
         cols = {r[1] for r in con.execute("pragma table_info(message)")}
     except sqlite3.Error as e:
-        print("unavailable: %s (Full Disk Access for Memoe?)" % e, file=sys.stderr)
+        print("unavailable: %s (Full Disk Access for Alfie?)" % e, file=sys.stderr)
         return 1
     if problem:
         print("unfamiliar Messages layout: %s" % problem, file=sys.stderr)
@@ -215,7 +215,7 @@ def main(argv):
         con = sqlite3.connect("file:%s?mode=ro" % db, uri=True, timeout=3)
         problem = layout_problem(con)
     except sqlite3.Error as e:
-        print("unavailable: %s (Full Disk Access for Memoe?)" % e, file=sys.stderr)
+        print("unavailable: %s (Full Disk Access for Alfie?)" % e, file=sys.stderr)
         return 1
     if problem:
         print("unfamiliar Messages layout: %s" % problem, file=sys.stderr)

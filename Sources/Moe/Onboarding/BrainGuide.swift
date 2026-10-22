@@ -50,14 +50,14 @@ struct BrainGuide: Sendable {
         case .claudeCode:
             return BrainGuide(
                 kind: kind,
-                whatItIs: "A Claude plan is the monthly one you may already pay Anthropic for — the same account you use on claude.ai. Moe borrows it; you are not charged twice, and nothing is billed by the question.",
+                whatItIs: "A Claude plan is the monthly one you may already pay Anthropic for — the same account you use on claude.ai. Alfie borrows it; you are not charged twice, and nothing is billed by the question.",
                 cost: "Nothing on top of the plan you already have.",
                 nextStep: "Click Sign in with Claude. A page opens in your browser, you say yes there, and you come back here.")
 
         case .codex:
             return BrainGuide(
                 kind: kind,
-                whatItIs: "A ChatGPT plan is the monthly one you may already pay OpenAI for — the same account you use on chatgpt.com. Moe borrows it the same way, and nothing is billed by the question.",
+                whatItIs: "A ChatGPT plan is the monthly one you may already pay OpenAI for — the same account you use on chatgpt.com. Alfie borrows it the same way, and nothing is billed by the question.",
                 cost: "Nothing on top of the plan you already have.",
                 nextStep: "Click Sign in with ChatGPT. It shows you a code to approve in your browser, once.")
 
@@ -71,7 +71,7 @@ struct BrainGuide: Sendable {
         case .openAI:
             return BrainGuide(
                 kind: kind,
-                whatItIs: "The same idea, from OpenAI: a long password from platform.openai.com that lets Moe use their models, billed by the word rather than monthly.",
+                whatItIs: "The same idea, from OpenAI: a long password from platform.openai.com that lets Alfie use their models, billed by the word rather than monthly.",
                 cost: "Pennies a question, billed by OpenAI. You set your own spending cap there.",
                 nextStep: "Get a key from platform.openai.com, then paste it into Settings › Brain.")
 
@@ -85,29 +85,29 @@ struct BrainGuide: Sendable {
         case .gemini:
             return BrainGuide(
                 kind: kind,
-                whatItIs: "Google's version: a long password from aistudio.google.com. It has a free allowance, so this is the one way to try Moe without paying anything or installing anything.",
+                whatItIs: "Google's version: a long password from aistudio.google.com. It has a free allowance, so this is the one way to try Alfie without paying anything or installing anything.",
                 cost: "Free up to Google's daily allowance, then pennies a question.",
                 nextStep: "Get a key from aistudio.google.com, then paste it into Settings › Brain.")
 
         case .deepSeek:
             return BrainGuide(
                 kind: kind,
-                whatItIs: "DeepSeek is a Chinese company whose models cost a fraction of what the others charge for similar work. A key from platform.deepseek.com lets Moe use them, billed by the word.",
+                whatItIs: "DeepSeek is a Chinese company whose models cost a fraction of what the others charge for similar work. A key from platform.deepseek.com lets Alfie use them, billed by the word.",
                 cost: "A fraction of a penny a question, billed by DeepSeek. Cheapest of the paid options here.",
                 nextStep: "Get a key from platform.deepseek.com, then paste it into Settings › Brain.")
 
         case .xai:
             return BrainGuide(
                 kind: kind,
-                whatItIs: "xAI makes Grok, the model behind X's assistant. A key from console.x.ai lets Moe use it, billed by the word rather than monthly — and it is the one that reads what is happening on X right now.",
+                whatItIs: "xAI makes Grok, the model behind X's assistant. A key from console.x.ai lets Alfie use it, billed by the word rather than monthly — and it is the one that reads what is happening on X right now.",
                 cost: "Pennies a question, billed by xAI. You set your own spending cap there.",
                 nextStep: "Get a key from console.x.ai, then paste it into Settings › Brain.")
 
         case .customKey:
             return BrainGuide(
                 kind: kind,
-                whatItIs: "Any other company whose service works the same way OpenAI's does — DeepSeek, Groq, Mistral, Together, xAI, one your workplace runs, or a model you host yourself. You give Moe the web address it answers on and the key that company gave you, and Moe treats it like any of the others.",
-                cost: "Whatever that company charges you. Moe adds nothing and sees no bill.",
+                whatItIs: "Any other company whose service works the same way OpenAI's does — DeepSeek, Groq, Mistral, Together, xAI, one your workplace runs, or a model you host yourself. You give Alfie the web address it answers on and the key that company gave you, and Alfie treats it like any of the others.",
+                cost: "Whatever that company charges you. Alfie adds nothing and sees no bill.",
                 nextStep: "Paste the service's address, ending in /v1, and its key, then press Test to check them before you Apply.")
 
         case .lmStudio:
@@ -123,7 +123,7 @@ struct BrainGuide: Sendable {
                 kind: kind,
                 whatItIs: "Ollama and friends do the same job from the command line: the model lives on this Mac and answers here, so nothing you say leaves the machine.",
                 cost: "Free. It uses your Mac's memory rather than anyone's servers.",
-                nextStep: "Start Ollama (or any server that speaks the same language), then give Moe its address in Settings › Brain.",
+                nextStep: "Start Ollama (or any server that speaks the same language), then give Alfie its address in Settings › Brain.",
                 tradeOff: Self.localTradeOff)
         }
     }
@@ -136,7 +136,7 @@ struct BrainGuide: Sendable {
     /// unknown for tools, and works out per family for vision.
     static let localTradeOff = """
     Slower, and less sure of itself, than a model in a data centre. Whether it can look at \
-    your screen or use your connections depends on which model you load — Moe shows you what \
+    your screen or use your connections depends on which model you load — Alfie shows you what \
     the one you picked can do, and quietly stops offering what it can't.
     """
 
@@ -194,14 +194,14 @@ struct BrainPath: Sendable, Identifiable {
     static let claude = BrainPath(
         id: "claude-sign-in",
         title: "Sign in with Claude",
-        whatItIs: "Already pay for Claude? Moe uses that plan. Nothing extra to buy.",
+        whatItIs: "Already pay for Claude? Alfie uses that plan. Nothing extra to buy.",
         action: "Sign in with Claude",
         providers: [.claudeCode])
 
     static let chatgpt = BrainPath(
         id: "chatgpt-sign-in",
         title: "Sign in with ChatGPT",
-        whatItIs: "Already pay for ChatGPT? Moe uses that plan. Nothing extra to buy.",
+        whatItIs: "Already pay for ChatGPT? Alfie uses that plan. Nothing extra to buy.",
         action: "Sign in with ChatGPT",
         providers: [.codex])
 

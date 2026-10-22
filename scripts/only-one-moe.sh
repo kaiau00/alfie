@@ -12,7 +12,7 @@
 #
 # Nothing was being installed. `ps` showed the only Moe running on the Mac was
 #
-#     /Users/<you>/moe/dist/Memoe.app
+#     /Users/<you>/moe/dist/Alfie.app
 #
 # a build from a worktree, made the previous day, carrying no commit stamp —
 # and the login agent that started it says `open -a /Applications/Memoe.app`.
@@ -60,11 +60,11 @@ squatters=()
 while IFS= read -r p; do
   [ -n "$p" ] || continue
   [ "$p" = "$INSTALLED" ] && continue
-  case "$p" in *"/Memoe Dev.app") continue ;; esac
+  case "$p" in *"/Alfie Dev.app") continue ;; esac
   squatters=("${squatters[@]+"${squatters[@]}"}" "$p")
-done < <(grep -oE "path: +[^ ].*/Memoe\.app" "$DUMP" | sed 's/path: *//' | sort -u)
+done < <(grep -oE "path: +[^ ].*/Alfie\.app" "$DUMP" | sed 's/path: *//' | sort -u)
 
-echo "Moe bundles macOS would accept as com.memoe.app"
+echo "Alfie bundles macOS would accept as com.memoe.app"
 echo "──────────────────────────────────────────────────"
 echo "  installed   $INSTALLED"
 echo "  squatters   ${#squatters[@]}"
@@ -74,8 +74,8 @@ if [ "${#squatters[@]}" -gt 0 ]; then
 fi
 
 if [ "$CHECK_ONLY" = 1 ]; then
-  [ "${#squatters[@]}" -eq 0 ] && { echo "✓ only the installed Moe can be launched as Moe"; exit 0; }
-  echo "✗ $(printf '%s' "${#squatters[@]}") other bundle(s) could be launched as Moe. Run ./scripts/only-one-moe.sh" >&2
+  [ "${#squatters[@]}" -eq 0 ] && { echo "✓ only the installed Alfie can be launched as Alfie"; exit 0; }
+  echo "✗ $(printf '%s' "${#squatters[@]}") other bundle(s) could be launched as Alfie. Run ./scripts/only-one-moe.sh" >&2
   exit 1
 fi
 
@@ -84,7 +84,7 @@ if [ "${#squatters[@]}" -eq 0 ]; then
   # "swept and verified" are the same fact about the machine, and a caller
   # (or a test) should not have to parse two shapes to learn it.
   echo "✓ nothing to do; still registered elsewhere: 0"
-  echo "✓ only $INSTALLED can be launched as Moe now"
+  echo "✓ only $INSTALLED can be launched as Alfie now"
   exit 0
 fi
 
@@ -105,19 +105,19 @@ left=0
 while read -r p; do
   [ -n "$p" ] || continue
   [ "$p" = "$INSTALLED" ] && continue
-  case "$p" in *"/Memoe Dev.app") continue ;; esac
+  case "$p" in *"/Alfie Dev.app") continue ;; esac
   left=$((left + 1))
-done < <(grep -oE "path: +[^ ].*/Memoe\.app" "$DUMP" | sed 's/path: *//' | sort -u)
+done < <(grep -oE "path: +[^ ].*/Alfie\.app" "$DUMP" | sed 's/path: *//' | sort -u)
 
 echo "unregistered ${#squatters[@]}; still registered elsewhere: $left"
 if [ "$left" -eq 0 ]; then
-  echo "✓ only $INSTALLED can be launched as Moe now"
+  echo "✓ only $INSTALLED can be launched as Alfie now"
 else
   echo "› $left remain — LS re-registers a bundle when it is next run or scanned;"
   echo "  the lasting fix is that they refuse to run (RunningFromHere.swift)."
 fi
 
 mkdir -p "$HOME/.moe/logs"
-printf '%s  %s  unregistered %d Moe bundle(s), %d left\n' \
+printf '%s  %s  unregistered %d Alfie bundle(s), %d left\n' \
   "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$(id -un)" "${#squatters[@]}" "$left" \
   >> "$HOME/.moe/logs/installs.log"

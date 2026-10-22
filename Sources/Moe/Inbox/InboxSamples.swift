@@ -17,7 +17,7 @@ enum InboxSamples {
     Add one concrete example you actually used it for.
 
     **Overdue: Week 1 ended 09-27 and is still open**
-    - 1.1: Record a real 10-second screen clip of "Hey Moe". The existing one is a mock-up.
+    - 1.1: Record a real 10-second screen clip of "Hey Alfie". The existing one is a mock-up.
     - 1.2: Watch 5 people hit the site cold.
     - 1.5: Email 9to5Mac Indie App Spotlight.
 
@@ -39,7 +39,7 @@ enum InboxSamples {
                             at: at(316))
         q.options = ["Every day", "Mondays", "Stop"]
         var b = NoticeInput(text: brief, at: at(506))
-        b.job = "Moe marketing standing brief"; b.jobID = "3a26f7d51a3c"
+        b.job = "Alfie marketing standing brief"; b.jobID = "3a26f7d51a3c"
         b.title = "Marketing brief"
         b.summary = "One Reddit reply ready to post, three launch tasks overdue, Show HN due this week."
         var t = NoticeInput(text: "Ticket #12 is fixed: sending from Gmail works again. Nothing for you to do.", at: at(231))

@@ -59,7 +59,7 @@ from pathlib import Path
 JOB_NAME = "moe-loop-check"
 TIMEOUT = 20
 MAX_BYTES = 256 * 1024
-USER_AGENT = "Moe/1 (a personal assistant checking a page its person looked at)"
+USER_AGENT = "Alfie/1 (a personal assistant checking a page its person looked at)"
 #: Per run, so a ledger full of watches cannot hold the tick for minutes.
 MAX_CHECKS_PER_RUN = 12
 #: Where the last conditional-GET validators live. Not in the ledger: they

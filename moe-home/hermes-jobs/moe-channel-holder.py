@@ -2,7 +2,7 @@
 """Keep one holder per chat app, while the Mac is awake.
 
 A no_agent cron job. It runs `connectors/channel-holder.py heal`, which asks
-each provider Moe's cloud is supposed to be receiving for where it actually
+each provider Alfie's cloud is supposed to be receiving for where it actually
 sends, and puts back one that has drifted — bounded to three repairs per
 channel and never twice inside ten minutes, both enforced in that script.
 
@@ -15,7 +15,7 @@ still held the channel, the Mac still had its marker, and nothing on either
 side was going to notice. A tick is the only thing that can.
 
 Output discipline, as for every no_agent job: **stdout is a message to the
-person**, so it stays empty unless somebody has to do something. A drift Moe
+person**, so it stays empty unless somebody has to do something. A drift Alfie
 repaired itself is not that; a drift it has given up on is, and the sentence
 comes out of `channel-holder.py` already written for a person.
 """

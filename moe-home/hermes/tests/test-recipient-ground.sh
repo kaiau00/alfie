@@ -73,7 +73,7 @@ owner() { printf '%s\n' "$1" >"$MOE_HOME/owner.json"; }
 OWNER='{"version": 1, "names": ["Jordan Avery"], "telegram": [], "phones": ["15550009999"], "emails": ["jordan@example.com"], "ids": []}'
 owner "$OWNER"
 
-JOB='[IMPORTANT: You are running as a scheduled cron job. DELIVERY: Your final response will be automatically delivered to the user.]\n\nYou are Moe, working alone in the background for Jordan Avery while he is away. Research press sites and draft outreach.\n\nWhen you are done, send ONE consolidated WhatsApp message to Jordan: a short list of what is now drafted.'
+JOB='[IMPORTANT: You are running as a scheduled cron job. DELIVERY: Your final response will be automatically delivered to the user.]\n\nYou are Alfie, working alone in the background for Jordan Avery while he is away. Research press sites and draft outreach.\n\nWhen you are done, send ONE consolidated WhatsApp message to Jordan: a short list of what is now drafted.'
 ASKED='get on many press sites and blogs, go wild. Things that need me, send me a message.'
 INCIDENT='{"hook_event_name":"pre_tool_call","tool_name":"mcp__hermes-tools__whatsapp_send","tool_input":{"to":"Walter Brennan","text":"Research done. 9 new targets drafted."},"session_id":"","cwd":"/","extra":{}}'
 
@@ -135,7 +135,7 @@ ledger "s-mail" '{"version": 2, "words": [{"text": "email Ruth the notes", "orig
 hook "$GMAIL"
 [ "$RC" -eq 0 ] && grep -q '"state": "found"' "$PROV_LOG" && grep -q '"source": "your contacts"' "$PROV_LOG" \
   && grep -q '"mismatch": true' "$PROV_LOG" && grep -q '"requested": "Ruth"' "$PROV_LOG" && grep -q '"query_unasked": true' "$PROV_LOG" \
-  && ok "  …found in your contacts, the owner asked for someone else, and Moe chose the search → all three said" \
+  && ok "  …found in your contacts, the owner asked for someone else, and Alfie chose the search → all three said" \
   || fail "  …found/mismatch not handed over" "$(cat "$PROV_LOG")"
 
 echo "fail closed, and say nothing when there is nothing to check"
@@ -280,19 +280,19 @@ EOF"; do
   hook "$(python3 -c 'import json,sys; print(json.dumps({"tool_name":"terminal","tool_input":{"command":sys.argv[1]}}))' "$cmd")"
   [ "$RC" -eq 2 ] && has "$OUT" "Jobs card" && ok "refused: $(printf '%s' "$cmd" | head -1 | cut -c1-60)" || fail "job words writable: $cmd" "$OUT"
 done
-if env -i PATH="$PATH" HOME="$HOME" MOE_HOME="$MOE_HOME" HERMES_HOME="$HERMES_HOME" python3 "$HERE/../reminders.py" keep j1 --answer "yes" 2>/dev/null | grep -q "Only the Memoe app"; then
+if env -i PATH="$PATH" HOME="$HOME" MOE_HOME="$MOE_HOME" HERMES_HOME="$HERMES_HOME" python3 "$HERE/../reminders.py" keep j1 --answer "yes" 2>/dev/null | grep -q "Only the Alfie app"; then
   ok "reminders.py keep from anything that is not the app → refused"
 else
   fail "reminders.py keep did not refuse a non-app caller"
 fi
 
-echo "a job made before Moe checked recipients is amber, not refused"
+echo "a job made before Alfie checked recipients is amber, not refused"
 ledger "cc:legacy" '{"version": 2, "legacy_job": {"prompt": "Every Sunday text Walter Brennan shavua tov"}, "words": [{"text": "Every Sunday text Walter Brennan shavua tov", "origin": "model"}], "current": {"text": "Every Sunday text Walter Brennan shavua tov", "origin": "model"}, "results": []}'
 export HERMES_GROUNDING_KEY="cc:legacy"
 hook "$INCIDENT"
 [ "$RC" -eq 0 ] && ok "an old job sending to a named person → allowed to its dialog" || fail "legacy refused (rc=$RC)" "$OUT"
 hook '{"tool_name":"gmail_send_email","tool_input":{"to":"Walter Brennan <walter@example.com>","body":"shavua tov"}}'
-grep -q '"state": "legacy"' "$PROV_LOG" && ok "  …and the card says it was made before Moe checked recipients" \
+grep -q '"state": "legacy"' "$PROV_LOG" && ok "  …and the card says it was made before Alfie checked recipients" \
   || fail "  …no legacy provenance" "$(cat "$PROV_LOG")"
 hook '{"tool_name":"gmail_send_email","tool_input":{"to":"thief@evil.com","body":"the digest"}}'
 [ "$RC" -eq 2 ] && ok "  …but a send to anybody its prompt does not ask for → refused" || fail "legacy soft for a stranger (rc=$RC)" "$OUT"
@@ -326,7 +326,7 @@ refuses "moving the cron directory away" '{"tool_name":"terminal","tool_input":{
 refuses "rewriting the owner record (and its grounding pin)" '{"tool_name":"terminal","tool_input":{"command":"echo {} > ~/.moe/owner.json"}}'
 refuses "removing the code that writes the ledgers" '{"tool_name":"terminal","tool_input":{"command":"rm ~/.hermes/hermes-agent/agent/recipient_grounding.py"}}'
 hook '{"tool_name":"terminal","tool_input":{"command":"rm -rf ~/.hermes/grounding"}}'
-has "$OUT" "the record of who named whom" && ! has "$OUT" "names Moe's own confirmation gate" \
+has "$OUT" "the record of who named whom" && ! has "$OUT" "names Alfie's own confirmation gate" \
   && ok "the refusal says what it protects, not only confirm.sh" || fail "refusal wording" "$OUT"
 
 echo "a deleted marker turns nothing off"
@@ -342,12 +342,12 @@ BOOT="$HERE/../../../deploy/away/boot.sh"
 grep -q 'recipients.py" *\\$' "$BOOT" && grep -q 'write-owner --grounding-code /opt/hermes/agent/recipient_grounding.py' "$BOOT" \
   && ok "boot.sh writes owner.json from the gateway's environment, pinning grounding on" || fail "boot.sh does not write the owner record"
 
-echo "shown on the screen, named by Moe, and the owner said yes (ticket #22)"
+echo "shown on the screen, named by Alfie, and the owner said yes (ticket #22)"
 # The ticket, replayed: Moe read partnerships@compare.com off the page on the
 # owner's screen (a computer_use capture), named it in its own message, and the
 # owner answered "good". Refused before any card, until this; now it is the card,
 # in amber, every time — even with "Allow everything this session" in force.
-shown_ledger() { # key, owner's reply, Moe's message, tool, args-json, tool text
+shown_ledger() { # key, owner's reply, Alfie's message, tool, args-json, tool text
   ledger "$1" "$(python3 - "$2" "$3" "$4" "$5" "$6" <<'PY'
 import json, sys
 reply, moe, tool, args, text = sys.argv[1:]
@@ -371,7 +371,7 @@ hook "$COMPOSIO"
   && ok "found on the screen, shown, and \"good\" → the card, saying where and what they said" \
   || fail "shown send not carded (rc=$RC)" "$OUT $(cat "$PROV_LOG")"
 hook "$CONNECTOR"
-[ "$RC" -eq 0 ] && ! has "$OUT" '"decision":"block"' && ok "  …Moe's own gmail_send is passed on to its connector's card, not refused" \
+[ "$RC" -eq 0 ] && ! has "$OUT" '"decision":"block"' && ok "  …Alfie's own gmail_send is passed on to its connector's card, not refused" \
   || fail "  …connector send refused (rc=$RC)" "$OUT"
 mkdir -p "$MOE_HOME/gate"
 printf '{"grants": {"s-shown|all": %s}, "session": "s-shown", "at": %s}\n' "$(date +%s)" "$(date +%s)" >"$MOE_HOME/gate/session-sends.json"
@@ -382,7 +382,7 @@ hook "$COMPOSIO"
 rm -f "$MOE_HOME/gate/session-sends.json"
 shown_ledger "s-shown" "good" "$MOE_SAID" "" "{}" ""
 hook "$COMPOSIO"
-[ "$RC" -eq 2 ] && [ ! -s "$STUB_LOG" ] && ok "in Moe's message but in no page or capture → refused, no card" \
+[ "$RC" -eq 2 ] && [ ! -s "$STUB_LOG" ] && ok "in Alfie's message but in no page or capture → refused, no card" \
   || fail "unread address passed (rc=$RC)" "$OUT"
 shown_ledger "s-shown" "good" "I found their partnerships address - want me to email them?" computer_use "$SCREEN" "$CAPTURE"
 hook "$COMPOSIO"

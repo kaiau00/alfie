@@ -77,13 +77,16 @@ public enum InstantAck {
 
         var phrasings: [String] {
             switch self {
-            case .create: return ["Yeah, setting that up.", "On it — making that now.", "Sure, putting that together."]
-            case .change: return ["Yeah, changing that.", "On it.", "Sure, updating that now."]
-            case .draft:  return ["Yeah, let me get that ready.", "On it — writing that up.", "Sure, drafting that."]
-            case .remove: return ["Yeah, let me take care of that.", "On it.", "Sure, dealing with that."]
-            case .look:   return ["Yeah, let me look.", "One sec, checking.", "Sure — having a look now."]
-            case .start:  return ["Yeah, starting that.", "On it.", "Sure, getting that going."]
-            case .work:   return ["Yeah, on it.", "One sec.", "Sure, getting into that."]
+            // Alfie's butler manner (FirstRun.manner), without "sir": an ack
+            // is said before anything is known about how the person likes to
+            // be addressed.
+            case .create: return ["Certainly. Setting that up.", "Very good. Putting that together.", "Right away."]
+            case .change: return ["Certainly. Changing that.", "Very good.", "Right away. Updating that now."]
+            case .draft:  return ["Certainly. Drafting that now.", "Very good. Writing that up.", "Right away."]
+            case .remove: return ["Certainly.", "Very good. Seeing to that.", "Right away."]
+            case .look:   return ["One moment.", "Certainly. Having a look.", "Let me see."]
+            case .start:  return ["Certainly. Starting that.", "Very good.", "Right away."]
+            case .work:   return ["Certainly.", "One moment.", "Very good."]
             }
         }
     }
@@ -135,7 +138,7 @@ public enum InstantAck {
         "thanks", "thank", "you", "cheers", "ta", "cool", "nice", "great",
         "lovely", "perfect", "brilliant", "amazing", "awesome", "ok", "okay",
         "kay", "right", "sure", "yeah", "yep", "yes", "no", "nope", "nah",
-        "hi", "hello", "hey", "moe", "morning", "good", "afternoon",
+        "hi", "hello", "hey", "alfie", "morning", "good", "afternoon",
         "evening", "night", "bye", "goodbye", "later", "wow", "huh", "hmm",
         "mm", "oh", "ah", "damn", "ouch", "busy", "day", "fine", "alright",
         "stop", "wait", "never", "mind", "forget", "it", "nothing", "sorry",
@@ -169,7 +172,7 @@ public enum InstantAck {
         let head = Array(words.prefix(4))
         // "Hey Moe" and a name are addressing, not asking; step past them.
         var start = 0
-        while start < head.count, ["hey", "hi", "hello", "moe", "ok", "okay", "so", "um", "uh", "and", "also", "please"].contains(head[start]) {
+        while start < head.count, ["hey", "hi", "hello", "alfie", "ok", "okay", "so", "um", "uh", "and", "also", "please"].contains(head[start]) {
             start += 1
         }
         guard start < head.count else { return nil }

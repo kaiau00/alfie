@@ -14,7 +14,7 @@ green() { printf '\033[32m%s\033[0m\n' "$1"; }
 amber() { printf '\033[33m%s\033[0m\n' "$1"; }
 red()   { printf '\033[31m%s\033[0m\n' "$1"; }
 
-echo "Moe — connection check"
+echo "Alfie — connection check"
 echo "═════════════════════════"
 echo
 
@@ -23,7 +23,7 @@ CLAUDE_BIN="$(command -v claude || echo "$HOME/.local/bin/claude")"
 if [ -x "$CLAUDE_BIN" ]; then
   green "✓ claude CLI            $($CLAUDE_BIN --version 2>/dev/null | head -1)"
 else
-  red   "✗ claude CLI            not found — Moe cannot think without it"
+  red   "✗ claude CLI            not found — Alfie cannot think without it"
 fi
 
 if security find-generic-password -s "Claude Code-credentials" >/dev/null 2>&1; then
@@ -146,7 +146,7 @@ if [ -n "$TS" ]; then
     esac
   done
 else
-  amber "  … gateway not answering — start Memoe, or run 'hermes serve'"
+  amber "  … gateway not answering — start Alfie, or run 'hermes serve'"
 fi
 
 echo
@@ -223,9 +223,9 @@ fi
 
 # And the dialog itself: the one Moe draws, or the AppleScript one.
 if [ -x "/Applications/Memoe.app/Contents/MacOS/moe-confirm" ]; then
-  green "  ✓ Moe's own confirmation dialog is installed"
+  green "  ✓ Alfie's own confirmation dialog is installed"
 elif [ -x "$MOE/tools/confirm.sh" ]; then
-  amber "  … Moe's dialog is missing; sends fall back to the plain macOS one"
+  amber "  … Alfie's dialog is missing; sends fall back to the plain macOS one"
 else
   red   "  ✗ no confirmation dialog at all — nothing may be sent"
 fi
@@ -235,7 +235,7 @@ fi
 GATE_LOG="$MOE/logs/confirm-hook.log"
 if [ -f "$GATE_LOG" ]; then
   LAST="$(tail -1 "$GATE_LOG" | cut -f1)"
-  echo "  · last time Moe asked you: $LAST"
+  echo "  · last time Alfie asked you: $LAST"
 fi
 
 # What the gate does with each tool — decided by declaration, not by wording.

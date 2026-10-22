@@ -1,4 +1,4 @@
-"""Offline sweep of WakePolicy over `Moe --wake-bench` traces (MOE_WAKE_TRACE=1).
+"""Offline sweep of WakePolicy over `Alfie --wake-bench` traces (MOE_WAKE_TRACE=1).
 Parses each file's per-stride scores, replays the policy (same rules as
 Sources/MoeVoice/WakePolicy.swift) for a grid of threshold / hits / strong,
 and prints recall over positives and false accepts per hour over the rest.

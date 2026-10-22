@@ -25,7 +25,7 @@ up the morning it is due and, if nothing shows it kept, the morning after;
 one with a time, two hours before and an hour after; one with no date,
 once, after a week. Then it lapses quietly.
 
-**One Moe in two places.** `proactive/promises.json` travels as a ledger
+**One Alfie in two places.** `proactive/promises.json` travels as a ledger
 document merged per promise (moeledger/documents.py `merge_promises`, the
 same prune rule pinned equal by a test), like the situations file.
 
@@ -444,7 +444,7 @@ def stage_now(p: Dict[str, Any], now: float) -> str:
 
 CHECK_SYSTEM = (
     "You check one promise against recent messages, on behalf of the person "
-    "Moe works for (\"the owner\"). Answer JSON only: {\"kept\": true|false, "
+    "Alfie works for (\"the owner\"). Answer JSON only: {\"kept\": true|false, "
     "\"released\": true|false, \"evidence\": {\"id\": \"m<n>\", \"quote\": "
     "words copied exactly from that message} or null}. \"kept\" only when a "
     "message shows the promised thing was actually done (sent, paid, "

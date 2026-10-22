@@ -74,7 +74,7 @@ CONNECTIONS="$CONN/hermes-connections.py"
 HERMES_BIN="${HERMES_BIN:-$(command -v hermes 2>/dev/null || true)}"
 [ -n "$HERMES_BIN" ] || HERMES_BIN="${HERMES_AGENT_DIR:-$HERMES_HOME/hermes-agent}/.venv/bin/hermes"
 if [ ! -x "$HERMES_BIN" ]; then
-  echo "✗ Moe's brain is not installed (looked on PATH and in $HERMES_BIN). Run scripts/install.sh first." >&2
+  echo "✗ Alfie's brain is not installed (looked on PATH and in $HERMES_BIN). Run scripts/install.sh first." >&2
   exit 1
 fi
 
@@ -250,7 +250,7 @@ is_connected() { "$CONNECTIONS" names 2>/dev/null | grep -qx "$1"; }
 # ── Listing ───────────────────────────────────────────────────────────────
 
 cmd_list() {
-  echo "Connect to Moe — everything Moe can reach, plus the Mac"
+  echo "Connect to Alfie — everything Alfie can reach, plus the Mac"
   echo "══════════════════════════════════════════════════════════"
   echo
   echo "Mac native (no setup, or one click in System Settings)"
@@ -279,7 +279,7 @@ print("Skills with a credential (%d)" % len(cat["skills"]))
 for e in cat["skills"]:
     row("skill", e, "%-8s %s" % (e["auth"], e["description"]))
 print()
-print("Chat platforms — talk to Moe from your phone (%d)" % len(cat["platforms"]))
+print("Chat platforms — talk to Alfie from your phone (%d)" % len(cat["platforms"]))
 for e in cat["platforms"]:
     row("platform", e, "%-28s %s" % (e["label"], ", ".join(e["credentials"])))
 print()
@@ -296,7 +296,7 @@ warn_untrusted() {
   cat <<'EOF'
 ⚠  You are adding a server Hermes has not reviewed. An MCP server sees
    whatever the agent hands it, and its tool descriptions are text it
-   controls that lands in the model's context. Moe's confirm-before-send
+   controls that lands in the model's context. Alfie's confirm-before-send
    rule still applies to every tool it exposes; nothing else does.
    (CONNECTORS.md — "Curation is a security requirement".)
 EOF
@@ -306,7 +306,7 @@ oauth_login() { # name
   local name="$1"
   echo
   if [ "$OPEN_BROWSER" = 1 ]; then
-    echo "Moe will open your browser to sign in to $name."
+    echo "Alfie will open your browser to sign in to $name."
   else
     echo "A sign-in URL is printed below. Open it yourself; nothing is opened for you."
     echo "Ignore any 'ssh -L' tunnel advice it prints — the callback on 127.0.0.1 works"
@@ -361,7 +361,7 @@ connect_mcp() { # name auth provider credentials…
   elif [ "$auth" = oauth ]; then
     oauth_login "$name"
   fi
-  echo "Moe picks the server up on its next conversation."
+  echo "Alfie picks the server up on its next conversation."
 }
 
 connect_mcp_url() { # name url
@@ -374,19 +374,19 @@ connect_mcp_url() { # name url
     key)   hermes mcp add "$name" --url "$url" --auth header ;;   # Hermes prompts for the key
     *)     hermes mcp add "$name" --url "$url" ;;
   esac
-  echo "Moe picks the server up on its next conversation."
+  echo "Alfie picks the server up on its next conversation."
 }
 
 connect_mcp_command() { # name cmd args…
   local name="$1"; shift
   warn_untrusted
-  echo "This runs '$*' on your Mac with your user's permissions whenever Moe uses it."
+  echo "This runs '$*' on your Mac with your user's permissions whenever Alfie uses it."
   if [ $# -gt 1 ]; then
     hermes mcp add "$name" --command "$1" --args "${@:2}"
   else
     hermes mcp add "$name" --command "$1"
   fi
-  echo "Moe picks the server up on its next conversation."
+  echo "Alfie picks the server up on its next conversation."
 }
 
 # Ask for each env var and write it. Secrets are typed blind; the rest echo.
@@ -416,7 +416,7 @@ connect_skill() { # name credentials…
   echo "Connecting '$name'. Its credentials go to $HERMES_HOME/.env (owner-only)."
   # shellcheck disable=SC2086
   collect_env $envs
-  echo "✓ $name configured. Moe picks it up on its next turn."
+  echo "✓ $name configured. Alfie picks it up on its next turn."
 }
 
 # Who may talk to the bot is not asked here. Hermes denies everyone until
@@ -442,9 +442,9 @@ connect_platform() { # name credentials allowed_users
   # otherwise. scripts/test-connections-ui.sh bans the sentence on screen,
   # and a script's lines are the screen.
   if [ "$name" = line ]; then
-    echo "Connecting LINE: it only delivers to a public address, so your messages reach Moe through Moe's cloud."
+    echo "Connecting LINE: it only delivers to a public address, so your messages reach Alfie through Alfie's cloud."
   else
-    echo "Connecting the '$name' chat platform: Moe answers you there while this Mac is awake."
+    echo "Connecting the '$name' chat platform: Alfie answers you there while this Mac is awake."
   fi
   echo "Tokens go to $HERMES_HOME/.env (owner-only)."
   if [ "$name" = whatsapp ]; then
@@ -504,15 +504,15 @@ connect_line_cloud() {
   out="$(python3 "$CONN/channels.py" register line 2>&1 </dev/null)" || rc=$?
   if [ "$rc" -eq 0 ]; then
     printf '%s\n' "$out" | grep -v '^Using the ' | sed 's/^/  /'
-    echo "✓ LINE configured. It sends to Moe through Moe's cloud; the first person to message"
+    echo "✓ LINE configured. It sends to Alfie through Alfie's cloud; the first person to message"
     echo "  the bot is asked to pair — approve them in Settings › Connections."
   else
     # Not enrolled (no cloud credential on this Mac), or the cloud refused:
     # the keys are saved either way, and the honest line is that nothing
     # arrives until the cloud half exists. Enrolment runs `migrate`, which
     # picks these keys up, so signing in finishes the job.
-    echo "✓ LINE keys saved. Nothing arrives yet: LINE only delivers through Moe's cloud,"
-    echo "  and this Mac is not signed in to it — sign in to Moe and it points LINE at itself."
+    echo "✓ LINE keys saved. Nothing arrives yet: LINE only delivers through Alfie's cloud,"
+    echo "  and this Mac is not signed in to it — sign in to Alfie and it points LINE at itself."
   fi
 }
 
@@ -554,10 +554,10 @@ connect_spotify() {
   [ -n "$cid" ] || cid="$(sed -n 's/^HERMES_SPOTIFY_CLIENT_ID=//p' "$HERMES_HOME/.env" 2>/dev/null | head -1)"
   [ -n "$cid" ] || cid="${MOE_SPOTIFY_CLIENT_ID:-}"
   if [ -z "$cid" ]; then
-    echo "✗ Spotify can't be connected yet: Memoe has no Spotify app of its own to sign you in with."
+    echo "✗ Spotify can't be connected yet: Alfie has no Spotify app of its own to sign you in with."
     exit 1
   fi
-  echo "Moe signs in to Spotify with PKCE. The URL is printed; open it yourself."
+  echo "Alfie signs in to Spotify with PKCE. The URL is printed; open it yourself."
   HERMES_SPOTIFY_CLIENT_ID="$cid" hermes auth spotify </dev/null 2>&1 | mark_sign_in_url
 }
 
@@ -1039,7 +1039,7 @@ case "$1" in
     fi
     HIT="$(lookup "$NAME" "$ONLY")"
     if [ -z "$HIT" ]; then
-      echo "✗ Moe has nothing called '$NAME'. connect.sh (no arguments) lists everything;"
+      echo "✗ Alfie has nothing called '$NAME'. connect.sh (no arguments) lists everything;"
       echo "  connect.sh --url $NAME <url> adds any MCP server by URL."
       exit 1
     fi

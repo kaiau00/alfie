@@ -43,7 +43,7 @@ final class FailingKeychain: MacEraseKeychainAccess {
 
 @Suite("After an erase: what could not be removed is said, and CuaDriver stays gone")
 struct MacEraseNoteTests {
-    static let cuaSentence = "One thing Moe couldn't remove: CuaDriver, in your Applications folder — macOS only lets you do that. Drag it to the Bin."
+    static let cuaSentence = "One thing Alfie couldn't remove: CuaDriver, in your Applications folder — macOS only lets you do that. Drag it to the Bin."
 
     func release(_ fake: FakeHome, files: MacEraseFileOps, keychain: MacEraseKeychainAccess = MemoryKeychain([]),
                  relaunch: @escaping () -> Void = {}) throws -> MacErase {
@@ -111,7 +111,7 @@ struct MacEraseNoteTests {
         #expect(report.failures.count == 3, "\(report.text)")
         #expect(note.leftovers.count == report.failures.count)
         #expect(Set(note.leftovers.map(\.target)) == Set(report.failures.map { $0.0.target }))
-        #expect(note.text.hasPrefix("3 things Moe couldn't remove:\n"), "\(note.text)")
+        #expect(note.text.hasPrefix("3 things Alfie couldn't remove:\n"), "\(note.text)")
         #expect(note.text.contains("• ~/.hermes — macOS only lets you do that. Drag it to the Bin."), "\(note.text)")
         #expect(note.text.contains("• the keychain item moe-child-oauth (security exited 51"), "\(note.text)")
         #expect(note.reveal.count == 2)
@@ -158,7 +158,7 @@ struct MacEraseNoteTests {
         #expect(!fake.exists("Library/Application Support/Moe"))
     }
 
-    @Test("Moe Dev leaves CuaDriver, so its erase never holds Moe's driver install")
+    @Test("Alfie Dev leaves CuaDriver, so its erase never holds Alfie's driver install")
     func devNeverHolds() throws {
         let fake = try FakeHome()
         try fake.populate()

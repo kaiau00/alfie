@@ -11,7 +11,7 @@ import MoeErase
 /// when handed a login item; this proves the app hands it one.
 struct EraseIsTheOneExitTests {
 
-    @Test("row 41 — the erase Moe runs is handed the real login item")
+    @Test("row 41 — the erase Alfie runs is handed the real login item")
     func engineHasLoginItem() throws {
         let root = FileManager.default.temporaryDirectory
             .appendingPathComponent("moe-one-exit-\(UUID().uuidString)", isDirectory: true)

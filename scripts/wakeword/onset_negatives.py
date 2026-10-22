@@ -10,7 +10,7 @@ random.shuffle(src)
 SR, WIN = 16000, 32000
 
 def write(split, count, files, start_index):
-    out = W / "train/output/hey_moe" / split
+    out = W / "train/output/hey_alfie" / split
     i = start_index
     made = 0
     for f in files:
@@ -38,5 +38,5 @@ def write(split, count, files, start_index):
             i += 1; made += 1
     print(split, "wrote", made, "from", start_index)
 
-write("negative_train", 3000, src[:2200], 12000)
-write("negative_test", 500, src[2200:], 2500)
+write("negative_train", 2000, src[:1500], 8000)
+write("negative_test", 300, src[1500:], 1500)

@@ -56,7 +56,7 @@ enum TurnKeeper {
     /// The same, for a Moe that was quit — or crashed — mid-answer and has
     /// just come back.
     static let relaunchNote = """
-        (Moe was closed while working on this and has just started again. \
+        (Alfie was closed while working on this and has just started again. \
         Carry on from wherever you had got to — do not start over, and do \
         not repeat what you already said.)
         """
@@ -93,7 +93,7 @@ enum TurnKeeper {
     /// What the person is told when a sleep broke a turn that had already
     /// sent, paid, booked or deleted something.
     static let stoppedNote = "Your Mac went to sleep in the middle of something that sends or pays, "
-        + "so Moe stopped rather than risk doing it twice. Say the word and it carries on."
+        + "so Alfie stopped rather than risk doing it twice. Say the word and it carries on."
 
     /// The failures a sleep produces at the socket: the idle timer that ran
     /// out while the process was frozen, the connection the kernel dropped,

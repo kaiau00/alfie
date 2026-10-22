@@ -137,7 +137,7 @@ struct MacEraseProcessTests {
         #expect(shells.map(\.pid) == [104], "a shell open in the home is named, not killed")
     }
 
-    @Test("Moe Dev stops only what runs from its own home — never the shared Hermes")
+    @Test("Alfie Dev stops only what runs from its own home — never the shared Hermes")
     func devMatching() throws {
         let fake = try FakeHome()
         try fake.populate()
@@ -179,7 +179,7 @@ struct MacEraseProcessTests {
 @Suite("Shared names and what stays")
 struct MacEraseSharedTests {
 
-    @Test("only Moe may touch the keychain names Moe and Moe Dev share")
+    @Test("only Alfie may touch the keychain names Alfie and Alfie Dev share")
     func sharedKeychain() {
         #expect(MacEraseIdentity.mayTouchSharedKeychain(bundleID: MacEraseIdentity.releaseBundleID))
         #expect(!MacEraseIdentity.mayTouchSharedKeychain(bundleID: MacEraseIdentity.devBundleID))
@@ -224,7 +224,7 @@ final class RecordingFiles: MacEraseFileOps {
     }
 }
 
-@Suite("CuaDriver goes with Moe, and never with Moe Dev")
+@Suite("CuaDriver goes with Alfie, and never with Alfie Dev")
 struct MacEraseCuaDriverTests {
     static let data = [".cua-driver", "Library/Caches/cua-driver", "Library/Caches/CuaDriver",
                        "Library/Application Support/CuaDriver"]
@@ -239,7 +239,7 @@ struct MacEraseCuaDriverTests {
 
     static func isApp(_ item: MacEraseItem) -> Bool { item.kind == "app" }
 
-    @Test("Moe's erase removes the app, its command, its data and its permissions — permissions first")
+    @Test("Alfie's erase removes the app, its command, its data and its permissions — permissions first")
     func releaseRemoves() throws {
         let fake = try FakeHome()
         try fake.populate()
@@ -255,7 +255,7 @@ struct MacEraseCuaDriverTests {
         #expect(report.ok, "\(report.text)")
         for gone in ["Applications/CuaDriver.app", ".local/bin/cua-driver",
                      "Library/Preferences/com.trycua.driver.plist"] + Self.data {
-            #expect(!fake.exists(gone), "\(gone) survived Moe's erase")
+            #expect(!fake.exists(gone), "\(gone) survived Alfie's erase")
         }
         for kept in FakeHome.survivors { #expect(fake.exists(kept), "\(kept) was removed") }
         // tccutil finds an app by its bundle id, so CuaDriver's permissions
@@ -267,7 +267,7 @@ struct MacEraseCuaDriverTests {
         #expect(tcc != nil && app != nil && tcc! < app!, "\(report.text)")
     }
 
-    @Test("Moe Dev leaves CuaDriver alone, says so, and refuses a forged plan for it")
+    @Test("Alfie Dev leaves CuaDriver alone, says so, and refuses a forged plan for it")
     func devLeaves() throws {
         let fake = try FakeHome()
         try fake.populate()
@@ -285,7 +285,7 @@ struct MacEraseCuaDriverTests {
         // The reason, not a refusal: Moe Dev never looks at CuaDriver at
         // all, so nothing of it may appear as "Not removed" — that line
         // would mean the plan asked and a later guard said no.
-        #expect(plan.left.contains { $0.contains("CuaDriver") && $0.contains("shared with Moe") })
+        #expect(plan.left.contains { $0.contains("CuaDriver") && $0.contains("shared with Alfie") })
         #expect(!plan.left.contains { line in
             line.hasPrefix("Not removed") && ["CuaDriver", "cua-driver"].contains { line.contains($0) }
         }, "\(plan.left)")
@@ -299,10 +299,10 @@ struct MacEraseCuaDriverTests {
         ], left: []))
         #expect(forged.failures.count == 4, "\(forged.text)")
         for kept in ["Applications/CuaDriver.app/Contents/Info.plist", ".local/bin/cua-driver"] + Self.data {
-            #expect(fake.exists(kept), "\(kept) — shared with Moe — was removed by Moe Dev's erase")
+            #expect(fake.exists(kept), "\(kept) — shared with Alfie — was removed by Alfie Dev's erase")
         }
         #expect(!rec.anyCall(mentioning: "trycua"))
-        #expect(table.living == [200], "Moe Dev stopped the shared cua-driver")
+        #expect(table.living == [200], "Alfie Dev stopped the shared cua-driver")
     }
 
     @Test("a bundle at that path that is not com.trycua.driver is left, and named")
@@ -596,7 +596,7 @@ struct MacEraseCuaDriverTests {
         try dev.cuaDriver()
         let devErase = MacErase(scope: try scope(dev, MacEraseIdentity.devBundleID), keychain: nil,
                                 commands: Recorder(), uid: 501, signature: FakeSigner.trycua, relaunch: {})
-        #expect(!devErase.plan().removesCuaDriver, "Moe Dev")
+        #expect(!devErase.plan().removesCuaDriver, "Alfie Dev")
     }
 
     @Test("CuaDriver must be signed by trycua: another team, another identifier, or no readable signature is refused")

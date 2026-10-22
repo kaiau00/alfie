@@ -44,7 +44,7 @@ The Mac's half — `answer_mac_call`, `install_receiver`
 The relay socket on a Mac is held by the Hermes gateway's
 `WebSocketRelayTransport`, not by Memoe.app, and that transport dispatches
 frames through a class-level table, `_FRAME_HANDLERS`. `install_receiver`
-adds one row to it at plugin load — a Moe plugin, not a fork edit — and the
+adds one row to it at plugin load — an Alfie plugin, not a fork edit — and the
 row's handler hands the frame to a thread and returns, so the read loop is
 never behind a connector.
 
@@ -56,7 +56,7 @@ the per-verb timeout and every gate in front of a `send` are exactly what
 they would be had the person asked the Mac. Never through the model: this is
 a verb call, not a turn. The output is sealed back under the same key.
 
-Wherever a sentence is written here it is Moe's own words about its own
+Wherever a sentence is written here it is Alfie's own words about its own
 machinery; the person's data — the arguments in, the output back — crosses
 the edge only inside a seal.
 """

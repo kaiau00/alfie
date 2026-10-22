@@ -154,7 +154,7 @@ class OfferSendTest(unittest.TestCase):
                              run=Recorder())
         self.o.send_imessage("iMessage;+;chat7", "hi", confirm_fn=lambda s, w, t: cards.append(w) or (False, t),
                              run=Recorder())
-        self.assertEqual(cards, ["the group \u201cFamily\u201d", "a group chat Moe has no names for",
+        self.assertEqual(cards, ["the group \u201cFamily\u201d", "a group chat Alfie has no names for",
                                  "the group with Dana"])
 
     # ── only from the app, end to end through the connectors ──

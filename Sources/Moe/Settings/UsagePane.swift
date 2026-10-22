@@ -91,7 +91,7 @@ struct UsagePane: View {
                         }
                         limitSection
                     } else {
-                        checking("Adding up what Moe has used…")
+                        checking("Adding up what Alfie has used…")
                     }
                 }
                 .padding(.horizontal, 36)
@@ -113,7 +113,7 @@ struct UsagePane: View {
     private var limitSection: some View {
         SettingGroup(title: "When you get close to a limit") {
             VStack(alignment: .leading, spacing: Theme.Space.base) {
-                Text("Moe tells you before it stops. Once you pass nine tenths of a plan window, the answer arrives with a line saying how much of it is gone — so you find out from Moe rather than from Moe going quiet.")
+                Text("Alfie tells you before it stops. Once you pass nine tenths of a plan window, the answer arrives with a line saying how much of it is gone — so you find out from Alfie rather than from Alfie going quiet.")
                     .font(Theme.Typo.prose(13))
                     .foregroundStyle(Theme.ink2)
                     .fixedSize(horizontal: false, vertical: true)
@@ -124,13 +124,13 @@ struct UsagePane: View {
                         PaneBanner(tone: .warn, text: last(w))
                     } else if w.checked {
                         PaneBanner(tone: .good,
-                                   text: "Moe has never had to say that on this Mac.")
+                                   text: "Alfie has never had to say that on this Mac.")
                     } else {
                         // Not "never happened". The log could not be read,
                         // and those are different facts — one of which
                         // this screen would be inventing.
                         PaneBanner(tone: .neutral,
-                                   text: "Moe couldn't read its own log, so it can't say whether that has ever happened.")
+                                   text: "Alfie couldn't read its own log, so it can't say whether that has ever happened.")
                     }
                 }
             }
@@ -187,7 +187,7 @@ struct UsagePane: View {
 
     private func tokens(_ r: Usage.Report) -> some View {
         SettingGroup(title: "Tokens") {
-            SettingRow(title: "What you and Moe said",
+            SettingRow(title: "What you and Alfie said",
                        detail: "Everything typed, spoken and answered — \(Usage.grouped(r.totals.input)) in and \(Usage.grouped(r.totals.output)) out.",
                        note: r.totals.sessions == 0 ? nil
                              : "Across \(Usage.grouped(r.totals.sessions)) \(r.totals.sessions == 1 ? "conversation" : "conversations") and \(Usage.grouped(r.totals.messages)) messages.") {
@@ -199,8 +199,8 @@ struct UsagePane: View {
             // the one above. It is the same context being handed back to
             // the model on every turn — cheap, cached, and not a
             // conversation.
-            SettingRow(title: "What Moe re-read each turn",
-                       detail: "Moe re-reads what it already knows on every turn: your instructions, the thread so far, the tools it has. This is that, and it is not something you said.",
+            SettingRow(title: "What Alfie re-read each turn",
+                       detail: "Alfie re-reads what it already knows on every turn: your instructions, the thread so far, the tools it has. This is that, and it is not something you said.",
                        note: r.totals.readBack > r.totals.written * 4
                              ? "This is normally far bigger than the line above, and it is billed at a fraction of the rate — where it is billed at all."
                              : nil,
@@ -225,7 +225,7 @@ struct UsagePane: View {
                     .foregroundStyle(Theme.ink)
             }
             SettingRow(title: "Billed per token",
-                       detail: "The lanes that charge by use — the smaller models Moe reaches for titles, summaries and background work. This is an estimate from a published price list, not a bill.",
+                       detail: "The lanes that charge by use — the smaller models Alfie reaches for titles, summaries and background work. This is an estimate from a published price list, not a bill.",
                        note: (r.money.meteredProviders.isEmpty ? ""
                               : "Through \(r.money.meteredProviders.joined(separator: ", ")). ")
                              + (r.money.actualUSD > 0
@@ -239,7 +239,7 @@ struct UsagePane: View {
                 SettingRow(title: "Nothing recorded",
                            detail: r.money.unknownTokens == 0
                              ? "Sessions that opened and never took a turn. They have no tokens and no cost — there is nothing missing here."
-                             : "Sessions with no billing route recorded, and \(Usage.compact(r.money.unknownTokens)) tokens between them. That is a gap: Moe cannot say what these cost.",
+                             : "Sessions with no billing route recorded, and \(Usage.compact(r.money.unknownTokens)) tokens between them. That is a gap: Alfie cannot say what these cost.",
                            last: true) {
                     Text("\(Usage.grouped(r.money.unknown))")
                         .font(Theme.Typo.ui(15, weight: .semibold))
@@ -303,14 +303,14 @@ struct UsagePane: View {
     @ViewBuilder
     private func toolSection(_ r: Usage.Report) -> some View {
         if !r.tools.isEmpty {
-            SettingGroup(title: "What Moe reached for") {
+            SettingGroup(title: "What Alfie reached for") {
                 VStack(alignment: .leading, spacing: 0) {
                     // Said before the list, not after it. §4.4 asks for
                     // "which tools cost most" and there is no such number
                     // anywhere in Hermes: tokens belong to a session and
                     // to nothing smaller. A column of counts under a
                     // heading about cost would be read as money.
-                    Text("How often each one ran. Moe can't tell you what a tool cost: tokens are counted per conversation and never per tool, so there is no per-tool figure to show anywhere.")
+                    Text("How often each one ran. Alfie can't tell you what a tool cost: tokens are counted per conversation and never per tool, so there is no per-tool figure to show anywhere.")
                         .font(Theme.Typo.prose(13))
                         .foregroundStyle(Theme.ink2)
                         .fixedSize(horizontal: false, vertical: true)
@@ -384,7 +384,7 @@ struct UsagePane: View {
                 } else {
                     var blank = Usage.Report()
                     blank.days = window
-                    blank.error = "Moe couldn't reach the part of itself that adds this up."
+                    blank.error = "Alfie couldn't reach the part of itself that adds this up."
                     report = blank
                 }
             }

@@ -35,7 +35,7 @@ It has two, and neither covers this:
 * ``cron/scheduler_provider.py:243`` ``fire_overdue_jobs`` — a real misfire
   backstop with a ``cron.misfire_grace_minutes`` window. Its **third line** is
   ``if isinstance(provider, InProcessCronScheduler): return 0``, commented
-  *"No-op for the built-in (its tick loop self-heals)"*. Moe's Hermes sets no
+  *"No-op for the built-in (its tick loop self-heals)"*. Alfie's Hermes sets no
   ``cron.provider`` (``~/.hermes/config.yaml`` has ``cron:`` with only
   ``model`` and ``wrap_response``), so ``resolve_cron_scheduler()`` returns the
   built-in and this backstop never runs here. And the claim it rests on —
@@ -117,7 +117,7 @@ copying.
 
 The two other bounds in reach were both considered and both rejected:
 ``ONESHOT_GRACE_SECONDS = 120`` (``cron/jobs.py:96``) is Hermes's "a one-shot
-this late will never fire" — too tight, since a gateway restart plus a Moe
+this late will never fire" — too tight, since a gateway restart plus an Alfie
 relaunch routinely exceeds two minutes, and a bound that expires during the
 very outage it exists for is no bound at all. ``recover_interrupted_turns``'s
 one hour (``gateway/session_lifecycle.py:150``) is about resuming a

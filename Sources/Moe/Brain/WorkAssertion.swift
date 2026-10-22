@@ -22,7 +22,7 @@ final class WorkAssertion {
             guard token == nil else { return }
             token = ProcessInfo.processInfo.beginActivity(
                 options: [.idleSystemSleepDisabled, .userInitiated],
-                reason: "Moe is working on a question")
+                reason: "Alfie is working on a question")
         } else if let t = token {
             ProcessInfo.processInfo.endActivity(t)
             token = nil

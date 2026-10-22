@@ -30,8 +30,8 @@ struct PermissionsPane: View {
                 VStack(alignment: .leading, spacing: 30) {
                     // One line each, what is missing first (owner, 2026-09-28).
                     VStack(alignment: .leading, spacing: 0) {
-                        Calm.header("What Moe may use")
-                        Text("None is required — without one, that one thing is off and Moe says so.")
+                        Calm.header("What Alfie may use")
+                        Text("None is required — without one, that one thing is off and Alfie says so.")
                             .font(Theme.Typo.prose(12.5)).foregroundStyle(Theme.ink3)
                             .padding(.bottom, 4)
                         ForEach(ordered) { guide in
@@ -86,7 +86,7 @@ struct PermissionsPane: View {
 
     private var rules: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Calm.header("What Moe may do without asking")
+            Calm.header("What Alfie may do without asking")
             SettingRow(title: "Anything read-only",
                        detail: "Sending mail or messages, sharing files and deleting are denied unless you allow them.") {
                 PaneButton(title: "Edit the rules") {
@@ -111,7 +111,7 @@ struct PermissionsPane: View {
             SettingGroup(title: "Browse as") {
                 VStack(alignment: .leading, spacing: Theme.Space.base) {
                     if let v = browseVerdict { PaneBanner(tone: v.tone, text: v.text, busy: browseBusy) }
-                    SettingRow(title: "Moe's browser signs in as",
+                    SettingRow(title: "Alfie's browser signs in as",
                                detail: browseAs.summary,
                                note: browseAs.problem,
                                last: true) {
@@ -127,7 +127,7 @@ struct PermissionsPane: View {
                         }
                         .disabled(browseBusy)
                     }
-                    Text("Takes effect the next time Moe opens its browser. Moe's browser is its own private copy; your \(browseAs.browserName) windows are never touched.")
+                    Text("Takes effect the next time Alfie opens its browser. Alfie's browser is its own private copy; your \(browseAs.browserName) windows are never touched.")
                         .font(Theme.Typo.ui(11))
                         .foregroundStyle(Theme.ink3)
                         .fixedSize(horizontal: false, vertical: true)
@@ -158,7 +158,7 @@ struct PermissionsPane: View {
             case .success:
                 browseAs = BrowseAs.read(home: Paths.home)
                 let who = browseAs?.profile(dir)?.label ?? "whichever profile you used last"
-                browseVerdict = (.good, "Saved. Moe browses as \(who) from its next browser session.")
+                browseVerdict = (.good, "Saved. Alfie browses as \(who) from its next browser session.")
             }
         }
     }
@@ -197,7 +197,7 @@ struct PermRow: View {
         "reminders": "To know what you still owe people.",
         "screen-recording": "To see your screen when you ask, and record calls.",
         "files-and-folders": "To open the files you point it at.",
-        "driver-accessibility": "So Moe's helper can click and type for you.",
+        "driver-accessibility": "So Alfie's helper can click and type for you.",
     ]
 
     static func short(_ what: String, id: String = "") -> String {
@@ -231,7 +231,7 @@ struct PermRow: View {
                         // "Not allowed" while System Settings shows Moe switched
                         // on is a stale entry from an earlier copy of Memoe.
                         if guide.id == "accessibility", state != .granted {
-                            Text("Memoe is switched on in System Settings and this still says Not allowed? That switch belongs to an older copy of Memoe. Reset it, then switch Memoe on again.")
+                            Text("Alfie is switched on in System Settings and this still says Not allowed? That switch belongs to an older copy of Alfie. Reset it, then switch Alfie on again.")
                                 .font(Theme.Typo.prose(12.5))
                                 .foregroundStyle(Theme.ink3)
                                 .fixedSize(horizontal: false, vertical: true)
@@ -262,26 +262,26 @@ struct ScreenControls: View {
     @ObservedObject var conductor: Conductor
 
     var body: some View {
-            SettingGroup(title: "Moe and your screen") {
+            SettingGroup(title: "Alfie and your screen") {
                 SettingRow(
-                    title: "Moe sees my screen when I ask",
+                    title: "Alfie sees my screen when I ask",
                     detail: "A picture of the screen goes with your words, so “what do I do here” just works. Never saved."
                 ) {
                     VoicePane.lever(Binding(get: { conductor.config.screenContext },
                                             set: { conductor.setScreenContext($0) }))
                 }
                 SettingRow(
-                    title: "Move my mouse to what Moe points at",
-                    detail: "Off, Moe only draws a ring around the thing it means. It never clicks."
+                    title: "Move my mouse to what Alfie points at",
+                    detail: "Off, Alfie only draws a ring around the thing it means. It never clicks."
                 ) {
                     VoicePane.lever(Binding(get: { conductor.config.screenPointerMovesMouse },
                                             set: { conductor.setScreenPointerMovesMouse($0) }),
                                     enabled: conductor.config.screenContext)
                 }
                 SettingRow(
-                    title: "Let Moe bring a window to the front when it has to",
+                    title: "Let Alfie bring a window to the front when it has to",
                     detail: "For a window on another desktop, a minimised one, or a menu "
-                          + "in an app that is not in front. Off, Moe leaves your screen "
+                          + "in an app that is not in front. Off, Alfie leaves your screen "
                           + "alone and tells you what it could not reach.",
                     last: true
                 ) {

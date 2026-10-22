@@ -113,9 +113,9 @@ struct BrainCapabilityTableTests {
         #expect(c.summaryLine == "Can see your screen ✓ · Can use tools ✓ · Reasoning effort —")
         #expect(c.missingCaption == nil)
         #expect(caps("custom", "qwen2.5:7b").missingCaption
-                == "This model can't see images, so Moe won't attach your screen.")
+                == "This model can't see images, so Alfie won't attach your screen.")
         let none = BrainCapabilities(vision: .no, tools: .no)
-        #expect(none.missingCaption?.contains("No tool calling: Moe can talk but not act.") == true)
+        #expect(none.missingCaption?.contains("No tool calling: Alfie can talk but not act.") == true)
         #expect(BrainCapabilities.unknown.summaryLine.contains("?"))
     }
 

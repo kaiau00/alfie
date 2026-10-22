@@ -169,7 +169,7 @@ struct RemindersPane: View {
     private var clockBanner: some View {
         if listing?.ticker.alive == false {
             PaneBanner(tone: .warn,
-                       text: "Nothing is running the clock at the moment, so none of these will fire. Moe's thinking part may be starting up.")
+                       text: "Nothing is running the clock at the moment, so none of these will fire. Alfie's thinking part may be starting up.")
         }
     }
 
@@ -190,7 +190,7 @@ struct RemindersPane: View {
     private var problem: String {
         let said = listing?.error.trimmingCharacters(in: .whitespaces) ?? ""
         return said.isEmpty
-            ? "Couldn't read what is on the clock. Moe's thinking part keeps it; it may be starting up."
+            ? "Couldn't read what is on the clock. Alfie's thinking part keeps it; it may be starting up."
             : said
     }
 
@@ -262,7 +262,7 @@ struct RemindersPane: View {
                     .fixedSize(horizontal: false, vertical: true)
                     .frame(maxWidth: Theme.measure, alignment: .leading)
             } else if mine.isEmpty, listing?.unreadable != true {
-                Text("Nothing yet. New reminder starts from one of Moe's templates.")
+                Text("Nothing yet. New reminder starts from one of Alfie's templates.")
                     .font(Theme.Typo.ui(12))
                     .foregroundStyle(Theme.ink3)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -295,17 +295,17 @@ struct RemindersPane: View {
     /// with the same forgiving helper as every scalar field.
     private let couldNotRead =
         "Some of what is on the clock could not be read, so this list may be short. "
-        + "Nothing was changed. Moe's thinking part keeps the list; it may be mid-update."
+        + "Nothing was changed. Alfie's thinking part keeps the list; it may be mid-update."
 
     @ViewBuilder
     private var upkeepGroup: some View {
         if !upkeep.isEmpty {
-            SettingGroup(title: "Moe's own upkeep") {
+            SettingGroup(title: "Alfie's own upkeep") {
                 ForEach(Array(upkeep.enumerated()), id: \.element.id) { i, job in
                     row(job, last: i == upkeep.count - 1, editable: false)
                 }
             }
-            Text("These are how Moe stays current: reading what changed, learning about you, watching the things you asked it to watch, checking the pages you asked it to keep an eye on, keeping your chat apps connected, picking up work handed back from Moe Away, and the word before a meeting starts. They are shown here so nothing is hidden, and they are changed under Running in the background, where the answer is what Moe may read rather than when it runs.")
+            Text("These are how Alfie stays current: reading what changed, learning about you, watching the things you asked it to watch, checking the pages you asked it to keep an eye on, keeping your chat apps connected, picking up work handed back from Alfie Away, and the word before a meeting starts. They are shown here so nothing is hidden, and they are changed under Running in the background, where the answer is what Alfie may read rather than when it runs.")
                 .font(Theme.Typo.prose(13))
                 .foregroundStyle(Theme.ink3)
                 .fixedSize(horizontal: false, vertical: true)
@@ -424,7 +424,7 @@ struct RemindersPane: View {
                     // Same rule as the list: the script's refusal is a
                     // sentence, and it is more use than ours.
                     Text(catalog.error.isEmpty
-                         ? "Couldn't read Moe's templates."
+                         ? "Couldn't read Alfie's templates."
                          : catalog.error)
                         .font(Theme.Typo.ui(12))
                         .foregroundStyle(Theme.warn)
@@ -432,7 +432,7 @@ struct RemindersPane: View {
                         .frame(maxWidth: Theme.measure, alignment: .leading)
                     PaneButton(title: "Cancel") { picking = false }
                 } else {
-                    checking("Reading Moe's templates…")
+                    checking("Reading Alfie's templates…")
                 }
             }
             .padding(.vertical, Theme.Space.base)
@@ -483,7 +483,7 @@ struct RemindersPane: View {
                 picking = false
             }
             if !draft.complete {
-                Text("Every question needs an answer — Moe does not fill any of them in for you.")
+                Text("Every question needs an answer — Alfie does not fill any of them in for you.")
                     .font(Theme.Typo.ui(11))
                     .foregroundStyle(Theme.ink3)
             }
@@ -512,7 +512,7 @@ struct RemindersPane: View {
             }
             let typed = draft?.answers[field.name] ?? ""
             if field.type == "time", !typed.isEmpty, !Draft.isClockTime(typed) {
-                Text("Moe reads times as 24-hour HH:MM — 08:00, 18:30.")
+                Text("Alfie reads times as 24-hour HH:MM — 08:00, 18:30.")
                     .font(Theme.Typo.ui(11))
                     .foregroundStyle(Theme.warn)
             } else if !field.help.isEmpty {
@@ -537,7 +537,7 @@ struct RemindersPane: View {
     /// each of those already.
     private func choiceTitle(_ field: Reminders.Field, _ option: String) -> String {
         if field.name == "deliver" {
-            return option == "moe" ? "Moe, here" : ReminderChannels.title(for: option)
+            return option == "moe" ? "Alfie, here" : ReminderChannels.title(for: option)
         }
         switch option {
         case "everyday": return "Every day"

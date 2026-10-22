@@ -389,7 +389,7 @@ for name in $all_names; do
         # Too slow to say what it is (lib/connectors.sh) is not "nothing to
         # gather": until 2026-10-07 the two were one silent skip.
         SLOW+=("${name##*:}")
-        log "too slow: ${name##*:} — Moe could not tell what it is in time; left its last copy"
+        log "too slow: ${name##*:} — Alfie could not tell what it is in time; left its last copy"
       fi
       continue ;;
     hermes:*)     continue ;;

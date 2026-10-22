@@ -1,4 +1,4 @@
-# Hermes toolsets Moe should enable
+# Hermes toolsets Alfie should enable
 
 Written 2026-08-30 from a read of the Hermes checkout (`toolsets.py`,
 `hermes_cli/tools_config.py`, `cli-config.yaml.example`). This is a spec for
@@ -13,19 +13,19 @@ edited by this branch. Everything below is a **TODO for that file**.
 >    reads it (`_profile_has_kanban_toolset`), and so does `hermes_cli/dump.py`.
 >    That is why listing `kanban` in `platform_toolsets` enables nothing: the
 >    kanban gate never looks there.
-> 2. **`platform_toolsets` is not what decides Moe's tool surface at all.**
+> 2. **`platform_toolsets` is not what decides Alfie's tool surface at all.**
 >    On the `claude-code-cli` runtime the child's tools come from the
 >    `hermes-tools` MCP server, which calls `get_tool_definitions()` with no
 >    toolset argument. The list shapes the parent's system prompt and gates
 >    `computer_use`'s check; it does not gate the model. Excluding `tts` here
 >    does not remove `text_to_speech` from the surface — measured, it is there.
 
-## What Moe enables today
+## What Alfie enables today
 
 Nothing, explicitly. `configure-hermes.py` sets `platforms.api_server.*`,
 `platforms.telegram.enabled`, `hooks`, `tools.terminal.security_mode` and
 `claude_code.*` (`config-fragment.yaml` adds the confirm hook). It never
-writes `platform_toolsets`, so Moe's brain runs on Hermes's **default bundle
+writes `platform_toolsets`, so Alfie's brain runs on Hermes's **default bundle
 for the api_server platform, `hermes-api-server`**, which is the core set
 *minus* `clarify`, `text_to_speech`, `computer_use` and every `kanban_*` tool
 (`toolsets.py` ~line 438). MCP servers are on for every platform by default
@@ -45,15 +45,15 @@ and need nothing here.
   check fails is harmless — it is skipped — so list them all.
 - `kanban` is never enabled by `all`/`*` and needs explicit listing; its
   tools are only exposed to dispatcher-owned workers anyway.
-- `tts` is n/a: Moe owns audio on the Mac.
+- `tts` is n/a: Alfie owns audio on the Mac.
 - There is no `mcp` toolset and no `tool_search` toolset. MCP servers are
   per-server toolsets (`mcp-<name>`), on by default. Tool search is
   `tools.tool_search.enabled`, default `"auto"`; with 50 connectors attached
   it should be `true`.
-- `agent.disabled_toolsets` is subtracted **last**; Moe must not set it.
+- `agent.disabled_toolsets` is subtracted **last**; Alfie must not set it.
 - Saving a list freezes it: a toolset Hermes ships later stays off unless
   listed. That is the cost of being explicit; `configure-hermes.py` re-runs
-  on every Moe launch, so keep the list in one place and add to it.
+  on every Alfie launch, so keep the list in one place and add to it.
 
 ## The literal YAML
 
@@ -81,8 +81,8 @@ platform_toolsets:
     - spotify
     - kanban
     - x_search
-  # The chat platforms Moe turns on get the same set, so "Moe over Telegram"
-  # can do what "Moe on the Mac" can.
+  # The chat platforms Alfie turns on get the same set, so "Alfie over Telegram"
+  # can do what "Alfie on the Mac" can.
   telegram:
     - hermes-telegram
     - clarify
@@ -106,10 +106,10 @@ bundle drops it.
    `build_config`, `force_set(cfg, ["platform_toolsets", "api_server"],
    MOE_TOOLSETS, …)`. Force, not set-if-absent: Hermes's `hermes tools`
    checklist writes the same key, and a user who unticked something there
-   would otherwise silently lose Moe features on the next launch — report
+   would otherwise silently lose Alfie features on the next launch — report
    it as "yours kept" only if a `--keep-toolsets` flag is given.
 2. `set_if_absent(cfg, ["tools", "tool_search", "enabled"], True, …)`.
-3. For every platform Moe enables (telegram today; whatever
+3. For every platform Alfie enables (telegram today; whatever
    `scripts/connect.sh` adds a token for), write
    `platform_toolsets.<platform>` = the platform list above, and
    `platforms.<platform>.enabled: true` so the intent is visible in

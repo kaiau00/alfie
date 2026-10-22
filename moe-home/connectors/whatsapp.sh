@@ -279,10 +279,10 @@ status)
       # bridge with it (connect-whatsapp.sh ends on NEEDS_RESTART=gateway).
       # Telling that person to quit Moe would interrupt the very restart
       # they are waiting for.
-      echo "unavailable: linked — Moe is starting your WhatsApp link now, which takes a few seconds"
+      echo "unavailable: linked — Alfie is starting your WhatsApp link now, which takes a few seconds"
       exit 1
     fi
-    echo "unavailable: your phone is linked, but Moe's WhatsApp link is not running right now — it starts with Memoe, so give it a moment; if it does not come back, quit Memoe and open it again"
+    echo "unavailable: your phone is linked, but Alfie's WhatsApp link is not running right now — it starts with Alfie, so give it a moment; if it does not come back, quit Alfie and open it again"
     exit 1
   fi
   state="$(health_field "$health" status)"
@@ -298,7 +298,7 @@ status)
     bridge_age="$(health_field "$health" uptime)"
     bridge_age="${bridge_age%%.*}"        # process.uptime() is a float
     if is_young "$bridge_age" || is_young "$link_age"; then
-      echo "unavailable: linked — Moe is connecting to your phone, which takes a few seconds"
+      echo "unavailable: linked — Alfie is connecting to your phone, which takes a few seconds"
       exit 1
     fi
     echo "needs-setup: the link to your phone has dropped (WhatsApp does that every few weeks) — link it again — $CONNECT_HINT"
@@ -309,17 +309,17 @@ status)
     '')
       # A bridge with no `history` key at all predates the store: it answers
       # as Moe but keeps nothing for anyone to read.
-      echo "needs-setup: Moe answers on WhatsApp, but this version keeps none of your chats to read — update Memoe"
+      echo "needs-setup: Alfie answers on WhatsApp, but this version keeps none of your chats to read — update Alfie"
       exit 1 ;;
     null)
       # The bridge knows about a store and was started without one: the
       # link was made before the store existed, and connecting again writes
       # the setting that turns it on (no second scan is asked for).
-      echo "needs-setup: Moe answers on WhatsApp but is not keeping your chats — connect WhatsApp again to turn that on — $CONNECT_HINT"
+      echo "needs-setup: Alfie answers on WhatsApp but is not keeping your chats — connect WhatsApp again to turn that on — $CONNECT_HINT"
       exit 1 ;;
   esac
   if ! find_db; then
-    echo "unavailable: linked — the store your chats go into is not where Moe expected ($DB)"
+    echo "unavailable: linked — the store your chats go into is not where Alfie expected ($DB)"
     exit 1
   fi
   messages="$(health_field "$health" history.messages)"
@@ -334,7 +334,7 @@ status)
     # after the scan. For a link made before the store existed nothing old
     # is coming — the phone is only ever asked at the moment of the scan —
     # so the same line says what that person has to do to get it.
-    echo "ok: linked — waiting for your chats to arrive from your phone (if you linked before Moe kept them, only new messages arrive from now on — link again to bring the past in)"
+    echo "ok: linked — waiting for your chats to arrive from your phone (if you linked before Alfie kept them, only new messages arrive from now on — link again to bring the past in)"
     exit 0
   fi
   echo "ok: reading WhatsApp — $chats chats, $messages messages"
@@ -472,7 +472,7 @@ sys.exit(1 if bad.search(text) or any(unicodedata.category(c) == "Cf" for c in t
     if [ "${#digits}" -ge 6 ] && [ "${#digits}" -le 15 ]; then
       jid="${digits}@s.whatsapp.net"
     else
-      echo "not sent — \"$to\" is not a phone number Moe can dial (${#digits} digits)."; exit 1
+      echo "not sent — \"$to\" is not a phone number Alfie can dial (${#digits} digits)."; exit 1
     fi
   fi
   # A name: look it up in the chats we already know about. One match only —
@@ -546,7 +546,7 @@ sys.exit(1 if bad.search(text) or any(unicodedata.category(c) == "Cf" for c in t
     if [ "$gate_rc" -eq 3 ]; then
       printf '%s\n' "$gate_out" | sed -n 2p; exit 1
     elif [ "$gate_rc" -ne 0 ]; then
-      echo "not sent — Moe could not check who this is going to, so nothing was sent."; exit 1
+      echo "not sent — Alfie could not check who this is going to, so nothing was sent."; exit 1
     fi
     MOE_CONFIRM_PROVENANCE="$(printf '%s\n' "$gate_out" | sed -n 3p)"
   fi
@@ -592,7 +592,7 @@ for rec in open(sys.argv[1], "rb").read().split(b"\0"):
   resp="$(curl -sS --max-time 70 -X POST "$BRIDGE/send" \
     -H 'Content-Type: application/json' \
     -d "$(python3 -c 'import json,sys; print(json.dumps({"chatId": sys.argv[1], "message": sys.argv[2]}))' "$jid" "$msg")" 2>&1)" || {
-    echo "not sent — Moe's WhatsApp link is not running right now. Quit Memoe and open it again."; exit 1; }
+    echo "not sent — Alfie's WhatsApp link is not running right now. Quit Alfie and open it again."; exit 1; }
   if printf '%s' "$resp" | python3 -c 'import json,sys
 try:
     d = json.load(sys.stdin)
@@ -661,7 +661,7 @@ except Exception: print('')
 " 2>/dev/null)
       case "$reason" in
         *403*|*404*|*410*|*incomplete*) echo "   (WhatsApp no longer has this one — media it holds expires)" ;;
-        "")    echo "   (no response — Moe's WhatsApp link is not running)" ;;
+        "")    echo "   (no response — Alfie's WhatsApp link is not running)" ;;
         *)     echo "   ($reason)" ;;
       esac
     fi

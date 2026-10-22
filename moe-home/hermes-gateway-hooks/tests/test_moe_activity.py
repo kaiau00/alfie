@@ -62,7 +62,7 @@ class ActivityHookTest(unittest.TestCase):
         self.assertEqual(rows[0]["session_id"], "sess-abc")
 
     def test_no_message_or_response_text_is_ever_written(self):
-        """Moe's own confirm-send hook says it plainly — "a log of message
+        """Alfie's own confirm-send hook says it plainly — "a log of message
         bodies is a liability" — and this file would be the better prize,
         holding both sides of every conversation on every platform. Lengths
         answer "a turn happened, this big"; the session id is how anyone who
@@ -92,7 +92,7 @@ class ActivityHookTest(unittest.TestCase):
         self.assertEqual(stat.S_IMODE(os.stat(self.mod._PATH).st_mode), 0o600)
 
     def test_moes_own_channel_is_not_recorded(self):
-        """api_server IS Moe. It already knows its own turns, and writing them
+        """api_server IS Alfie. It already knows its own turns, and writing them
         here would bury the ones it does not know about."""
         run(self.mod.handle("agent:end", dict(TELEGRAM, platform="api_server")))
         run(self.mod.handle("agent:end", dict(TELEGRAM, platform="")))

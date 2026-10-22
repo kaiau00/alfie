@@ -61,17 +61,17 @@ enum RunningFromHere {
         }
 
         let message = """
-        This is a build of Moe from
+        This is a build of Alfie from
 
             \(here)
 
-        It is not the Moe installed on this Mac, but it carries the same \
+        It is not the Alfie installed on this Mac, but it carries the same \
         identifier, so macOS would give it the same Dock icon, menu bar and \
         shortcuts as the real one — and there would be no way to tell them \
-        apart. That is how an old build spends a day pretending to be your Moe.
+        apart. That is how an old build spends a day pretending to be your Alfie.
 
-        To test a change, install Moe Dev: ./scripts/install.sh
-        To update the real Moe:            ./scripts/catch-up.sh
+        To test a change, install Alfie Dev: ./scripts/install.sh
+        To update the real Alfie:            ./scripts/catch-up.sh
         """
         Log.write("refusing to run: this bundle claims \(releaseIdentifier) "
                   + "but lives at \(here), not \(installed)")
@@ -83,7 +83,7 @@ enum RunningFromHere {
         if NSApp != nil, !isHeadless {
             let alert = NSAlert()
             alert.alertStyle = .critical
-            alert.messageText = "This is not the installed Moe"
+            alert.messageText = "This is not the installed Alfie"
             alert.informativeText = message
             alert.addButton(withTitle: "Quit")
             alert.runModal()

@@ -441,14 +441,14 @@ try:
                     "Scheduled background checks against Google and the other "
                     "Composio-connected services are part of the paid plan, so "
                     "this one was skipped. Nothing is wrong and nothing is "
-                    "disconnected: ask for it and Moe will look right now.")
+                    "disconnected: ask for it and Alfie will look right now.")
     elif state["hour_calls"] >= per_hour or state["day_calls"] >= per_day:
         which = "hour" if state["hour_calls"] >= per_hour else "day"
         state["cap_blocks"] = (state.get("cap_blocks") or 0) + 1
         state["last_cap_block"] = stamp
         state["last_cap_window"] = which
         decision = ("BLOCK",
-                    "Moe has used its whole %s of calls to the connected "
+                    "Alfie has used its whole %s of calls to the connected "
                     "services (%d this %s) and stopped rather than keep "
                     "spending. It starts again at the top of the next %s."
                     % (which, per_hour if which == "hour" else per_day,
@@ -486,7 +486,7 @@ case "$DECISION" in
 esac
 
 REASON="${DECISION#BLOCK	}"
-[ -n "$REASON" ] && [ "$REASON" != "$DECISION" ] || REASON="Composio call refused by Moe's call budget"
+[ -n "$REASON" ] && [ "$REASON" != "$DECISION" ] || REASON="Composio call refused by Alfie's call budget"
 
 # The receipt. Whose decision, which tool, and nothing else — never an
 # argument, because the arguments of a Composio call are the user's mail

@@ -155,7 +155,7 @@ enum Chats {
         out.threads.sort { $0.updatedAt > $1.updatedAt }
         if out.threads.isEmpty, out.unreadable == 0, !FileManager.default.fileExists(atPath: Paths.ledger.path) {
             out.ok = false
-            out.error = "Moe hasn't started keeping conversations on this Mac yet."
+            out.error = "Alfie hasn't started keeping conversations on this Mac yet."
         }
         return out
     }

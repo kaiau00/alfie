@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Use draft, sent from the Memoe app through the Mac's own apps: Messages
+"""Use draft, sent from the Alfie app through the Mac's own apps: Messages
 and Mail (status #10.2; the owner, 2026-09-29: "everything").
 
     offer_send.py imessage     one JSON object on stdin, from the app:
@@ -145,7 +145,7 @@ def imessage_target(thread):
 def send_imessage(thread, body, *, confirm_fn=confirm, run=osascript):
     guid, who = imessage_target(thread)
     if not guid:
-        return 1, "not sent — that is not a Messages conversation Moe can reply to."
+        return 1, "not sent — that is not a Messages conversation Alfie can reply to."
     name, members = chat_name(guid)
     if ";+;" in guid:
         if name:
@@ -153,7 +153,7 @@ def send_imessage(thread, body, *, confirm_fn=confirm, run=osascript):
         elif members:
             who = "the group with %s" % ", ".join(members[:5]) + (" and others" if len(members) > 5 else "")
         else:
-            who = "a group chat Moe has no names for"
+            who = "a group chat Alfie has no names for"
     elif name and name != who:
         who = "%s (%s)" % (name, who)
     ok, text = confirm_fn("Messages", who, body)
@@ -167,7 +167,7 @@ def send_imessage(thread, body, *, confirm_fn=confirm, run=osascript):
     except subprocess.TimeoutExpired:
         return 1, UNSURE % "Messages"
     except PermissionError:
-        return 1, "not sent — allow Memoe to control Messages (System Settings › Privacy & Security › Automation)."
+        return 1, "not sent — allow Alfie to control Messages (System Settings › Privacy & Security › Automation)."
     except (RuntimeError, OSError, subprocess.SubprocessError) as e:
         return 1, "not sent — Messages would not send it (%s)." % str(e)[:120]
     return 0, "✓ sent to %s" % who
@@ -233,10 +233,10 @@ def send_mail(thread, body, *, confirm_fn=confirm, run=osascript, target_fn=mail
     if not re.match(r"^mail/\d+$", thread or ""):
         # Named by its subject: anyone's later mail with that subject would
         # be taken for this conversation.
-        return 1, "not sent — Moe cannot tell that mail conversation apart from others with the same subject."
+        return 1, "not sent — Alfie cannot tell that mail conversation apart from others with the same subject."
     mid, who = target_fn(thread)
     if mid is None:
-        return 1, "not sent — Moe does not have that mail conversation to reply to."
+        return 1, "not sent — Alfie does not have that mail conversation to reply to."
     ok, text = confirm_fn("Mail", who, body)
     if not ok:
         return 1, ("not sent — the confirmation expired before anyone answered." if text is None
@@ -246,7 +246,7 @@ def send_mail(thread, body, *, confirm_fn=confirm, run=osascript, target_fn=mail
     try:
         run(MAIL_REPLY, str(mid), text, who)
     except PermissionError:
-        return 1, "not sent — allow Memoe to control Mail (System Settings › Privacy & Security › Automation)."
+        return 1, "not sent — allow Alfie to control Mail (System Settings › Privacy & Security › Automation)."
     except subprocess.TimeoutExpired:
         return 1, UNSURE % "Mail"
     except (RuntimeError, OSError, subprocess.SubprocessError) as e:

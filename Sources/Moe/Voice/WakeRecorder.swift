@@ -48,7 +48,7 @@ enum WakeRecorder {
             }
         }
 
-        let plain = ["Hey Moe"]
+        let plain = ["Hey Alfie"]
         positives("normally, as if you were asking for something", 10, plain)
         positives("quietly, the way you would talk at night", 8, plain)
         positives("from across the room", 8, plain)
@@ -59,20 +59,20 @@ enum WakeRecorder {
         // The name inside a sentence: this is how it is really used, and a
         // head trained only on the isolated phrase misses it.
         positives("as a whole sentence, at your normal pace", 12, [
-            "Hey Moe, what's on my calendar",
-            "Hey Moe, remind me to call the bank",
-            "Hey Moe, what's the weather like",
-            "Okay hey Moe, open my notes",
-            "Hey Moe, can you check my email",
-            "Hey Moe, what time is that meeting",
+            "Hey Alfie, what's on my calendar",
+            "Hey Alfie, remind me to call the bank",
+            "Hey Alfie, what's the weather like",
+            "Okay hey Alfie, open my notes",
+            "Hey Alfie, can you check my email",
+            "Hey Alfie, what time is that meeting",
         ])
 
         // Near misses. Every one of these is a phrase the current head has
         // fired on, or is a phoneme away from one.
-        for line in ["Hey Joe", "Hey mow", "Hey no", "Hey more", "Hey mole",
-                     "A moment", "Hey homie", "Hey Mona", "Say more",
-                     "They know", "Hey, so", "Amo", "Hey Mom", "Hey, hold on",
-                     "Make it slow", "Hey, my phone"] {
+        for line in ["Hey alpha", "Hey Elfie", "Hey Ollie", "Hey Allie",
+                     "Hey Albie", "Hey Alfred", "Hey, selfie", "Hey, half",
+                     "Hey Archie", "Hey, coffee", "Alfie", "Say Alfie",
+                     "Hey, also", "Hey after", "Hey, all three", "Hey Ralphie"] {
             out.append(Prompt(say: line, note: "a near miss — say it naturally, do not over-enunciate",
                               folder: "confusable"))
             out.append(Prompt(say: line, note: "again, a little faster", folder: "confusable"))
@@ -98,7 +98,7 @@ enum WakeRecorder {
     /// not enough to retrain on — the Terminal script above is that.
     static func shortScript() -> [Prompt] {
         var out: [Prompt] = []
-        func positive(_ note: String, _ n: Int, _ lines: [String] = ["Hey Moe"]) {
+        func positive(_ note: String, _ n: Int, _ lines: [String] = ["Hey Alfie"]) {
             for i in 0..<n { out.append(Prompt(say: lines[i % lines.count], note: note, folder: "positive")) }
         }
         positive("normally, as if you were asking for something", 3)
@@ -107,9 +107,9 @@ enum WakeRecorder {
         positive("quickly, running the words together", 1)
         positive("slowly and clearly", 1)
         positive("as a whole sentence, at your normal pace", 3, [
-            "Hey Moe, what's on my calendar",
-            "Hey Moe, what's the weather like",
-            "Hey Moe, remind me to call the bank",
+            "Hey Alfie, what's on my calendar",
+            "Hey Alfie, what's the weather like",
+            "Hey Alfie, remind me to call the bank",
         ])
         for line in ["Hey Joe", "Hey no", "Hey more", "Hey mole", "A moment", "Hey homie", "Hey Mona", "Hey Mom"] {
             out.append(Prompt(say: line, note: "a near miss — say it naturally", folder: "confusable"))

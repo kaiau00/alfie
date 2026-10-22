@@ -90,10 +90,10 @@ class SummaryDatesTest(ScratchCase):
         self.assertTrue(cons.stale_for_summary("Dinner with Dani tomorrow", TODAY))
         self.assertTrue(cons.stale_for_summary("Project Atlas call on 2026-08-29 at 10:00", TODAY))
         self.assertFalse(cons.stale_for_summary("Project Atlas call on 2026-08-30 at 10:00", TODAY))
-        self.assertFalse(cons.stale_for_summary("Builds Moe, a Mac assistant", TODAY))
+        self.assertFalse(cons.stale_for_summary("Builds Alfie, a Mac assistant", TODAY))
 
     def test_a_durable_fact_with_a_past_date_is_kept(self):
-        for fact in ("Moved to Brooklyn on 2024-03-01", "Started Memoe 2026-08-01, main work"):
+        for fact in ("Moved to Brooklyn on 2024-03-01", "Started Alfie 2026-08-01, main work"):
             self.assertFalse(cons.stale_for_summary(fact, TODAY), fact)
             self.assertFalse(cons.stale_for_summary(fact, TODAY, event=False), fact)
         self.assertTrue(cons.stale_for_summary("Moved to Brooklyn tomorrow", TODAY, event=False),
@@ -101,34 +101,34 @@ class SummaryDatesTest(ScratchCase):
 
     def test_the_model_summary_keeps_dated_facts(self):
         store = Store(self.profile)
-        store.write("identity", [C("identity", "Builds Moe, a Mac assistant"), C("identity", "Lives in Monroe")])
+        store.write("identity", [C("identity", "Builds Alfie, a Mac assistant"), C("identity", "Lives in Monroe")])
 
         def chat(system, user, key, **kw):
-            return json.dumps({"summary": ["Moved to Brooklyn on 2024-03-01", "Started Memoe 2026-08-01, main work",
+            return json.dumps({"summary": ["Moved to Brooklyn on 2024-03-01", "Started Alfie 2026-08-01, main work",
                                            "Project Atlas call on 2026-08-29 at 10:00"], "check": []})
         cons.consolidate(store, use_llm=True, chat=chat)
         s = store.summary()
         self.assertIn("Moved to Brooklyn on 2024-03-01", s)
-        self.assertIn("Started Memoe 2026-08-01", s)
+        self.assertIn("Started Alfie 2026-08-01", s)
         self.assertNotIn("Atlas", s)
 
     def test_the_plain_summary_keeps_dated_identity_facts(self):
         store = Store(self.profile)
         store.write("identity", [C("identity", "Moved to Brooklyn on 2024-03-01"),
-                                 C("identity", "Started Memoe 2026-08-01, main work")])
+                                 C("identity", "Started Alfie 2026-08-01, main work")])
         cons.consolidate(store, use_llm=False)
         s = store.summary()
         self.assertIn("Moved to Brooklyn", s)
-        self.assertIn("Started Memoe", s)
+        self.assertIn("Started Alfie", s)
 
     def test_the_model_summary_drops_them(self):
         store = Store(self.profile)
-        store.write("identity", [C("identity", "Builds Moe, a Mac assistant"), C("identity", "Lives in Monroe")])
+        store.write("identity", [C("identity", "Builds Alfie, a Mac assistant"), C("identity", "Lives in Monroe")])
         seen = {}
 
         def chat(system, user, key, **kw):
             seen["system"] = system
-            return json.dumps({"summary": ["Builds Moe, a Mac assistant", "Lives in Monroe",
+            return json.dumps({"summary": ["Builds Alfie, a Mac assistant", "Lives in Monroe",
                                            "Has a Project Atlas call today at 10am",
                                            "Trip to Austin on 2026-08-20"], "check": []})
         cons.consolidate(store, use_llm=True, chat=chat)
@@ -140,7 +140,7 @@ class SummaryDatesTest(ScratchCase):
 
     def test_the_plain_summary_drops_a_thread_whose_date_is_gone(self):
         store = Store(self.profile)
-        store.write("identity", [C("identity", "Builds Moe, a Mac assistant")])
+        store.write("identity", [C("identity", "Builds Alfie, a Mac assistant")])
         store.write("threads", [
             C("threads", "Runs Project Atlas with the Pulse team", kind="stable"),
             C("threads", "Atlas kickoff held on 2026-08-12", kind="stable"),

@@ -18,24 +18,25 @@ public enum WakeConfirm {
     /// they are what this stage exists to turn away (measured on the Inworld
     /// confusable set, 2026-09-23: 60 of the head's 117 false fires there
     /// were written as one of those).
-    static let nameTokens: Set<String> = ["mo", "moe", "mow", "moi"]
+    ///
+    /// Alfie: the list below is how a recogniser is expected to write
+    /// "Alfie", not yet measured on recordings the way Moe's list was. The
+    /// teach card's recordings (Settings › Voice) are the way to measure it.
+    static let nameTokens: Set<String> = ["alfie", "alfy", "alfee", "alfi", "alphie", "alfey"]
     /// Real words that end in the name's letters.
-    static let wordsEndingInMo: Set<String> = ["demo", "memo", "promo", "limo", "sumo", "primo", "gizmo", "ammo"]
+    static let wordsEndingInMo: Set<String> = []
 
     /// Is the name in what the recogniser heard? The name on its own ("Hey
-    /// Mo.", "Ei moe"), or run into whatever came before it ("Hemo", "Amo",
-    /// "Nemo", "K-mo" — a short word ending in the name). These are how the
-    /// local recogniser wrote a real "Hey Moe" on the owner's 65 recordings
-    /// and 322 Inworld voices; the one real word among them, "Amount" —
-    /// "a Moe" run together — counts only when it is all that was heard.
+    /// Alfie."), or run into whatever came before it ("Healfie" — a short
+    /// prefix and the name). Upstream measured its Moe list on the owner's 65
+    /// recordings and 322 Inworld voices; Alfie's has not been measured yet.
     public static func heardTheName(_ transcript: String, spotter: WakeSpotter) -> Bool {
         let words = TurnPolicy.words(transcript)
         guard !words.isEmpty else { return false }
-        if words == ["amount"] { return true }
         for w in words {
             if nameTokens.contains(w) { return true }
             let letters = w.replacingOccurrences(of: "-", with: "")
-            guard letters.count <= 6, !wordsEndingInMo.contains(letters) else { continue }
+            guard letters.count <= 9, !wordsEndingInMo.contains(letters) else { continue }
             for token in nameTokens where letters.hasSuffix(token) {
                 let prefix = letters.dropLast(token.count)
                 if !prefix.isEmpty, prefix.count <= 3 { return true }

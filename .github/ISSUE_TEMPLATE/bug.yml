@@ -1,5 +1,5 @@
 name: Bug report
-description: Something in Memoe does not work the way the docs say it should.
+description: Something in Alfie does not work the way the docs say it should.
 title: "[Bug]: "
 labels: ["bug", "needs-triage"]
 body:
@@ -8,16 +8,14 @@ body:
       value: |
         Thanks for taking the time. A few things first:
 
-        - **Security problem?** Do not file it here. See [SECURITY.md](https://github.com/memoe-app/memoe/blob/main/SECURITY.md).
-        - **Away, billing or your account?** Email hello@moebot.app; that part of Memoe is not in this repository.
-        - **Using the official app day to day?** Saying *"report this to the Moe team"* to Moe sends us the logs we need, with your yes, and is often faster.
+        - **Security problem?** Do not file it here. See [SECURITY.md](https://github.com/kaiau00/alfie/blob/main/SECURITY.md).
         - **Redact before you paste.** Logs and transcripts can contain your mail, messages, contacts and memory. Remove anything personal.
 
   - type: textarea
     id: what-happened
     attributes:
       label: What happened
-      description: What you did, what you expected, and what Memoe did instead.
+      description: What you did, what you expected, and what Alfie did instead.
       placeholder: |
         I held right ⌥ in Safari and asked Moe to add lunch on Thursday to my calendar.
         Expected: the event appears.
@@ -41,7 +39,7 @@ body:
   - type: input
     id: version
     attributes:
-      label: Memoe version
+      label: Alfie version
       description: Settings › About & Licences. Include the build in brackets if shown.
       placeholder: "0.4.2 (abc1234)"
     validations:
@@ -52,8 +50,8 @@ body:
     attributes:
       label: Which build
       options:
-        - Memoe, downloaded from memoe.app
-        - Memoe OSS, built from this repository
+        - Alfie, built from this repository
+        - Alfie, a build a friend gave me
     validations:
       required: true
 
@@ -104,7 +102,7 @@ body:
     attributes:
       label: Logs (redacted)
       description: |
-        Relevant lines from `~/Library/Application Support/Moe/logs/` (community edition: `…/Memoe OSS/logs/`).
+        Relevant lines from `~/Library/Application Support/Alfie/logs/`.
         Only the lines around the problem, with personal content removed.
       render: text
 

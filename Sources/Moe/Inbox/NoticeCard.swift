@@ -290,7 +290,7 @@ struct NoticeCardView: View {
                 }
                 .buttonStyle(.plain)
                 .disabled(ask.trimmingCharacters(in: .whitespaces).isEmpty)
-                .help("Ask Moe about this, in a conversation of its own")
+                .help("Ask Alfie about this, in a conversation of its own")
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
@@ -314,14 +314,14 @@ struct NoticeCardView: View {
     }
 
     private func askPlaceholder(_ n: InboxItem) -> String {
-        n.kind == .work ? "Tell Moe what to change" : "Ask about this, or tell Moe what to change"
+        n.kind == .work ? "Tell Alfie what to change" : "Ask about this, or tell Alfie what to change"
     }
 
     @ViewBuilder
     private func primaryActions(_ n: InboxItem) -> some View {
         if !n.offer.isEmpty {
             PaperButton("Not this kind", style: .quiet) { conductor.declineNotice(n.id, kind: true); onClose() }
-                .help("Moe stops offering this kind of thing")
+                .help("Alfie stops offering this kind of thing")
             PaperButton("Not now", style: .quiet) { conductor.declineNotice(n.id, kind: false); onClose() }
             // Handled another way (the owner, 2026-09-29: "there's no way to
             // complete it"): it leaves the inbox, nothing is sent.

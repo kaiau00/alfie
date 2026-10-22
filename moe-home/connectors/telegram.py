@@ -39,7 +39,7 @@ def have_session():
 
 
 def reexec_in_venv():
-    """Telethon lives in Moe' venv, not in system python."""
+    """Telethon lives in Alfie' venv, not in system python."""
     if os.path.exists(VENV_PY) and os.path.realpath(sys.executable) != os.path.realpath(VENV_PY):
         os.execv(VENV_PY, [VENV_PY, os.path.abspath(__file__)] + sys.argv[1:])
 
@@ -67,7 +67,7 @@ def cmd_status():
         print("needs-setup: you have not signed in to Telegram yet — run ~/.moe/scripts/connect-telegram.sh")
         return 1
     if not have_telethon():
-        print("needs-setup: a piece Moe needs to read Telegram is missing — run ~/.moe/scripts/connect-telegram.sh")
+        print("needs-setup: a piece Alfie needs to read Telegram is missing — run ~/.moe/scripts/connect-telegram.sh")
         return 1
     api_id, api_hash = telegram_creds()
     if not api_id or not api_hash:
@@ -552,7 +552,7 @@ def recipient_check(raw, body, resolved=()):
         raws = raw if isinstance(raw, (list, tuple)) else [raw]
         v = mod.connector_check([r for r in raws if r], body, [r for r in resolved if r])
     except Exception:  # noqa: BLE001 — any failure here refuses
-        return False, "not sent — Moe could not check who this is going to, so nothing was sent.", ""
+        return False, "not sent — Alfie could not check who this is going to, so nothing was sent.", ""
     if v.get("verdict") == "refuse":
         return False, v.get("message") or "not sent", ""
     prov = v.get("provenance")
@@ -666,7 +666,7 @@ def cmd_send_offer(stdin_text):
     # The feed names a chat "telegram/<id>" (item_of); the send wants the id.
     m = re.match(r"^(?:telegram/)?(-?\d+)$", to)
     if not m:
-        print("not sent — that is not a Telegram chat Moe can reply to.")
+        print("not sent — that is not a Telegram chat Alfie can reply to.")
         return 1
     return cmd_send([], offer=(m.group(1), body))
 
@@ -676,12 +676,12 @@ def cmd_send(argv, offer=None):
         print("send takes no arguments — the message is one JSON object on stdin.")
         return 2
     if not have_session():
-        print("Moe is not signed in to your own Telegram, so it cannot read or write "
+        print("Alfie is not signed in to your own Telegram, so it cannot read or write "
               "your chats. Connect My own Telegram in Settings › Connections — that "
-              "is separate from the Moe you message on Telegram.")
+              "is separate from the Alfie you message on Telegram.")
         return 1
     if not have_telethon():
-        print("A piece Moe needs to reach Telegram is missing — reconnect it in Settings › Connections.")
+        print("A piece Alfie needs to reach Telegram is missing — reconnect it in Settings › Connections.")
         return 1
     try:
         to, text = offer if offer else parse_send_request(sys.stdin.read())
@@ -691,9 +691,9 @@ def cmd_send(argv, offer=None):
 
     api_id, api_hash = telegram_creds()
     if not api_id or not api_hash:
-        print("Moe is not signed in to your own Telegram, so it cannot read or write "
+        print("Alfie is not signed in to your own Telegram, so it cannot read or write "
               "your chats. Connect My own Telegram in Settings › Connections — that "
-              "is separate from the Moe you message on Telegram.")
+              "is separate from the Alfie you message on Telegram.")
         return 1
 
     from telethon.sync import TelegramClient

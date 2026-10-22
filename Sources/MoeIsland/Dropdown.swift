@@ -68,7 +68,7 @@ public enum IslandStatus {
             return Status(word: inConversation ? "Your turn" : "Listening", tone: .listening, clock: false)
         case .idle, .thinking:
             if muted { return Status(word: "Muted", tone: .muted, clock: false) }
-            return Status(word: "Moe", tone: .dim, clock: false)
+            return Status(word: "Alfie", tone: .dim, clock: false)
         }
     }
 }

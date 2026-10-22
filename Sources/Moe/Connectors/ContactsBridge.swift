@@ -19,7 +19,7 @@ import Foundation
 // MOE_EVENTKIT_NO_PROMPT=1 means the same here as there: "not determined"
 // reads as denied rather than raising the sheet from a timer or a test.
 enum ContactsBridge {
-    static let usage = "usage: Moe --contacts [--status] [find <name>]"
+    static let usage = "usage: Alfie --contacts [--status] [find <name>]"
 
     static func run(_ args: ArraySlice<String>) async -> Never {
         var status = false
@@ -47,7 +47,7 @@ enum ContactsBridge {
         exit(0)
     }
 
-    static let needsSetup = "needs-setup: allow Moe to read your Contacts (System Settings › Privacy & Security › Contacts)"
+    static let needsSetup = "needs-setup: allow Alfie to read your Contacts (System Settings › Privacy & Security › Contacts)"
 
     /// Access, or a one-line reason and exit 3 — EventKitBridge's contract,
     /// which contacts.sh and the Connections row already read.
@@ -57,7 +57,7 @@ enum ContactsBridge {
             return
         case .notDetermined:
             if ProcessInfo.processInfo.environment["MOE_EVENTKIT_NO_PROMPT"] != nil {
-                EventKitBridge.fail("needs-setup: Contacts access not yet granted to Moe (System Settings › Privacy & Security › Contacts)", code: EventKitBridge.deniedExit)
+                EventKitBridge.fail("needs-setup: Contacts access not yet granted to Alfie (System Settings › Privacy & Security › Contacts)", code: EventKitBridge.deniedExit)
             }
             let granted = (try? await store.requestAccess(for: .contacts)) ?? false
             if granted { return }

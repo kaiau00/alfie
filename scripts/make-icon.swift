@@ -1,10 +1,9 @@
 #!/usr/bin/env swift
-// Memoe's mark, rendered everywhere it is needed from one description of it.
+// Alfie's mark, rendered everywhere it is needed from one description of it.
 //
-// The mark is the wave from `brand/memoe-mark.svg`: a single stroked path —
-// stub, valley, arch, valley, arch, stub — with round caps and joins, in the
-// brand blue on the brand near-black. It replaced the old "M with an
-// equaliser under it" when the product was renamed to Memoe on 2026-09-22.
+// The mark is a bow tie (`brand/alfie-icon.svg`): two wing outlines and a
+// knot, stroked with round caps and joins, in brass on a deep navy tile. It
+// replaced Memoe's wave when this fork was renamed Alfie.
 //
 // Everything downstream is generated here so the site and the app can never
 // disagree about what the product looks like:
@@ -31,60 +30,48 @@
 import AppKit
 
 // ---- The mark ---------------------------------------------------------------
-// Coordinates are `brand/memoe-mark.svg`'s, y measured DOWN as SVG does, and
-// converted at the last moment. Every arc in that file is a semicircle — each
-// one's endpoints share a y and are exactly 2r apart — so each is named here by
-// its centre and which way it bulges, which is both shorter and impossible to
-// get subtly wrong the way a re-typed arc flag is.
-//
-// The centreline's own box is 212 x 129; the stroke adds its full width to
-// each dimension, which is where the SVG's 246 x 163 viewBox comes from.
-let markCoreW: CGFloat = 212, markCoreH: CGFloat = 129
+// Coordinates are SVG-style, y measured DOWN, and converted at the last
+// moment. The centreline's own box is 212 x 200; the stroke adds its full
+// width to each dimension.
+let markCoreW: CGFloat = 212, markCoreH: CGFloat = 200
 let markStroke: CGFloat = 34
 let markX0: CGFloat = 11, markY0: CGFloat = 15   // top-left of the centreline box
 
-enum Seg {
-    case line(CGFloat, CGFloat)                      // to (x, y)
-    case arc(cx: CGFloat, r: CGFloat, up: Bool)      // semicircle to (cx + r, y)
-}
-
-let markStart = CGPoint(x: 11, y: 93)
-let markSegs: [Seg] = [
-    .line(11, 117.5),
-    .arc(cx: 31.5,  r: 20.5, up: false),   // valley
-    .line(52, 46),
-    .arc(cx: 83,    r: 31,   up: true),    // arch
-    .line(114, 120),
-    .arc(cx: 138,   r: 24,   up: false),   // valley
-    .line(162, 73.5),
-    .arc(cx: 192.5, r: 30.5, up: true),    // arch
-    .line(223, 129),
+// Alfie's mark is a butler's handlebar mustache over a bow tie. The mustache
+// is a centreline swept with a width that tapers from the middle to tips that
+// curl up and back in, drawn for the left half and mirrored; the bow tie is
+// two wings drawn as closed outlines and a knot drawn as one short stroke.
+let markMidX: CGFloat = 117
+/// The left half of the mustache's centreline, from the middle out, as cubic
+/// segments (control 1, control 2, end).
+let markMustacheStart = CGPoint(x: 117, y: 56)
+let markMustache: [(CGPoint, CGPoint, CGPoint)] = [
+    (CGPoint(x: 100, y: 42), CGPoint(x: 80, y: 68), CGPoint(x: 58, y: 64)),   // out along the lip
+    (CGPoint(x: 36, y: 60), CGPoint(x: 22, y: 46), CGPoint(x: 28, y: 32)),    // up into the curl
+    (CGPoint(x: 32, y: 22), CGPoint(x: 46, y: 22), CGPoint(x: 46, y: 34)),    // and back in
 ]
+/// Width of the mustache at the middle and at the tips, in centreline units.
+let markMustacheWidth = (middle: CGFloat(40), tip: CGFloat(9))
+let markWings: [[CGPoint]] = [
+    [CGPoint(x: 98, y: 150), CGPoint(x: 40, y: 115), CGPoint(x: 40, y: 215), CGPoint(x: 98, y: 180)],
+    [CGPoint(x: 136, y: 150), CGPoint(x: 194, y: 115), CGPoint(x: 194, y: 215), CGPoint(x: 136, y: 180)],
+]
+let markKnot = (top: CGPoint(x: 117, y: 146), bottom: CGPoint(x: 117, y: 184))
 
 /// The mark's centreline, scaled by `s` and placed with its box's top-left at
 /// `at` measured from the top of a canvas `canvasH` tall, in Cocoa coordinates.
 func markCentreline(scale s: CGFloat, at origin: CGPoint, canvasH: CGFloat) -> CGPath {
-    func P(_ x: CGFloat, _ y: CGFloat) -> CGPoint {
-        CGPoint(x: origin.x + (x - markX0) * s,
-                y: canvasH - (origin.y + (y - markY0) * s))
+    func P(_ p: CGPoint) -> CGPoint {
+        CGPoint(x: origin.x + (p.x - markX0) * s,
+                y: canvasH - (origin.y + (p.y - markY0) * s))
     }
     let path = CGMutablePath()
-    path.move(to: P(markStart.x, markStart.y))
-    var cursor = markStart
-    for seg in markSegs {
-        switch seg {
-        case .line(let x, let y):
-            path.addLine(to: P(x, y)); cursor = CGPoint(x: x, y: y)
-        case .arc(let cx, let r, let up):
-            // Drawn in Cocoa space, so "up" on screen is the +y half. Sweeping
-            // from pi to 0 clockwise passes through pi/2 (the top); sweeping
-            // anticlockwise passes through 3pi/2 (the bottom).
-            let c = P(cx, cursor.y)
-            path.addArc(center: c, radius: r * s,
-                        startAngle: .pi, endAngle: 0, clockwise: up)
-            cursor = CGPoint(x: cx + r, y: cursor.y)
-        }
+    for wing in markWings {
+        path.addLines(between: wing.map(P))
+        path.closeSubpath()
     }
+    path.move(to: P(markKnot.top))
+    path.addLine(to: P(markKnot.bottom))
     return path
 }
 
@@ -108,14 +95,15 @@ func rgb(_ hex: UInt32) -> NSColor {
             blue: CGFloat(hex & 0xff) / 255, alpha: 1)
 }
 
-// Sampled from the owner's reference image, 2026-09-22 (brand/LOGO.md).
-let brandBlue  = rgb(0x53739A)
-let brandBlack = rgb(0x050504)
+// Alfie's palette: a warm brass bow tie on a deep navy tile. `brandBlue`
+// keeps its name because everything below draws with it.
+let brandBlue  = rgb(0xD9A84E)
+let brandBlack = rgb(0x0A1020)
 let brandCream = rgb(0xFEF6EB)
 // The tile carries a whisper of a gradient rather than a flat fill: flat
 // near-black reads as a hole at 512 px beside other Mac icons.
-let bgTop    = rgb(0x111114)
-let bgBottom = rgb(0x040404)
+let bgTop    = rgb(0x18223A)
+let bgBottom = rgb(0x070B16)
 
 /// The brand blue, lightened toward white. At 16 px on near-black the flat
 /// brand value is too dim to read as a shape, so the small sizes borrow some
@@ -157,6 +145,44 @@ func markPath(canvas size: CGFloat, _ t: Tuning) -> CGPath {
     let origin = CGPoint(x: (size - boxW) / 2 + w / 2, y: (size - boxH) / 2 + w / 2)
     return markCentreline(scale: s, at: origin, canvasH: size)
         .copy(strokingWithWidth: w, lineCap: .round, lineJoin: .round, miterLimit: 10)
+        .union(markMustacheFill(scale: s, at: origin, canvasH: size, k: t.strokeK))
+}
+
+/// The mustache: the centreline sampled finely and each short piece stroked
+/// at its own width, then unioned, which is a tapered brush stroke. `k`
+/// thickens it at small sizes the way `strokeK` thickens the bow tie.
+func markMustacheFill(scale s: CGFloat, at origin: CGPoint, canvasH: CGFloat, k: CGFloat) -> CGPath {
+    func P(_ p: CGPoint) -> CGPoint {
+        CGPoint(x: origin.x + (p.x - markX0) * s,
+                y: canvasH - (origin.y + (p.y - markY0) * s))
+    }
+    func cubic(_ a: CGPoint, _ c1: CGPoint, _ c2: CGPoint, _ b: CGPoint, _ t: CGFloat) -> CGPoint {
+        let u = 1 - t
+        let x = u * u * u * a.x + 3 * u * u * t * c1.x + 3 * u * t * t * c2.x + t * t * t * b.x
+        let y = u * u * u * a.y + 3 * u * u * t * c1.y + 3 * u * t * t * c2.y + t * t * t * b.y
+        return CGPoint(x: x, y: y)
+    }
+    var pts = [markMustacheStart]
+    var from = markMustacheStart
+    for (c1, c2, end) in markMustache {
+        for i in 1...24 { pts.append(cubic(from, c1, c2, end, CGFloat(i) / 24)) }
+        from = end
+    }
+    var result = CGMutablePath() as CGPath
+    for flip in [false, true] {
+        let side = flip ? pts.map { CGPoint(x: 2 * markMidX - $0.x, y: $0.y) } : pts
+        for i in 1..<side.count {
+            let t = CGFloat(i) / CGFloat(side.count - 1)
+            // Ease the taper so the lip stays full and only the curl thins.
+            let width = markMustacheWidth.middle
+                + (markMustacheWidth.tip - markMustacheWidth.middle) * t * t
+            let piece = CGMutablePath()
+            piece.move(to: P(side[i - 1])); piece.addLine(to: P(side[i]))
+            result = result.union(piece.copy(strokingWithWidth: width * s * k, lineCap: .round,
+                                             lineJoin: .round, miterLimit: 10))
+        }
+    }
+    return result
 }
 
 /// `opaque` drops the transparent margin and fills the whole square, for the
@@ -475,7 +501,10 @@ for base in [16, 32, 128, 256, 512] {
 }
 write(render(size: 512), to: "Resources/icon-preview.png")
 write(sheet(sizes: [64, 32, 16]), to: "Resources/icon-preview-small.png")
-for sz in [16, 32, 180, 512] {
+// The website lives outside this repository; its assets are written only
+// when a site/ checkout sits beside the app.
+let hasSite = fm.fileExists(atPath: "site/assets")
+for sz in [16, 32, 180, 512] where hasSite {
     write(render(size: sz, tight: true), to: "site/assets/icon-\(sz).png")
 }
 // The three sizes an ICO carries, drawn at their real size rather than
@@ -486,9 +515,11 @@ try! fm.createDirectory(atPath: "scratch/favicon", withIntermediateDirectories: 
 for sz in [16, 32, 48] {
     write(render(size: sz, tight: true), to: "scratch/favicon/\(sz).png")
 }
-write(render(size: 120, opaque: true), to: "site/assets/moe-logo-120.png")
-write(render(size: 512, opaque: true), to: "site/assets/moe-logo-512.png")
-write(ogImage(), to: "site/assets/og.png")
+if hasSite {
+    write(render(size: 120, opaque: true), to: "site/assets/moe-logo-120.png")
+    write(render(size: 512, opaque: true), to: "site/assets/moe-logo-512.png")
+    write(ogImage(), to: "site/assets/og.png")
+}
 
 // `Resources/Moe.icns` is committed and is what build.sh copies into the
 // bundle, so it is rebuilt here rather than left for someone to remember.

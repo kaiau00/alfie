@@ -7,7 +7,7 @@ variety (British, Australian, Indian, Nigerian, Singaporean, Filipino, and
 real_clips.py folds the owner's recordings — with the same three rules:
 
 1. Clips arrive already trimmed by prep_inworld.py: leading/trailing silence
-   cut, then the first 1.9 s kept, so "Hey Moe, what's on my calendar" keeps
+   cut, then the first 1.9 s kept, so "Hey Alfie, what's on my calendar" keeps
    the name (the augmenter's align_clip_to_end keeps the LAST 2 s of
    anything longer, which would drop it).
 2. Held-out voices never reach this folder; prep_inworld.py split by whole
@@ -90,7 +90,7 @@ def fold(label, split, base, times):
 
 
 def windows(label, split, base, times):
-    """Ordinary Inworld sentences (some with "Moe"/"mobile"/"moment" inside),
+    """Ordinary Inworld sentences (some with "Alfie"/"mobile"/"moment" inside),
     cut into 1.9 s windows at a 1 s hop: the same voices saying things that
     are not the name, so "Inworld timbre" cannot be the positive feature."""
     files = sorted(p for p in (SRC / label).glob("*.wav") if not p.name.startswith("._"))  # no macOS AppleDouble

@@ -1,7 +1,7 @@
 # claimstore
 
 A Hermes memory provider that moves the *store* out of `MEMORY.md` and into
-Moe's ledger. The two markdown files stay exactly where they are and keep
+Alfie's ledger. The two markdown files stay exactly where they are and keep
 working — they become the slice of the ledger that fits in the prompt.
 
 ## Why
@@ -11,7 +11,7 @@ ids, no timestamps, no author. That is fine for one writer. It stops being fine
 the moment a second one exists — another device, a sync daemon, a background
 job, or the user in an editor — because there is nothing to merge *on*.
 
-Moe already has a store with all three, and it is already the place
+Alfie already has a store with all three, and it is already the place
 conversations live: `~/.moe/ledger/*.jsonl`, one append-only JSONL file per
 device, ordered causally rather than by anybody's clock
 (`docs/ONE-AGENT.md` §1.5). This plugin puts memory in it.
@@ -28,7 +28,7 @@ device, ordered causally rather than by anybody's clock
 
 ## Install
 
-Moe's installer does it: `scripts/install.sh` copies this directory to
+Alfie's installer does it: `scripts/install.sh` copies this directory to
 `~/.moe/hermes-plugins/claimstore/`, and `~/.moe/hermes/configure-hermes.py`
 copies it on to `$HERMES_HOME/plugins/claimstore/`, adds `claimstore` to
 `plugins.enabled`, and writes the `memory` block. All three are needed: the
@@ -356,7 +356,7 @@ Rules that keep it from ever doing more than a successful write would have:
 ## Tests
 
 They need Hermes's own imports and its 3.11 venv, so they run from a
-hermes-agent checkout rather than from Moe's `scripts/test.sh`:
+hermes-agent checkout rather than from Alfie's `scripts/test.sh`:
 
 ```
 cd <hermes-agent>

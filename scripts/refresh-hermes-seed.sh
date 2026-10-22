@@ -219,7 +219,7 @@ if [ -n "$DEPS" ]; then
   This route refreshes tracked source and never rebuilds a venv, because rebuilding
   one here would re-resolve against PyPI with an interpreter that is not the seed's
   and replace $AGENT/.venv with unsigned wheels. Nothing was changed.
-  The way across is the seed the new Memoe carries (scripts/reseed-hermes.sh)." >&2
+  The way across is the seed the new Alfie carries (scripts/reseed-hermes.sh)." >&2
   exit 3
 fi
 

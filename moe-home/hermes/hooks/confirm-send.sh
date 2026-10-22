@@ -500,7 +500,7 @@ def policy_key(tool_name, bare_name, server_name, is_own):
 def declared(tool_name, bare_name, server_name, is_own, policy=None):
     """(kind, why). kind ∈ run read trusted local shell keys send defer act
     unlabelled unknown. Order: the connector's own dialog, your decision,
-    Moe's table, Moe's manifests, the server's labels, nothing."""
+    Alfie's table, Alfie's manifests, the server's labels, nothing."""
     policy = load_json(POLICY_PATH) if policy is None else policy
     ptools = policy.get("tools")
     ptools = ptools if isinstance(ptools, dict) else {}
@@ -523,11 +523,11 @@ def declared(tool_name, bare_name, server_name, is_own, policy=None):
         # The table before the manifests: a manifest is a file under ~/.moe,
         # and a planted one must not be able to re-describe a Hermes tool.
         if bare_name in BUILTIN:
-            return BUILTIN[bare_name], "Moe's table of its own tools"
+            return BUILTIN[bare_name], "Alfie's table of its own tools"
         mk = manifest_kind(bare_name)
         if mk:
             return mk, "its connector manifest declares it"
-        return "unknown", "not a connector verb, and not one of Moe's own tools"
+        return "unknown", "not a connector verb, and not one of Alfie's own tools"
     srule = pservers.get(server_name)
     srule = srule if isinstance(srule, dict) else {}
     hints, informative, cached = labels_for(server_name)
@@ -543,7 +543,7 @@ def declared(tool_name, bare_name, server_name, is_own, policy=None):
     if cached:
         return "unlabelled", "%s labels every tool the same, which says nothing" % server_name
     if server_name:
-        return "unknown", "Moe has not read what %s offers yet" % server_name
+        return "unknown", "Alfie has not read what %s offers yet" % server_name
     return "unknown", "no declaration"
 
 
@@ -565,9 +565,9 @@ if os.environ.get("MOE_GATE_MODE") == "inventory":
         k, why = declared(name, name, "", True, policy)
         if name == "browser_vault_save_login":
             # Its arguments decide, ahead of any table or policy (ticket #17).
-            why += "; generate=true (a new account, a password Moe makes) asks every time, per site"
+            why += "; generate=true (a new account, a password Alfie makes) asks every time, per site"
         if name == "browser_vault_login":
-            why += "; mode=signup (a new account, a password Moe makes) asks every time, per site"
+            why += "; mode=signup (a new account, a password Alfie makes) asks every time, per site"
         rows.append((name, k, why))
     for srv, entry in sorted(load_json(SCHEMA_CACHE).items()):
         tools = entry.get("tools") if isinstance(entry, dict) else None
@@ -1087,10 +1087,10 @@ _gate_exempt = bare in ("notes_create", "reminders_create") and own
 if not _gate_exempt and (
         names_the_gate(args) or uproots_the_gate(args) or rewrites_a_connector(args, tool)):
     sys.stdout.write(
-        "confirm-send hook: refused — %s touches something Moe's send gate depends "
+        "confirm-send hook: refused — %s touches something Alfie's send gate depends "
         "on: the dialog, the gate's own code and rules, who the owner is, the jobs "
         "and their record of who asked for them, or the record of who named whom. "
-        "Nothing may change what decides whether Moe sends.\n" % (tool or "this call"))
+        "Nothing may change what decides whether Alfie sends.\n" % (tool or "this call"))
     sys.exit(9)
 
 # Layer 0s: the shell and the file tools never read Moe s secrets.
@@ -1175,8 +1175,8 @@ def reads_a_secret(args, tool_name):
 
 if reads_a_secret(args, tool):
     sys.stdout.write(
-        "confirm-send hook: refused — %s would read one of Moe s secrets (an API key, "
-        "a sign-in token, a Keychain password or this Mac s identity). Moe s own tools "
+        "confirm-send hook: refused — %s would read one of Alfie s secrets (an API key, "
+        "a sign-in token, a Keychain password or this Mac s identity). Alfie s own tools "
         "use those themselves; nothing the model runs may read them.\n" % (tool or "this call"))
     sys.exit(9)
 
@@ -1685,7 +1685,7 @@ def stringify(v):
 def telegram_self_ids():
     """The owner's Telegram ids, from the owner record (tools/recipients.py):
     the first id in Hermes's TELEGRAM_ALLOWED_USERS and a private home channel,
-    only when a bot token is configured at all — the same rule as Moe's
+    only when a bot token is configured at all — the same rule as Alfie's
     TelegramSelf.target (Sources/MoeMeeting/MeetingLive.swift). An unreadable
     record means no owner route, which is the closed direction."""
     try:
@@ -1699,7 +1699,7 @@ def is_self_telegram(tool_name, args, recipient):
     """True for a Telegram message addressed to the owner themselves — the owner
     ROUTE, which needs no dialog and is never refused.
 
-    Why this one hole exists: after a meeting, Moe pushes the notes the
+    Why this one hole exists: after a meeting, Alfie pushes the notes the
     agent just wrote to the user's own Telegram, so they are on the phone
     without having to ask. A dialog there confirms nothing — the human is
     the sender AND the only recipient, and being asked "send your own notes
@@ -2209,7 +2209,7 @@ def one_door(cmd):
     if JOB_GROUNDING.search(cmd):
         refuse_send("(who asked for a job)",
                     "Not done: who asked for a scheduled job is recorded only when the person answers on "
-                    "the Jobs card in the Memoe app. Nothing Moe runs may write it.")
+                    "the Jobs card in the Alfie app. Nothing Alfie runs may write it.")
 
 
 
@@ -2274,7 +2274,7 @@ def _vault_account_site(a):
 
 def _vault_new_account(name, a):
     """(site, account) when this call makes a new account with a password
-    Moe makes and can actually do so; None otherwise."""
+    Alfie makes and can actually do so; None otherwise."""
     if not isinstance(a, dict):
         return None
     if name == "browser_vault_login":
@@ -2283,7 +2283,7 @@ def _vault_new_account(name, a):
             return None   # a sign-in, or a mode the fork refuses
     elif name == "browser_vault_save_login":
         if not _truthy(a.get("generate")):
-            return None   # the person types it, in Moe's own window
+            return None   # the person types it, in Alfie's own window
     else:
         return None
     site = _vault_account_site(a)
@@ -2298,7 +2298,7 @@ _account = _vault_new_account(bare, args)
 if _account:
     _site, _who = _account
     _where = _plain_site(_site)
-    _body = ("Moe will make a strong password and keep it for you — you won\u2019t need to type it. "
+    _body = ("Alfie will make a strong password and keep it for you — you won\u2019t need to type it. "
              "Saying yes covers %s only.\n\n"
              "Email or username: %s" % (_where, _who))
     sys.stdout.write("SEND\n%s\n%s\n%s\n%s\n%s\n%s" % (
@@ -2524,7 +2524,7 @@ def act():
     # Moe's own tools are Moe's, whichever proxy carried them: a card
     # headed "hermes-tools" names the engine's plumbing, not anything a
     # person has heard of.
-    where = kit_label or ("" if own else server) or "Moe"
+    where = kit_label or ("" if own else server) or "Alfie"
     # The card, in plain words (the owner, 2026-09-29: "why do they look so
     # technical and unsimple? There is no idea what's going on"). The
     # headline says what is being asked and where; the body says why Moe is
@@ -2537,27 +2537,27 @@ def act():
         # "GOOGLESHEETS_BATCH_UPDATE" in Google Sheets is "Batch update":
         # the heading already names the service.
         plain = _tidy_tool(act_name[len(kit_slug) + 1:])
-    mine = where == "Moe"
+    mine = where == "Alfie"
     if kind == "unknown":
-        headline = ("Let Moe try something it hasn\u2019t done before?" if mine
-                    else "Let Moe use %s for something new?" % where)
-        lead = ("Moe hasn\u2019t used \u201c%s\u201d before and can\u2019t tell what it does, "
+        headline = ("Let Alfie try something it hasn\u2019t done before?" if mine
+                    else "Let Alfie use %s for something new?" % where)
+        lead = ("Alfie hasn\u2019t used \u201c%s\u201d before and can\u2019t tell what it does, "
                 "so it is checking with you first." % plain)
     elif kind == "unlabelled":
-        headline = "Let Moe use %s?" % where
+        headline = "Let Alfie use %s?" % where
         lead = ("%s doesn\u2019t say whether \u201c%s\u201d only looks at things or also "
-                "changes them, so Moe is checking with you first." % (where, plain))
+                "changes them, so Alfie is checking with you first." % (where, plain))
     elif why == "you asked to be asked about this tool":
-        headline = ("Let Moe do this?" if mine else "Let Moe use %s?" % where)
-        lead = "You asked Moe to check with you before it uses \u201c%s\u201d." % plain
+        headline = ("Let Alfie do this?" if mine else "Let Alfie use %s?" % where)
+        lead = "You asked Alfie to check with you before it uses \u201c%s\u201d." % plain
     else:
-        headline = ("Let Moe make a change?" if mine else "Let Moe make a change in %s?" % where)
-        lead = ("\u201c%s\u201d changes things rather than just looking, so Moe is "
+        headline = ("Let Alfie make a change?" if mine else "Let Alfie make a change in %s?" % where)
+        lead = ("\u201c%s\u201d changes things rather than just looking, so Alfie is "
                 "checking with you first." % plain)
     body = lead
     if target:
         body += "\n\nIt works on: %s" % target
-    detail = ("Tool: %s\nFrom: %s\nWhy Moe asks: %s\n\nWhat Moe is passing to it:\n%s" % (
+    detail = ("Tool: %s\nFrom: %s\nWhy Alfie asks: %s\n\nWhat Alfie is passing to it:\n%s" % (
         act_name, where, why, readable(args) if args else "(nothing)"))
     detail = detail.replace("\x1e", " ").strip()
     sys.stdout.write("ACT\n%s\n%s\n%s\n%s\n%s%s" % (
@@ -2628,7 +2628,7 @@ def _write_pending(session, mutate):
 
 def _refresh_grant(key):
     """Push a grant's clock forward: "this session" ends an hour after the
-    LAST thing Moe did, not an hour after the click. Best effort — a lost
+    LAST thing Alfie did, not an hour after the click. Best effort — a lost
     refresh means one extra dialog, never an extra send."""
     try:
         d = _grant_state()
@@ -2692,7 +2692,7 @@ def _session_send_allowed(session):
     """Has this computer-use session already been authorised to send?
 
     One dialog per session, which is what the owner asked for after being
-    asked once per message while Moe held a conversation in a chat window:
+    asked once per message while Alfie held a conversation in a chat window:
     "For a computer use session there should be one pop-up that will allow for
     that session."
 
@@ -2765,12 +2765,12 @@ def _draft_path():
 
 
 def _remember_typed(where, text):
-    """Keep the last thing Moe typed, so the Return dialog can quote it.
+    """Keep the last thing Alfie typed, so the Return dialog can quote it.
 
     The gate sees `type` and `key` as two unrelated calls, and only the second
     one asks the person anything. So on 2026-09-06 the owner was shown "Press
     return in Google Chrome. This is what sends in mail, messages and chat
-    windows." — a description of a keystroke — twenty-four seconds after Moe
+    windows." — a description of a keystroke — twenty-four seconds after Alfie
     had typed the actual sentence into a chat box. He was being asked to
     approve a send whose content was on screen but not in the dialog.
 
@@ -2796,7 +2796,7 @@ _DRAFT_TTL = 180.0
 
 
 def _recent_typed(where):
-    """The text Moe last typed here, if it was recent enough to be this send."""
+    """The text Alfie last typed here, if it was recent enough to be this send."""
     try:
         with open(_draft_path(), encoding="utf-8") as fh:
             d = json.load(fh)
@@ -2821,7 +2821,7 @@ def _app_for_pid(pid):
     """The app name behind a pid, for the dialog's TO line.
 
     "TO: the frontmost window" is not a recipient anybody can judge, and it
-    is what the owner was shown on 2026-09-06 when Moe asked to press return
+    is what the owner was shown on 2026-09-06 when Alfie asked to press return
     in a chat box: the question was "may I send this", and the answer needed
     to know where. `computer_use` calls carry `pid` and `window_id` far more
     often than they carry `app` — the model gets the pid from a capture and
@@ -2932,7 +2932,7 @@ def _class_grant_allowed(sess, cls):
 
     "all" — the dialog's "Allow everything this session" — answers for every
     class, and its clock is pushed forward on each use: the session ends an
-    hour after Moe's last action, not an hour after the click.
+    hour after Alfie's last action, not an hour after the click.
     """
     if not sess or _offer_send_pending():
         return False
@@ -3303,7 +3303,7 @@ _NAV_CALL = re.compile(
 def _acting_domain(corpus, recent, hits):
     """The site being ACTED ON, which is not the first link in sight.
 
-    On 2026-09-16 the dialog said "www.producthunt.com" over a reply Moe was
+    On 2026-09-16 the dialog said "www.producthunt.com" over a reply Alfie was
     posting on x.com, because the first URL in the script was the Product
     Hunt link inside the reply's own text. In order: the page the call opens;
     a URL on a site that matches the class that fired (a send on x.com is on
@@ -3407,7 +3407,7 @@ def gate_browser(bare, args, session_id):
         _arm_class_grant(session_id, cls)
         emit_session(
             "browser " + cls, domain,
-            "%s\n\nIf you say yes, Moe can %s again in this "
+            "%s\n\nIf you say yes, Alfie can %s again in this "
             "conversation for the next hour without asking." % (why_ask, verb),
             raw=bare, tool_name=_brand_of(domain), detail=detail, headline=headline)
     sys.stdout.write("PASS\n")
@@ -3486,7 +3486,7 @@ def gate_computer_use(args, mode):
                            "fronting the window.")
             sys.stdout.write(
                 "REFUSE\n-\ncomputer_use\n-\n-\n"
-                "Not done: " + why + ", and Moe is set to stay in the "
+                "Not done: " + why + ", and Alfie is set to stay in the "
                 "background on this Mac. " + instead + " If it genuinely "
                 "cannot be done that way, say what you could not reach and "
                 "why; the user can allow taking over in Settings. Do not "
@@ -3544,7 +3544,7 @@ def gate_computer_use(args, mode):
                 # multi-line; that is the person's own text and it stays as
                 # they typed it.
                 lead + "Pressing %s in %s sends this. Approving also lets "
-                "Moe send in this computer-use session without asking "
+                "Alfie send in this computer-use session without asking "
                 "again, for up to an hour." % (keys, where),
                 raw="computer_use")
     is_quit = (non_mods == ["q"] and any(k in ("cmd", "command", "meta", "super") for k in combo)) or (
@@ -3575,7 +3575,7 @@ def gate_computer_use(args, mode):
             # A malformed path is not a safe path: fail closed rather than
             # reasoning about a shape the tool has not validated yet.
             emit("computer_use invoke_menu", where,
-                 "Invoke a menu item with a path Moe could not read:\n\n"
+                 "Invoke a menu item with a path Alfie could not read:\n\n"
                  + json.dumps(args, ensure_ascii=False, indent=1))
             trail = ""
         else:
@@ -3651,7 +3651,7 @@ def gate_applescript_screen(cmd):
         sys.stdout.write(
             "REFUSE\n-\nterminal\n-\n-\n"
             "Not done: this brings an app to the front (an AppleScript "
-            "`activate`, `set frontmost` or `open -a`), and Moe is set to stay "
+            "`activate`, `set frontmost` or `open -a`), and Alfie is set to stay "
             "in the background on this Mac. That is the same takeover as "
             "bring_to_front and it gets the same answer whichever tool asks. "
             "Do it without fronting the window, or say what you cannot reach. "
@@ -3681,7 +3681,7 @@ if bare == "computer_use":
         steps = args.get("steps")
         if not isinstance(steps, list):
             emit("computer_use steps", "the frontmost window",
-                 "Run a batch of actions Moe could not read:\n\n"
+                 "Run a batch of actions Alfie could not read:\n\n"
                  + json.dumps(args, ensure_ascii=False, indent=1))
             sys.stdout.write("PASS\n")
             sys.exit(0)
@@ -4401,17 +4401,17 @@ if [ -x /usr/bin/osascript ] || [ "${MOE_HOOK_TEST:-}" = "1" ]; then
 fi
 if [ "$UNATTENDED_ROUTE" = hold ]; then
   if HELD="$(hold_for_owner "$UNATTENDED_WHY")" && [ -n "$HELD" ]; then
-    ASKED="Moe asked the owner for their OK in their inbox on the Mac"
+    ASKED="Alfie asked the owner for their OK in their inbox on the Mac"
     [ "$HELD" = already ] && ASKED="the owner has already been asked for their OK in their inbox on the Mac"
   else
-    ASKED="Moe could not put the question in the owner's inbox either"
+    ASKED="Alfie could not put the question in the owner's inbox either"
   fi
   log held "$TOOL_NAME" "$TO"
   case "$KIND" in
     send) DID="the $CHANNEL message to $TO was not sent" ;;
     *)    DID="nothing was typed, pressed or sent on ${TO:-the page}" ;;
   esac
-  block "Not done — this needs the owner's OK, and $DID. It came from $UNATTENDED_WHY while the owner is away from the Mac, so Moe's send gate held it instead of waiting on a confirmation card; $ASKED. This was the gate, not the site: the step never ran, so do not conclude the page ignored it, and do not retry it or try another way (another click method, page script or tool) in this run. Report that it is waiting on the owner's OK."
+  block "Not done — this needs the owner's OK, and $DID. It came from $UNATTENDED_WHY while the owner is away from the Mac, so Alfie's send gate held it instead of waiting on a confirmation card; $ASKED. This was the gate, not the site: the step never ran, so do not conclude the page ignored it, and do not retry it or try another way (another click method, page script or tool) in this run. Report that it is waiting on the owner's OK."
 fi
 # Background work with the owner at the Mac: the card, saying who asked, and
 # giving up inside this hook's budget so the answer is "nobody answered".
@@ -4635,7 +4635,7 @@ PY
     exit 0
   fi
   log block "$TOOL_NAME" "$TO"
-  block "Not sent: you rewrote the message in the confirmation dialog, but Moe could not put the new words into this call. Tell the user what they typed was not sent, and offer to send it again with that wording."
+  block "Not sent: you rewrote the message in the confirmation dialog, but Alfie could not put the new words into this call. Tell the user what they typed was not sent, and offer to send it again with that wording."
 fi
 if [ "$ANSWER" -eq 4 ] && [ "$KIND" = "act" ]; then
   if remember_allowed "$TOOL"; then
@@ -4655,7 +4655,7 @@ if [ "$ANSWER" -eq 7 ]; then
     send) DID="the $CHANNEL message to $TO was not sent" ;;
     *)    DID="nothing was typed, pressed or sent on ${TO:-the page}" ;;
   esac
-  block "Not done — nobody answered Moe's confirmation card on the Mac in time, so $DID. This was the send gate waiting for the owner's OK, not the site: the step never ran. Tell the user it is waiting on their OK, and do not retry it or try another way unless they ask."
+  block "Not done — nobody answered Alfie's confirmation card on the Mac in time, so $DID. This was the send gate waiting for the owner's OK, not the site: the step never ran. Tell the user it is waiting on their OK, and do not retry it or try another way unless they ask."
 fi
 if [ -n "$NOT_SENT_WHY" ]; then
   # A surface that was not a dialog refused, and said why. Its words, not

@@ -206,7 +206,7 @@ struct NudgeHandleWiringTests {
         #expect(body.contains("submit(trimmed, origin: .typed, starter: .person)"),
                 "The reply is no longer a turn of the person's own.")
         #expect(body.contains("guard !awaitingReply"),
-                "A reply typed while Moe is busy would drop the card with the dropped turn.")
+                "A reply typed while Alfie is busy would drop the card with the dropped turn.")
         // And `submit` actually reads it — a staged note nobody merges is
         // the exact shape of the bug this test file exists for.
         #expect(conductor.contains("if let replying = nudgeReplyNote {"),
@@ -269,21 +269,21 @@ struct NudgeHandleWiringTests {
         let end = try #require(rest.range(of: "\n    }"))
         let body = String(rest[..<end.lowerBound])
         #expect(body.contains("moe_followups"),
-                "A follow-up Moe raised is changed with the moe_followups tool.")
+                "A follow-up Alfie raised is changed with the moe_followups tool.")
         #expect(body.contains("cronjob tool"),
                 "A reminder the person asked for is a Hermes cron.")
         #expect(body.contains("no handle on this one"),
-                "With nothing to act on, Moe has to say so rather than pretend.")
+                "With nothing to act on, Alfie has to say so rather than pretend.")
         // And the one the review caught: `moe-proactive` IS a cron job with
         // a job id, and it says plenty that opens no loop. Pointing "don't
         // tell me about that any more" at `cronjob remove` on that id
         // deletes the whole proactive pass because one sentence out of it
         // was unwelcome.
         #expect(body.contains("!isMoeJob"),
-                "Moe's own background jobs must not be offered to the cronjob tool.")
+                "Alfie's own background jobs must not be offered to the cronjob tool.")
         #expect(body.contains("Do not touch any cron job"),
                 "There is no wording steering the model away from the engine's own job.")
         #expect(source.contains("hasPrefix(\"moe-\")"),
-                "The moe- rule that tells Moe's own jobs from the person's reminders is gone.")
+                "The moe- rule that tells Alfie's own jobs from the person's reminders is gone.")
     }
 }

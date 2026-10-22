@@ -232,12 +232,12 @@ struct KeychainAllowlistGuardTests {
         #expect(KeychainScan.flagged(in: text, fileExtension: "sh").isEmpty)
     }
 
-    @Test("every allowlist entry is narrow: a moe- service, or pinned to Moe's account")
+    @Test("every allowlist entry is narrow: a moe- service, or pinned to Alfie's account")
     func entriesAreNarrow() {
         for entry in MacEraseKeychain.allowlist + MacEraseKeychain.devAllowlist {
             #expect(!entry.service.isEmpty)
             #expect(entry.service.hasPrefix("moe-") || entry.account != nil,
-                    "\(entry.service) is not Moe's by name, so it must name Moe's account")
+                    "\(entry.service) is not Alfie's by name, so it must name Alfie's account")
             #expect(MacEraseKeychain.notOurs[entry.service] == nil, "\(entry.service) is on both lists")
         }
         for never in ["Claude Code-credentials", "https://sparkle-project.org"] {

@@ -158,7 +158,7 @@ final class PushToTalk {
                                          askAgain: () -> Void) {
         guard let id = tccResetTarget(bundleID: bundleID) else {
             Log.write("accessibility: not resetting — \(bundleID ?? "no bundle id") "
-                      + "is not Memoe or Memoe Dev")
+                      + "is not Alfie or Alfie Dev")
             return
         }
         if let status = tccutil(["reset", "Accessibility", id]) {

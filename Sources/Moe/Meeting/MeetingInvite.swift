@@ -111,9 +111,9 @@ enum MeetingInvite {
         switch access {
         case .granted: return nil
         case .notDetermined:
-            return "Moe can put people's names in your notes by reading who was invited."
+            return "Alfie can put people's names in your notes by reading who was invited."
         case .denied:
-            return "Moe could put people's names in your notes, but it is not allowed to read your calendar."
+            return "Alfie could put people's names in your notes, but it is not allowed to read your calendar."
         }
     }
 }

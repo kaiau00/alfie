@@ -34,7 +34,7 @@ struct MeetingConsentCopyTests {
     @Test("the small print offers the line instead of leaving the person to it")
     func smallPrintMatchesTheButton() {
         let words = MeetingConsentSheet.smallPrint
-        #expect(words.contains("Moe can't tell the other people on this call"))
+        #expect(words.contains("Alfie can't tell the other people on this call"))
         #expect(words.contains("copy a line below"))
         #expect(!words.contains("please do that yourself"))
         #expect(MeetingConsentSheet.copyTitle == "Copy a line to tell them")

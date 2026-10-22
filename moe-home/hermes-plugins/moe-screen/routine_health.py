@@ -1,11 +1,11 @@
-"""A routine the person asked for that keeps failing is said, in Moe's words.
+"""A routine the person asked for that keeps failing is said, in Alfie's words.
 
 Hermes reports a failing cron job two ways, and neither reaches a person as
 something they can act on:
 
 * a run that errors is delivered as a notice — ``⚠️ Cron 'name' failed: …``
   (cron/scheduler.py ``_summarize_cron_failure_for_delivery``) — which
-  ``deliver.is_machinery`` drops from the island, rightly for Moe's own jobs;
+  ``deliver.is_machinery`` drops from the island, rightly for Alfie's own jobs;
 * a run that ends *blocked* delivers the model's own reply, and from the
   third in a row Hermes appends "This job has failed N runs in a row — worth
   a review. Fix its prompt/config, or pause it with `hermes cron pause …`",
@@ -15,9 +15,9 @@ The owner's "X daily growth" routine was blocked nine days running
 (2026-09-16 → 09-24) and nobody was told: the drop above, and a
 ``deliver: local`` that sent the rest to a file. The delivery is repaired
 elsewhere; this is the telling. For a job the **person** made (it carries an
-origin; Moe's own jobs never do) a failure becomes one plain sentence at the
+origin; Alfie's own jobs never do) a failure becomes one plain sentence at the
 second failure in a row, again at the seventh, and then fortnightly — a
-routine that fails every day is worth hearing about, not every day. Moe's
+routine that fails every day is worth hearing about, not every day. Alfie's
 own jobs are unchanged: dropped and logged, as before.
 
 **Since 2026-10-07 the telling is not done at delivery time.** Two holes in
@@ -59,7 +59,7 @@ EVERY_AFTER = 14
 def is_persons_job(job):
     """True for a routine somebody asked for in a conversation.
 
-    The scheduler stamps ``origin`` on a job created from a session; Moe's
+    The scheduler stamps ``origin`` on a job created from a session; Alfie's
     own jobs are registered by configure-hermes.py with none."""
     if not isinstance(job, dict):
         return False
@@ -94,7 +94,7 @@ def _name(job):
 
 
 def telling(job, streak):
-    """Moe's sentence about a routine that keeps failing."""
+    """Alfie's sentence about a routine that keeps failing."""
     return ("Your routine “%s” hasn’t worked the last %d times in a row. "
             "Want me to look into why?" % (_name(job), streak))
 
@@ -119,7 +119,7 @@ def for_reply(job, text):
     """A blocked run's reply as the person should read it.
 
     The model's own explanation stays; Hermes's streak line goes, and at a
-    telling streak Moe's sentence takes its place."""
+    telling streak Alfie's sentence takes its place."""
     had_nudge = isinstance(text, str) and bool(_STREAK_NUDGE.search(text))
     out = strip_streak_nudge(text)
     if had_nudge and is_persons_job(job):

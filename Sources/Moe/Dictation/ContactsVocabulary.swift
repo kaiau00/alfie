@@ -118,7 +118,7 @@ enum ContactsVocabulary {
 
     private static func write(_ terms: [String]) {
         let header = """
-        # Names from Contacts, refreshed by Moe about once a day. Don't edit —
+        # Names from Contacts, refreshed by Alfie about once a day. Don't edit —
         # put your own spellings in vocabulary.txt, which wins over this file.
 
         """

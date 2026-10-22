@@ -622,7 +622,7 @@ def parse_cursor(raw: str) -> Optional[Dict[str, Any]]:
 
 def owner_ids(slug: str) -> List[str]:
     """Who "me" is on this service: the connected account's own identity,
-    as Moe's Composio helper already names it (`account_identity`)."""
+    as Alfie's Composio helper already names it (`account_identity`)."""
     script = os.path.join(moe_home(), "connectors", "composio.py")
     try:
         import importlib.util

@@ -480,24 +480,24 @@ g = lambda k: str(p.get(k) or "").strip()
 if state == "named":
     line = "WHO: you named this person: \u201c%s\u201d" % g("quote") if g("quote") else "WHO: you named this person"
 elif state == "partial":
-    line = "WHO: \u26a0\ufe0f you said \u201c%s\u201d \u2014 Moe picked %s" % (g("said"), g("recipient"))
+    line = "WHO: \u26a0\ufe0f you said \u201c%s\u201d \u2014 Alfie picked %s" % (g("said"), g("recipient"))
 elif state == "found":
-    line = "WHO: \u26a0\ufe0f Moe chose this person \u2014 found in %s" % (g("source") or "a lookup")
+    line = "WHO: \u26a0\ufe0f Alfie chose this person \u2014 found in %s" % (g("source") or "a lookup")
 elif state == "shown":
-    line = "WHO: \u26a0\ufe0f Moe found this address on %s and showed it to you" % (g("source") or "a page")
+    line = "WHO: \u26a0\ufe0f Alfie found this address on %s and showed it to you" % (g("source") or "a page")
     if g("said"):
         line += " \u2014 you said \u201c%s\u201d" % g("said")
 elif state == "owner":
     line = "WHO: this is you \u2014 you asked for it"
 elif state == "legacy":
-    line = "WHO: \u26a0\ufe0f this job was made before Moe checked recipients"
+    line = "WHO: \u26a0\ufe0f this job was made before Alfie checked recipients"
 else:
     line = ""
 if line and p.get("mismatch") and g("requested"):
     line += "  \u26a0\ufe0f You asked for \u201c%s\u201d, not this person." % g("requested")
 if line and p.get("query_unasked"):
-    line += ("  \u26a0\ufe0f Moe searched for \u201c%s\u201d on its own." % g("query") if g("query")
-             else "  \u26a0\ufe0f Moe picked them from a list it pulled up on its own.")
+    line += ("  \u26a0\ufe0f Alfie searched for \u201c%s\u201d on its own." % g("query") if g("query")
+             else "  \u26a0\ufe0f Alfie picked them from a list it pulled up on its own.")
 sys.stdout.write(line)' 2>/dev/null | strip_steering)"
 fi
 
@@ -529,17 +529,17 @@ on run argv
   --
   -- No apostrophes or backticks in this block: bash 3.2 scans a quoted
   -- heredoc for quotes when it sits inside a command substitution, and one
-  -- "Moe" + "s" cost an hour.
+  -- "Alfie" + "s" cost an hour.
   if kindName is "act" then
-    set prompt to "Let Moe run this " & channelName & " tool?" & return & return & ¬
+    set prompt to "Let Alfie run this " & channelName & " tool?" & return & return & ¬
         "TARGET: " & recipient & return & return & bodyText
-    set dialogTitle to "Moe wants to do something"
+    set dialogTitle to "Alfie wants to do something"
     set yesButton to "Do it"
   else
     set prompt to "Send this " & channelName & " message?" & return & return & ¬
         "TO (checked): " & recipient & return & return & ¬
         "MESSAGE (as written, not checked):" & return & bodyText
-    set dialogTitle to "Moe wants to send a message"
+    set dialogTitle to "Alfie wants to send a message"
     set yesButton to "Send"
   end if
   try

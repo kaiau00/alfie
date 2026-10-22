@@ -9,7 +9,7 @@ reports the `gap` row.
 
 This file replaces `google-send-patterns.md`, which described sends through
 the Hermes google-workspace skill. That OAuth path is retired (CONNECTORS.md
-§Google: the decision); sending is now Moe's own SMTP connector.
+§Google: the decision); sending is now Alfie's own SMTP connector.
 
 ## Two gates, not one
 
@@ -21,7 +21,7 @@ sent unless a human clicks Send. Three properties make this the load-bearing
 gate:
 
 - It is **not** a field in the request. The model writes the JSON on stdin,
-  and text Moe reads in your mail can talk a model into writing anything —
+  and text Alfie reads in your mail can talk a model into writing anything —
   `"confirmed": true` included. An unknown key is an error, so a request
   carrying one is refused rather than honoured.
 - The path to `confirm.sh` is derived from `gmail.py`'s own location
@@ -56,7 +56,7 @@ show. Its dialog can only say `(see command)`.
 
 ## The change (TODO for the hermes/ owner)
 
-**Narrow the Gmail row so it stops matching Moe's own connector**, which
+**Narrow the Gmail row so it stops matching Alfie's own connector**, which
 confirms itself with the real recipients:
 
 ```python
@@ -114,7 +114,7 @@ not own, so it is written down rather than made.
 ## What the connector will not do
 
 - No `bcc`. A recipient the human approving the dialog cannot see is not a
-  recipient Moe adds. Unknown keys are refused rather than dropped, so a
+  recipient Alfie adds. Unknown keys are refused rather than dropped, so a
   request that asks for one gets an error.
 - No display names in `to`/`cc`. Bare addresses only: what the dialog shows
   must be exactly what the envelope gets, and `Ada <ada@example.com>` is a
@@ -156,7 +156,7 @@ for the card, an expiry. The connector is handed only a nonce and the address
 of a socket into that process, redeems the ticket there once, and refuses
 without one. A connector's send run from a shell or from code is refused by
 the send hook outright ("use the gmail_send tool"), readable or not — which
-also stops the rest of a compound command riding along. The Memoe app's
+also stops the rest of a compound command riding along. The Alfie app's
 offers go by `whatsapp.sh send-offer`, the chat and words on stdin from the
 app's memory, accepted only when the connector's parent process is the signed
 app.

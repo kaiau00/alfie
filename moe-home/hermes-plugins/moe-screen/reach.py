@@ -3,7 +3,7 @@ person it works for — and it can reach nobody else.
 
 **The incident.** The owner said "message me on Telegram". The brain's brief
 listed only the personal-account Telegram reader as "not connected"; the
-Memoe bot the cloud holds for him was invisible to it, and it had no tool that
+Alfie bot the cloud holds for him was invisible to it, and it had no tool that
 could message *him*. So it made a cron job told to WhatsApp him, and the job
 messaged a contact. A contact-send tool takes an address, and an address is
 exactly what can be wrong.
@@ -17,7 +17,7 @@ channels are connected"):
   it lately) → the island, and his phone stays quiet — unless HIS OWN WORDS
   this turn named a channel (the model's `channel` argument alone is not
   enough: `deliver.person_asked_for`);
-* **away** → Memoe's cloud sends it to *his own* chat — the one the EDGE
+* **away** → Alfie's cloud sends it to *his own* chat — the one the EDGE
   recorded (the bot's creator, or a code he sent from the app), never one
   this Mac names — on whichever chat app is live, picked (`POST /v1/owner/notify`; the recipient is fixed
   at the edge), then the chat apps he ticked on this Mac;
@@ -59,7 +59,7 @@ TOOL_SCHEMA = {
         "(\"message me on Telegram\", \"text me when it's done\"). It works out "
         "where they are right now: at the Mac it shows on the island; away, it "
         "goes to their own chat on whichever chat app is connected through "
-        "Memoe, then to the ones they ticked on this Mac; if nothing is "
+        "Alfie, then to the ones they ticked on this Mac; if nothing is "
         "reachable it waits in their inbox. It never takes an address and can "
         "never reach anyone else. Never use a contact-sending tool (WhatsApp, "
         "Telegram, email, SMS…) to reach them. The result says which channel "

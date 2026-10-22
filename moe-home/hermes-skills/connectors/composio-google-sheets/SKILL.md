@@ -2,7 +2,7 @@
 name: composio-google-sheets
 description: "Read before any GOOGLESHEETS_* call through Composio. Omitting `ranges` on BATCH_GET does not mean 'a sample' — it reads the whole first sheet. Which of the four read tools answers which question, what the render options actually change, and the input that is really an output."
 version: 1.0.0
-author: Moe
+author: Alfie
 license: MIT
 metadata:
   hermes:

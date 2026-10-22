@@ -60,7 +60,7 @@ enum LearnStepCopy {
     /// The Memory page's sheet.
     static let sheetSave = "Save"
     static let sheetNotNow = "Not now"
-    static let memoryButton = "Choose what Moe may read"
+    static let memoryButton = "Choose what Alfie may read"
     static let problem = "Couldn't record that. Nothing changed."
 
     // The question asked when something is connected (docs/DEFAULTS.md
@@ -69,19 +69,19 @@ enum LearnStepCopy {
     /// through Connections is not kept ready on a clock (each read of a
     /// dedicated server is a sign-in), so "ready" is not promised here.
     static func askTitle(_ label: String, count: Int = 1) -> String {
-        "Let Moe learn from \(label) and watch \(count == 1 ? "it" : "them") for things you'd want help with?"
+        "Let Alfie learn from \(label) and watch \(count == 1 ? "it" : "them") for things you'd want help with?"
     }
     static func askBody(_ reads: String, count: Int = 1) -> String {
-        "Moe reads \(reads). It learns what matters to you from \(count == 1 ? "it" : "them"), and tells you when something there needs you, with the work ready. Nothing is ever sent unless you say so."
+        "Alfie reads \(reads). It learns what matters to you from \(count == 1 ? "it" : "them"), and tells you when something there needs you, with the work ready. Nothing is ever sent unless you say so."
     }
     /// The launch question about several sources at once: a short title,
     /// and every source named in the body, where it has room — in the title
     /// the list was cut to "Calendar, P…" (owner, 2026-09-29).
     static func askTitleMany(_ count: Int) -> String {
-        "Let Moe learn from these \(count) and watch them for things you'd want help with?"
+        "Let Alfie learn from these \(count) and watch them for things you'd want help with?"
     }
     static func askBodyMany(_ listed: String) -> String {
-        "\(listed). Moe reads what is in them, learns what matters to you, and tells you when something there needs you, with the work ready. Nothing is ever sent unless you say so."
+        "\(listed). Alfie reads what is in them, learns what matters to you, and tells you when something there needs you, with the work ready. Nothing is ever sent unless you say so."
     }
     static let askDetail = "What it learns stays on this Mac, in plain writing you can read and change in the Memory tab. Not now asks again in a week. Change it any time in Settings › Running in the background."
     static let askYes = "Yes"

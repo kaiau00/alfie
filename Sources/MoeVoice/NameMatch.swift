@@ -8,12 +8,12 @@ public enum NameMatch {
 
     /// The name anywhere, as the recogniser writes it. Whole tokens only:
     /// "chemo", "Alamo", "more", "moment" are not the name.
-    static let anywhere: Set<String> = ["moe", "mo", "moe's", "moes", "mo's"]
+    static let anywhere: Set<String> = ["alfie", "alfy", "alfee", "alfi", "alphie", "alfie's", "alfies"]
     /// Words that are the name only at the start of what was said (or after
     /// a greeting): "Moon, stop" is the name; "the moon", "mow the lawn" are not.
-    static let atTheStart: Set<String> = ["moon", "mow", "mau", "moo"]
+    static let atTheStart: Set<String> = ["alfa", "alpha", "elfie", "elfy"]
     /// "Hey Moe" run together, as the recogniser writes it.
-    static let glued: Set<String> = ["hemo", "heymo", "heymoe", "hamo", "amo"]
+    static let glued: Set<String> = ["heyalfie", "healfie", "hayalfie", "heyalfy"]
     static let greetings: Set<String> = ["hey", "hi", "hay", "ok", "okay", "oh"]
 
     /// A token that is the name wherever it stands.

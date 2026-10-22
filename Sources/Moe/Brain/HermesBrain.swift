@@ -151,10 +151,10 @@ final class HermesBrain: NSObject, BrainProvider, URLSessionDataDelegate {
     /// One line for the window's Hermes row. Read from the main thread; the
     /// supervisor's `standing` is a short sync hop onto its queue.
     var gatewayStatus: String {
-        guard let supervisor else { return "Running — Moe found it already going and is using it." }
+        guard let supervisor else { return "Running — Alfie found it already going and is using it." }
         switch supervisor.standing {
-        case .owned:            return "Running. Moe starts it and stops it with the app."
-        case .adopted:          return "Running — it was already going when Moe started, so Moe is using it."
+        case .owned:            return "Running. Alfie starts it and stops it with the app."
+        case .adopted:          return "Running — it was already going when Alfie started, so Alfie is using it."
         case .failed(let why):  return "Not running. \(why)"
         }
     }
@@ -190,14 +190,14 @@ final class HermesBrain: NSObject, BrainProvider, URLSessionDataDelegate {
     /// `done(false)` (`HermesUpgradeGate`). Without a supervisor there is no
     /// gateway of Moe's at all, so `false`. Runs `done` on the supervisor's queue.
     func whenOwnGatewayUp(_ done: @escaping (Bool, String) -> Void) {
-        guard let supervisor else { done(false, "this gateway was not started by Moe"); return }
+        guard let supervisor else { done(false, "this gateway was not started by Alfie"); return }
         // `whenOwnedReady`, not `whenReady` + `standing`: the callback runs on
         // the supervisor's queue, and `standing` would `queue.sync` on that
         // same queue — a libdispatch trap, reached on the first launch that
         // ever decided to move Hermes. The supervisor answers `owned` from
         // its own state instead.
         supervisor.whenOwnedReady { owned, why in
-            let quitting = why.hasPrefix("Moe is shutting down")
+            let quitting = why.hasPrefix("Alfie is shutting down")
             done(HermesUpgradeGate.mayRun(ready: owned, owned: owned, shuttingDown: quitting), why)
         }
     }
@@ -505,8 +505,8 @@ final class HermesBrain: NSObject, BrainProvider, URLSessionDataDelegate {
 
     /// Said when the cloud has the ask — on the chat, which is where the
     /// cloud answers (docs/AWAY-HANDOFF.md §3), not here.
-    static let cloudHasItNote = "Your Mac was asleep long enough that Moe carried on in the cloud. "
-        + "The answer lands on the chat you last spoke to Moe from."
+    static let cloudHasItNote = "Your Mac was asleep long enough that Alfie carried on in the cloud. "
+        + "The answer lands on the chat you last spoke to Alfie from."
 
     /// The turn in flight is over; the session is not. Cancelling the
     /// request closes its stream, and the gateway ends the turn on the
@@ -598,7 +598,7 @@ final class HermesBrain: NSObject, BrainProvider, URLSessionDataDelegate {
                             logAs: String? = nil, starter: TurnStarter,
                             onDelivered: (() -> Void)? = nil) {
         guard running, !shuttingDown else {
-            emit(.error("Moe isn't connected."))
+            emit(.error("Alfie isn't connected."))
             return
         }
         // One turn at a time on a session. The CLI brains get this for free
@@ -723,7 +723,7 @@ final class HermesBrain: NSObject, BrainProvider, URLSessionDataDelegate {
                           self.sessionID == session else { return }
                     self.pendingResume = nil
                     if mayResume {
-                        self.emit(.status("Picking up where Moe left off"))
+                        self.emit(.status("Picking up where Alfie left off"))
                         self.pending.insert(again, at: 0)
                         self.pumpLocked()
                     } else {
@@ -1036,30 +1036,30 @@ final class HermesBrain: NSObject, BrainProvider, URLSessionDataDelegate {
     private func describe(_ error: Error) -> String {
         let e = error as NSError
         guard e.domain == NSURLErrorDomain else {
-            return "Moe can't reach the part of itself that thinks. Try again in a moment."
+            return "Alfie can't reach the part of itself that thinks. Try again in a moment."
         }
         switch URLError.Code(rawValue: e.code) {
         case .cannotConnectToHost, .cannotFindHost, .networkConnectionLost, .notConnectedToInternet:
             guard let supervisor else {
-                return "The part of Moe that thinks isn't running. Quit Memoe and open it again."
+                return "The part of Alfie that thinks isn't running. Quit Alfie and open it again."
             }
             // Tell the supervisor: an adopted gateway that has gone away is
             // replaced sooner if it doesn't wait for its own next check.
             supervisor.noteUnreachable()
             switch supervisor.standing {
             case .owned:
-                return "Moe is starting the part of itself that thinks. Ask me again in a moment."
+                return "Alfie is starting the part of itself that thinks. Ask me again in a moment."
             case .adopted:
-                return "The part of Moe that thinks stopped answering. Moe is starting a fresh one — ask me again in a moment."
+                return "The part of Alfie that thinks stopped answering. Alfie is starting a fresh one — ask me again in a moment."
             case .failed(let why):
-                return "Moe stopped thinking and couldn't start again. \(why) Try New Conversation."
+                return "Alfie stopped thinking and couldn't start again. \(why) Try New Conversation."
             }
         case .timedOut:
-            return "Moe is taking too long to answer. Try again."
+            return "Alfie is taking too long to answer. Try again."
         case .cancelled:
             return "Stopped."
         default:
-            return "Moe lost its train of thought. Try again."
+            return "Alfie lost its train of thought. Try again."
         }
     }
 
@@ -1070,13 +1070,13 @@ final class HermesBrain: NSObject, BrainProvider, URLSessionDataDelegate {
         case 401:
             // A mismatch between Moe's own two halves; nobody can fix it by
             // reading two file paths, and a reinstall does fix it.
-            return "Moe couldn't unlock its own thinking. Quit Memoe and open it again; if it keeps happening, reinstall Memoe."
+            return "Alfie couldn't unlock its own thinking. Quit Alfie and open it again; if it keeps happening, reinstall Alfie."
         case 403:
-            return message ?? "Moe wouldn't do that."
+            return message ?? "Alfie wouldn't do that."
         case 503:
-            return message ?? "Moe is busy right now — ask me again in a moment."
+            return message ?? "Alfie is busy right now — ask me again in a moment."
         default:
-            return message ?? "Something went wrong while Moe was thinking. Try again."
+            return message ?? "Something went wrong while Alfie was thinking. Try again."
         }
     }
 

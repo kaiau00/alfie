@@ -175,7 +175,10 @@ struct Config: Codable {
 
     /// Always-on listening: no hotkey, just say the wake phrase.
     var wakeWordEnabled: Bool = false
-    var wakePhrases: [String] = ["hey moe", "hey mo", "heymo", "hey mow"]
+    var wakePhrases: [String] = ["hey alfie", "hey alfy", "hey alfee", "hey alphie"]
+    /// The defaults before this fork was renamed. A config that still holds
+    /// exactly these was never customised, so it moves to the new name.
+    static let legacyWakePhrases = ["hey moe", "hey mo", "heymo", "hey mow"]
     /// After a reply, keep listening for a while: you can just talk, no
     /// name and no key. VOICE-PLAN.md §2.1.
     ///
@@ -628,7 +631,7 @@ struct Config: Codable {
         let rawBrain     = try c.decodeIfPresent(String.self,   forKey: .brain)
         brain            = rawBrain.flatMap(BrainKind.init(rawValue:))                 ?? d.brain
         if let raw = rawBrain, BrainKind(rawValue: raw) == nil {
-            Log.write("config.json: brain \"\(raw)\" is no longer a Moe brain (providers live in "
+            Log.write("config.json: brain \"\(raw)\" is no longer an Alfie brain (providers live in "
                       + "~/.hermes/config.yaml now); using \(d.brain.rawValue)")
         }
         hermesPort       = try c.decodeIfPresent(Int.self,      forKey: .hermesPort)       ?? d.hermesPort
@@ -677,7 +680,7 @@ struct Config: Codable {
         echoCancellation = try c.decodeIfPresent(Bool.self,     forKey: .echoCancellation) ?? d.echoCancellation
         wakeWordEnabled  = try c.decodeIfPresent(Bool.self,     forKey: .wakeWordEnabled)  ?? d.wakeWordEnabled
         wakePhrases      = try c.decodeIfPresent([String].self, forKey: .wakePhrases)      ?? d.wakePhrases
-        if wakePhrases.isEmpty { wakePhrases = d.wakePhrases }
+        if wakePhrases.isEmpty || wakePhrases == Config.legacyWakePhrases { wakePhrases = d.wakePhrases }
         conversationMode = try c.decodeIfPresent(Bool.self, forKey: .conversationMode)
             ?? Config.conversationModeBeforeDefaultOn
         holdOpensConversation = try c.decodeIfPresent(Bool.self, forKey: .holdOpensConversation) ?? d.holdOpensConversation
@@ -740,7 +743,7 @@ struct Config: Codable {
         brainProvider    = rawProvider.flatMap(BrainProviderKind.init(rawValue:))     ?? d.brainProvider
         let unknownProvider = rawProvider != nil && BrainProviderKind(rawValue: rawProvider!) == nil
         if let raw = rawProvider, unknownProvider {
-            Log.write("config.json: brainProvider \"\(raw)\" is not a provider Moe offers; "
+            Log.write("config.json: brainProvider \"\(raw)\" is not a provider Alfie offers; "
                       + "using \(d.brainProvider.rawValue) on \(d.brainProvider.defaultModel)")
         }
         // The model has to fall back with the provider, not survive it.
@@ -1146,14 +1149,14 @@ enum Paths {
                 for child in try fm.contentsOfDirectory(atPath: src.path) {
                     let s = src.appendingPathComponent(child), d = dst.appendingPathComponent(child)
                     if fm.fileExists(atPath: d.path) {
-                        throw NSError(domain: "Moe.Home", code: 1, userInfo: [
+                        throw NSError(domain: "Alfie.Home", code: 1, userInfo: [
                             NSLocalizedDescriptionKey: "\(name)/\(child) exists in both homes"])
                     }
                     try fm.moveItem(at: s, to: d)
                 }
                 try fm.removeItem(at: src)
             } else {
-                throw NSError(domain: "Moe.Home", code: 1, userInfo: [
+                throw NSError(domain: "Alfie.Home", code: 1, userInfo: [
                     NSLocalizedDescriptionKey: "\(name) exists in both homes"])
             }
         }

@@ -56,10 +56,10 @@ def test_the_tick_applies_the_engines_documents_and_nothing_else(hermes_home, le
     (moe_home / "proactive").mkdir()
     (moe_home / "proactive" / "situations.json").write_text(
         json.dumps({"sit_mac": {"title": "mac", "updated_at": "2026-09-29T08:00:00Z"}}), encoding="utf-8")
-    (moe_home / "AGENTS.md").write_text("You are Moe.", encoding="utf-8")
+    (moe_home / "AGENTS.md").write_text("You are Alfie.", encoding="utf-8")
     # `who` as a session left it: applied, in the state file — so only the
     # name filter, not the keep-local rule, can keep the tick off it.
-    documents.State(hermes_home / claimstore.DOCUMENTS_STATE).set("who", documents.sha256_hex("You are Moe."))
+    documents.State(hermes_home / claimstore.DOCUMENTS_STATE).set("who", documents.sha256_hex("You are Alfie."))
     later = time.time() + 1
     machine = ClaimStore(ledger_dir, device="hermes-MACHINE01", state_dir=hermes_home / "m", key=memory_key)
     now_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
@@ -73,7 +73,7 @@ def test_the_tick_applies_the_engines_documents_and_nothing_else(hermes_home, le
     assert out["applied"] == ["proactive/situations"]
     merged = json.loads((moe_home / "proactive" / "situations.json").read_text(encoding="utf-8"))
     assert "sit_cloud" in merged, "the machine's situation arrived"
-    assert (moe_home / "AGENTS.md").read_text(encoding="utf-8") == "You are Moe.", \
+    assert (moe_home / "AGENTS.md").read_text(encoding="utf-8") == "You are Alfie.", \
         "a job applies the engine's documents only; the rest waits for the provider"
 
 

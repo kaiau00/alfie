@@ -8,7 +8,7 @@ question and neither half has a `--json` anywhere in the CLI.
     history.py search --query TEXT [--limit 40]   (sessions on stdin)
 
 **Activity** is `~/.moe/logs/activity.jsonl` — one line per turn that
-happened somewhere other than Moe's own channel — plus Hermes's cron run
+happened somewhere other than Alfie's own channel — plus Hermes's cron run
 ledger and its failure incidents, out of `cron/executions.db`.
 
 **Search** is Hermes's FTS5 index over every message it has ever stored,
@@ -42,7 +42,7 @@ ran once that day reads as the single event it was.
 messages on this Mac across 763 sessions: cron prompts, subagent turns,
 CLI sessions, and the conversations a person deleted — Hermes keeps its
 copy of a deleted thread on purpose (`CLOUD-PLAN` §9). Only 117 of the
-657 api_server sessions are Moe app threads at all. So this does not
+657 api_server sessions are Alfie app threads at all. So this does not
 search and let the caller sort: the caller sends the sessions the ledger
 vouches for, on stdin, one per line, and nothing else is ever read. A
 `search` with no sessions is refused rather than run wide — that way the
@@ -104,7 +104,7 @@ UPKEEP_PREFIX = "moe-watch-"
 
 
 def is_upkeep(name):
-    """Is this one of Moe's own jobs? Case-insensitively, per the note above."""
+    """Is this one of Alfie's own jobs? Case-insensitively, per the note above."""
     folded = (name or "").strip().casefold()
     return bool(folded in UPKEEP or folded.startswith(UPKEEP_PREFIX))
 
@@ -235,7 +235,7 @@ def chars(value):
 
 
 def elsewhere(since):
-    """Turns that happened somewhere other than Moe's own channel.
+    """Turns that happened somewhere other than Alfie's own channel.
 
     The file is the `moe-activity` gateway hook's, capped at 5,000 lines
     and trimmed from the front, so this reads it whole. A line that will
@@ -398,7 +398,7 @@ def log_tail(lines):
       it lands in `agent.log` — and `Loaded hook '<name>'` is a bare
       `print()` that reaches no file at all. A health check built on the
       first of those cried wolf on a healthy machine.
-    * It is NOT this account's whole life. Moe Away runs on a Fly volume
+    * It is NOT this account's whole life. Alfie Away runs on a Fly volume
       and its logs stay there; nothing on this Mac can read them.
     * It is NOT redacted. Measured 2026-09-04: `agent.log` carries 223
       lines with `msg='…'` in them and `gateway.log` ten, which is the
@@ -409,7 +409,7 @@ def log_tail(lines):
     note = ("Hermes's own log for this Mac. It is not a complete record — some "
             "of what Hermes does is written to other files, and some is printed "
             "where nothing keeps it — and it is not filtered, so it can contain "
-            "the text of turns. Moe Away keeps its logs on its own machine; "
+            "the text of turns. Alfie Away keeps its logs on its own machine; "
             "none of them are here.")
     if not os.path.isfile(path):
         return {"path": path, "lines": [], "missing": True, "note": note}
@@ -457,7 +457,7 @@ def fts_query(text):
     Everything a person types is a phrase, quoted: `NEAR`, `AND`, `OR`,
     `*`, `-` and `"` all mean something to FTS5, and an unbalanced one of
     them raises `fts5: syntax error` rather than finding nothing — which
-    would reach the pane as "Moe could not search" for the crime of typing
+    would reach the pane as "Alfie could not search" for the crime of typing
     an apostrophe. Tokens are ANDed, which is what a person means by
     typing two words.
 
@@ -475,7 +475,7 @@ def do_search(query, sessions, limit):
         # subagent turns and the threads they deleted — Hermes keeps its
         # copy of those on purpose. Refusing is the only answer that
         # cannot leak one.
-        return answer("search", {"error": "Moe had nothing to search in.",
+        return answer("search", {"error": "Alfie had nothing to search in.",
                                  "query": query})
     match = fts_query(query)
     if not match:
@@ -484,7 +484,7 @@ def do_search(query, sessions, limit):
     c = read_only(os.path.join(hermes_home(), "state.db"))
     if c is None:
         return answer("search", {
-            "error": "Moe couldn't open the index of what has been said.",
+            "error": "Alfie couldn't open the index of what has been said.",
             "query": query})
     capped = len(sessions) > MAX_SESSIONS
     allowed = sessions[:MAX_SESSIONS]

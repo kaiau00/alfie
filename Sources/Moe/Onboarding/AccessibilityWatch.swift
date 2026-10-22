@@ -70,7 +70,7 @@ final class AccessibilityWatch: ObservableObject {
     /// naming the key as configured (`Config.talkKey`).
     func problem(for key: TalkKey) -> String {
         staleSuspected
-            ? "\(key.label) can't start me yet. If Memoe is already switched on in Accessibility, macOS is holding on to an older copy — Fix clears it, then switch Memoe on again."
+            ? "\(key.label) can't start me yet. If Alfie is already switched on in Accessibility, macOS is holding on to an older copy — Fix clears it, then switch Alfie on again."
             : "\(key.label) can't start me until you allow Accessibility. The keyboard shortcut works meanwhile."
     }
 }

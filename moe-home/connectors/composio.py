@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Composio's toolkits as Moe connections, one row per service.
+"""Composio's toolkits as Alfie connections, one row per service.
 
 Composio brokers ~500 services behind ONE Hermes MCP server. That is the
 right shape for the engine — five meta tools reach the model instead of five
@@ -9,7 +9,7 @@ hundred — and the wrong shape for a person, who does not want to connect
 So this splits the one server into one row per service, and the rows are
 DISCOVERED, never listed here: what is connected comes from Composio's
 connected_accounts, what could be connected comes from its toolkit catalogue.
-Hard-coding a set of services is how Moe ends up showing a fifth of what it
+Hard-coding a set of services is how Alfie ends up showing a fifth of what it
 can actually reach, which is the mistake this whole surface exists to undo.
 
   composio.py list [--json]        one row per service, connected first
@@ -249,7 +249,7 @@ def enrolled_tenant():
     tier, and the clock rule in §3.1 — background Composio work is paid —
     needs a signal this function does not carry. `credential.json` has a
     `"sync"` field that separates an Away enrolment from a connections-only
-    one, and `Moe --cloud-json` reads it; that is a stopgap, and the real
+    one, and `Alfie --cloud-json` reads it; that is a stopgap, and the real
     answer is a tier on the tenant record.
 
     This function is still right for what it is used for here: pinning the
@@ -1288,7 +1288,7 @@ def cmd_list(argv):
         try:
             sweep_pending_prunes()
         except Exception as exc:
-            print("composio: retrying Moe's cleanup at Composio did not run (%s)"
+            print("composio: retrying Alfie's cleanup at Composio did not run (%s)"
                   % type(exc).__name__, file=sys.stderr)
     if api_key() and time.monotonic() - started < SWEEP_SKIP_AFTER_S:
         try:
@@ -1621,13 +1621,13 @@ def sync_session_auth_configs():
     """Point this Mac's session at the auth config each pasted-key account
     lives on. Returns the slugs it had to add or change ([] when current).
 
-    A pasted key is an account on an auth config of Moe's (`moe-<slug>`,
+    A pasted key is an account on an auth config of Alfie's (`moe-<slug>`,
     connect_with_key). A tool router session only reads Composio's own
     config for a service unless told otherwise, so until 2026-09-30 every
     pasted key was saved, listed as connected, and refused by every tool
     call: "No active connection found for toolkit(s) 'cloudflare' in this
     session". Measured that day: the owner's Cloudflare key, LIST_ZONES
-    refused; the same session given `auth_configs: {cloudflare: <Moe's>}`
+    refused; the same session given `auth_configs: {cloudflare: <Alfie's>}`
     by PATCH — which Composio keeps, multi-account intact — listed his zones.
     Run after every key connect and on every list, so a session made before
     this fix, or on another Mac, is repaired by the next refresh.
@@ -1672,7 +1672,7 @@ def cmd_sync_session(argv):
         print("no Composio key on this Mac", file=sys.stderr)
         return 3
     changed = sync_session_auth_configs()
-    print("session now uses Moe's config for: %s" % ", ".join(changed) if changed
+    print("session now uses Alfie's config for: %s" % ", ".join(changed) if changed
           else "session already current")
     return 0
 
@@ -2412,7 +2412,7 @@ def _ledger_edit():
 
 
 def _write_ledger(blob):
-    blob["README"] = ("The auth configs this Mac made at Composio. Moe deletes one only "
+    blob["README"] = ("The auth configs this Mac made at Composio. Alfie deletes one only "
                       "when it is listed here, once no connected account uses it.")
     _atomic_write_json(_ledger_path(), blob)
 
@@ -2427,7 +2427,7 @@ def _ledger_add(ac_id, slug, in_flight=False):
 
 def _ledger_in_flight(ac_id, on):
     """Mark (or clear) a recorded config as one a key connect is using. One
-    that is not recorded is not Moe's to prune, so it needs no mark."""
+    that is not recorded is not Alfie's to prune, so it needs no mark."""
     with _ledger_edit() as blob:
         entry = blob["configs"].get(str(ac_id))
         if isinstance(entry, dict):
@@ -2491,12 +2491,12 @@ def _retry_words(slug):
     retry = _read_ledger()["retry"]
     entry = _retry_entry(retry.get(slug))
     if slug in retry and entry["misses"] >= PRUNE_MAX_MISSES:
-        return ("Composio refused %d times in a row (%s), so Moe has stopped retrying on its own — "
+        return ("Composio refused %d times in a row (%s), so Alfie has stopped retrying on its own — "
                 "press Disconnect on it in Connections to try again"
                 % (entry["misses"], entry["why"] or "no reason recorded"))
     if slug in retry and OUT_OF_TIME in entry["why"]:
-        return "%s, so Moe will try again" % OUT_OF_TIME
-    return "Moe will try again"
+        return "%s, so Alfie will try again" % OUT_OF_TIME
+    return "Alfie will try again"
 
 
 def _list_all(path):
@@ -2530,7 +2530,7 @@ def _moe_auth_configs(slug, mine):
     are still named `moe-<slug>`, for `slug`, and not Composio-managed; (None,
     why, status) when the list could not be read to its end (see _list_all).
     Disabled configs are asked for too (`show_disabled`), or a disabled one
-    of Moe's would read as gone and be dropped from the ledger with its
+    of Alfie's would read as gone and be dropped from the ledger with its
     values still at Composio."""
     items, why, status = _list_all("/api/v3/auth_configs?toolkit_slug=%s&show_disabled=true&limit=50"
                                    % urllib.parse.quote(slug, safe=""))
@@ -2554,7 +2554,7 @@ def _moe_auth_configs(slug, mine):
 def _auth_config_uses(slug):
     """({auth_config_id: accounts using it}, "", 200) across the WHOLE project
     — not just this Mac's user, because an auth config is project-wide and
-    another person's account can hang off one Moe made. Every page is read;
+    another person's account can hang off one Alfie made. Every page is read;
     (None, why, status) when the answer is incomplete (see _list_all), which
     callers must treat as "everything is in use"."""
     items, why, status = _list_all("/api/v3/connected_accounts?toolkit_slugs=%s&limit=100"
@@ -2580,7 +2580,7 @@ def prune_auth_configs(slug, keep=(), just_deleted=(), attempt_at=0):
     Why. Every key connect for a service that takes a value when its auth
     config is made (a client secret, a per-person token) mints a config
     holding that value — and Disconnect used to remove only the accounts, so
-    the value stayed at Composio, under Moe's name, after the person had been
+    the value stayed at Composio, under Alfie's name, after the person had been
     told it was forgotten.
 
     Which. Only a config whose id is in this Mac's ledger (AUTH_CONFIG_LEDGER,
@@ -2590,7 +2590,7 @@ def prune_auth_configs(slug, keep=(), just_deleted=(), attempt_at=0):
     the dashboard. Composio's auth config does carry `created_by`, "the
     identifier of the user who created the auth config" (AC_LIST_DOC) — but
     that is the project member behind the API key, the same for a config
-    Moe made and one a person made with that key, so it cannot tell them
+    Alfie made and one a person made with that key, so it cannot tell them
     apart either.
 
     When. `DELETE /api/v3/auth_configs/<id>` (AC_DELETE_DOC, read 2026-09-14)
@@ -2882,9 +2882,9 @@ def cmd_disconnect(argv):
 #: legacy scoped key is write-only on accounts (docs/COMPOSIO.md, "scoped
 #: key"), so no "try again" will ever work, and nothing in the app hands the
 #: Mac a different key.
-KEY_CANNOT_MANAGE = ("Moe's key for Composio on this Mac isn't allowed to manage your accounts there "
+KEY_CANNOT_MANAGE = ("Alfie's key for Composio on this Mac isn't allowed to manage your accounts there "
                      "(HTTP %s), so nothing was disconnected — remove %s at composio.dev under "
-                     "Connected accounts, or tell Moe this is broken so it can be fixed")
+                     "Connected accounts, or tell Alfie this is broken so it can be fixed")
 
 
 def _disconnect_refused_list(slug, argv, status):
@@ -2906,7 +2906,7 @@ def _disconnect_refused_list(slug, argv, status):
         if st in (200, 204):
             _, ac_failed, incomplete = prune_auth_configs(slug, just_deleted=[ca_id])
             if ac_failed or (incomplete and _ledger_ids(slug)):
-                print("disconnected %s (1 account), but could not remove %s of Moe's settings for %s at "
+                print("disconnected %s (1 account), but could not remove %s of Alfie's settings for %s at "
                       "Composio yet (%s)" % (slug, ac_failed or "some", slug, _retry_words(slug)),
                       file=sys.stderr)
                 return 1
@@ -2955,12 +2955,12 @@ def _disconnect(slug, argv):
         # not stop at "not connected".
         deleted, ac_failed, incomplete = prune_auth_configs(slug)
         if ac_failed or (incomplete and _ledger_ids(slug)):
-            print("%s is not connected, but %s of Moe's settings for it are still at Composio and "
+            print("%s is not connected, but %s of Alfie's settings for it are still at Composio and "
                   "could not be removed yet — %s" % (
                       slug, ac_failed or "some", _retry_words(slug)), file=sys.stderr)
             return 1
         if deleted:
-            print("%s is not connected — removed %d leftover setting%s of Moe's for it at Composio"
+            print("%s is not connected — removed %d leftover setting%s of Alfie's for it at Composio"
                   % (slug, deleted, "" if deleted == 1 else "s"))
             return 0
         print("%s is not connected" % slug)
@@ -2985,7 +2985,7 @@ def _disconnect(slug, argv):
     if failed:
         problems.append("could not remove %d account%s" % (failed, "" if failed == 1 else "s"))
     if ac_failed or (incomplete and len(wanted) == len(accts) and _ledger_ids(slug)):
-        problems.append("could not remove %s of Moe's settings for %s at Composio yet "
+        problems.append("could not remove %s of Alfie's settings for %s at Composio yet "
                         "(%s)" % (ac_failed or "some", slug, _retry_words(slug)))
     if problems:
         print("disconnected %d, but %s" % (gone, "; and ".join(problems)), file=sys.stderr)

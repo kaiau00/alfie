@@ -477,7 +477,7 @@ import Testing
     @Test("A refusal from the job is shown as it came, not wrapped in a guess")
     func failureKeepsTheJobsSentence() {
         let note = AwayBrainCopy.followFailed("Your away machine is set up with a "
-                                              + "different account, so Moe hasn't changed it.")
+                                              + "different account, so Alfie hasn't changed it.")
         #expect(note.sentence.hasPrefix("Your away machine is set up"))
         #expect(note.needsYou)
         // And an empty stream still says something, rather than an empty line.
@@ -533,7 +533,7 @@ import Testing
     @Test("A real sentence is never mistaken for a prefix")
     func sentencesSurvive() {
         let kept = [
-            "Your away machine is set up with a different account, so Moe hasn't changed it.",
+            "Your away machine is set up with a different account, so Alfie hasn't changed it.",
             "Give it one of these: a key, a sign-in, or an address.",
             "Open https://example.com/v1: that is the address it will use.",
             "Sign in with codex login on this Mac first.",

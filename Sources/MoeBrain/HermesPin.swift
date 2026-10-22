@@ -335,7 +335,7 @@ public enum HermesCheckout {
         // parents are cut off at the boundary — so nothing below could be
         // decided honestly.
         if f.shallow {
-            reasons.append("it is a shallow clone (.git/shallow), which Moe's own installer never makes")
+            reasons.append("it is a shallow clone (.git/shallow), which Alfie's own installer never makes")
         }
 
         // 8. not diverged
@@ -431,27 +431,27 @@ public enum HermesUpgradeDecision: Equatable {
     public var line: String {
         switch self {
         case .noInstaller:
-            return "hermes upgrade: Moe cannot find its own install-hermes.sh, so it does not know "
+            return "hermes upgrade: Alfie cannot find its own install-hermes.sh, so it does not know "
                  + "which Hermes this build ships; nothing is moved"
         case .noPin(let installer):
-            return "hermes upgrade: \(installer) has no HERMES_COMMIT line of the shape Moe reads "
+            return "hermes upgrade: \(installer) has no HERMES_COMMIT line of the shape Alfie reads "
                  + "(HermesPin.linePattern) — the pin is unknown, so nothing is moved. That is a bug "
                  + "in one of the two, and scripts/test-hermes-upgrade.sh should be red"
         case .followingTip(let installer):
             return "hermes upgrade: \(installer) follows the branch tip (HERMES_COMMIT is empty) — "
                  + "a development mode with no pin to move to; nothing is moved"
         case .noGit(let dir):
-            return "hermes upgrade: no git on this Mac that Moe can run without a dialog; "
+            return "hermes upgrade: no git on this Mac that Alfie can run without a dialog; "
                  + "\(dir) is left alone"
         case .absent(let dir):
             return "hermes upgrade: no Hermes at \(dir); nothing to move (onboarding installs it)"
         case .notACheckout(let dir, let seed):
             let origin = seed.map { "laid down from the seed inside Memoe.app at \(HermesPin.short($0))" }
                 ?? "with no seed stamp either, so its commit is unknown"
-            return "hermes upgrade: \(dir) is not a git checkout (\(origin)); Moe cannot "
+            return "hermes upgrade: \(dir) is not a git checkout (\(origin)); Alfie cannot "
                  + "fast-forward it and leaves it alone"
         case .seedRefresh(let dir, let from, let to):
-            return "hermes upgrade: \(dir) is a seed at \(HermesPin.short(from)) and this Moe pins "
+            return "hermes upgrade: \(dir) is a seed at \(HermesPin.short(from)) and this Alfie pins "
                  + "\(HermesPin.short(to)); refreshing the source that commit covers, leaving .venv alone"
         case .upToDate(let head):
             return "hermes upgrade: Hermes is at the pinned \(HermesPin.short(head)); nothing to do"
@@ -477,16 +477,16 @@ public enum HermesUpgradeDecision: Equatable {
                  + ". Somebody works in it, so it is theirs to move (\(byHand))"
         case .ahead(let dir, let head, let pin):
             return "hermes upgrade: \(dir) is at \(HermesPin.short(head)), ahead of the pinned "
-                 + "\(HermesPin.short(pin)); Moe never moves a checkout back, so it is left where it is"
+                 + "\(HermesPin.short(pin)); Alfie never moves a checkout back, so it is left where it is"
         case .workbench(let dir, let head, let pin):
-            return "hermes upgrade: this is Moe Dev, which never moves \(dir) (at "
-                 + "\(HermesPin.short(head)); this build pins \(HermesPin.short(pin))) — the real Moe owns it"
+            return "hermes upgrade: this is Alfie Dev, which never moves \(dir) (at "
+                 + "\(HermesPin.short(head)); this build pins \(HermesPin.short(pin))) — the real Alfie owns it"
         case .triedAlready(let dir, let head, let pin, let when):
             return "hermes upgrade: moving \(dir) from \(HermesPin.short(head)) to \(HermesPin.short(pin)) "
                  + "failed at \(when) and neither has changed since; not retrying for a day "
                  + "(details in hermes-upgrades.log; delete hermes-upgrade.tried beside it to retry now)"
         case .upgrade(let dir, let from, let to):
-            return "hermes upgrade: \(dir) is at \(HermesPin.short(from)) and this Moe pins "
+            return "hermes upgrade: \(dir) is at \(HermesPin.short(from)) and this Alfie pins "
                  + "\(HermesPin.short(to)); moving it"
         }
     }

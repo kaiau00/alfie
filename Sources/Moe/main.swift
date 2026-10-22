@@ -242,7 +242,7 @@ if args.count > 2, args[1] == "--hermes-upgrade-check" || args[1] == "--hermes-u
 
 if args.count > 1, args[1] == "--install-hermes-seed" {
     guard args.count > 2 else {
-        FileHandle.standardError.write(Data("usage: Moe --install-hermes-seed <dir>\n".utf8))
+        FileHandle.standardError.write(Data("usage: Alfie --install-hermes-seed <dir>\n".utf8))
         exit(2)
     }
     let dir = URL(fileURLWithPath: (args[2] as NSString).expandingTildeInPath, isDirectory: true)
@@ -268,7 +268,7 @@ if args.count > 1, args[1] == "--launchable" {
 // the job that had parked itself on the owner's Mac.
 if args.count > 1, args[1] == "--jobs-ailment" {
     guard args.count > 2 else {
-        FileHandle.standardError.write(Data("usage: Moe --jobs-ailment <file> [0|1]\n".utf8))
+        FileHandle.standardError.write(Data("usage: Alfie --jobs-ailment <file> [0|1]\n".utf8))
         exit(2)
     }
     let text = (try? String(contentsOfFile: args[2], encoding: .utf8)) ?? ""
@@ -695,7 +695,7 @@ if args.count > 1, args[1] == "--wake-record" {
                      : NSString(string: "~/.moe/voice/recordings").expandingTildeInPath)
 
     guard await VoiceEngine.requestMicrophone() else {
-        print("Moe cannot reach the microphone. Grant it in System Settings › Privacy & Security › Microphone.")
+        print("Alfie cannot reach the microphone. Grant it in System Settings › Privacy & Security › Microphone.")
         exit(2)
     }
 
@@ -727,7 +727,7 @@ if args.count > 1, args[1] == "--wake-record" {
     let script = WakeRecorder.script()
     let counts = Dictionary(grouping: script, by: { $0.folder }).mapValues { $0.count }
     print("")
-    print("Moe — recording the wake word")
+    print("Alfie — recording the wake word")
     print(String(repeating: "─", count: 62))
     print("\(script.count) short clips: \(counts["positive"] ?? 0) with the name, "
           + "\(counts["confusable"] ?? 0) near misses, \(counts["negative"] ?? 0) ordinary speech.")
@@ -819,7 +819,7 @@ if args.count > 1, args[1] == "--wake-record" {
     print("      \(Bundle.main.bundlePath)/Contents/Resources/WakeWord \\")
     print("      \(outDir.path)")
     print("  Then retrain with them folded in: scripts/wakeword/README.md")
-    print("  Or, in the app: Settings › Voice › Teach Moe its name scores every clip in")
+    print("  Or, in the app: Settings › Voice › Teach Alfie its name scores every clip in")
     print("  this folder and picks the threshold for this Mac — no retrain needed.")
     Log.flush()
     exit(0)
@@ -961,7 +961,7 @@ if args.count > 1, args[1] == "--voice-test" {
     await engine.loadModels()
 
     print("\nSpeaking a test sentence — listen to the voice quality.\n")
-    engine.speak("Hi, this is Moe. This is what I sound like now, "
+    engine.speak("Hi, this is Alfie. This is what I sound like now, "
                      + "running entirely on your Mac.")
     try? await Task.sleep(nanoseconds: 6_000_000_000)
 
@@ -993,7 +993,7 @@ if args.count > 1, args[1] == "--voice-test" {
 if args.count > 1, args[1] == "--ask" {
     let question = args.dropFirst(2).joined(separator: " ")
     guard !question.isEmpty else {
-        FileHandle.standardError.write(Data("usage: Moe --ask \"your question\"\n".utf8))
+        FileHandle.standardError.write(Data("usage: Alfie --ask \"your question\"\n".utf8))
         exit(2)
     }
     FirstRun.installHomeIfNeeded()
@@ -1354,7 +1354,7 @@ Cloud.commandLine(args)
 if args.count > 1, args[1] == "--signin-test" {
     // `away` (the away machine's destination) is the closed half's, above.
     guard args.count == 2 else {
-        FileHandle.standardError.write(Data("usage: Moe --signin-test\n".utf8))
+        FileHandle.standardError.write(Data("usage: Alfie --signin-test\n".utf8))
         exit(2)
     }
     exit(ClaudeSignIn.runHeadless(destination: .thisMac))
@@ -1435,7 +1435,7 @@ if args.count > 2, args[1] == "--panel-snapshot" {
     exit(MainActor.assumeIsolated { PanelSnapshot.run(args[2], only: args.count > 3 ? args[3] : nil) })
 }
 if args.count > 1, args[1] == "--panel-snapshot" {
-    FileHandle.standardError.write(Data("usage: Moe --panel-snapshot <dir>\n".utf8))
+    FileHandle.standardError.write(Data("usage: Alfie --panel-snapshot <dir>\n".utf8))
     exit(2)
 }
 // `Moe --learn-step <ticked,...|-> yes|no`: what the first-run learn step
@@ -1462,7 +1462,7 @@ if args.count > 3, args[1] == "--learn-step" {
     exit(BackgroundLearning.record(writes) ? 0 : 1)
 }
 if args.count > 1, args[1] == "--learn-step" {
-    FileHandle.standardError.write(Data("usage: Moe --learn-step <ticked,...|-> yes|no\n".utf8))
+    FileHandle.standardError.write(Data("usage: Alfie --learn-step <ticked,...|-> yes|no\n".utf8))
     exit(2)
 }
 // `Moe --onboarding-snapshot <dir>`: every first-launch screen, posed in every
@@ -1471,7 +1471,7 @@ if args.count > 2, args[1] == "--onboarding-snapshot" {
     exit(MainActor.assumeIsolated { OnboardingSnapshot.run(args[2]) })
 }
 if args.count > 1, args[1] == "--onboarding-snapshot" {
-    FileHandle.standardError.write(Data("usage: Moe --onboarding-snapshot <dir>\n".utf8))
+    FileHandle.standardError.write(Data("usage: Alfie --onboarding-snapshot <dir>\n".utf8))
     exit(2)
 }
 // `Moe --settings-snapshot <dir> [name]`: every Settings pane, plus Memory and
@@ -1484,7 +1484,7 @@ if args.count > 2, args[1] == "--settings-snapshot" {
     exit(MainActor.assumeIsolated { SettingsSnapshot.run(args[2], only: only) })
 }
 if args.count > 1, args[1] == "--settings-snapshot" {
-    FileHandle.standardError.write(Data("usage: Moe --settings-snapshot <dir> [name]\n".utf8))
+    FileHandle.standardError.write(Data("usage: Alfie --settings-snapshot <dir> [name]\n".utf8))
     exit(2)
 }
 // `Moe --migrate-home <old> <new>`: the first-launch home migration on two

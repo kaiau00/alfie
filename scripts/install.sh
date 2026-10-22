@@ -22,6 +22,14 @@ DRY_RUN="${MOE_DRY_RUN:-0}"
 cd "$(dirname "$0")/.."
 REPO="$PWD"
 
+# Alfie: this installer is Memoe's own. It installs over /Applications/Memoe.app
+# under Memoe's bundle ids, which a fork must never do (AGENTS.md, TRADEMARK.md).
+if [ ! -f cloud/release.env ]; then
+  echo "✗ install.sh installs the official Memoe and is disabled in Alfie." >&2
+  echo "  Build with ./scripts/bootstrap.sh and drag dist/Alfie.app into Applications." >&2
+  exit 1
+fi
+
 # ── Which Moe this run is for ────────────────────────────────────────────
 #
 # MOE_DEV=1 builds and installs "Moe Dev": its own bundle identifier, its
@@ -57,17 +65,17 @@ if [ "$MOE_DEV" = 1 ]; then
   HOME_DIR="$HOME/Library/Application Support/Moe Dev"
   BUNDLE_ID="com.memoe.app.dev"
   APP="/Applications/Memoe Dev.app"
-  BUILT="dist/Memoe Dev.app"
-  WHICH="Memoe Dev"
+  BUILT="dist/Alfie Dev.app"
+  WHICH="Alfie Dev"
 else
   HOME_DIR="$HOME/.moe"
   BUNDLE_ID="com.memoe.app"
   APP="/Applications/Memoe.app"
-  BUILT="dist/Memoe.app"
-  WHICH="Memoe"
+  BUILT="dist/Alfie.app"
+  WHICH="Alfie"
 fi
 
-echo "Memoe setup"
+echo "Alfie setup"
 echo "───────────"
 
 # 1. The hard dependencies. Hermes is the brain; its child Claude Code is
@@ -180,14 +188,14 @@ else
   ask=y
   if [ "$INSTALL_CLAUDE" != yes ]; then
     echo
-    echo "  Moe needs Claude Code, Anthropic's command-line app — it's the part of Moe"
+    echo "  Alfie needs Claude Code, Anthropic's command-line app — it's the part of Alfie"
     echo "  that thinks. It's about a 200 MB download, it installs in your home folder,"
     echo "  and it never asks for your admin password."
     echo
     read -r -p "  Install it now? [Y/n] " ask || ask=y
   fi
   if [[ "${ask:-y}" =~ ^[Nn] ]]; then
-    echo "› Not installing it. Moe will install and run; it just won't be able to think yet."
+    echo "› Not installing it. Alfie will install and run; it just won't be able to think yet."
     by_hand
   elif install_claude; then
     CLAUDE_OK=1
@@ -206,7 +214,7 @@ if [ "$CLAUDE_OK" = 1 ] && ! command -v claude >/dev/null 2>&1; then
   # mouthful, and the point of the sentence is which folder, not where home is.
   dir="$(dirname "$CLAUDE_BIN")"
   case "$dir" in "$HOME"/*) dir="~${dir#"$HOME"}" ;; esac
-  echo "  It's at $dir/claude, and Moe looks there. Your own terminal may not find"
+  echo "  It's at $dir/claude, and Alfie looks there. Your own terminal may not find"
   echo "  it until you open a new window — if it still can't, add $dir to your PATH."
 fi
 
@@ -216,22 +224,22 @@ fi
 HERMES_OK=1
 if command -v hermes >/dev/null 2>&1 || [ -x "$HOME/.local/bin/hermes" ] \
    || [ -x "$HOME/.hermes/hermes-agent/.venv/bin/hermes" ]; then
-  echo "✓ Moe's core is already here"
+  echo "✓ Alfie's core is already here"
 elif [ "$DRY_RUN" = 1 ]; then
   # A dry run never downloads a gigabyte to prove a copy list is complete.
-  echo "› Moe's core isn't here yet — a real run would install it (skipped: MOE_DRY_RUN)"
+  echo "› Alfie's core isn't here yet — a real run would install it (skipped: MOE_DRY_RUN)"
 else
   # Said before the wait, not after it: this is the longest step in the whole
   # install by a wide margin, and a minute and a half of silence with no idea
   # what is happening is how someone decides it has hung and kills it.
   echo
-  echo "  Installing the rest of Moe's core now. It's a big download — about 1.3 GB,"
+  echo "  Installing the rest of Alfie's core now. It's a big download — about 1.3 GB,"
   echo "  and usually a minute or two. Nothing to do; it prints as it goes."
   echo
   if ! "$REPO/scripts/install-hermes.sh"; then
     HERMES_OK=0
     echo "✗ That didn't finish (the ✗ line above says why). Carrying on with the app —"
-    echo "  Moe will install and run, but it won't be able to answer until this works."
+    echo "  Alfie will install and run, but it won't be able to answer until this works."
   fi
 fi
 
@@ -306,7 +314,7 @@ for installed in "$HOME_DIR/connectors/"*.manifest; do
   for part in "$HOME_DIR/connectors/$base".* "$HOME_DIR/connectors/$base"-*; do
     [ -e "$part" ] && mv -f "$part" "$retired/" 2>/dev/null || true
   done
-  echo "✓ retired the $base connector (moved to connectors/retired — it is no longer in Moe)"
+  echo "✓ retired the $base connector (moved to connectors/retired — it is no longer in Alfie)"
 done
 
 put_files "$HOME_DIR/prompts"    "$REPO/moe-home/prompts/"*.md      2>/dev/null || true
@@ -419,7 +427,7 @@ for d in hermes-plugins hermes-jobs hermes-gateway-hooks hermes-skills; do
     find "$HOME_DIR/$d" -name '__pycache__' -type d -prune -exec rm -rf {} + 2>/dev/null || true
     find "$HOME_DIR/$d" -name '*.pyc' -delete 2>/dev/null || true
   else
-    echo "✗ moe-home/$d is missing from the checkout — whatever it carries (the learn-me profile plugin, the nightly crawl, the gateway hooks, Moe's own skills) will not be installed"
+    echo "✗ moe-home/$d is missing from the checkout — whatever it carries (the learn-me profile plugin, the nightly crawl, the gateway hooks, Alfie's own skills) will not be installed"
   fi
 done
 # learn/*.py is here so profile.py — what Settings › Memory runs to show,
@@ -453,7 +461,7 @@ else:
     tmp = path + ".moe-tmp"
     with open(tmp, "w") as f: json.dump(cfg, f, indent=2)
     os.replace(tmp, path)
-    print("✓ trusted ~/.moe so Moe's permission rules apply")
+    print("✓ trusted ~/.moe so Alfie's permission rules apply")
 PY
 
 # 3b. A signature that stays the same, so permissions stay granted.
@@ -499,7 +507,7 @@ PY
 SIGNING_CERT="${MOE_SIGNING_CERT:-auto}"
 STABLE_SIGNATURE=0
 if [ "$SIGNING_CERT" = no ]; then
-  echo "› Skipping Moe's signing certificate, as asked."
+  echo "› Skipping Alfie's signing certificate, as asked."
 elif [ "$SIGNING_CERT" != yes ] && [ "$DRY_RUN" = 1 ]; then
   # Under a dry run this must not so much as read the keychain:
   # scripts/test-fresh-install.sh proves a dry run never calls `security`.
@@ -510,14 +518,14 @@ elif DEVID_SHA="$("$REPO/scripts/sign-build.sh" --devid-sha1 2>/dev/null)"; then
   # every permission survive both a rebuild and a Sparkle update. Nothing to
   # make, and make-signing-cert.sh is not offered.
   STABLE_SIGNATURE=1
-  echo "✓ This Mac has Memoe's Developer ID; the build is signed with it (team ${MOE_DEVID_TEAM:-5Y8C3ZR5X6})"
+  echo "✓ This Mac has Alfie's Developer ID; the build is signed with it (team ${MOE_DEVID_TEAM:-5Y8C3ZR5X6})"
 elif security find-certificate -c "Moe Code Signing" >/dev/null 2>&1; then
   # Asked before the no-TTY check on purpose: looking is read-only and raises
   # no dialog, and a scripted install on a Mac that already has the
   # certificate must not report it as missing — that warns about permission
   # re-prompts that will not happen.
   STABLE_SIGNATURE=1
-  echo "✓ Moe already has its signing certificate on this Mac"
+  echo "✓ Alfie already has its signing certificate on this Mac"
 elif [ "$SIGNING_CERT" != yes ] && [ ! -t 0 ]; then
   # Making one may put a dialog on screen. Not something to trigger behind
   # the back of a scripted install with nobody watching.
@@ -527,7 +535,7 @@ else
   # asks about that. Said before it happens, because an unexplained security
   # dialog in the middle of an install is how someone decides to cancel.
   echo
-  echo "  Moe is about to make itself a certificate on this Mac. It's what lets the"
+  echo "  Alfie is about to make itself a certificate on this Mac. It's what lets the"
   echo "  permissions you grant stay granted, instead of macOS asking again after"
   echo "  every update. macOS will ask you to allow it — once, and only this once."
   echo
@@ -536,7 +544,7 @@ else
   else
     # Not fatal. An ad-hoc build works; it just gets re-asked. The closing
     # message says so, and only on the runs where it is true.
-    echo "✗ That didn't work, so Moe will sign itself a different way. Everything still"
+    echo "✗ That didn't work, so Alfie will sign itself a different way. Everything still"
     echo "  installs — macOS will just ask for the microphone and the rest again after"
     echo "  an update."
   fi
@@ -570,7 +578,7 @@ if git rev-parse --git-dir >/dev/null 2>&1 && [ "$DRY_RUN" = 0 ]; then
     if [ "${behind:-0}" -gt 20 ]; then
       echo
       echo "  ⚠ This branch is $behind commits behind main."
-      echo "    The Moe you are about to install is missing all of it."
+      echo "    The Alfie you are about to install is missing all of it."
       echo "    If you meant to test the current product:  git merge origin/main"
       echo
     elif [ "${behind:-0}" -gt 0 ]; then
@@ -579,7 +587,7 @@ if git rev-parse --git-dir >/dev/null 2>&1 && [ "$DRY_RUN" = 0 ]; then
   fi
 fi
 
-echo "› Building Moe. The first build takes about a minute…"
+echo "› Building Alfie. The first build takes about a minute…"
 # Not >/dev/null: what build.sh says about what it put in the bundle is
 # the only place a missing model shows up, and discarding it is how an
 # app shipped without the voice it was configured to speak in — twice.
@@ -601,7 +609,7 @@ echo "› Building Moe. The first build takes about a minute…"
 BUILD_LOG="${TMPDIR:-/tmp}/moe-install-build.$$.log"
 if ! ./build.sh > "$BUILD_LOG" 2>&1; then
   tail -20 "$BUILD_LOG" >&2
-  echo "✗ the build failed — nothing was installed, and the Moe you have is untouched." >&2
+  echo "✗ the build failed — nothing was installed, and the Alfie you have is untouched." >&2
   rm -f "$BUILD_LOG"
   exit 1
 fi
@@ -638,7 +646,7 @@ if [ -n "$INSTALLED_V" ] && [ -n "$NEW_V" ] \
    && [ "$INSTALLED_V" -gt "$NEW_V" ] 2>/dev/null \
    && [ "${MOE_ALLOW_DOWNGRADE:-}" != 1 ]; then
   echo "✗ /Applications/Memoe.app is build $INSTALLED_V; this checkout builds $NEW_V." >&2
-  echo "  Refusing to replace a newer Moe with an older one — somebody is using it." >&2
+  echo "  Refusing to replace a newer Alfie with an older one — somebody is using it." >&2
   echo "  Merge main here, or set MOE_ALLOW_DOWNGRADE=1 if you really mean it." >&2
   exit 1
 fi
@@ -690,19 +698,19 @@ authorise_replacement() {
     return 1
   fi
 
-  echo "› replacing the real Moe needs your permission — answer the dialog" >&2
+  echo "› replacing the real Alfie needs your permission — answer the dialog" >&2
   # `with administrator privileges` is the standard macOS authorisation
   # dialog: password, or Touch ID where it is set up. It is not `sudo` on
   # purpose — sudo caches a timestamp for five minutes, so a session that
   # happened to run one earlier would sail through this one.
-  if osascript -e "do shell script \"true\" with prompt \"Moe: $why\" with administrator privileges" >/dev/null 2>&1; then
+  if osascript -e "do shell script \"true\" with prompt \"Alfie: $why\" with administrator privileges" >/dev/null 2>&1; then
     mkdir -p "$HOME/.moe/logs"
     printf '%s  %s  AUTHORISED at the keyboard: %s  from %s\n' \
       "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$(id -un)" "$why" "$REPO" \
       >> "$HOME/.moe/logs/overrides.log"
     return 0
   fi
-  echo "✗ not authorised — the installed Moe was left alone." >&2
+  echo "✗ not authorised — the installed Alfie was left alone." >&2
   return 1
 }
 
@@ -715,7 +723,7 @@ NEW_COMMIT="$(git rev-parse --short HEAD 2>/dev/null || echo "")"
 # each refusal, so there is exactly one place where "backwards is allowed"
 # can become true and it is one a script cannot reach.
 if [ "${MOE_ALLOW_REPLACE:-}" = 1 ] && [ -n "$INSTALLED_COMMIT" ] && [ "$MOE_DEV" != 1 ]; then
-  authorise_replacement "replace the installed Moe ($INSTALLED_COMMIT) with $NEW_COMMIT" \
+  authorise_replacement "replace the installed Alfie ($INSTALLED_COMMIT) with $NEW_COMMIT" \
     || exit 1
 fi
 if [ "${MOE_ALLOW_REPLACE:-}" != 1 ] && [ -n "$INSTALLED_COMMIT" ]; then
@@ -732,7 +740,7 @@ if [ "${MOE_ALLOW_REPLACE:-}" != 1 ] && [ -n "$INSTALLED_COMMIT" ]; then
     echo "✗ /Applications/Memoe.app is stamped $INSTALLED_COMMIT, which is not a commit in this repository." >&2
     echo "  A stamp that resolves to nothing tells you less than no stamp at all: what is in that" >&2
     echo "  app cannot be known, so replacing it cannot be known to be safe." >&2
-    echo "  Set MOE_ALLOW_REPLACE=1 if you know what it is — for the real Moe" >&2
+    echo "  Set MOE_ALLOW_REPLACE=1 if you know what it is — for the real Alfie" >&2
     echo "  that also asks you to authenticate at this Mac." >&2
     echo "  Who installed what, and when: ~/.moe/logs/installs.log" >&2
     exit 1
@@ -748,7 +756,7 @@ if [ "${MOE_ALLOW_REPLACE:-}" != 1 ] && [ -n "$INSTALLED_COMMIT" ]; then
 elif [ "${MOE_ALLOW_REPLACE:-}" != 1 ] && [ -f "$APP/Contents/Info.plist" ]; then
   # No stamp at all: built before build.sh recorded one, so its contents
   # cannot be known. Say so rather than assume it is ours to replace.
-  echo "› note: the installed Moe carries no commit stamp, so what is in it cannot be checked"
+  echo "› note: the installed Alfie carries no commit stamp, so what is in it cannot be checked"
 fi
 
 # What is about to be installed, held to the same standard.
@@ -826,7 +834,7 @@ fi
 for part in Info.plist MacOS Frameworks _CodeSignature; do
   [ -e "$BUILT/Contents/$part" ] || {
     echo "✗ "$BUILT" has no Contents/$part — this is a partial build, not an app." >&2
-    echo "  macOS would refuse to open it. Nothing was installed; the Moe you have" >&2
+    echo "  macOS would refuse to open it. Nothing was installed; the Alfie you have" >&2
     echo "  is untouched. Run ./build.sh and read what it says." >&2
     exit 1
   }
@@ -876,7 +884,7 @@ SMOKE_OUT="$("$BUILT/Contents/MacOS/Moe" --build-info 2>&1 | head -1 || true)"
 if [ -z "$SMOKE_OUT" ]; then
   echo "✗ "$BUILT" is complete and signed, but running it printed nothing." >&2
   echo "  An app that cannot answer --build-info is one macOS may not be able to" >&2
-  echo "  open either. Nothing was installed; the Moe you have is untouched." >&2
+  echo "  open either. Nothing was installed; the Alfie you have is untouched." >&2
   exit 1
 fi
 case "$SMOKE_OUT" in
@@ -911,7 +919,7 @@ swap_in() {
   rm -rf "$SWAP_TO.incoming"
   if ! ditto "$SWAP_FROM" "$SWAP_TO.incoming"; then
     rm -rf "$SWAP_TO.incoming"
-    echo "✗ could not copy the new Moe into /Applications — the one you had is untouched." >&2
+    echo "✗ could not copy the new Alfie into /Applications — the one you had is untouched." >&2
     [ -w "$(dirname "$APP")" ] || echo "  (this account cannot write to $(dirname "$APP"), and $APP is not its own to replace)" >&2
     return 1
   fi
@@ -967,7 +975,7 @@ rm -rf "$SWAP_TO.previous"
 # a subshell with errexit off, and the line that says the install succeeded
 # is printed BEFORE the advice rather than after it -- the fact is not
 # contingent on the footnote.
-echo "✓ Memoe is installed in your Applications folder"
+echo "✓ Alfie is installed in your Applications folder"
 if [ "$MOE_DEV" != 1 ] && [ -x "$REPO/scripts/only-one-moe.sh" ]; then
   (
     set +e
@@ -975,7 +983,7 @@ if [ "$MOE_DEV" != 1 ] && [ -x "$REPO/scripts/only-one-moe.sh" ]; then
     swept="$("$REPO/scripts/only-one-moe.sh" --check 2>&1 \
              | sed -n 's/.*squatters *\([0-9][0-9]*\).*/\1/p' | head -1)"
     if [ -n "$swept" ] && [ "$swept" != 0 ]; then
-      echo "› note: $swept other bundle(s) are still registered as Memoe; ./scripts/only-one-moe.sh"
+      echo "› note: $swept other bundle(s) are still registered as Alfie; ./scripts/only-one-moe.sh"
     fi
   ) || true
 fi
@@ -1055,7 +1063,7 @@ for stale in com.moe.sync com.moe.digest com.moe.assistant; do
   rm -f "$AGENTS/$stale.plist"
 done
 
-AGENT_HUMAN="Moe will keep up with your calendar and messages every 10 minutes"
+AGENT_HUMAN="Alfie will keep up with your calendar and messages every 10 minutes"
 write_agent com.moe.jobs 600 "$APP/Contents/MacOS/Moe" --sync
 
 # 6. Start at login. A menu-bar assistant that is not running is one the
@@ -1065,12 +1073,12 @@ write_agent com.moe.jobs 600 "$APP/Contents/MacOS/Moe" --sync
 yn=y
 if [ -t 0 ]; then
   # `read` returns 1 at EOF and `set -e` would abort the whole install here.
-  read -r -p "Start Moe automatically at login? [Y/n] " yn || yn=y
+  read -r -p "Start Alfie automatically at login? [Y/n] " yn || yn=y
 fi
 if [[ ! "${yn:-y}" =~ ^[Nn] ]]; then
   # RunAtLoad only. `open` exits at once, so KeepAlive would re-run it every
   # few seconds — and each run is a "reopen" that drags the user to Moe's Space.
-  AGENT_HUMAN="Moe will start when you log in"
+  AGENT_HUMAN="Alfie will start when you log in"
   write_agent "$BUNDLE_ID" -1 /usr/bin/open -a "$APP"
 fi
 
@@ -1086,11 +1094,11 @@ done
 launchctl bootout "gui/$UID/com.moe.bot" >/dev/null 2>&1 || true
 rm -f "$AGENTS/com.moe.bot.plist" "$HOME_DIR/bot/telegram_bot.py" "$HOME_DIR/soul.sh"
 if [ -n "$stale" ]; then
-  echo "✓ tidied away what an older Moe left behind"
+  echo "✓ tidied away what an older Alfie left behind"
 fi
 
 echo
-echo "› Reading your calendar and reminders so Moe starts out knowing something…"
+echo "› Reading your calendar and reminders so Alfie starts out knowing something…"
 "$APP/Contents/MacOS/Moe" --sync >/dev/null 2>&1 || true
 
 open "$APP"
@@ -1112,9 +1120,9 @@ if [ "$HERMES_OK" = 1 ] && [ -x "$HOME_DIR/hermes/configure-hermes.py" ]; then
     echo "exit=$?"
   } >> "$HOME_DIR/logs/install.log" 2>&1 || true
   case "$(tail -n 1 "$HOME_DIR/logs/install.log" 2>/dev/null)" in
-    exit=0) HERMES_CONFIGURED=yes;    echo "✓ Moe's core is set up" ;;
-    exit=2) HERMES_CONFIGURED=signin; echo "✓ Moe's core finishes setting up once you sign in (it asks when it opens)" ;;
-    *)      HERMES_CONFIGURED=no;     echo "… Setting up Moe's core didn't finish — Moe tries again when it opens" ;;
+    exit=0) HERMES_CONFIGURED=yes;    echo "✓ Alfie's core is set up" ;;
+    exit=2) HERMES_CONFIGURED=signin; echo "✓ Alfie's core finishes setting up once you sign in (it asks when it opens)" ;;
+    *)      HERMES_CONFIGURED=no;     echo "… Setting up Alfie's core didn't finish — Alfie tries again when it opens" ;;
   esac
 fi
 
@@ -1126,11 +1134,11 @@ fi
 # (OnboardingWindow.holdKey).
 cat <<EOF
 
-  Moe is in your menu bar. Hold right ⌥ and talk; let go when you're done.
+  Alfie is in your menu bar. Hold right ⌥ and talk; let go when you're done.
   Settings → Connections to add Gmail, Slack, Telegram and more.
 
   macOS asks for the microphone, Notes and Calendar the first time — say yes.
-  (Messages and call history also need Full Disk Access for Moe.)
+  (Messages and call history also need Full Disk Access for Alfie.)
 
 EOF
 
@@ -1139,7 +1147,7 @@ EOF
 # nothing works and nobody knows why.
 if [ "$CLAUDE_OK" = 1 ]; then
 cat <<EOF
-  One thing is still yours to do: sign in to your Claude account. Moe asks the
+  One thing is still yours to do: sign in to your Claude account. Alfie asks the
   first time you need it and opens the page in your browser — there is nothing
   to find or paste in a terminal.
 
@@ -1162,7 +1170,7 @@ fi
 # every update is a new app to macOS.
 if [ "$STABLE_SIGNATURE" != 1 ]; then
 cat <<EOF
-  One more thing, and only on this Mac: Moe could not make itself a signing
+  One more thing, and only on this Mac: Alfie could not make itself a signing
   certificate, so macOS will ask for the microphone, Accessibility and the rest
   again after an update. Nothing is broken — say yes again. Running this
   installer again is what fixes it for good.
@@ -1172,7 +1180,7 @@ fi
 
 if [ "$CLAUDE_OK" != 1 ]; then
 cat <<EOF
-  ✗ Claude Code isn't installed, and Moe can't think without it. Install it and
+  ✗ Claude Code isn't installed, and Alfie can't think without it. Install it and
     run this installer again (safe to repeat):
         curl -fsSL $CLAUDE_INSTALLER_URL | bash
 
@@ -1181,7 +1189,7 @@ fi
 
 if [ "$HERMES_OK" != 1 ]; then
 cat <<EOF
-  ✗ Moe's core isn't installed, so Moe won't be able to answer. Fix what the ✗
+  ✗ Alfie's core isn't installed, so Alfie won't be able to answer. Fix what the ✗
     line above said, then run this installer again (safe to repeat).
 
 EOF

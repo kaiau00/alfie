@@ -61,7 +61,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 MOE_DEVID_TEAM="${MOE_DEVID_TEAM:-5Y8C3ZR5X6}"
 MOE_CERT_ROOT="${MOE_CERT_ROOT:-62682376eacbd0f8a0699d2ef02d7d4e882e6e45}"
-ENTITLEMENTS="${MOE_APP_ENTITLEMENTS:-$HERE/Moe.entitlements}"
+ENTITLEMENTS="${MOE_APP_ENTITLEMENTS:-$HERE/Alfie.entitlements}"
 IDENTITY="Moe Code Signing"
 
 # The SHA-1 of a *valid* "Developer ID Application: … (TEAM)" identity, or
@@ -97,10 +97,10 @@ if [ "${1:-}" = --check-team ]; then
   [ -n "$sha" ] || exit 0
   got="$(codesign -dv "$BUILT" 2>&1 | sed -n 's/^TeamIdentifier=//p' | head -1 || true)"
   if [ "$got" != "$MOE_DEVID_TEAM" ]; then
-    echo "✗ $BUILT is not signed with Memoe's Developer ID, and this Mac has it." >&2
+    echo "✗ $BUILT is not signed with Alfie's Developer ID, and this Mac has it." >&2
     echo "    expected TeamIdentifier=$MOE_DEVID_TEAM (identity $sha)" >&2
     echo "    the build has TeamIdentifier=${got:-not set}" >&2
-    echo "  Installed, it could not read the previous build's consent key, so Memoe" >&2
+    echo "  Installed, it could not read the previous build's consent key, so Alfie" >&2
     echo "  would ask you to sign in again, and again after every rebuild. Nothing was" >&2
     echo "  installed. Run ./build.sh from an unsandboxed shell and read its signing line." >&2
     exit 1
@@ -163,7 +163,7 @@ if [ -n "$DEVID_SHA" ]; then
 elif [ -n "$FOUND_ROOT" ] && [ "$FOUND_ROOT" = "$MOE_CERT_ROOT" ]; then
   echo "› signing as \"$IDENTITY\" — no Developer ID for team $MOE_DEVID_TEAM in this keychain."
   echo "  It has no Team ID, so this build's keychain items (the consent key) are"
-  echo "  unreadable to the next build, and Memoe asks you to sign in again after each one."
+  echo "  unreadable to the next build, and Alfie asks you to sign in again after each one."
   SIGN_AS="$IDENTITY"; KIND=moe-cert
 elif [ -n "$FOUND_ROOT" ]; then
   wrong_cert

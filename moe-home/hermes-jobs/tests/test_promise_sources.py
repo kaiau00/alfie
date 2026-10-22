@@ -1,5 +1,5 @@
 """The sources promises come from beyond chats and mail: Apple Notes and
-recorded calls (connectors/notes-items.py), and Moe's own records — its
+recorded calls (connectors/notes-items.py), and Alfie's own records — its
 meetings and the person's chats with it (lib/moe_items.py).
 
 Run: python3 moe-home/hermes-jobs/tests/test_promise_sources.py

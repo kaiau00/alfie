@@ -134,11 +134,11 @@ struct FixRoundTests {
     // MARK: M4 — the name, as the recogniser writes it
 
     @Test func theNameInTheWaysItIsWritten() {
-        for said in ["mo stop", "Mo, stop.", "Moe's wrong", "Moon, wait", "hey moon stop", "mow hold on", "hemo stop",
-                     "moe"] {
+        for said in ["alfie stop", "Alfie, stop.", "Alfie's wrong", "Alpha, wait", "hey alpha stop", "elfie hold on",
+                     "heyalfie stop", "alfie"] {
             #expect(NameMatch.namesMoe(said), "\(said)")
         }
-        for said in ["the moon is out", "more please", "tomorrow", "stop", ""] {
+        for said in ["the alpha version is out", "more please", "tomorrow", "stop", ""] {
             #expect(!NameMatch.namesMoe(said), "\(said)")
         }
     }

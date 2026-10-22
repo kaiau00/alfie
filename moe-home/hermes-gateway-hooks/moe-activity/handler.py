@@ -1,8 +1,8 @@
-"""One line per finished turn, so Moe can see the work it did not start.
+"""One line per finished turn, so Alfie can see the work it did not start.
 
-Moe drives Hermes over the OpenAI-compatible api_server: one HTTP request in,
+Alfie drives Hermes over the OpenAI-compatible api_server: one HTTP request in,
 one response out. Nothing pushes back. So a turn that begins anywhere else —
-a Telegram message, say — happens completely outside Moe's knowledge: it
+a Telegram message, say — happens completely outside Alfie's knowledge: it
 never appears in the app, never reaches the ledger, and the first the user
 hears of it is the reply on their phone.
 
@@ -17,7 +17,7 @@ This is the same information through a mechanism that already runs inside the
 gateway: a drop-in gateway hook (gateway/hooks.py), in-process, whose errors
 are caught and can never block a turn.
 
-WHAT IS NOT WRITTEN, deliberately: the message and the response. Moe's own
+WHAT IS NOT WRITTEN, deliberately: the message and the response. Alfie's own
 confirm-send hook says it in as many words — "the log is for 'why was I asked'
 and 'what got blocked', and a log of message bodies is a liability" — and this
 file would be a far better prize than that one, since it would hold both sides

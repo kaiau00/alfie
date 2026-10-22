@@ -116,7 +116,7 @@ struct NoticedReportTests {
         #expect(NoticedTab.dueWord("2026-10-01") == "Oct 1")
         #expect(NoticedTab.dueWord("2026-10-01T15:00") == "Oct 1, 15:00")
         #expect(NoticedTab.dueWord("soon") == "soon")
-        #expect(NoticedTab.sourceName("moe/chats") == "your chats with Moe")
+        #expect(NoticedTab.sourceName("moe/chats") == "your chats with Alfie")
         #expect(NoticedTab.sourceName("native/call-recordings") == "recorded calls")
     }
 }

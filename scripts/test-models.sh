@@ -18,8 +18,8 @@
 set -u
 cd "$(dirname "$0")/.." || exit 1
 ROOT=$PWD
-BIN="$ROOT/dist/Memoe.app/Contents/MacOS/Moe"
-MODELS="$ROOT/dist/Memoe.app/Contents/Resources/Models"
+BIN="$ROOT/dist/Alfie.app/Contents/MacOS/Moe"
+MODELS="$ROOT/dist/Alfie.app/Contents/Resources/Models"
 APP_SUPPORT="$HOME/Library/Application Support/FluidAudio/Models"
 CACHE="$HOME/.cache/fluidaudio/Models"
 STAMP=$(date +%s)
@@ -76,7 +76,7 @@ trap restore EXIT
 trap 'restore; exit 130' INT TERM
 
 if [ ! -x "$BIN" ]; then
-  echo "✗ no dist/Memoe.app — run ./build.sh first" >&2; exit 1
+  echo "✗ no dist/Alfie.app — run ./build.sh first" >&2; exit 1
 fi
 
 echo "1. the models are in the bundle"

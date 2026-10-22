@@ -391,7 +391,7 @@ def probe(account):
             return "Google turned down the app password. Make a new one and connect Gmail again"
         # The exception's class name is a fact about Python, not about the
         # user's mailbox, and it is the last line the app shows them.
-        return "Moe could not reach Google just now. Check this Mac is online, then try again"
+        return "Alfie could not reach Google just now. Check this Mac is online, then try again"
     finally:
         if conn is not None:
             try:
@@ -803,7 +803,7 @@ def recipient_check(raw, body, resolved=()):
         raws = raw if isinstance(raw, (list, tuple)) else [raw]
         v = mod.connector_check([r for r in raws if r], body, [r for r in resolved if r])
     except Exception:  # noqa: BLE001 — any failure here refuses
-        return False, "not sent — Moe could not check who this is going to, so nothing was sent.", ""
+        return False, "not sent — Alfie could not check who this is going to, so nothing was sent.", ""
     if v.get("verdict") == "refuse":
         return False, v.get("message") or "not sent", ""
     prov = v.get("provenance")

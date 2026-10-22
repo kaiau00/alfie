@@ -3,7 +3,7 @@
 
 The defaults table (learn/profiles.json) covers the services we know. A
 person can add any MCP server to Hermes — an email bridge, a one-shot
-tool, a docs search — and Moe still has to decide, before anyone has
+tool, a docs search — and Alfie still has to decide, before anyone has
 looked, whether it holds anything personal, whether that changes hourly
 or monthly, and whether a read can be scoped by date. The only thing on
 disk that says what an unknown server is is Hermes's schema cache:
@@ -202,7 +202,7 @@ def infer(tools):
     best = max(counts.values()) if counts else 0
     if best == 0:
         cls = "none"
-        why = ("nothing in its %d tool%s looked personal, so Moe will not learn from it "
+        why = ("nothing in its %d tool%s looked personal, so Alfie will not learn from it "
                "unless you say so" % (n, "" if n == 1 else "s"))
     else:
         # First class in CLASSES order with the top count: the tie-break

@@ -8,12 +8,11 @@ struct WakeConfirmTests {
 
     let spotter = WakeSpotter(phrases: WakeSpotter.defaultPhrases)
 
-    /// How the recogniser wrote a real "Hey Moe" — the owner's recordings and
-    /// the Inworld positive set, 2026-09-23.
+    /// How a recogniser is expected to write "Hey Alfie" (not yet measured on
+    /// recordings, unlike upstream's Moe list).
     @Test func theNameInTheWaysTheRecogniserWritesIt() {
-        for said in ["hey moe", "Hey Mo.", "Hey, Moe, what's the weather?", "Hemo, what time is it",
-                     "heymo", "okay mo", "so um hey moe", "Amo.", "Hamo", "Nemo!", "Aymo.", "Ei moe.",
-                     "Tamo.", "Pay Mo.", "K-mo!", "Camo?", "Ei moi!", "Amount."] {
+        for said in ["hey alfie", "Hey Alfy.", "Hey, Alfie, what's the weather?", "Healfie, what time is it",
+                     "heyalfie", "okay alfie", "so um hey alfie", "Alfi.", "Hey Alphie!", "Hey Alfee."] {
             #expect(WakeConfirm.heardTheName(said, spotter: spotter), "\(said)")
         }
     }
@@ -24,10 +23,9 @@ struct WakeConfirmTests {
     /// Molly", "Hey Mode", "Hey Moses", "Hey Mom", "Hey Mona" were 60 of its
     /// 117 false fires there.
     @Test func lookalikesTheHeadFiresOnAreTurnedAway() {
-        for said in ["how are you", "hey mobile", "a moment please", "hey make it louder", "tell me more",
-                     "Hey Molly.", "Hey mode.", "Hey Moses.", "Hey mom.", "Hey Mona.", "Hey Moby.", "Hey mama.",
-                     "Hey no.", "Hey Moore.", "hey man", "Hey more.", "a demo of the memo", "Hey Mau, Hey Mau.",
-                     "the amount is due", "", "okay"] {
+        for said in ["how are you", "hey alpha", "a moment please", "hey make it louder", "tell me more",
+                     "Hey Ollie.", "Hey Allie.", "Hey Elfie.", "Hey Albie.", "Hey Alfred.", "Hey, selfie.",
+                     "Hey, coffee.", "hey man", "Hey, half.", "the amount is due", "", "okay"] {
             #expect(!WakeConfirm.heardTheName(said, spotter: spotter), "\(said)")
         }
     }

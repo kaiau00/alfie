@@ -1,6 +1,6 @@
 name: moe-profile
 version: "0.1"
 description: >
-  What Moe has learned about its user (~/.moe/memory/profile/), as a compact
+  What Alfie has learned about its user (~/.moe/memory/profile/), as a compact
   system-prompt section after Hermes's own memory, plus a moe_profile tool to
   list, show, correct and delete individual claims.

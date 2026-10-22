@@ -549,16 +549,16 @@ class NeedsSetupIsAnAnswer(unittest.TestCase):
         self.assertIn("needs-setup", out["result"])
 
     def test_not_connected_is_reported_in_the_connector_own_words(self):
-        """"The connector exited 3: needs-setup: allow Moe full access to
+        """"The connector exited 3: needs-setup: allow Alfie full access to
         Calendar" makes a plain fact look like a malfunction. The sentence is
         the whole answer."""
-        script = "#!/bin/sh\necho 'needs-setup: allow Moe full access to Calendar'\nexit 3\n"
+        script = "#!/bin/sh\necho 'needs-setup: allow Alfie full access to Calendar'\nexit 3\n"
         home = Home([("calendar", "status pull", script)])
         home.__enter__(); self.addCleanup(home.__exit__)
         ctx = FakeContext(); plugin.register(ctx)
         out = json.loads(ctx.tools["calendar_pull"]["handler"]({}))
         self.assertFalse(out["success"])
-        self.assertEqual(out["error"], "needs-setup: allow Moe full access to Calendar")
+        self.assertEqual(out["error"], "needs-setup: allow Alfie full access to Calendar")
 
     def test_a_failing_pull_is_still_a_failure(self):
         script = "#!/bin/sh\necho 'cannot reach the account' >&2\nexit 1\n"
@@ -570,7 +570,7 @@ class NeedsSetupIsAnAnswer(unittest.TestCase):
 
 
 class MoesOwnBotIsNotTheAccount(unittest.TestCase):
-    """2026-09-23: the owner messaged Moe's Telegram bot, Moe answered there,
+    """2026-09-23: the owner messaged Alfie's Telegram bot, Alfie answered there,
     and the Mac's voice turn called `telegram_status`, read "needs-setup: you
     have not signed in" — true of the person's own account, false of the bot —
     and told them twice Telegram was not connected."""
@@ -758,10 +758,10 @@ class UntrustedFramingTest(unittest.TestCase):
         self.assertTrue(laundered.startswith(plugin.CARRIES_OUTPUT))
 
     def test_moes_own_errors_are_not_framed(self):
-        """"needs-setup: allow Moe full access to Calendar" is Moe describing
+        """"needs-setup: allow Alfie full access to Calendar" is Alfie describing
         its own connector. A security preamble in front of it buries the one
         sentence the user has to act on."""
-        for own in ("needs-setup: allow Moe full access to Calendar",
+        for own in ("needs-setup: allow Alfie full access to Calendar",
                     "Timed out after 60s. The connector did not answer.",
                     "The calendar connector is not installed on this Mac."):
             self.assertFalse(own.startswith(plugin.CARRIES_OUTPUT), own)
@@ -1350,7 +1350,7 @@ GMAIL_VIA_COMPOSIO = [{"slug": "gmail", "connected": True,
 class ConnectedThroughComposio(unittest.TestCase):
     """2026-09-16, the owner's Mac: Gmail connected through Composio, and
     `gmail_status` — which checks the Mac's app-password route — answered
-    "needs-setup: no mailbox added yet". Moe told him twice that his Gmail was
+    "needs-setup: no mailbox added yet". Alfie told him twice that his Gmail was
     not connected. Before a connector with a Composio twin says it is not set
     up, it asks Composio."""
 

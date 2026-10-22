@@ -282,7 +282,7 @@ final class Conductor: ObservableObject {
     /// (`VoiceMachine.Event.setMuted`); this is the button's end of it.
     func toggleTranscript() {
         showsTranscript.toggle()
-        Log.write("island: transcript \(showsTranscript ? "shown" : "hidden") while Moe works")
+        Log.write("island: transcript \(showsTranscript ? "shown" : "hidden") while Alfie works")
     }
 
     /// The mute and unmute controls, wherever they are pressed. `from` names
@@ -1017,9 +1017,9 @@ final class Conductor: ObservableObject {
                     // One plain call to action, on the island and in the
                     // chat, instead of the supervisor's diagnosis.
                     self.needsSignIn = true
-                    self.statusLine = "Connect an AI to start (Moe menu › Connect an AI)"
+                    self.statusLine = "Connect an AI to start (Alfie menu › Connect an AI)"
                     self.turns.append(Turn(role: .system,
-                        text: "Connect an AI to start — your Claude or ChatGPT plan, or an API key. Moe menu › Connect an AI."))
+                        text: "Connect an AI to start — your Claude or ChatGPT plan, or an API key. Alfie menu › Connect an AI."))
                 } else {
                     self.statusLine = ""
                     self.turns.append(Turn(role: .system, text: message))
@@ -1042,7 +1042,7 @@ final class Conductor: ObservableObject {
                 // say it, not its exit status. The code is in the log.
                 Log.write("brain exited mid-answer: \(self.config.brain.cliName) code \(code)")
                 self.announce(self.replySignal.ended(
-                    "Moe lost its train of thought there — ask me again?",
+                    "Alfie lost its train of thought there — ask me again?",
                     failed: true))
                 self.handleExit(code: code)
             }
@@ -1446,7 +1446,7 @@ final class Conductor: ObservableObject {
             // where the person who can use them is looking anyway.
             Log.write("brain gave up after \(restartAttempts) restarts: \(config.brain.cliName) exit \(code)")
             turns.append(Turn(role: .system, text:
-                "Moe can't reach \(config.brain.displayName) right now. Start a new "
+                "Alfie can't reach \(config.brain.displayName) right now. Start a new "
                 + "conversation to try again."))
             mode = .idle
             return
@@ -1737,7 +1737,7 @@ final class Conductor: ObservableObject {
         }
         let said = kind ? "not to suggest this kind of thing" : "not now"
         clearNudge(note: """
-        (Background note, not from the user. They said \(said) to an offer you made; Moe has \
+        (Background note, not from the user. They said \(said) to an offer you made; Alfie has \
         recorded it and will hold back accordingly. Do not reply to this message.)
         """)
     }
@@ -2290,7 +2290,7 @@ final class Conductor: ObservableObject {
                 // removing moe-proactive deletes every follow-up because one
                 // nudge was unwelcome, and pausing moe-calendar-heads-up
                 // leaves Settings still promising a heads-up that never comes.
-                return "This came from Moe's own background pass, not a reminder they set, "
+                return "This came from Alfie's own background pass, not a reminder they set, "
                     + "and there is nothing specific to stop. Do not touch any cron job "
                     + "over it. If they want this kind of message to stop, that is a "
                     + "switch in Settings › Background — say so; if they mean one "
@@ -2532,8 +2532,8 @@ final class Conductor: ObservableObject {
         // second process never opens the mic or the brain beside the app.
         guard InstanceLock.acquire() else {
             let who = InstanceLock.holderDescription
-            Log.write("not starting the brain or the mic: \(who) already runs Moe")
-            statusLine = "Another Moe is already running"
+            Log.write("not starting the brain or the mic: \(who) already runs Alfie")
+            statusLine = "Another Alfie is already running"
             return
         }
         lastStartAt = Date()
@@ -2806,7 +2806,7 @@ final class Conductor: ObservableObject {
         onTalkLatchAbandoned?()
     }
 
-    static let meetingMicHint = "Recording — tap the key to bookmark, hold it and whisper to ask Moe; click the island to type."
+    static let meetingMicHint = "Recording — tap the key to bookmark, hold it and whisper to ask Alfie; click the island to type."
 
 
     // MARK: - Dictation
@@ -3142,7 +3142,7 @@ final class Conductor: ObservableObject {
         var picked: String?
         config = Config.update { picked = ReminderChannels.adopt(platforms, into: &$0) }
         if let picked {
-            Log.write("reminders → \(picked): on (the first chat app ready — ticked by Moe, once)")
+            Log.write("reminders → \(picked): on (the first chat app ready — ticked by Alfie, once)")
         }
     }
 
@@ -3184,7 +3184,7 @@ final class Conductor: ObservableObject {
             return
         case .stopAndRemember:
             config = Config.update { $0.reminderChannelsAutoPicked = true }
-            Log.write("reminders: two or more chat apps ready at once — the choice is yours; Moe stops looking")
+            Log.write("reminders: two or more chat apps ready at once — the choice is yours; Alfie stops looking")
         case .stop:
             break
         }
@@ -3513,7 +3513,7 @@ final class Conductor: ObservableObject {
                     status[.localServer] = "\(found.name) is running but has no model downloaded yet."
                 }
             } else {
-                status[.localServer] = "Nothing found. Install Ollama or LM Studio and Moe will use it."
+                status[.localServer] = "Nothing found. Install Ollama or LM Studio and Alfie will use it."
             }
 
             status[.configuredBrain] = connected
@@ -3874,7 +3874,7 @@ final class Conductor: ObservableObject {
                             somethingToStop: mode != .idle || awaitingReply || acting
                                 || voice.isSpeaking || unconfirmedPressAt != nil)
         else { return false }
-        Log.write("esc in Moe — stopping everything")
+        Log.write("esc in Alfie — stopping everything")
         stopEverything()
         return true
     }
@@ -4038,7 +4038,7 @@ final class Conductor: ObservableObject {
     /// Carbon hotkey is registered once at startup.
     func setHotKeyModifiers(_ mods: UInt32) {
         config = Config.update { $0.hotKeyModifiers = mods }
-        statusLine = "shortcut saved — restart Moe to use it"
+        statusLine = "shortcut saved — restart Alfie to use it"
     }
 
     /// The language Moe listens for. Warms the engine that language needs in
@@ -4232,7 +4232,7 @@ final class Conductor: ObservableObject {
         clock.dateFormat = "HH:mm"
 
         let url = dir.appendingPathComponent("\(day.string(from: turn.at)).md")
-        let who = turn.role == .you ? "You" : "Moe"
+        let who = turn.role == .you ? "You" : "Alfie"
         let attached = turn.attachments.isEmpty ? ""
             : " _(attached: \(turn.attachments.map(\.name).joined(separator: ", ")))_"
         let line = "**\(clock.string(from: turn.at)) · \(who)** — \(turn.text)\(attached)\n\n"
@@ -4679,9 +4679,9 @@ final class Conductor: ObservableObject {
         }
         let words = record.logAs ?? record.text
         let go = { [self] in
-            Log.write("turn keeper: picking up a turn Moe was closed on: \(words.prefix(80))")
+            Log.write("turn keeper: picking up a turn Alfie was closed on: \(words.prefix(80))")
             openConversation(id: record.thread)
-            turns.append(Turn(role: .system, text: "Picking up where Moe left off."))
+            turns.append(Turn(role: .system, text: "Picking up where Alfie left off."))
             // The chat shows the person's words again; the brain gets exactly
             // what it was sent the first time (brief, rules and all), behind
             // the note that says why it is seeing it twice.
@@ -4700,10 +4700,10 @@ final class Conductor: ObservableObject {
             if mayResume {
                 go()
             } else {
-                Log.write("turn keeper: the cloud holds the ask Moe was closed on; not picked up here")
-                self.turns.append(Turn(role: .system, text: "Moe carried on with your last question in the "
+                Log.write("turn keeper: the cloud holds the ask Alfie was closed on; not picked up here")
+                self.turns.append(Turn(role: .system, text: "Alfie carried on with your last question in the "
                                        + "cloud while it was closed. The answer lands on the chat you last "
-                                       + "spoke to Moe from."))
+                                       + "spoke to Alfie from."))
             }
         }
     }
@@ -5058,7 +5058,7 @@ final class Conductor: ObservableObject {
             // System Audio Recording prompt comes from the tap itself.
             guard await VoiceEngine.requestMicrophone() else {
                 self.meeting = .off
-                self.onMeetingProblem?("Moe can't record the meeting: microphone access is off. "
+                self.onMeetingProblem?("Alfie can't record the meeting: microphone access is off. "
                                        + "Turn it on in System Settings › Privacy & Security › Microphone.", false)
                 return
             }
@@ -5104,7 +5104,7 @@ final class Conductor: ObservableObject {
                 // put in a modal in front of somebody who is trying to
                 // start a meeting. The log above already has it.
                 self.onMeetingProblem?(
-                    "Moe couldn't start recording the call's audio. "
+                    "Alfie couldn't start recording the call's audio. "
                     + "If macOS asked about System Audio Recording and it was declined, allow it "
                     + "under Privacy & Security › Screen & System Audio Recording.", true)
                 return
@@ -5371,10 +5371,10 @@ final class Conductor: ObservableObject {
                   self.meetingSession === session, !session.recorder.tapIsDelivering else { return }
             Log.write("meeting: tap delivered nothing in 8 s (\(session.recorder.tapCallbacks) IO callbacks)")
             self.meetingStatus = "No call audio yet. If the meeting app is playing sound, "
-                               + "allow System Audio Recording for Moe."
+                               + "allow System Audio Recording for Alfie."
             self.onMeetingProblem?(
-                "Moe is recording your microphone, but no audio has arrived from the call. If the "
-                + "other people are talking and you can hear them, macOS is not letting Moe hear "
+                "Alfie is recording your microphone, but no audio has arrived from the call. If the "
+                + "other people are talking and you can hear them, macOS is not letting Alfie hear "
                 + "the call: allow it under System Settings › Privacy & Security › Screen & System "
                 + "Audio Recording (\u{201C}System Audio Recording Only\u{201D}), then stop and start the meeting again.", true)
         }
@@ -5916,7 +5916,7 @@ final class Conductor: ObservableObject {
         Task { @MainActor in
             let granted = await MeetingInvite.requestAccess()
             self.meetingStatus = granted
-                ? "Thanks — Moe will name the voices it can from now on."
+                ? "Thanks — Alfie will name the voices it can from now on."
                 : "No problem. Voices stay numbered; you can change this in Settings › Meetings."
         }
     }
@@ -5960,7 +5960,7 @@ final class Conductor: ObservableObject {
         if !capturePermissionWarned {
             capturePermissionWarned = true
             onMeetingCaptureProblem?(
-                "Moe needs Screen Recording to take pictures of the meeting. Allow it under "
+                "Alfie needs Screen Recording to take pictures of the meeting. Allow it under "
                 + "System Settings › Privacy & Security › Screen & System Audio Recording, then try again.", true)
         }
         return false
@@ -5994,7 +5994,7 @@ final class Conductor: ObservableObject {
         }
         guard !captureBusy else { return .skipped("another screenshot is being taken") }
         guard ensureScreenPermission(trigger: trigger) else {
-            return .skipped("Screen Recording is not allowed for Moe")
+            return .skipped("Screen Recording is not allowed for Alfie")
         }
         captureBusy = true
         let policy = config.meetingCapture
@@ -7426,7 +7426,7 @@ extension Conductor {
             Log.write("inbox: reminders tick “\(t.title)” → \(outcome)")
             if outcome != .done {
                 self.showTickTrouble(outcome == .noAccess
-                    ? "Moe can't reach Reminders. Allow it in System Settings › Privacy & Security › Reminders."
+                    ? "Alfie can't reach Reminders. Allow it in System Settings › Privacy & Security › Reminders."
                     : "Couldn't find “\(t.title)” open in Reminders.")
             }
         }

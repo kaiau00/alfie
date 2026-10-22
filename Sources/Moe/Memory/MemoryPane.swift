@@ -176,8 +176,8 @@ struct MemoryPane: View {
                            on: tab == t) { choose(t) }
             }
             Spacer(minLength: Theme.Space.base)
-            SectionRow(title: "Review everything with Moe", quiet: true, small: true, on: false) { talk(MemoryTalk.everything) }
-                .help("Opens Chat with a draft: Moe goes through every memory file with you, one question at a time")
+            SectionRow(title: "Review everything with Alfie", quiet: true, small: true, on: false) { talk(MemoryTalk.everything) }
+                .help("Opens Chat with a draft: Alfie goes through every memory file with you, one question at a time")
             SectionRow(title: "Past", quiet: true, on: tab == .past) { choose(.past) }
             SectionRow(title: "Open folder", quiet: true, on: false) {
                 NSWorkspace.shared.open(MemoryReader.folderToOpen())
@@ -227,8 +227,8 @@ struct MemoryPane: View {
                             .foregroundStyle(Theme.ink)
                         Spacer(minLength: 0)
                         if let draft = MemoryTalk.draft(for: tab) {
-                            QuietLink(title: "Go through with Moe",
-                                      help: "Opens Chat with a draft: Moe asks about these one at a time and fixes them as you go") {
+                            QuietLink(title: "Go through with Alfie",
+                                      help: "Opens Chat with a draft: Alfie asks about these one at a time and fixes them as you go") {
                                 talk(draft)
                             }
                         }
@@ -344,7 +344,7 @@ struct MemoryPane: View {
                     addDraft = ""
                     DispatchQueue.main.async { focus = .add }
                 } label: {
-                    Text("+ Add something Moe should know")
+                    Text("+ Add something Alfie should know")
                         .font(Theme.Typo.ui(14))
                         .foregroundStyle(Theme.accent)
                         .padding(.vertical, Theme.Space.snug)
@@ -454,7 +454,7 @@ struct MemoryPane: View {
         MemoryRowView(
             item: item,
             text: askedMoe[item.id] ?? item.text,
-            meta: askedMoe[item.id] != nil ? "Moe is updating this" : item.line?.source ?? "",
+            meta: askedMoe[item.id] != nil ? "Alfie is updating this" : item.line?.source ?? "",
             editing: editing == item.id,
             selected: selected == item.id && editing == nil,
             hovered: hovered == item.id,
@@ -621,7 +621,7 @@ struct MemoryPane: View {
             let problem: String? = await ScriptRunner.offMain {
                 guard let script = MemoryReader.profileScript(),
                       let argv = MemoryReader.confirmCommand(line, script: script)
-                else { return "Moe can't find the file it keeps this in." }
+                else { return "Alfie can't find the file it keeps this in." }
                 return MemoryReader.run(argv)
             }
             await MainActor.run { note = problem ?? ""; reload() }
@@ -646,7 +646,7 @@ struct MemoryPane: View {
             let problem: String? = await ScriptRunner.offMain {
                 guard let script = MemoryReader.profileScript(),
                       let argv = MemoryReader.restoreCommand(line, script: script)
-                else { return "Moe can't find the file it keeps this in." }
+                else { return "Alfie can't find the file it keeps this in." }
                 return MemoryReader.run(argv)
             }
             await MainActor.run { note = problem ?? ""; reload() }
@@ -865,7 +865,7 @@ struct NotesSheet: View {
                         .padding(Theme.Space.small)
                 } else {
                     PaneEmpty(title: "Plain notes",
-                              detail: "Pick a note. Moe reads these at the start of every conversation, and keeps them up to date as it learns — edit them freely.")
+                              detail: "Pick a note. Alfie reads these at the start of every conversation, and keeps them up to date as it learns — edit them freely.")
                 }
             }
         }

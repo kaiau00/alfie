@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""The profile store — "What Moe knows about you" as a data layer.
+"""The profile store — "What Alfie knows about you" as a data layer.
 
     profile.py list [--file NAME] [--json] [--active]
     profile.py show <file>
@@ -743,7 +743,7 @@ class Store(object):
             return items
         label = {"contradicts": "Contradiction", "question": "Question", "unsure": "Not sure", "new": "New"}
         lines = ["# Check these", "",
-                 "New, unsure or contradicting things Moe learned. Fix or forget any of them on the Memory page.", ""]
+                 "New, unsure or contradicting things Alfie learned. Fix or forget any of them on the Memory page.", ""]
         lines += ["- %s — %s" % (label[it["kind"]], it["text"]) for it in items]
         os.makedirs(self.root, exist_ok=True)
         tmp = path + ".tmp"
@@ -893,7 +893,7 @@ class Store(object):
             uniq.append(c)
         uniq = uniq[:MAX_ARCHIVE]
         lines = ["# Archive", "",
-                 "Lines Moe no longer uses: events that are over, older wordings, duplicates, and",
+                 "Lines Alfie no longer uses: events that are over, older wordings, duplicates, and",
                  "anything past a file's limit. Kept so nothing learned is lost; search finds them,",
                  "and `profile.py restore <id>` puts one back.", ""]
         for f in FILES:
@@ -1056,7 +1056,7 @@ class Store(object):
 
     def add(self, file, text):
         """The person writes a line of their own on the Memory page ("+ Add
-        something Moe should know"). It is kept exactly like a correction:
+        something Alfie should know"). It is kept exactly like a correction:
         source `user`, confidence high, dated today — which every pass
         already leaves alone (merge.py adds nothing competing on its topic,
         consolidate.py never caps, supersedes, archives or dedupes it, and
@@ -1345,7 +1345,7 @@ def main(argv=None):
     if argv and argv[0] in SOURCE_VERBS:
         return _source_profile().main([SOURCE_VERBS[argv[0]]] + argv[1:])
     ap = argparse.ArgumentParser(
-        description="What Moe knows about you",
+        description="What Alfie knows about you",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="the per-source learning profile (forwarded to source_profile.py):\n"
                "  get <source>                        the resolved profile, as JSON\n"

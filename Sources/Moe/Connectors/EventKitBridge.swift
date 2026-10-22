@@ -71,7 +71,7 @@ enum EventKitBridge {
             return
         case .notDetermined:
             if ProcessInfo.processInfo.environment["MOE_EVENTKIT_NO_PROMPT"] != nil {
-                fail("needs-setup: \(name) access not yet granted to Moe (System Settings › Privacy & Security › \(pane))", code: deniedExit)
+                fail("needs-setup: \(name) access not yet granted to Alfie (System Settings › Privacy & Security › \(pane))", code: deniedExit)
             }
             let granted: Bool
             do {
@@ -82,9 +82,9 @@ enum EventKitBridge {
                 fail("needs-setup: \(name) access request failed: \(error.localizedDescription)", code: deniedExit)
             }
             if granted { return }
-            fail("needs-setup: allow Moe full access to \(name) (System Settings › Privacy & Security › \(pane))", code: deniedExit)
+            fail("needs-setup: allow Alfie full access to \(name) (System Settings › Privacy & Security › \(pane))", code: deniedExit)
         case .denied, .restricted, .writeOnly:
-            fail("needs-setup: allow Moe full access to \(name) (System Settings › Privacy & Security › \(pane))", code: deniedExit)
+            fail("needs-setup: allow Alfie full access to \(name) (System Settings › Privacy & Security › \(pane))", code: deniedExit)
         @unknown default:
             fail("needs-setup: \(name) access is in an unknown state", code: deniedExit)
         }
@@ -107,10 +107,10 @@ enum EventKitBridge {
                 status = granted ? .fullAccess : EKEventStore.authorizationStatus(for: entity(kind))
             }
             if status == .fullAccess {
-                print("ok: \(name) full access granted to Moe")
+                print("ok: \(name) full access granted to Alfie")
             } else {
                 allGranted = false
-                print("needs-setup: allow Moe full access to \(name) (System Settings › Privacy & Security › \(pane))")
+                print("needs-setup: allow Alfie full access to \(name) (System Settings › Privacy & Security › \(pane))")
             }
         }
         exit(allGranted ? 0 : deniedExit)
@@ -194,7 +194,7 @@ enum EventKitBridge {
 
     // MARK: Reminders
 
-    static let remindersUsage = "usage: Moe --reminders [--crawl DAYS] [--today] [--titles] [--list NAME] [--json] [--status] [--items-since UNIXTIME]"
+    static let remindersUsage = "usage: Alfie --reminders [--crawl DAYS] [--today] [--titles] [--list NAME] [--json] [--status] [--items-since UNIXTIME]"
 
     static func reminders(_ args: ArraySlice<String>) async -> Never {
         let o = parse(args, usage: remindersUsage)
@@ -247,7 +247,7 @@ enum EventKitBridge {
 
     // MARK: Calendar
 
-    static let calendarUsage = "usage: Moe --calendar [DAYS] [--crawl DAYS] [--from-now] [--dash] [--brief [--now ISO8601] [--from-json FILE]] [--json] [--status]"
+    static let calendarUsage = "usage: Alfie --calendar [DAYS] [--crawl DAYS] [--from-now] [--dash] [--brief [--now ISO8601] [--from-json FILE]] [--json] [--status]"
 
     static func calendar(_ args: ArraySlice<String>) async -> Never {
         let o = parse(args, usage: calendarUsage)
@@ -339,7 +339,7 @@ enum EventKitBridge {
     // MARK: Writes (tools/apple.sh reminders-add; new cal add)
 
     static func addReminder(_ args: ArraySlice<String>) async -> Never {
-        let usage = "usage: Moe --add-reminder <title> [due ISO|\"YYYY-MM-DD HH:MM\"] [list]"
+        let usage = "usage: Alfie --add-reminder <title> [due ISO|\"YYYY-MM-DD HH:MM\"] [list]"
         var a = Array(args)
         guard let title = a.first, !title.isEmpty else { fail(usage) }
         a.removeFirst()
@@ -374,7 +374,7 @@ enum EventKitBridge {
     }
 
     static func addEvent(_ args: ArraySlice<String>) async -> Never {
-        let usage = "usage: Moe --add-event <title> <start ISO|\"YYYY-MM-DD HH:MM\"> [end] [calendar]"
+        let usage = "usage: Alfie --add-event <title> <start ISO|\"YYYY-MM-DD HH:MM\"> [end] [calendar]"
         let a = Array(args)
         guard a.count >= 2, !a[0].isEmpty else { fail(usage) }
         guard let start = ConnectorText.parseDate(a[1]) else { fail("cannot read start: \(a[1])\n\(usage)") }

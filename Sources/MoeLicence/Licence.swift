@@ -72,12 +72,12 @@ public enum Tier: Equatable, Sendable {
     /// The name to show the customer.
     public var name: String {
         switch self {
-        case .pro:       return "Moe Pro"
-        case .lifetime:  return "Moe Pro Lifetime"
-        case .monthly:   return "Moe Pro, monthly"
+        case .pro:       return "Alfie Pro"
+        case .lifetime:  return "Alfie Pro Lifetime"
+        case .monthly:   return "Alfie Pro, monthly"
         // Deliberately vague rather than wrong: we do not know what this build
         // is looking at, and "Moe Pro" is the true part of the answer.
-        case .unrecognised: return "Moe Pro"
+        case .unrecognised: return "Alfie Pro"
         }
     }
 
@@ -131,9 +131,9 @@ public enum LicenceProblem: Error, Equatable, Sendable {
         case .looksMistyped:
             return "That key looks mistyped — a character is off somewhere. Copying the whole line again usually fixes it."
         case .needsNewerMoe:
-            return "That key is newer than this copy of Memoe. Update Memoe and try again."
+            return "That key is newer than this copy of Alfie. Update Alfie and try again."
         case .notGenuine:
-            return "That key isn't one of ours. If you bought Moe and this is the key you were sent, send us the first few characters and we'll sort it out."
+            return "That key isn't one of ours. If you bought Alfie and this is the key you were sent, send us the first few characters and we'll sort it out."
         }
     }
 }

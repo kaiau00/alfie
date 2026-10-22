@@ -57,7 +57,7 @@ chmod 600 "$OUT"
 
 echo "✓ saved $BYTES bytes to $OUT"
 echo
-echo "  Read it and delete anything wrong — Moe reads it on every conversation:"
+echo "  Read it and delete anything wrong — Alfie reads it on every conversation:"
 echo "    open -e \"$OUT\""
 echo
 echo "  Then hand it to Hermes too:  ~/.moe/hermes/migrate-memory.py"

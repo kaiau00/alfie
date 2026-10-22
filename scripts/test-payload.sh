@@ -102,13 +102,13 @@ echo "5. a fresh home gets populated — by the real binary"
 # against the developer's own ~/.moe and pass for entirely the wrong reason.
 # That is not hypothetical; it is what happened the first time this was tried.
 HOME_DIR="$SCRATCH/moe-home"
-BIN="$ROOT/dist/Memoe.app/Contents/MacOS/Moe"
+BIN="$ROOT/dist/Alfie.app/Contents/MacOS/Moe"
 if [ ! -x "$BIN" ]; then
   # No reimplementation-in-bash fallback. There used to be one, and it meant
   # this script could pass green having tested a copy of the logic rather than
   # the logic: a Payload.swift that copied nothing would still have ticked
   # every box below.
-  bad "no dist/Memoe.app — run ./build.sh; this test needs the real binary"
+  bad "no dist/Alfie.app — run ./build.sh; this test needs the real binary"
   echo; echo "$pass passed, $fail failed"; exit 1
 fi
 out="$("$BIN" --install-payload "$HOME_DIR" 2>&1)"
@@ -123,7 +123,7 @@ case "$out2" in
 esac
 [ -x "$HOME_DIR/scripts/connect.sh" ] && ok "scripts/connect.sh is there and executable" || bad "connect.sh missing or not executable"
 [ -x "$HOME_DIR/connectors/hermes-catalog.py" ] && ok "connectors/hermes-catalog.py is executable (ConnectionsModel gates the whole pane on this)" || bad "hermes-catalog.py not executable"
-[ -x "$HOME_DIR/sync.sh" ] && ok "sync.sh is there and executable (Moe --sync hard-fails without it)" || bad "sync.sh missing or not executable"
+[ -x "$HOME_DIR/sync.sh" ] && ok "sync.sh is there and executable (Alfie --sync hard-fails without it)" || bad "sync.sh missing or not executable"
 [ -f "$HOME_DIR/hermes/configure-hermes.py" ] && ok "hermes/configure-hermes.py is there (the only way to pick a provider)" || bad "configure-hermes.py missing"
 [ -f "$HOME_DIR/lib/connectors.sh" ] && ok "lib/connectors.sh is there (sync, doctor and learn hard-fail without it)" || bad "lib/connectors.sh missing"
 [ -f "$HOME_DIR/tools/confirm.sh" ] && [ -d "$HOME_DIR/connectors" ] \
@@ -160,7 +160,7 @@ if true; then
   grep -q '"mine"' "$HOME_DIR/config.json" && ok "config.json was left alone" || bad "config.json was touched"
   [ -x "$HOME_DIR/scripts/connect.sh" ] && ok "a deleted script is put back" || bad "connect.sh was not restored"
 else
-  echo "  skipped (needs dist/Memoe.app)"
+  echo "  skipped (needs dist/Alfie.app)"
 fi
 
 echo

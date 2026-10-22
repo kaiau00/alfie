@@ -1,10 +1,10 @@
-"""The learner: what the person did with Moe's offers, turned into how sure
-Moe is that they want help next time (docs/PROACTIVE-MEMORY.md §4.9).
+"""The learner: what the person did with Alfie's offers, turned into how sure
+Alfie is that they want help next time (docs/PROACTIVE-MEMORY.md §4.9).
 
 Zero labour: the signals are what the person does anyway, written by the
 island (`SituationOffer.record`) to `~/.moe/proactive/offer-feedback.jsonl`
 as `{at, id, action}` — `used` (the draft was sent, the send confirmed),
-`chose-to-send` (asked Moe to send it, through the brain and the send gate,
+`chose-to-send` (asked Alfie to send it, through the brain and the send gate,
 where whether it went is not observable here), `opened` (looked at it),
 `not-now`, `not-this-kind`, and `handled` (Done: they dealt with it another
 way — neither a yes nor a no, so it weighs nothing).
@@ -80,7 +80,7 @@ def read_feedback(path: Optional[str] = None, limit: int = 2000) -> List[Dict[st
 
 def adjusted(sit: Dict[str, Any], situations: Dict[str, Any],
              feedback: Iterable[Dict[str, Any]], now: Optional[float] = None) -> float:
-    """How sure Moe is, after the person's own history, that they want help
+    """How sure Alfie is, after the person's own history, that they want help
     with this situation. 0 when they said "not this kind of thing" lately."""
     now = time.time() if now is None else now
     try:

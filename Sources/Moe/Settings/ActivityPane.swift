@@ -104,7 +104,7 @@ struct ActivityPane: View {
                             if logOpen { logSection(feed).padding(.leading, 20) }
                         }
                     } else {
-                        checking("Looking at what Moe has been doing…")
+                        checking("Looking at what Alfie has been doing…")
                     }
                 }
                 .padding(.horizontal, 36)
@@ -154,8 +154,8 @@ struct ActivityPane: View {
         if events.isEmpty {
             SettingGroup(title: label(days: days)) {
                 Text(feed.ok
-                     ? "Nothing in this window. Moe has been quiet."
-                     : "Nothing Moe could read.")
+                     ? "Nothing in this window. Alfie has been quiet."
+                     : "Nothing Alfie could read.")
                     .font(Theme.Typo.ui(12))
                     .foregroundStyle(Theme.ink3)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -236,7 +236,7 @@ struct ActivityPane: View {
     private func under(_ event: Activity.Event) -> String? {
         var parts: [String] = []
         if !event.note.isEmpty { parts.append(event.note) }
-        if event.upkeep { parts.append("Part of Moe's own upkeep.") }
+        if event.upkeep { parts.append("Part of Alfie's own upkeep.") }
         let line = parts.joined(separator: " ")
         return line.isEmpty ? nil : line
     }
@@ -248,12 +248,12 @@ struct ActivityPane: View {
         let hidden = feed.events.filter { $0.upkeep && $0.kind != .incident }.count
         if hidden > 0 || upkeep {
             VStack(alignment: .leading, spacing: Theme.Space.small) {
-                PaneButton(title: upkeep ? "Hide Moe's own upkeep"
-                                         : "Show Moe's own upkeep (\(hidden))",
+                PaneButton(title: upkeep ? "Hide Alfie's own upkeep"
+                                         : "Show Alfie's own upkeep (\(hidden))",
                            symbol: upkeep ? "eye.slash" : "eye") {
                     upkeep.toggle()
                 }
-                Text("Moe keeps itself current on a clock of its own: reading what changed, learning about you, watching what you asked it to watch, and picking up work handed back from Moe Away. That is a few hundred runs a day and almost none of it is about you, so it is folded away — but a run that failed is never folded away, whoever's job it was.")
+                Text("Alfie keeps itself current on a clock of its own: reading what changed, learning about you, watching what you asked it to watch, and picking up work handed back from Alfie Away. That is a few hundred runs a day and almost none of it is about you, so it is folded away — but a run that failed is never folded away, whoever's job it was.")
                     .font(Theme.Typo.prose(13))
                     .foregroundStyle(Theme.ink3)
                     .fixedSize(horizontal: false, vertical: true)
@@ -281,7 +281,7 @@ struct ActivityPane: View {
                     // this read "There is no log at  yet." — a sentence
                     // with a hole where its subject should be.
                     Text(feed.log.path.isEmpty
-                         ? "Moe couldn't find Hermes's log on this Mac."
+                         ? "Alfie couldn't find Hermes's log on this Mac."
                          : "There is no log at \(feed.log.path) yet.")
                         .font(Theme.Typo.ui(12))
                         .foregroundStyle(Theme.ink3)

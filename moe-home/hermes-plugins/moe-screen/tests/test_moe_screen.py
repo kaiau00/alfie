@@ -650,7 +650,7 @@ class LedgerTest(unittest.TestCase):
             "kind": "waiting", "source": "pass"}})
         self.assertEqual([h["event"] for h in self.ledger()["dan-call"]["history"]],
                          ["opened by the background pass: Dan asked for a call this week",
-                          "Moe said: Dan is still waiting on that call."])
+                          "Alfie said: Dan is still waiting on that call."])
         # Nothing of the trailer is shown, spoken, or forwarded to a chat app.
         self.assertEqual(self.spoken(), ["Dan is still waiting on that call."])
         self.assertEqual(self.sent, ["Dan is still waiting on that call."])
@@ -687,7 +687,7 @@ class LedgerTest(unittest.TestCase):
     # ── offers (review of the offer path #6, #9, #10, #11, #25) ──
     OFFER_CHAT = ("Mordecai wants to reopen the price.\n\nA reply you could send to Mordecai:\n\n"
                   "Hi, per our deal my SSN: 123-45-6789 stays private.")
-    OFFER_NOTE = "Moe prepared a reply ...\n========\nHi\n========\nSend exactly that."
+    OFFER_NOTE = "Alfie prepared a reply ...\n========\nHi\n========\nSend exactly that."
 
     def offer(self, **kw):
         return self.deliver("Mordecai wants to reopen the price.", job="moe-situations",
@@ -931,10 +931,10 @@ class LedgerTest(unittest.TestCase):
             "check first saw: $412",
             "check saw a change: $412 -> $488",
             "raised again (mention 1), next 2026-09-04T18:00:00Z",
-            "Moe said: The Hanoi flight went from $412 to $488.",
+            "Alfie said: The Hanoi flight went from $412 to $488.",
         ])
         self.assertEqual(self.d.list_loops(now=later)[0][0]["history"][-1]["event"],
-                         "Moe said: The Hanoi flight went from $412 to $488.")
+                         "Alfie said: The Hanoi flight went from $412 to $488.")
         for i in range(8):                      # bounded: the oldest falls off
             self.d.snooze_loop("flight-hanoi", "%dh" % (i + 2), now=later)
         self.assertEqual(len(self.ledger()["flight-hanoi"]["history"]), self.d.MAX_HISTORY)
@@ -1573,7 +1573,7 @@ class OfferDeliveryTest(unittest.TestCase):
 
 class RoutineHealthSendTest(unittest.TestCase):
     """A routine the person asked for that keeps failing is told to them, in
-    Moe's words, through the real send path. The owner's "X daily growth"
+    Alfie's words, through the real send path. The owner's "X daily growth"
     was blocked nine days running (2026-09-16 → 09-24) and nobody was told.
     The strings below are Hermes's own (cron/scheduler.py at the pin)."""
 
@@ -2007,7 +2007,7 @@ class MachineRanTest(unittest.TestCase):
 
 
 class SpoolTest(unittest.TestCase):
-    """`deliver.py`'s record of what Moe said unprompted."""
+    """`deliver.py`'s record of what Alfie said unprompted."""
 
     def setUp(self):
         self.tmp = tempfile.mkdtemp(prefix="moe-screen-test-")
@@ -3249,7 +3249,7 @@ class RanTest(unittest.TestCase):
 
 class ReachOwnerTest(unittest.TestCase):
     """`reach_owner` and the forwards: the owner, never a contact; the island
-    while he is at the Mac; Memoe's cloud (his own chat, picked live) when he
+    while he is at the Mac; Alfie's cloud (his own chat, picked live) when he
     is not; this Mac's own forwards after that; and a refusal that says so.
 
     The cloud is a stand-in `notify` that records what it was asked — the
@@ -3313,7 +3313,7 @@ class ReachOwnerTest(unittest.TestCase):
         self.assertEqual((self.asked, self.sent), ([], []), "a phone buzzed while he sat at the Mac")
 
     def test_a_named_channel_goes_there_even_at_the_mac(self):
-        """"Message me on Telegram" — they told Moe otherwise, in their words."""
+        """"Message me on Telegram" — they told Alfie otherwise, in their words."""
         self.present()
         self.d._turn_words = lambda: "message me on Telegram when it's done"
         out = self.d.reach_owner("On Telegram, as asked.", channel="Telegram",
@@ -3412,7 +3412,7 @@ class ReachOwnerTest(unittest.TestCase):
         self.assertNotIn("exited", errors["telegram"])
 
     def test_a_job_for_moe_telegram_goes_to_telegram_even_at_the_mac(self):
-        """`rewrite_cron_deliver` makes a Moe job's bare `telegram` into
+        """`rewrite_cron_deliver` makes an Alfie job's bare `telegram` into
         `moe:telegram`: the owner, on the app he named — through his own chat,
         never a platform's home channel guessed on the scheduler's side."""
         self.present()
@@ -3498,7 +3498,7 @@ class ReachOwnerTest(unittest.TestCase):
         worked before it existed."""
         self.config(reminderChannels=["telegram"])
         out = self.d.reach_owner("One more.", notify=self.cloud(
-            {"delivered": False, "limited": True, "error": "Memoe's cloud refused (429)"}),
+            {"delivered": False, "limited": True, "error": "Alfie's cloud refused (429)"}),
             run=self.run_ok())
         self.assertEqual((out["ok"], out["via"]), (True, "this-mac"))
         self.assertEqual([s[0] for s in self.sent], ["telegram"])
@@ -3765,7 +3765,7 @@ class ReachToolTest(unittest.TestCase):
         def fake(text, urgency="normal", channel="", **kw):
             self.calls.append((text, urgency, channel))
             return {"ok": True, "channel": "telegram", "via": "memoe", "tried": {},
-                    "detail": "Sent to him on telegram, through Memoe's own bot."}
+                    "detail": "Sent to him on telegram, through Alfie's own bot."}
         self.r._deliver.reach_owner = fake
 
     def tearDown(self):
@@ -4294,7 +4294,7 @@ class JobFailureTellTest(unittest.TestCase):
 
     NOW = datetime(2026, 10, 7, 14, 0, tzinfo=timezone.utc)
     # The ticket's job, its fields as Hermes recorded them (job b2395399333b).
-    TICKET = {"id": "b2395399333b", "name": "Memoe marketing push",
+    TICKET = {"id": "b2395399333b", "name": "Alfie marketing push",
               "origin": {"platform": "api_server", "chat_id": "x"},
               "schedule": {"kind": "once", "run_at": "2026-10-07T09:40:00-04:00"},
               "repeat": {"times": 1, "completed": 1}, "deliver": "whatsapp",
@@ -4331,7 +4331,7 @@ class JobFailureTellTest(unittest.TestCase):
     def test_the_tickets_one_off_is_told_at_once_with_two_taps(self):
         self.assertEqual(self.tick(self.TICKET), ["b2395399333b"])
         [c] = self.cards()
-        self.assertIn("Memoe marketing push", c["text"])
+        self.assertIn("Alfie marketing push", c["text"])
         self.assertIn("9:50 AM", c["text"], "said in the run's own local time")
         self.assertEqual(c["options"], ["Show me what went wrong", "Run it again"])
         self.assertEqual(c["subject"], "routine:b2395399333b")

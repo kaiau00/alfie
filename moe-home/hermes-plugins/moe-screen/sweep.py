@@ -51,13 +51,13 @@ _SLUG = re.compile(r"^[a-z0-9-]{1,40}\Z")
 
 SYSTEM = (
     "You read the end of a conversation between a person and their assistant, "
-    "Moe, and list what was left open — things worth Moe coming back to later "
+    "Alfie, and list what was left open — things worth Alfie coming back to later "
     "without being asked. Five kinds: said (the person said they would do "
-    "something), started (Moe began something whose outcome is still to come: "
+    "something), started (Alfie began something whose outcome is still to come: "
     "a booking, an order, an application), waiting (a person is waiting on them "
     "for an answer), deadline (a date to prepare for), watch (a price, slot or "
     "page they looked at that can change). Only what the person actually said "
-    "or Moe actually did; never a guess, never a newsletter or a receipt. Skip "
+    "or Alfie actually did; never a guess, never a newsletter or a receipt. Skip "
     "anything in the already-open list.\n\n"
     "Answer with JSON only: a list of objects with keys slug (lower-case "
     "letters, digits, hyphens, up to 40), what (one line with the detail needed "
@@ -174,7 +174,7 @@ def persons_text(text):
 
 
 def persons_words(text):
-    """The person's own words out of a user turn as Moe sent it, or "" when
+    """The person's own words out of a user turn as Alfie sent it, or "" when
     the turn carries none (a background note, a scheduled job's prompt)."""
     return " ".join(persons_text(text).split())
 
@@ -182,7 +182,7 @@ def persons_words(text):
 def user_turns(messages, limit=MAX_USER_TURNS, chars=MAX_CHARS):
     """The person's own turns, newest last, bounded. Tool results, the
     assistant's replies and anything without text are left out: the sweep is
-    about what THEY said and what Moe did, and Moe's own doing is in what
+    about what THEY said and what Alfie did, and Alfie's own doing is in what
     they asked for."""
     out = []
     for m in messages or []:

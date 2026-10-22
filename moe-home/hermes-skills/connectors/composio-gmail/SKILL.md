@@ -2,7 +2,7 @@
 name: composio-gmail
 description: "Read before any GMAIL_* call through Composio. Which of the four read tools answers which question, and the exact arguments that turn a 167 KB answer into a 5 KB one. Gmail's defaults are the expensive ones, `verbose` means three different things inside this one toolkit, and one innocuous call returns a megabyte."
 version: 1.0.0
-author: Moe
+author: Alfie
 license: MIT
 metadata:
   hermes:
@@ -104,7 +104,7 @@ calling.
 
 ## Sending
 
-Send tools are outside this skill's scope and Moe's send gate may stop and
+Send tools are outside this skill's scope and Alfie's send gate may stop and
 ask before anything leaves. Two things worth knowing anyway: a reply needs
 the Gmail **thread id**, not a message id, and it must NOT carry a `subject`
 — a custom subject starts a new conversation. Never tell the person a message

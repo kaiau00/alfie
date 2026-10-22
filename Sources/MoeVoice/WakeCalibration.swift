@@ -159,15 +159,15 @@ public enum WakeCalibration {
     /// that rather than announcing an improvement of zero.
     public static func summary(_ pick: Pick, changed: Bool) -> String {
         let a = pick.after, b = pick.before
-        let caught = "\(caughtPhrase(a.caught, of: a.positives)) of your “Hey Moe”\(a.positives == 1 ? "" : "s")"
+        let caught = "\(caughtPhrase(a.caught, of: a.positives)) of your “Hey Alfie”\(a.positives == 1 ? "" : "s")"
         let misses = a.confusables > 0
             ? " and \(falsePhrase(a.falseAccepts, of: a.confusables)) near miss\(a.confusables == 1 ? "" : "es")"
             : ""
         guard changed else {
-            return "Moe already catches \(caught)\(misses) — the setting it had is the best one for this Mac, so nothing changed."
+            return "Alfie already catches \(caught)\(misses) — the setting it had is the best one for this Mac, so nothing changed."
         }
         var before = "Before: \(caughtPhrase(b.caught, of: b.positives))"
         if b.confusables > 0 { before += b.falseAccepts == 0 ? " and none" : " and \(b.falseAccepts)" }
-        return "Moe now catches \(caught)\(misses). \(before)."
+        return "Alfie now catches \(caught)\(misses). \(before)."
     }
 }

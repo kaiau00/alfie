@@ -43,7 +43,7 @@ LEAKS = [
 
 # The owner's own world: must survive.
 KEEP = [
-    "Works as a software founder building Moe, a Mac assistant",
+    "Works as a software founder building Alfie, a Mac assistant",
     "Lives in Jerusalem",
     "Speaks Hebrew and English; writes to family in Hebrew",
     "**Dani** — sister; talks daily, mostly family news",
@@ -58,7 +58,7 @@ KEEP = [
     "Runs 5 km most mornings",
     "Rents a flat in Katamon",
     "Moved to Jerusalem in 2026-03",
-    "Works on the Moe 0.4 release",
+    "Works on the Alfie 0.4 release",
     "Drives the kids to school on Sundays",
     "Plans a trip to Italy with 4 friends",
 ]

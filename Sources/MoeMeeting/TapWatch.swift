@@ -200,12 +200,12 @@ public struct TapWatch: Equatable, Sendable {
     /// **Worth interrupting for.** It costs a meeting, and it is still
     /// fixable while the meeting is running.
     public static let deadNotice =
-        "No call audio is reaching Moe. If you are on a call, only your microphone "
+        "No call audio is reaching Alfie. If you are on a call, only your microphone "
         + "is being recorded — everyone on it will be written down as you."
 
     /// What to do about it, for the notice's second line.
     public static let deadRemedy =
-        "Moe may need System Audio Recording in Privacy & Security."
+        "Alfie may need System Audio Recording in Privacy & Security."
 }
 
 // MARK: - Is anything playing at all?

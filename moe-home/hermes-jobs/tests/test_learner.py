@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """The learner (moe-home/lib/learner.py): what the person did with offers,
-turned into how sure Moe is next time. Run: python3 test_learner.py"""
+turned into how sure Alfie is next time. Run: python3 test_learner.py"""
 
 import importlib.util
 import json
@@ -59,7 +59,7 @@ class LearnerTest(unittest.TestCase):
 
     def test_asking_moe_to_send_counts_a_little_less_than_a_confirmed_send(self):
         """The island records "used" only when the send went (the WhatsApp
-        path sees the connector's answer); asking Moe to send it through the
+        path sees the connector's answer); asking Alfie to send it through the
         brain is "chose-to-send", since the gate's answer is not seen here."""
         sent = self.l.adjusted(NEW, SITS, self.fb(("old1", "used")), NOW)
         chose = self.l.adjusted(NEW, SITS, self.fb(("old1", "chose-to-send")), NOW)

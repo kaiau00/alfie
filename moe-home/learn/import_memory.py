@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""What another AI assistant remembers about the person, brought into Moe's
+"""What another AI assistant remembers about the person, brought into Alfie's
 memory (status #9; the owner, 2026-09-29: "copy a prompt, paste the answer";
 "keep it, show it under To check").
 
@@ -11,7 +11,7 @@ answer. It is distilled like any learned source — the same distil.py with
 its own prompt (prompts/learn-import.md), no tools, the same sensitive-data
 and instruction filters — and merged into the profile under the source
 `chatgpt` or `claude`. So every fact is marked where it came from, and one
-that disagrees with something Moe already knows becomes a question under
+that disagrees with something Alfie already knows becomes a question under
 Memory › To check (merge.py), never a silent overwrite. A topic the person
 settled themselves is never touched.
 
@@ -66,7 +66,7 @@ def main(argv):
         d = subprocess.run([py, os.path.join(HERE, "distil.py"), source, raw, "--out", digest,
                             "--profile", "import"], capture_output=True, text=True, timeout=DISTIL_TIMEOUT)
         if d.returncode != 0 or not os.path.exists(digest):
-            print(json.dumps({"error": "Moe couldn't read it just now (is Moe's thinking part running?). "
+            print(json.dumps({"error": "Alfie couldn't read it just now (is Alfie's thinking part running?). "
                                        "Nothing was changed."}))
             sys.stderr.write(d.stderr[-2000:])
             return 1
@@ -77,7 +77,7 @@ def main(argv):
         m = subprocess.run([py, os.path.join(HERE, "merge.py"), digest, "--no-llm"], capture_output=True,
                            text=True, timeout=MERGE_TIMEOUT)
         if m.returncode != 0:
-            print(json.dumps({"error": "Moe read it but couldn't save it. Nothing was changed."}))
+            print(json.dumps({"error": "Alfie read it but couldn't save it. Nothing was changed."}))
             sys.stderr.write(m.stderr[-2000:])
             return 1
         try:
